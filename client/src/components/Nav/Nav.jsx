@@ -22,7 +22,6 @@ function Nav() {
         Syllabus
       </a>
     </nav>
-  );
-}
-
-export default Nav;
+  )
+  }
+  export default Nav;
