@@ -8,4 +8,4 @@
     - alternative deployment methods
 - Increase marketability
 
-    - Andrew 
+    - -Andrew 

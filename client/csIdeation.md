@@ -8,6 +8,6 @@
 - Warnings in SM translate to bugs in production when using concurrently
 - https://medium.com/nmc-techblog/wait-youre-not-using-react-strictmode-a9713927a33b
 
-    - Andrew 
+    - -Andrew 
 
 
