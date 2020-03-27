@@ -1,6 +1,6 @@
 import React from "react";
 import './Navbar.css';
-import Consilience from '../../images/convergence.jpg'
+import Questions from '../../images/feynman.jpg'
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -13,7 +13,7 @@ const Navbar = () => {
             <Link
                 to="/" 
                 className="navbar-brand">
-                <img src={Consilience} alt="react" className="img-fluid logo" height="99.66px" width="200px"/>
+                <img src={Questions} alt="react" className="img-fluid logo" height="99.66px" width="200px"/>
             </Link>
             <button
                 className="navbar-toggler"
@@ -97,18 +97,6 @@ const Navbar = () => {
                                 : "nav-link"
                             }>
                             Register
-                        </Link>
-                    </li>
-                    &nbsp;|&nbsp;
-                    <li className="nav-item">
-                        <Link
-                            to="/registration" 
-                            className={
-                                window.location.pathname === "/registration"
-                                ? "nav-link active"
-                                : "nav-link"
-                            }>
-                            Registration
                         </Link>
                     </li>
                     &nbsp;|&nbsp;

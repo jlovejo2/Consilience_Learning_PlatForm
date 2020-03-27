@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
 };
 
 // add routes for API and view
-app.use(routes);
+// app.use(routes);
 
 // connect to MongoDB
 const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds347665.mlab.com:47665/heroku_00fjp6g3`

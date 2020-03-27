@@ -4,7 +4,7 @@ import Container from '../components/Container/Container.jsx'
 const Home = () => {
     return (
         <Container fluid>
-            <div>HOME</div>
+            <div className="text-white">HOME</div>
         </Container>
     )
 }
