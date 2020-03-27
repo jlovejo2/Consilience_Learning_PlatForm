@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Nav from './components/Nav/Nav.jsx';
+import Nav from './components/Navbar/Navbar.jsx';
 import Home from './components/Home/Home.jsx';
-import Assignments from './components/Assignments/Assignments.jsx';
+import Assignments from './pages/assignments.jsx';
 import Grades from './components/Grades/Grades.jsx';
 import Login from './components/Login/Login.jsx';
 import Register from './components/Register/Register.jsx';
