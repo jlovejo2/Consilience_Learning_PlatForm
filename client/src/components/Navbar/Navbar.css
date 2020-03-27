@@ -1,4 +1,40 @@
-.logo {
-    height: 100px;
-    width: 225px;
+#menu ul{
+    list-style: none;
+  }
+.nav-item{
+    display: inline-block;
+    color: #F0F2F0;
+    font-size: large;
+  }
+
+.Navbar {
+    color: #F0F2F0;
+    float: right;
+}
+
+.nav-item{
+  display: inline-block;
+  color: #F0F2F0;
+  font-size: large;
+}
+
+.nav-item:active{
+  display: inline-block;
+  color: #F0F2F0;
+  font-size: large;
+  border-bottom: solid white 1px;
+}
+
+.navbar-dark {
+  letter-spacing: 0.1em;
+}
+
+.navbar-item {
+  float: right;
+}
+
+.navbar-nav {
+  color: #F0F2F0;
+  display: inline-block;
+  font-size: large;
 }
