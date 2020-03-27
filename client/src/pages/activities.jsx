@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '../components/Container/Container.jsx'
 
-const Registration = () => {
+const Activities = () => {
     return (
         <Container fluid>
             <div>Register</div>
@@ -9,4 +9,4 @@ const Registration = () => {
     )
 }
 
-export default Registration;
+export default Activities;

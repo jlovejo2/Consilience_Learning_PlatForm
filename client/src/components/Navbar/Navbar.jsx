@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
-    // use state expanded and setExpanded onClick
-    // circle back puta
+    // useState expanded and setExpanded onClick
+    // circle back putas
   return (
       <React.Fragment>
         <nav className="navbar navbar-expand-md navbar-dark sticky-top bg-dark">
@@ -15,7 +15,6 @@ const Navbar = () => {
                 className="navbar-brand">
                 <img src={Consilience} alt="react" className="img-fluid logo" height="99.66px" width="200px"/>
             </Link>
-            
             <button
                 className="navbar-toggler"
                 type="button"
@@ -28,7 +27,7 @@ const Navbar = () => {
             <span className="navbar-toggler-icon" />
             </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav">
+                <ul className="navbar-nav">       
                     <li className="nav-item">
                         <Link 
                             to="/" 
@@ -42,26 +41,86 @@ const Navbar = () => {
                     </li>
                     &nbsp;|&nbsp;
                     <li className="nav-item">
-                        <Link
-                            to="/search" 
+                        <Link 
+                            to="/activities" 
                             className={
-                                window.location.pathname === "/search"
-                                    ? "nav-link active"
-                                    : "nav-link" 
+                                window.location.pathname === "activities"
+                                ? "nav-link active"
+                                : "nav-link"
                             }>
-                            Search
+                            Activities
                         </Link>
                     </li>
                     &nbsp;|&nbsp;
                     <li className="nav-item">
                         <Link
-                            to="/saved" 
+                            to="/assignments" 
                             className={
-                                window.location.pathname === "/saved"
+                                window.location.pathname === "/assignments"
+                                    ? "nav-link active"
+                                    : "nav-link" 
+                            }>
+                            Assignments
+                        </Link>
+                    </li>
+                    &nbsp;|&nbsp;
+                    <li className="nav-item">
+                        <Link
+                            to="/grades" 
+                            className={
+                                window.location.pathname === "/grades"
                                 ? "nav-link active"
                                 : "nav-link"
                             }>
-                            Saved
+                            Grades
+                        </Link>
+                    </li>
+                    &nbsp;|&nbsp;
+                    <li className="nav-item">
+                        <Link
+                            to="/login" 
+                            className={
+                                window.location.pathname === "/login"
+                                ? "nav-link active"
+                                : "nav-link"
+                            }>
+                            Login
+                        </Link>
+                    </li>
+                    &nbsp;|&nbsp;
+                    <li className="nav-item">
+                        <Link
+                            to="/register" 
+                            className={
+                                window.location.pathname === "/register"
+                                ? "nav-link active"
+                                : "nav-link"
+                            }>
+                            Register
+                        </Link>
+                    </li>
+                    &nbsp;|&nbsp;
+                    <li className="nav-item">
+                        <Link
+                            to="/registration" 
+                            className={
+                                window.location.pathname === "/registration"
+                                ? "nav-link active"
+                                : "nav-link"
+                            }>
+                            Registration
+                        </Link>
+                    </li>
+                    &nbsp;|&nbsp;
+                    <li className="nav-item">
+                        <Link
+                            to="/syllabus" 
+                            className={
+                                window.location.pathname === "/syllabus"
+                                ? "nav-link active"
+                                : "nav-link"
+                            }>
+                            Syllabus
                         </Link>
                     </li>
                 </ul>
