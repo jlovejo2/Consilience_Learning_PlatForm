@@ -4,7 +4,7 @@ import Container from '../components/Container/Container.jsx'
 const Assignments = () => {
     return (
         <Container fluid>
-            <div>Assignments</div>
+            <div className="text-white">Assignments</div>
         </Container>
     )
 }

@@ -4,7 +4,7 @@ import Container from '../components/Container/Container.jsx'
 const Grades = () => {
     return (
         <Container fluid>
-            <div>Grades</div>
+            <div className="text-white">Grades</div>
         </Container>
     )
 }

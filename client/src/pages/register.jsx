@@ -4,7 +4,7 @@ import Container from '../components/Container/Container.jsx'
 const Register = () => {
     return (
         <Container fluid>
-            <div>Register</div>
+            <div className="text-white">Register</div>
         </Container>
     )
 }

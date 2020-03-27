@@ -4,7 +4,7 @@ import Container from '../components/Container/Container.jsx'
 const Syllabus = () => {
     return (
         <Container fluid>
-            <div>Syllabus</div>
+            <div className="text-white">Syllabus</div>
         </Container>
     )
 }
