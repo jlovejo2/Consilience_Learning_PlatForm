@@ -11,24 +11,21 @@ const ClassroomSchema = new Schema(
               courseDiscipline: {
                   type: String,
                   trim: true,
-                  required: "select discipline"
               },
               // courses within parent discipline
               courseTitle: {
                   type: String,
                   trim: true,
-                  required: 'select course title'
               },
               credits: {
                   type: Number,
                   trim: true,
                   validate: /^[0-9]{0,1}\z/
               },
-              studentID: {
+              students: [{
                   type: Schema.Types.ObjectId,
                   ref: 'User',
-                  required: true
-              },
+              }],
               staffID: {
                   type: Schema.Types.ObjectId,
                   ref: 'User',
@@ -43,24 +40,28 @@ const ClassroomSchema = new Schema(
               //     type: Array,
               //     trim: true
               // },
-              grades: {
-                  type: Schema.Types.ObjectId,
-                  ref: 'Classroom',
-              },
-              gradebook: {
+              // array of objects
+              gradebook: [{
+                //   assignments: [{
+                //     type: Schema.Types.ObjectId,
+                //     ref: 'Classroom.assignments'
+                //   }],
+                //   studentId: [{
+                //     type: Schema.Types.ObjectId
+                //   }],
                   type: Schema.Types.ObjectId,
                   ref: 'Classroom'
-              },
-              email: {
-                  type: String,
-                  validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  required: true
-              },
-              password: {
-                  type: String,
-                  validate: /^[0-9A-Za-z!@.,;:'"?-]{6,50}\z/,
-                  required: true
-              },
+              }],
+            //   email: {
+            //       type: String,
+            //       validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            //       required: true
+            //   },
+            //   password: {
+            //       type: String,
+            //       validate: /^[0-9A-Za-z!@.,;:'"?-]{6,50}\z/,
+            //       required: true
+            //   },
               //no required true boolean because access tokens are only issued when logged in
               accessToken: {
                   type: String
