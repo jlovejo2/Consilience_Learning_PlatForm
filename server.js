@@ -6,6 +6,8 @@ const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3003;
 
+// cross-origin request security (CORS) 
+// prevents requests to unauthorized domains
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -15,10 +17,10 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"))
 };
 
-// add routes for API and view
+// add routes
 // app.use(routes);
 
-// connect to MongoDB
+// connect to MongoDB remotely or locally
 const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds347665.mlab.com:47665/heroku_00fjp6g3`
 console.log(MONGODB_URI)
 mongoose.connect("mongodb://localhost/ProjectThree", {
@@ -28,7 +30,7 @@ mongoose.connect("mongodb://localhost/ProjectThree", {
   useUnifiedTopology: true
 });
 
-// Start API server
+// invoke server
 app.listen(PORT, () => {
     console.log(`🌎 ==> API Server now listening on PORT http://localhost:${PORT}!`);
 });
