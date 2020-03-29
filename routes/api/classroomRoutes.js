@@ -11,7 +11,7 @@ router.route("/")
 // Matches with "/api/classrooms/:id"
 router.route("/:id")
       .get(classroomController.findById)
-      .update(classroomController.update)
+      .post(classroomController.update)
       .delete(classroomController.remove);
      
 
