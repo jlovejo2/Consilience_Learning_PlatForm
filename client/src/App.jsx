@@ -10,6 +10,9 @@ import Register from './pages/register.jsx';
 import Syllabus from './pages/syllabus.jsx';
 import Footer from './components/Footer/Footer.jsx';
 
+// creating ConfigContext for user authenticated vs not authenticated UI
+export const ConfigContext = React.createContext();
+
 const App = () => {
     return (
         <BrowserRouter>
