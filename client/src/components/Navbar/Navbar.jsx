@@ -7,115 +7,106 @@ const Navbar = () => {
 
     // useState expanded and setExpanded onClick
     // circle back putas
-  return (
-      <React.Fragment>
-        <nav className="navbar navbar-expand-md navbar-dark sticky-top bg-dark">
-            <Link
-                to="/" 
-                className="navbar-brand">
-                <img src={Questions} alt="react" className="img-fluid logo" height="99.66px" width="200px"/>
-            </Link>
-            <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-            <span className="navbar-toggler-icon" />
-            </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav">       
-                    <li className="nav-item">
-                        <Link 
-                            to="/" 
-                            className={
-                                window.location.pathname === "/" || window.location.pathname === "/home"
-                                ? "nav-link active"
-                                : "nav-link"
-                            }>
-                            Home
-                        </Link>
-                    </li>
-                    &nbsp;|&nbsp;
-                    <li className="nav-item">
-                        <Link 
-                            to="/activities" 
-                            className={
-                                window.location.pathname === "activities"
-                                ? "nav-link active"
-                                : "nav-link"
-                            }>
-                            Activities
-                        </Link>
-                    </li>
-                    &nbsp;|&nbsp;
-                    <li className="nav-item">
-                        <Link
-                            to="/assignments" 
-                            className={
-                                window.location.pathname === "/assignments"
-                                    ? "nav-link active"
-                                    : "nav-link" 
-                            }>
-                            Assignments
-                        </Link>
-                    </li>
-                    &nbsp;|&nbsp;
-                    <li className="nav-item">
-                        <Link
-                            to="/grades" 
-                            className={
-                                window.location.pathname === "/grades"
-                                ? "nav-link active"
-                                : "nav-link"
-                            }>
-                            Grades
-                        </Link>
-                    </li>
-                    &nbsp;|&nbsp;
-                    <li className="nav-item">
-                        <Link
-                            to="/login" 
-                            className={
-                                window.location.pathname === "/login"
-                                ? "nav-link active"
-                                : "nav-link"
-                            }>
-                            Login
-                        </Link>
-                    </li>
-                    &nbsp;|&nbsp;
-                    <li className="nav-item">
-                        <Link
-                            to="/register" 
-                            className={
-                                window.location.pathname === "/register"
-                                ? "nav-link active"
-                                : "nav-link"
-                            }>
-                            Register
-                        </Link>
-                    </li>
-                    &nbsp;|&nbsp;
-                    <li className="nav-item">
-                        <Link
-                            to="/syllabus" 
-                            className={
-                                window.location.pathname === "/syllabus"
-                                ? "nav-link active"
-                                : "nav-link"
-                            }>
-                            Syllabus
-                        </Link>
-                    </li>
-                </ul>
-           </div>
-    </nav>
-    </React.Fragment>
-  )
+    return (
+        <React.Fragment>
+            <div className='navbar-fixed'>
+                <nav className='nav-wrapper navbar-dark grey darken-3' /*"navbar navbar-expand-md navbar-dark sticky-top bg-dark"*/ >
+                    <Link
+                        to="/"
+                        className='brand-logo left' /*"navbar-brand"*/>
+                        <img src={Questions} alt="react" className="img-fluid logo" height="99.66px" width="200px" />
+                    </Link>
+                    {/* The below a tag is the code that renders the hamburger menu when the size of the screen is minimized */}
+                    <a href="#" data-target="mobile-demo" className="sidenav-trigger right"><i class="material-icons">menu</i></a>
+                    <ul className='right hide-on-med-and-down'/*"navbar-nav"*/>
+                        <li className={
+                            window.location.pathname === "/" || window.location.pathname === "/home"
+                                ? "active"
+                                : ""
+                        }>
+                            <Link
+                                to="/"
+                            >
+                                Home
+                                </Link>
+                        </li>
+                            &nbsp;|&nbsp;
+                            <li className={
+                            window.location.pathname === "/activities"
+                                ? "active"
+                                : ""
+                        }>
+                            <Link
+                                to="/activities"
+                            >
+                                Activities
+                                </Link>
+                        </li>
+                            &nbsp;|&nbsp;
+                            <li className={`nav-item
+                            ${window.location.pathname === "/assignments"
+                                ? "active"
+                                : ""}
+                            `}>
+                            <Link
+                                to="/assignments"
+                            >
+                                Assignments
+                                </Link>
+                        </li>
+                            &nbsp;|&nbsp;
+                            <li className={
+                            window.location.pathname === "/grades"
+                                ? "active"
+                                : ""
+                        }>
+                            <Link
+                                to="/grades"
+                            >
+                                Grades
+                                </Link>
+                        </li>
+                            &nbsp;|&nbsp;
+                            <li className={
+                            window.location.pathname === "/login"
+                                ? "active"
+                                : ""
+                        }>
+                            <Link
+                                to="/login"
+                            >
+                                Login
+                                </Link>
+                        </li>
+                            &nbsp;|&nbsp;
+                            <li className={
+                            window.location.pathname === "/register"
+                                ? "active"
+                                : ""
+                        }>
+                            <Link
+                                to="/register"
+                            >
+                                Register
+                                </Link>
+                        </li>
+                            &nbsp;|&nbsp;
+                            <li className={
+                            window.location.pathname === "/syllabus"
+                                ? "active"
+                                : ""
+                        }>
+                            <Link
+                                to="/syllabus"
+                            >
+                                Syllabus
+                                </Link>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </React.Fragment>
+    )
 }
 
 export default Navbar;

@@ -15,7 +15,7 @@ export function Input(props) {
     <div className="row">
         <div className="input-field hoverable col">
             <input placeholder={props.placeholder} name={props.name} required type={props.requiredType} className={`${props.customClass}`} />
-            <label for={props.name}><p>{props.label}</p></label>
+            <label htmlFor={props.name}><p>{props.label}</p></label>
         </div>
     </div>
     );
