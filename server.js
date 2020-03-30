@@ -33,5 +33,5 @@ mongoose.connect("mongodb://localhost/ProjectThree", {
 // invoke server
 app.listen(PORT, error => {
     if (error) throw (error)
-    console.log(`🌎 ==> API Server now listening on PORT http://localhost:${PORT}!`);
+    console.log(`🌎 ==> API Server now listening on PORT http://localhost:${PORT}`);
 });
