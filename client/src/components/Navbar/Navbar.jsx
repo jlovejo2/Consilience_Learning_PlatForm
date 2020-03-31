@@ -17,7 +17,7 @@ const Navbar = () => {
                         <img src={Questions} alt="react" className="img-fluid logo" height="99.66px" width="200px" />
                     </Link>
                     {/* The below a tag is the code that renders the hamburger menu when the size of the screen is minimized */}
-                    <a href="#" data-target="mobile-demo" className="sidenav-trigger right"><i className="material-icons">menu</i></a>
+                    <a href="/" data-target="mobile-demo" className="sidenav-trigger right"><i className="material-icons">menu</i></a>
                     <ul className='right hide-on-med-and-down'/*"navbar-nav"*/>
                         <li className={
                             window.location.pathname === "/" || window.location.pathname === "/home"

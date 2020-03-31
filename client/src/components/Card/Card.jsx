@@ -4,19 +4,22 @@ import React from 'react';
 function Card(props) {
 
     return (
-                    <div className={`card hoverable ${props.color} ${props.customClass}`}>
+                    <div className={`card ${props.size} hoverable ${props.color} ${props.customClass}`}>
                         <div className="card-content white-text">
-                            <h1 className="card-title">{props.title}</h1>
+                            {/* <div class='row'> */}
+                            <span className="card-title">{props.title}</span>
                             {props.children}
-                            <br/>
-                            <div className="card-action">
+                            {/* </div> */}
+                            {/* <br/> */}
+                            <p></p>
+                        </div>
+                        <div className="card-action">
                                 {/*<------- submit button location -----> */}
-                            {props.action}    
-                            </div>
+                            {props.action}   
                             <br/>
                             <br/>
                             {props.bottomLink}
-                        </div>
+                            </div>
                     </div>
     )
 }

@@ -1,9 +1,13 @@
 import React from 'react';
 
+function Capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
 export function Form(props) {
 
     return (
-        <form>
+        <form className={props.size}>
             {props.children}
         </form>
     )
@@ -12,12 +16,33 @@ export function Form(props) {
 export function Input(props) {
 
     return (
-    <div className="row">
-        <div className="input-field hoverable col">
-            <input placeholder={props.placeholder} name={props.name} required type={props.requiredType} className={`${props.customClass}`} />
-            <label htmlFor={props.name}><p>{props.label}</p></label>
+        <div className={`hoverable col ${props.size}`}>
+            <label>
+                {Capitalize(props.name)}:
+            <input className={`${props.customClass}`} name={props.name} {...props}/>
+            </label>
         </div>
-    </div>
     );
 };
 
+
+export function TextArea(props) {
+
+    return (
+        <div className={`col ${props.size}`}>
+        <label>
+            {Capitalize(props.name)}:
+        <textarea className={`materialize-textarea ${props.customClass}`} {...props}></textarea>
+        </label>
+      </div>
+        );
+}
+
+export function FormBtn(props) {
+
+    return (
+        <button {...props} className={props.customClass}>
+            {props.children}    
+        </button>
+    );
+}
