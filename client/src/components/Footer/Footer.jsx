@@ -3,8 +3,12 @@ import './Footer.css';
 
 const Footer = () => {
     return (
-        <footer className="fixed-bottom position-sticky-text-muted align-items-center footer-dark pt-0.5 bg-dark">
-            <div className="footer-copyright text-center py-3">©2020</div>
+        <footer className="center-align valign grey darken-4 p4">
+            {/* <div className='container'> */}
+                {/* <div className='row'> */}
+                    <div className=''>©2020</div>
+                {/* </div> */}
+            {/* </div> */}
         </footer>
     )
 };
