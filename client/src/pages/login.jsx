@@ -43,20 +43,20 @@ const Login = () => {
             title={<i>Login Here</i>} 
             size={'medium'}
             color={'blue-grey'} 
-            customClass={'darken-1 center'}
+            customclass={'darken-1 center'}
             action={<button type="submit" onClick={handleFormSubmit}disabled={!(loginForm.email && loginForm.password)} className="waves-effect waves-light btn-large">LOGIN</button>}
             bottomLink={<p>Don't have an account? <a href="/register">Register Here!</a></p>}
             >
-            <div class='row'>
+            <div className='row'>
                 <Form size={'col s12'}>
-                    <div class='row'>
+                    <div className='row'>
                     <Input
                     size='s12'
                     name='email'
                     label='Email :'
                     placeholder='Please enter your email address'
-                    requiredType='email'
-                    customClass='validate center'
+                    required='email'
+                    customclass='validate center'
                     onChange={handleInputChange} />
                                         
                     <Input
@@ -65,8 +65,8 @@ const Login = () => {
                     label='Password :'
                     placeholder='Please enter your password'
                     type='password'
-                    requiredType='password'
-                    customClass='validate center'
+                    required='password'
+                    customclass='validate center'
                     onChange={handleInputChange} />
                     </div>
                 </Form>
