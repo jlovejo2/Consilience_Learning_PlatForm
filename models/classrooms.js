@@ -72,7 +72,7 @@ const ClassroomSchema = new Schema(
               createDate: {
                   type: Date,
                   required: true,
-                  default: new Date()
+                  default: Date.now
               }
           }
         ]
