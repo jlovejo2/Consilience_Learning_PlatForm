@@ -3,7 +3,7 @@ const classroomController = require("../../controllers/classroomController");
 
 
 
-// Matches with "/api/classrooms/"
+// Matches with "/api/classrooms"
 router.route("/")
       .get(classroomController.findAll)
       .post(classroomController.create);

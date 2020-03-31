@@ -23,11 +23,13 @@ const ClassroomSchema = new Schema(
                   validate: /^[0-9]{0,1}\z/
               },
               students: [{
-                  type: Schema.Types.ObjectId,
+                  // type: Schema.Types.ObjectId,
+                  type: String,
                   ref: 'User',
               }],
               staffID: {
-                  type: Schema.Types.ObjectId,
+                  // type: Schema.Types.ObjectId,
+                  type: String,
                   ref: 'User',
                   required: true
               },
@@ -49,7 +51,8 @@ const ClassroomSchema = new Schema(
                 //   studentId: [{
                 //     type: Schema.Types.ObjectId
                 //   }],
-                  type: Schema.Types.ObjectId,
+                  // type: Schema.Types.ObjectId,
+                  type: String,
                   ref: 'Classroom'
               }],
             //   email: {
