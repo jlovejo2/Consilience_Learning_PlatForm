@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const classroomController = require("../../controllers/classroomController");
+const classroomController = require("../../../controllers/classroomController");
 
 
 
@@ -11,7 +11,7 @@ router.route("/")
 // Matches with "/api/classrooms/:id"
 router.route("/:id")
       .get(classroomController.findById)
-      .post(classroomController.update)
+      .put(classroomController.update)
       .delete(classroomController.remove);
      
 

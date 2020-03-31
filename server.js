@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./routes');
+const routes1 = require('./routes/classRoutes');
+const routes2 = require('./routes/registerRoutes');
 // instatiate express
 const app = express();
 const cors = require('cors');
@@ -19,7 +20,8 @@ if (process.env.NODE_ENV === "production") {
 };
 
 // add routes
-app.use(routes);
+app.use(routes1);
+app.use(routes2);
 
 // connect to MongoDB remotely or locally
 const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds127260.mlab.com:27260/heroku_zpz7kd01`
