@@ -6,13 +6,11 @@ const Schema = mongoose.Schema;
 
 const RegisterSchema = new Schema(
   {
-    //using seed.js from seeders, define day and exercises
-    register: [
-        {
             type: {
                 type: String,
                 trim: true,
-                required: "select role"
+                required: "select role",
+                // validate: `student` || `teacher`
             },
             firstName: {
                 type: String,
@@ -25,12 +23,14 @@ const RegisterSchema = new Schema(
                 required: 'enter last name'
             },
             studentID: {
-                type: Schema.Types.ObjectId,
+                // type: Schema.Types.ObjectId,
+                type: String,
                 ref: 'User',
                 required: true
             },
             staffID: {
-                type: Schema.Types.ObjectId,
+                // type: Schema.Types.ObjectId,
+                type: String,
                 ref: 'User',
                 required: true
             },
@@ -43,14 +43,6 @@ const RegisterSchema = new Schema(
             //     type: Array,
             //     trim: true
             // },
-            grades: {
-                type: Schema.Types.ObjectId,
-                ref: 'Classroom',
-            },
-            gradebook: {
-                type: Schema.Types.ObjectId,
-                ref: 'Classroom'
-            },
             email: {
                 type: String,
                 validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -68,11 +60,9 @@ const RegisterSchema = new Schema(
             createDate: {
                 type: Date,
                 required: true,
-                default: new Date()
+                default: Date.now
             }
-        }
-      ]
-    },
+        },
 
   // Mongoose Virtuals https://mongoosejs.com/docs/tutorials/virtuals.html
   // a property not stored in MongoDB
