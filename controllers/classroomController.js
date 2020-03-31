@@ -26,7 +26,7 @@ module.exports = {
           .create(req.body)
           .then(dbModel => {
               res.json(dbModel)
-                console.log('book saved');
+                console.log('course created');
             })
           .catch(err => res.status(422).json(err));
       },

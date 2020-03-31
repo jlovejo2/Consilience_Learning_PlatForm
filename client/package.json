@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3003/",
+  "proxy": "http://localhost:3003",
   "engines": {
     "npm": "6.9.0",
     "node": "10.16.3"

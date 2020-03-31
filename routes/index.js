@@ -5,7 +5,7 @@ const userLoginRoutes = require('./userRoutes');
 
 
 
-router.use('/loginUser/', userLoginRoutes);
+// router.use('/loginUser', userLoginRoutes);
 
 // API Routes
 router.use('/api', apiRoutes);

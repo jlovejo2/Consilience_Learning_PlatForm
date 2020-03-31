@@ -2,9 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ClassroomSchema = new Schema(
-    {
-      //using seed.js from seeders, define day and exercises
-      classRoom: [
           {
               // select from an array of disciplines
               // use filter
@@ -20,17 +17,18 @@ const ClassroomSchema = new Schema(
               credits: {
                   type: Number,
                   trim: true,
-                  validate: /^[0-9]{0,1}\z/
+                  // validate: /^[0-9]{0,1}\z/
               },
-              students: [{
+              students: {
+                // has [] wrapping the {} !!!!!!!!!!
                   // type: Schema.Types.ObjectId,
                   type: String,
-                  ref: 'User',
-              }],
+                  // ref: 'User',
+              },
               staffID: {
                   // type: Schema.Types.ObjectId,
                   type: String,
-                  ref: 'User',
+                  // ref: 'User',
                   required: true
               },
               // TOUCH ON THIS LATER
@@ -43,7 +41,8 @@ const ClassroomSchema = new Schema(
               //     trim: true
               // },
               // array of objects
-              gradebook: [{
+              gradebook: {
+                // has [] wrapping the {} !!!!!!!!!!!
                 //   assignments: [{
                 //     type: Schema.Types.ObjectId,
                 //     ref: 'Classroom.assignments'
@@ -53,8 +52,8 @@ const ClassroomSchema = new Schema(
                 //   }],
                   // type: Schema.Types.ObjectId,
                   type: String,
-                  ref: 'Classroom'
-              }],
+                  // ref: 'Classroom'
+              },
             //   email: {
             //       type: String,
             //       validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -74,9 +73,7 @@ const ClassroomSchema = new Schema(
                   required: true,
                   default: Date.now
               }
-          }
-        ]
-      },
+          },
   
     // Mongoose Virtuals https://mongoosejs.com/docs/tutorials/virtuals.html
     // a property not stored in MongoDB
