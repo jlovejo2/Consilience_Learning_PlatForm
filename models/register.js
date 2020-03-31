@@ -26,13 +26,11 @@ const RegisterSchema = new Schema(
                 // type: Schema.Types.ObjectId,
                 type: String,
                 ref: 'User',
-                required: true
             },
             staffID: {
                 // type: Schema.Types.ObjectId,
                 type: String,
                 ref: 'User',
-                required: true
             },
             // TOUCH ON THIS LATER
             // activeCourses: {
