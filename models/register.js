@@ -48,7 +48,7 @@ const RegisterSchema = new Schema(
             },
             password: {
                 type: String,
-                validate: /^[0-9A-Za-z!@.,;:'"?-]{6,50}\z/,
+                // validate: /^[0-9A-Za-z!@.,;:'"?-]{6,50}\z/,
                 required: true
             },
             //no required true boolean because access tokens are only issued when logged in
