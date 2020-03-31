@@ -9,7 +9,7 @@ module.exports ={
         .create(req.body)
         .then(dbModel => {
             res.json(dbModel)
-              console.log('book saved');
+              console.log('user saved');
           })
         .catch(err => res.status(422).json(err));
     },
