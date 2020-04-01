@@ -32,3 +32,16 @@ module.exports ={
         .catch(err => res.status(422).json(err));
     }
 }
+
+
+// router.post('/', (req, res) => {
+//   const { email, password } = req.body
+//   if (!email || !password) {
+//         return res.status(400).json({ msg: 'please enter all fields correctly' })
+//   }
+//   userController.findById({ email })
+//         .then(user => {
+//               if(user) return res.status(400).json({ msg: 'user already exists' })
+//               const newUser = 
+//         })
+// })
