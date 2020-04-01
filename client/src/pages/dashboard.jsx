@@ -10,7 +10,7 @@ import NavigationIcon from '@material-ui/icons/Navigation';
 
 const Dashboard = () => {
 
-    
+
 
     function handleCreateClass(event) {
 
@@ -23,6 +23,14 @@ const Dashboard = () => {
                 <AddIcon onClick={handleCreateClass} />
             </Fab>
             <ClassCard></ClassCard>
+
+
+            {/* 
+            
+                add a modal with a form in it that pops-up everytime you click the plus button.  This form can use material UI textfields, inputs and buttons
+               When they hit submit the information from that form will be sent to the database.  upon confirmation that it was sent to the database a classroom card will be generated
+                
+                */}
 
         </Container>
     )
