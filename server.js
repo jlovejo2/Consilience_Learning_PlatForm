@@ -7,15 +7,15 @@ const routes2 = require('./routes/registerRoutes');
 const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3003;
+const logger = require('morgan');
 
 // cross-origin request security (CORS) 
 // prevents requests to unauthorized domains
 // accept requests from the client
-app.use(cors({
-  // origin: CLIENT_ORIGIN
-}));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(logger("dev"));
 
 // serve up static assets (usually on Heroku)
 if (process.env.NODE_ENV === "production") {
