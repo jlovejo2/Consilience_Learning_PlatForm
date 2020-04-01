@@ -1,5 +1,5 @@
 const db = require('../models');
-const bcrypt = require('bcryptjs')
+const bcryptjs = require('bcryptjs')
 const Chance = require('chance');
 const chance = new Chance();
 

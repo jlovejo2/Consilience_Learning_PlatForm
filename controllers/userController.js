@@ -1,4 +1,22 @@
-const db = require('../models');
+const db = require('../models')
+// const hashPW = require('./middlewareController.js');
+// const express = require('express');
+// const router = express.Router();
+
+// router.post(
+//   "/register",
+//   hashPW,
+//   (req, res) => {
+//     db.RegisterModel.create(req.body)
+//     .then(dbModel => {
+//       res.json(dbModel)
+//       console.log('user registered')
+//     }).catch(err => res.setStatus(422).json(err))
+//   }
+// )
+
+// module.exports = router;
+
 
 
 module.exports ={
@@ -9,13 +27,13 @@ module.exports ={
       .catch(err => res.status(422).json(err));
   },
   //This method is meand to find a specific classroom by Id.  This will be used when wanting to pull up a specific classroom page
-  findById: function(req, res) {
+  findById: function (req, res) {
       db.RegisterModel
         .findById(req.params.id)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
-    create: function(req, res) {
+    create: function (req, res) {
         console.log(req.body);
       db.RegisterModel
         .create(req.body)

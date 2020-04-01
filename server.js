@@ -23,6 +23,8 @@ if (process.env.NODE_ENV === "production") {
 };
 
 // add routes
+// const routerLogin = require("./controllers/userController.js")
+// app.use('/authenticate', routerLogin);
 app.use(routes1);
 app.use(routes2);
 
