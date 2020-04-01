@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3003;
 // prevents requests to unauthorized domains
 // accept requests from the client
 app.use(cors({
-  origin: CLIENT_ORIGIN
+  // origin: CLIENT_ORIGIN
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
