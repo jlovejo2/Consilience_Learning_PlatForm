@@ -13,10 +13,10 @@ import AddIcon from '@material-ui/icons/Add';
 const Dashboard = () => {
 
     const [openDialog, setOpenDialog] = useState(false);
-    const [newClassFromObj, setNewClassFormObj] = useState({});
+    const [newClassFormObj, setNewClassFormObj] = useState({});
 
 
-    function handleDialogClose(event) {
+    function handleDialogClose() {
         setOpenDialog(false);
     }
 
@@ -24,8 +24,14 @@ const Dashboard = () => {
         setOpenDialog(true);
     }
 
-    function handleDailogSubmit(event) {
-        console.log(event.target.value);
+    function handleInputChange(event) {
+        console.log(event.target.name);
+        const { name, value } = event.target
+        setNewClassFormObj({ ...newClassFormObj, [name]: value })
+      }
+
+    function handleDailogSubmit() {
+        console.log(newClassFormObj);
     }
 
     return (
@@ -60,8 +66,10 @@ const Dashboard = () => {
                     disableUnderline
                     margin='dense'
                     id='title'
+                    name='title'
                     type='text'
                     fullWidth
+                    onChange={handleInputChange}
                     />
                     </label>
                     <label>
@@ -71,20 +79,24 @@ const Dashboard = () => {
                     disableUnderline
                     margin='dense'
                     id='discipline'
+                    name='discipline'
                     type='text'
                     fullWidth
+                    onChange={handleInputChange}
                     />
                     </label>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="description"
+                        name='description'
                         label='Course Description'
                         type="text"
                         variant="outlined"
                         multiline
                         rowsMax='4'
                         fullWidth
+                        onChange={handleInputChange}
                     />
                     <DialogActions>
                         <Button onClick={handleDialogClose} color="primary">
