@@ -7,6 +7,9 @@ export default {
     },
     getClasses: function() {
         return axios.get("/api/classrooms")
+    },
+    addClass: function(newClass) {
+        return axios.post("api/classrooms", newClass)
     }
 
 }
