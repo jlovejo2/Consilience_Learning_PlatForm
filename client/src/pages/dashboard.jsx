@@ -4,8 +4,9 @@ import ClassCard from '../components/ClassCard/ClassCard';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
-import {Button, Input, TextField } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import { Button, Input, TextField } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import API from '../utils/API';
 // import NavigationIcon from '@material-ui/icons/Navigation';
@@ -26,9 +27,10 @@ const Dashboard = () => {
             .then(resp => {
                 console.log(resp)
                 setClassesArr(resp.data);
+                // console.log(classesArr);
             })
             .catch(err => console.log(err))
-    } 
+    }
 
     function handleDialogClose() {
         setOpenDialog(false);
@@ -42,7 +44,7 @@ const Dashboard = () => {
         console.log(event.target.name);
         const { name, value } = event.target
         setNewClassFormObj({ ...newClassFormObj, [name]: value })
-      }
+    }
 
     function handleDailogSubmit() {
         console.log(newClassFormObj);
@@ -54,18 +56,36 @@ const Dashboard = () => {
             <Fab size="small" color="secondary" aria-label="add">
                 <AddIcon onClick={handleCreateClass} />
             </Fab>
-            { classesArr.length > 0 ? classesArr.map( (index , value) => {
-                return ( <ClassCard
-                key={index}
+            <Grid 
+            container
+            //  item 
+            spacing={3} 
+            // justify="space-around"
+            // alignItems="center"
+            // direction="row" 
+            >
+                {
+                    classesArr.length > 0 ? classesArr.map((value, index) => {
+                        console.log(value);
+                        return (
+                            <Grid
+                                item
+                                md = {4} 
+                            >
+                                <ClassCard
+                                    key={index}
+                                    title={value.courseTitle}
+                                    subheader={value.courseDiscipline}
+                                    paragraph1={value.courseDescription}
+                                >
 
-                    >
-
-                </ClassCard> 
-                ) 
-            })
-             : <p>No classes Found</p>
-            }
-         
+                                </ClassCard>
+                            </Grid>
+                        )
+                    })
+                        : <p>No classes Found</p>
+                }
+            </Grid>
             <Dialog
                 open={openDialog}
                 onClose={handleDialogClose}
@@ -79,28 +99,28 @@ const Dashboard = () => {
                     <label>
                         Course Title:
                     <Input
-                    autoFocus
-                    disableUnderline
-                    margin='dense'
-                    id='title'
-                    name='title'
-                    type='text'
-                    fullWidth
-                    onChange={handleInputChange}
-                    />
+                            autoFocus
+                            disableUnderline
+                            margin='dense'
+                            id='title'
+                            name='title'
+                            type='text'
+                            fullWidth
+                            onChange={handleInputChange}
+                        />
                     </label>
                     <label>
                         Course Discipline:
                     <Input
-                    autoFocus
-                    disableUnderline
-                    margin='dense'
-                    id='discipline'
-                    name='discipline'
-                    type='text'
-                    fullWidth
-                    onChange={handleInputChange}
-                    />
+                            autoFocus
+                            disableUnderline
+                            margin='dense'
+                            id='discipline'
+                            name='discipline'
+                            type='text'
+                            fullWidth
+                            onChange={handleInputChange}
+                        />
                     </label>
                     <TextField
                         autoFocus
