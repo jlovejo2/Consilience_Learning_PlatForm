@@ -14,6 +14,10 @@ const ClassroomSchema = new Schema(
                   type: String,
                   trim: true,
               },
+              courseDescription: {
+                type: String,
+                trim: true,
+              },
               credits: {
                   type: Number,
                   trim: true,
