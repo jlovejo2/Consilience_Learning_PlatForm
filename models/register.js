@@ -9,8 +9,10 @@ const RegisterSchema = new Schema(
             type: {
                 type: String,
                 trim: true,
+                // enum: ["student", "instructor"],
                 required: "select role",
-                // validate: `student` || `teacher`
+                // validate: `student` || `teacher` 
+                default: "student"
             },
             firstName: {
                 type: String,
@@ -44,17 +46,18 @@ const RegisterSchema = new Schema(
             email: {
                 type: String,
                 validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                required: true
+                required: true,
+                unique: true
             },
             password: {
                 type: String,
-                // validate: /^[0-9A-Za-z!@.,;:'"?-]{6,50}\z/,
+                // validate: /^[0-9A-Za-z!@.,;:'"?-]{8,50}\z/,
                 required: true
             },
             //no required true boolean because access tokens are only issued when logged in
-            accessToken: {
-                type: String
-            },
+            // accessToken: {
+            //     type: String
+            // },
             createDate: {
                 type: Date,
                 required: true,
