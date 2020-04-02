@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '../components/Container/Container.jsx';
 import ClassCard from '../components/ClassCard/ClassCard';
 // import Paper from '@material-ui/core/Paper';
@@ -7,6 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import {Button, Input, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import API from '../utils/API';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 
 
@@ -14,7 +15,20 @@ const Dashboard = () => {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
+    const [classesArr, setClassesArr] = useState([])
 
+    useEffect(() => {
+        loadClasses()
+    }, [])
+
+    function loadClasses() {
+        API.getClasses()
+            .then(resp => {
+                console.log(resp)
+                setClassesArr(resp.data);
+            })
+            .catch(err => console.log(err))
+    } 
 
     function handleDialogClose() {
         setOpenDialog(false);
@@ -40,15 +54,18 @@ const Dashboard = () => {
             <Fab size="small" color="secondary" aria-label="add">
                 <AddIcon onClick={handleCreateClass} />
             </Fab>
-            <ClassCard></ClassCard>
+            { classesArr.length > 0 ? classesArr.map( (index , value) => {
+                return ( <ClassCard
+                key={index}
 
+                    >
 
-            {/* 
-            
-                add a modal with a form in it that pops-up everytime you click the plus button.  This form can use material UI textfields, inputs and buttons
-               When they hit submit the information from that form will be sent to the database.  upon confirmation that it was sent to the database a classroom card will be generated
-                
-                */}
+                </ClassCard> 
+                ) 
+            })
+             : <p>No classes Found</p>
+            }
+         
             <Dialog
                 open={openDialog}
                 onClose={handleDialogClose}
