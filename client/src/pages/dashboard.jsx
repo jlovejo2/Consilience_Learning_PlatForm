@@ -20,7 +20,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         loadClasses()
-    }, [])
+    }, [newClassFormObj])
 
     function loadClasses() {
         API.getClasses()
@@ -55,7 +55,9 @@ const Dashboard = () => {
         console.log(newClassFormObj);
         API.addClass(newClassFormObj)
             .then(resp => {
-                console.log(resp)
+                console.log("Class added successfully")
+                loadClasses()
+                handleDialogClose()
             })
             .catch(err => console.log(err))
     }
