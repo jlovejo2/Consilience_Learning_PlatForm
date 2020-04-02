@@ -22,8 +22,16 @@ module.exports = {
       //Currenlty using req.body and understand that may need to be manipulated more when updating the schema
       create: function(req, res) {
           console.log(req.body);
+
+          const newClass = {
+            courseTitle: req.body.title,
+            courseDiscipline: req.body.discipline,
+            courseDescription: req.body.description,
+            staffID: req.body.userID
+          }
+
         db.ClassroomModel
-          .create(req.body)
+          .create(newClass)
           .then(dbModel => {
               res.json(dbModel)
                 console.log('course created');

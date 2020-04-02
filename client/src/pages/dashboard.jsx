@@ -20,7 +20,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         loadClasses()
-    }, [])
+    }, [newClassFormObj])
 
     function loadClasses() {
         API.getClasses()
@@ -47,7 +47,19 @@ const Dashboard = () => {
     }
 
     function handleDailogSubmit() {
+        //This is being done manually because user model and authentication is still being worked on
+        const currentUserID = '077432'
+
+        newClassFormObj.userID = currentUserID
+
         console.log(newClassFormObj);
+        API.addClass(newClassFormObj)
+            .then(resp => {
+                console.log("Class added successfully")
+                loadClasses()
+                handleDialogClose()
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -69,6 +81,7 @@ const Dashboard = () => {
                         console.log(value);
                         return (
                             <Grid
+                                key={index}
                                 item
                                 md = {4} 
                             >
@@ -78,7 +91,6 @@ const Dashboard = () => {
                                     subheader={value.courseDiscipline}
                                     paragraph1={value.courseDescription}
                                 >
-
                                 </ClassCard>
                             </Grid>
                         )
