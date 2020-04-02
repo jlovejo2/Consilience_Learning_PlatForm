@@ -26,6 +26,7 @@ const Dashboard = () => {
             .then(resp => {
                 console.log(resp)
                 setClassesArr(resp.data);
+                // console.log(classesArr);
             })
             .catch(err => console.log(err))
     } 
@@ -54,10 +55,15 @@ const Dashboard = () => {
             <Fab size="small" color="secondary" aria-label="add">
                 <AddIcon onClick={handleCreateClass} />
             </Fab>
-            { classesArr.length > 0 ? classesArr.map( (index , value) => {
-                return ( <ClassCard
+            {
+            classesArr.length > 0 ? classesArr.map( (value , index) => {
+                console.log(value);
+                return ( 
+                <ClassCard
                 key={index}
-
+                title={value.courseTitle}
+                subheader={value.courseDiscipline}
+                paragraph1={value.courseDescription}
                     >
 
                 </ClassCard> 
