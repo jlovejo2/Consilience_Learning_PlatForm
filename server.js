@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3003;
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 
+
 // cross-origin request security (CORS) 
 // prevents requests to unauthorized domains
 // accept requests from the client

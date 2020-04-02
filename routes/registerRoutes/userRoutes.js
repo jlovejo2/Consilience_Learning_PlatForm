@@ -16,10 +16,11 @@ router
 // .delete(userController.remove);
 
 router.post("/register", async (req, res) => {
+      // /authenticate/users/register
   const { firstName, lastName, email, password } = req.body;
   const encryptedPW = await hashPW(password);
   console.log("the secret code", encryptedPW);
-  userController.myMonogo
+  userController.myMongo
     .create({ firstName, lastName, email, password: encryptedPW })
     .then(dbModel => {
       res.json(dbModel);
@@ -28,10 +29,10 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  // /authenticate/users/login
+      // /authenticate/users/login
   const { username, password } = req.body;
  console.log(password)
-  userController.myMonogo
+  userController.myMongo
     .findOne({ email: username })
     .then(dbModel => {
        const validPW = pwCheck(password, dbModel.password)
