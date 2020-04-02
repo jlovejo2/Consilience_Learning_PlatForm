@@ -15,7 +15,8 @@ const ClassroomSchema = new Schema(
                   trim: true,
               },
               courseDescription: {
-                type: String
+                type: String,
+                trim: true,
               },
               credits: {
                   type: Number,
