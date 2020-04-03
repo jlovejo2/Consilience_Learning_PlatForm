@@ -117,7 +117,6 @@ router.post("/register", async (req, res) => {
 router.post("/login", (req, res) => {
   // /users/login
   const { username, password } = req.body;
-  console.log(password);
   db.RegisterModel.findOne({ email: username })
     .then(dbModel => {
       const validPW = pwCheck(password, dbModel.password);
@@ -125,7 +124,7 @@ router.post("/login", (req, res) => {
         const user = { ...dbModel._doc };
         delete user["password"];
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-        console.log(dbModel);
+        console.log({dbModel, accessToken: accessToken});
         res.json({ user, accessToken: accessToken });
       }
     })
