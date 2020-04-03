@@ -14,6 +14,10 @@ import API from '../utils/API';
 
 const Dashboard = () => {
 
+    // const theme = {
+    //     spacing: 5,
+    // }
+
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([])
@@ -64,14 +68,17 @@ const Dashboard = () => {
 
     return (
         <Container fluid>
-            <p>Welcome to the classroom dashboard. To get started click the below button to add a class</p>
-            <Fab size="small" color="secondary" aria-label="add">
-                <AddIcon onClick={handleCreateClass} />
-            </Fab>
-            <Grid 
-            container
-            //  item 
-            spacing={3} 
+            <Grid align='center'>
+                <p>Welcome to the classroom dashboard. To get started click the "+" button to add a class</p>
+
+                <Fab size="small" color="secondary" aria-label="add">
+                    <AddIcon onClick={handleCreateClass} />
+                </Fab>
+            </Grid>
+            <Grid
+                container
+                //  item 
+                spacing={3}
             // justify="space-around"
             // alignItems="center"
             // direction="row" 
@@ -83,13 +90,22 @@ const Dashboard = () => {
                             <Grid
                                 key={index}
                                 item
-                                md = {4} 
+                                md={4}
+                                // className='center aligned'
+                                // justify="space-around"
+                                align="center"
+                            // direction="row" 
                             >
                                 <ClassCard
                                     key={index}
                                     title={value.courseTitle}
                                     subheader={value.courseDiscipline}
                                     paragraph1={value.courseDescription}
+                                    paragraph2=''
+                                    image=''
+                                    imageTitle=''
+                                    imageCaption=''
+
                                 >
                                 </ClassCard>
                             </Grid>
