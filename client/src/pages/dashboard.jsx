@@ -14,10 +14,6 @@ import API from '../utils/API';
 
 const Dashboard = () => {
 
-    // const theme = {
-    //     spacing: 5,
-    // }
-
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([])
@@ -77,7 +73,6 @@ const Dashboard = () => {
             </Grid>
             <Grid
                 container
-                //  item 
                 spacing={3}
             // justify="space-around"
             // alignItems="center"
@@ -91,10 +86,7 @@ const Dashboard = () => {
                                 key={index}
                                 item
                                 md={4}
-                                // className='center aligned'
-                                // justify="space-around"
                                 align="center"
-                            // direction="row" 
                             >
                                 <ClassCard
                                     key={index}
@@ -105,7 +97,7 @@ const Dashboard = () => {
                                     image=''
                                     imageTitle=''
                                     imageCaption=''
-
+                                    settingsButton=''
                                 >
                                 </ClassCard>
                             </Grid>
@@ -114,6 +106,9 @@ const Dashboard = () => {
                         : <p>No classes Found</p>
                 }
             </Grid>
+            {/* --------------------------------------------------------------------------------------------- */}
+            {/*<________________________ Below This Line is Dialog Form for adding class __________________>  */}
+            {/* --------------------------------------------------------------------------------------------- */}
             <Dialog
                 open={openDialog}
                 onClose={handleDialogClose}
