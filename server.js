@@ -32,18 +32,18 @@ app.use(routes1);
 app.use(routes3);
 
 
-// connect to MongoDB remotely or locally
-const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds127260.mlab.com:27260/heroku_zpz7kd01`
-console.log(MONGODB_URI)
-mongoose.connect("mongodb://localhost/ProjectThree", {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-  useUnifiedTopology: true
-});
+// // connect to MongoDB remotely or locally
+// const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds127260.mlab.com:27260/heroku_zpz7kd01`
+// console.log(MONGODB_URI)
+// mongoose.connect("mongodb://localhost/ProjectThree", {
+//   useNewUrlParser: true,
+//   useFindAndModify: false,
+//   useCreateIndex: true,
+//   useUnifiedTopology: true
+// });
 
-// invoke server
-app.listen(PORT, error => {
-    if (error) throw (error)
-    console.log(`🌎 ==> API Server now listening on PORT http://localhost:${PORT}`);
-});
+// // invoke server
+// app.listen(PORT, error => {
+//     if (error) throw (error)
+//     console.log(`🌎 ==> API Server now listening on PORT http://localhost:${PORT}`);
+// });
