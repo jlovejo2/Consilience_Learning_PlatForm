@@ -12,7 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import API from '../utils/API';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 
-const Dashboard = () => {
+const DashBoardTeacher = () => {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
@@ -20,14 +20,16 @@ const Dashboard = () => {
     const [menuAnchor, setMenuAnchor] = useState(null);
 
     useEffect(() => {
+        // eslint-disable-next-line
         loadClasses()
+        // eslint-disable-next-line
     }, [newClassFormObj])
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     function loadClasses() {
         API.getClasses()
             .then(resp => {
-                console.log(resp)
+                // console.log(resp)
                 setClassesArr(resp.data);
                 // console.log(classesArr);
             })
@@ -198,4 +200,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard;
+export default DashBoardTeacher;
