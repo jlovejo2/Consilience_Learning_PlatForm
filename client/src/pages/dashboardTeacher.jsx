@@ -18,6 +18,8 @@ const DashBoardTeacher = () => {
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
     const [menuAnchor, setMenuAnchor] = useState(null);
+    const [selectedFile, setSelectedFile] = useState({});
+    const [currentClass, setCurrentClass] = useState({})
 
     useEffect(() => {
         // eslint-disable-next-line
@@ -29,7 +31,7 @@ const DashBoardTeacher = () => {
     function loadClasses() {
         API.getClasses()
             .then(resp => {
-                // console.log(resp)
+                console.log(resp.data)
                 setClassesArr(resp.data);
                 // console.log(classesArr);
             })
@@ -38,7 +40,6 @@ const DashBoardTeacher = () => {
 
     function handleDialogClose() {
         setOpenDialog(false);
-        
     }
 
     function handleCreateClass() {
@@ -46,12 +47,29 @@ const DashBoardTeacher = () => {
     }
 
     function handleMenuClick(event) {
-        setMenuAnchor(event.target);
+        setMenuAnchor(event.currentTarget);
+        setCurrentClass({classID: event.currentTarget.dataset.class_id})
     }
 
     function handleMenuClose() {
         setMenuAnchor(null);
     }
+
+    function fileSelectHandler(event) {
+        setSelectedFile(event.target.files[0]);
+    }
+
+    function updateClass() {
+        console.log(selectedFile)
+        console.log(currentClass);
+        const fd = new FormData()
+        fd.append('image', selectedFile, selectedFile.name)
+        API.updateClass(fd)
+            .then(resp => {
+                console.log(resp);
+            })
+    }
+
     //This function is called by the input tags and textarea tags on the dailog form for the add a class button
     //It places the content the user is typing into those tags into the newClassFormObj so that it can be submitted upon button click
     function handleInputChange(event) {
@@ -81,7 +99,7 @@ const DashBoardTeacher = () => {
     return (
         <Container fluid>
             <Grid align='center'>
-                <p style={{color:"#ffff"}}>Welcome to the classroom dashboard. To get started click the "+" button to add a class</p>
+                <p style={{ color: "#ffff" }}>Welcome to the classroom dashboard. To get started click the "+" button to add a class</p>
 
                 <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />
@@ -114,6 +132,8 @@ const DashBoardTeacher = () => {
                                     imageTitle=''
                                     imageCaption=''
                                     settingsButton={handleMenuClick}
+                                    classID={value._id}
+                                    // classSelect={handleCurrentClassSelected}
                                 >
                                 </ClassCard>
                             </Grid>
@@ -129,7 +149,13 @@ const DashBoardTeacher = () => {
                 open={Boolean(menuAnchor)}
                 onClose={handleMenuClose}
             >
-                <MenuItem onClick={handleMenuClose}>Add Image to Class</MenuItem>
+                <MenuItem>
+                    <label>
+                        Add Image to Class:<hr></hr>
+                        <input type='file' onChange={fileSelectHandler}></input>
+                    </label>
+                        <button onClick={updateClass}>UPLOAD</button>
+                </MenuItem>
                 <MenuItem onClick={handleMenuClose}>Change Title</MenuItem>
                 <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
             </Menu>

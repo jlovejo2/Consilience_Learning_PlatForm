@@ -57,13 +57,13 @@ export default function ClassCard(props) {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
+    <Card className={classes.root} value={props.classID} >
+      <CardHeader data-classID={props.classID}
         avatar={
           <Avatar alt="Teacher Image" src={props.teacherAvatar} />
         }
         action={
-          <IconButton aria-label="settings" onClick={props.settingsButton}>
+          <IconButton aria-label="settings" onClick={props.settingsButton} data-classID={props.class_id} >
             <MoreVertIcon />
           </IconButton>
         }
