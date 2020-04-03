@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Home from './pages/home.jsx';
 import Activities from './pages/activities.jsx';
 import Assignments from './pages/assignments.jsx';
-import Dashboard from './pages/dashboard.jsx';
+import Dashboard from './pages/dashboardTeacher.jsx';
 import Grades from './pages/grades.jsx';
 import Login from './pages/login.jsx';
 import Register from './pages/register.jsx';
