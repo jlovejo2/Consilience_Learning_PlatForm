@@ -1,10 +1,11 @@
 import React from 'react';
 import Container from '../components/Container/Container.jsx'
+import Selection from '../components/Assignments/Selection'
 
 const Assignments = () => {
     return (
         <Container fluid>
-            <div className="text-white">Assignments</div>
+            <Selection/>
         </Container>
     )
 }
