@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const userController = require("../../controllers/userController");
 const bcryptjs = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 
 // Matches with "/authenticate/users"
 router
@@ -35,7 +36,7 @@ router.post("/login", (req, res) => {
   userController.myMongo
     .findOne({ email: username })
     .then(dbModel => {
-       const validPW = pwCheck(password, dbModel.password)
+      const validPW = pwCheck(password, dbModel.password)
       if (validPW) {
       const user = {...dbModel._doc}
       delete user['password'];

@@ -52,7 +52,9 @@ const RegisterSchema = new Schema(
             password: {
                 type: String,
                 // validate: /^[0-9A-Za-z!@.,;:'"?-]{8,50}\z/,
-                required: true
+                required: true,
+                min: 8,
+                max: 64
             },
             //no required true boolean because access tokens are only issued when logged in
             // accessToken: {
