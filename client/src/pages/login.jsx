@@ -20,9 +20,9 @@ const Login = () => {
         event.preventDefault();
     if (loginForm.email && loginForm.password) {
       console.log('contains email & password')
-      API.loginUser({
-        email: loginForm.email,
-        name: loginForm.password,
+      API.userLogin({
+        username: loginForm.email,
+        password: loginForm.password,
       })
         .then(res => {
             console.log(res);
