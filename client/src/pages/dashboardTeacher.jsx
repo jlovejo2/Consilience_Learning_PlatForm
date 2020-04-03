@@ -81,7 +81,7 @@ const DashBoardTeacher = () => {
     return (
         <Container fluid>
             <Grid align='center'>
-                <p>Welcome to the classroom dashboard. To get started click the "+" button to add a class</p>
+                <p style={{color:"#ffff"}}>Welcome to the classroom dashboard. To get started click the "+" button to add a class</p>
 
                 <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />

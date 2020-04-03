@@ -2,7 +2,7 @@
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover !important;
+    background-size: contain !important;
     background-repeat: no-repeat !important;
 } 
 .jumbocontain {
