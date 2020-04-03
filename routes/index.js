@@ -1,9 +1,9 @@
 const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require('./classRoutes');
-const userLoginRoutes = require('./registerRoutes');
+const userController = require('../controllers/userController.js');
 
-router.use('/authenticate', userLoginRoutes);
+router.use('/users', userController);
 
 // API Routes
 router.use('/api', apiRoutes);

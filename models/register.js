@@ -9,7 +9,7 @@ const RegisterSchema = new Schema(
             type: {
                 type: String,
                 trim: true,
-                // enum: ["student", "instructor"],
+                // enum: ["student", "teacer"],
                 required: "select role",
                 // validate: `student` || `teacher` 
                 default: "student"

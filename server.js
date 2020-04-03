@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const routes1 = require('./routes');
-const routes2 = require('./routes/registerRoutes');
 // instantiate express
 const app = express();
 const cors = require('cors');
@@ -25,11 +24,8 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"))
 };
 
-// add routes
-// const routerLogin = require("./controllers/userController.js")
-// app.use('/authenticate', routerLogin);
+// use routes
 app.use(routes1);
-app.use(routes2);
 
 
 // connect to MongoDB remotely or locally
