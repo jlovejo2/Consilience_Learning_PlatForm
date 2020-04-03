@@ -116,6 +116,7 @@ router.post("/register", async (req, res) => {
 // user login
 router.post("/login", (req, res) => {
   // /users/login
+  console.log(req.body);
   const { username, password } = req.body;
   db.RegisterModel.findOne({ email: username })
     .then(dbModel => {
