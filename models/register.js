@@ -24,16 +24,21 @@ const RegisterSchema = new Schema(
                 trim: true,
                 required: 'enter last name'
             },
-            studentID: {
+            ID: {
                 // type: Schema.Types.ObjectId,
                 type: String,
                 ref: 'User',
+                // required: 'enterID'
             },
-            staffID: {
-                // type: Schema.Types.ObjectId,
+            // staffID: {
+            //     // type: Schema.Types.ObjectId,
+            //     type: String,
+            //     ref: 'User',
+            // },
+            discipline: {
                 type: String,
-                ref: 'User',
-            },
+                trim: true
+                },
             // TOUCH ON THIS LATER
             // activeCourses: {
             //     type: Array,

@@ -40,12 +40,63 @@ const classSeed = [
     students: ['Ange', 'Andrew', 'Brieanne'],
     createDate: 4-2-20
   },
-  
 ];
+
+const userSeed = [
+    {
+        type: 'student',
+        firstName: 'James',
+        lastName: 'Lovejoy',
+        studentID: 'jlovejo1',
+        email: 'james.lovejoy2@gmail.com',
+        password: '11111111',
+        createDate: '4-3-20'
+
+    },
+    {
+        type: 'student',
+        firstName: 'Jimmy',
+        lastName: 'Smith',
+        studentID: 'jsmith1',
+        email: 'j.smith@gmail.com',
+        password: '22222222',
+        createDate: '4-3-20'
+    },
+    {
+        type: 'student',
+        firstName: 'Jerry',
+        lastName: 'Smith',
+        studentID: 'jsmith2',
+        email: 'smithyBoy@gmail.com',
+        password: '33333333',
+        createDate: '4-3-20'
+    },
+    {
+        type: 'teacher',
+        firstName: 'Alan',
+        lastName: 'Bladwin',
+        staffID: '01',
+        email: 'AlanTheGreat@gmail.com',
+        password: '44444444',
+        createDate: '4-3-20'
+    },
+]
 
 db.ClassroomModel
   .remove({})
   .then(() => db.ClassroomModel.collection.insertMany(classSeed))
+  .then(data => {
+    console.log(data.result.n + " records inserted!");
+    // process.exit(0);
+  })
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+
+  db.RegisterModel
+  .remove({})
+  .then(() => db.RegisterModel.collection.insertMany(userSeed))
   .then(data => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);
