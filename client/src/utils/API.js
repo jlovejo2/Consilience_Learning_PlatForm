@@ -2,8 +2,11 @@ import axios from 'axios';
 
 export default {
 
-    loginUser: function(userObj) {
-        return axios.post("/loginUser/", userObj );
+    userLogin: function(userObj) {
+        return axios.post("/authenticate/users/login", userObj );
+    },
+    userRegister: function(userObj) {
+        return axios.post("/authenticate/users/register", userObj)
     },
     getClasses: function() {
         return axios.get("/api/classrooms")
