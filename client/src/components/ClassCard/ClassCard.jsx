@@ -11,7 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import { red, blueGrey } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MailIcon from '@material-ui/icons/Mail';
 import CreateIcon from '@material-ui/icons/Create';
@@ -21,6 +21,13 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    backgroundColor: blueGrey[500],
+    // background: 'linear-gradient(45deg, #219gf3 30%, #9e9e9e 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
+    color: 'white',
+    padding: '0 30px',
   },
   media: {
     height: 0,
@@ -56,7 +63,7 @@ export default function ClassCard(props) {
           <Avatar alt="Teacher Image" src={props.teacherAvatar} />
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="settings" onClick={props.settingsButton}>
             <MoreVertIcon />
           </IconButton>
         }

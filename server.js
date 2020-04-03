@@ -31,6 +31,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes1);
 app.use(routes2);
 
+
 // connect to MongoDB remotely or locally
 const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds127260.mlab.com:27260/heroku_zpz7kd01`
 console.log(MONGODB_URI)
