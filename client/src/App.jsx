@@ -17,6 +17,7 @@ import Footer from './components/Footer/Footer.jsx';
 export const ConfigContext = React.createContext();
 
 const App = () => {
+
     return (
         <BrowserRouter>
             <Navbar />
@@ -35,4 +36,5 @@ const App = () => {
         </BrowserRouter>
     )
 }
+
 export default App;

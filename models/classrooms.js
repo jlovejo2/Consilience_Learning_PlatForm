@@ -29,7 +29,7 @@ const ClassroomSchema = new Schema(
       type: String,
       // ref: 'User',
     },
-    staffID: {
+    ID: {
       // type: Schema.Types.ObjectId,
       type: String,
       // ref: 'User',

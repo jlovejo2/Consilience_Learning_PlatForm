@@ -1,12 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import setClassroomContext from '../../utils/classroomContext';
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
+import { Card, CardHeader, CardMedia, CardContent, CardActions } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -14,14 +10,12 @@ import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red, blueGrey } from '@material-ui/core/colors';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MailIcon from '@material-ui/icons/Mail';
 import CreateIcon from '@material-ui/icons/Create';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Link from '@material-ui/core/Link';
-import ClassroomContext from '../../utils/classroomContext';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ClassCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const {currentClass} = useContext(ClassroomContext)
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -95,10 +89,15 @@ export default function ClassCard(props) {
         <IconButton aria-label="edit">
           <CreateIcon />
         </IconButton>
-        <IconButton aria-label="enter classroom">
-          <Link href='/classrooms' onClick={props.setClassroomContext} value={currentClass}>
-            <MeetingRoomIcon />
-          </Link>
+        <IconButton>
+        <Link to={{
+          pathname: '/classrooms',
+          state: {
+            classroomID: props.classID
+          }
+        }} >
+          <MeetingRoomIcon />
+        </Link>
         </IconButton>
         <Badge badgeContent={4} color="secondary">
           <MailIcon />

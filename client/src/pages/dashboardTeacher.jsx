@@ -18,7 +18,7 @@ import AddIcon from '@material-ui/icons/Add';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
 
-const DashBoardTeacher = () => {
+const DashBoardTeacher = (props) => {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
@@ -76,10 +76,6 @@ const DashBoardTeacher = () => {
 
     function handleMenuClose() {
         setMenuAnchor(null);
-    }
-
-    function handleCurrentClass(event) {
-        setCurrentClass(event.target.value);
     }
 
     function fileSelectHandler(event) {
@@ -167,8 +163,6 @@ const DashBoardTeacher = () => {
                                         imageCaption=''
                                         settingsButton={handleMenuClick}
                                         classID={item._id}
-                                        setClassroomContext={handleCurrentClass}
-                                    // classSelect={handleCurrentClassSelected}
                                     >
                                     </ClassCard>
                                 </Grid>
