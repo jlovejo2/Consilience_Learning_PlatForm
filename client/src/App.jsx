@@ -10,7 +10,7 @@ import Login from './pages/login.jsx';
 import Register from './pages/register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import DashboardStudent from './pages/dashboardStudent';
+// import DashboardStudent from './pages/dashboardStudent';
 
 
 // creating ConfigContext for user authenticated vs not authenticated UI
@@ -25,7 +25,7 @@ const App = () => {
                 <Route exact path = "/activities" component={Activities} />
                 <Route exact path = "/assignments" component={Assignments} />
                 <Route exact path = "/dashboard" component={Dashboard} />
-                <Route exact path = "/dashboardStudent" component={DashboardStudent} />
+                {/* <Route exact path = "/dashboardStudent" component={DashboardStudent} /> */}
                 <Route exact path = "/grades" component={Grades} />
                 <Route exact path = "/login" component={Login} />
                 <Route exact path = "/register" component={Register} />
