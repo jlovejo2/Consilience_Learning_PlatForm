@@ -34,47 +34,47 @@ const DashBoardStudent = () => {
             .catch(err => console.log(err))
     }
 
-    // function handleDialogClose() {
-    //     setOpenDialog(false);
+    function handleDialogClose() {
+        // setOpenDialog(false);
         
-    // }
+    }
 
-    // function handleCreateClass() {
-    //     setOpenDialog(true);
-    // }
+    function handleCreateClass() {
+        // setOpenDialog(true);
+    }
 
-    // function handleMenuClick(event) {
-    //     setMenuAnchor(event.target);
-    // }
+    function handleMenuClick(event) {
+        // setMenuAnchor(event.target);
+    }
 
-    // function handleMenuClose() {
-    //     setMenuAnchor(null);
-    // }
-    // //This function is called by the input tags and textarea tags on the dailog form for the add a class button
-    // //It places the content the user is typing into those tags into the newClassFormObj so that it can be submitted upon button click
-    // function handleInputChange(event) {
-    //     console.log(event.target.name);
-    //     const { name, value } = event.target
-    //     setNewClassFormObj({ ...newClassFormObj, [name]: value })
-    // }
+    function handleMenuClose() {
+        // setMenuAnchor(null);
+    }
+    //This function is called by the input tags and textarea tags on the dailog form for the add a class button
+    //It places the content the user is typing into those tags into the newClassFormObj so that it can be submitted upon button click
+    function handleInputChange(event) {
+        console.log(event.target.name);
+        const { name, value } = event.target
+        // setNewClassFormObj({ ...newClassFormObj, [name]: value })
+    }
 
-    // //This function is called by the submit button on the create class dialog form.  It takes all the information from the class dialog form that 
-    // //has been updated and placed into newClassFormObj by onChange and submits it to the backend through the API.addclass() function
-    // function handleDailogSubmit() {
-    //     //This is being done manually because user model and authentication is still being worked on
-    //     const currentUserID = '077432'
+    //This function is called by the submit button on the create class dialog form.  It takes all the information from the class dialog form that 
+    //has been updated and placed into newClassFormObj by onChange and submits it to the backend through the API.addclass() function
+    function handleDailogSubmit() {
+        //This is being done manually because user model and authentication is still being worked on
+        const currentUserID = '077432'
 
-    //     newClassFormObj.userID = currentUserID
+        // newClassFormObj.userID = currentUserID
 
-    //     console.log(newClassFormObj);
-    //     API.addClass(newClassFormObj)
-    //         .then(resp => {
-    //             console.log("Class added successfully")
-    //             loadClasses()
-    //             handleDialogClose()
-    //         })
-    //         .catch(err => console.log(err))
-    // }
+        // console.log(newClassFormObj);
+        // API.addClass(newClassFormObj)
+            .then(resp => {
+                console.log("Class added successfully")
+                loadClasses()
+                handleDialogClose()
+            })
+            .catch(err => console.log(err))
+    }
 
     return (
         <Container>
@@ -122,9 +122,9 @@ const DashBoardStudent = () => {
             </Grid>
             <Menu
                 id="simple-menu"
-                anchorEl={menuAnchor}
+                // anchorEl={menuAnchor}
                 keepMounted
-                open={Boolean(menuAnchor)}
+                // open={Boolean(menuAnchor)}
                 onClose={handleMenuClose}
             >
                 <MenuItem onClick={handleMenuClose}>Add Image to Class</MenuItem>
@@ -135,7 +135,7 @@ const DashBoardStudent = () => {
             {/*<________________________ Below This Line is Dialog Form for adding class __________________>  */}
             {/* --------------------------------------------------------------------------------------------- */}
             <Dialog
-                open={openDialog}
+                // open={openDialog}
                 onClose={handleDialogClose}
                 aria-labelledby="form-dialog-title"
             >
