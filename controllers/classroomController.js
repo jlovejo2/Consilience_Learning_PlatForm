@@ -27,7 +27,7 @@ module.exports = {
             courseTitle: req.body.title,
             courseDiscipline: req.body.discipline,
             courseDescription: req.body.description,
-            staffID: req.body.userID
+            ID: req.body.userID
           }
 
         db.ClassroomModel
@@ -43,6 +43,7 @@ module.exports = {
       //Certain aspects of this will need user verification because a Teacher will have more ability to change things about classroom
       //Currenlty using req.body and understand that may need to be manipulated more when updating the schema
       update: function(req, res) {
+        console.log(req.body);
         db.ClassroomModel
           .findOneAndUpdate({ _id: req.params.id }, req.body)
           .then(dbModel => res.json(dbModel))
