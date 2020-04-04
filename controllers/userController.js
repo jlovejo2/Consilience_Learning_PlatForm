@@ -3,27 +3,13 @@ const db = require("../models");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const IDfunctions = require('./functions');
-
 require("dotenv").config();
 
-// Matches with "/users"
-// router
-//   .route("/")
-//   .post(userController.create)
-//   .get(userController.findAll);
-
-// // Matches with "/users/:id"
-// router
-//   .route("/:id")
-//   .get(userController.findById)
-//   .put(userController.update);
-// .delete(userController.remove);
-
 // get all users
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
     // /users
     try {
-        const results = await db.RegisterModel.findAll({});
+        const results = await db.RegisterModel.find({});
         if (Array.isArray(results) && results.length) {
             res
                 .status(200)
@@ -138,26 +124,57 @@ router.post("/login", (req, res) => {
             if (validPW) {
                 const user = { ...dbModel._doc };
                 delete user["password"];
-                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-                console.log({ dbModel, accessToken: accessToken });
-                res.json({ user, accessToken: accessToken });
+                const accessToken = generateAccessToken(user)
+                let refreshTokens = []
+                const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+                refreshTokens.push(refreshToken)
+                console.log({ dbModel, accessToken });
+                res.json({ user, accessToken, refreshToken });
             }
         })
         .catch(err => console.log("err here", err));
 });
 
+// app.post('/token', (req, res) => {
+//   const refreshToken = req.body.token
+//   if (refreshToken == null) return res.sendStatus(401)
+//   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
+//   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+//       if (err) return res.sendStatus(403)
+//       const accessToken = generateAccessToken({ name: user.name })
+//       res.json({ accessToken: accessToken })
+//   })
+// })
+
+// app.delete('/logout', (req, res) => {
+//   refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+//   res.sendStatus(204)
+// })
+
+
+
+function generateAccessToken (user) {
+  // usually 10-20m for expiration 
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '300m' })
+}
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers["authorization"];
+    console.log("requesting headers ", req.headers)
     // token portion of bearer token
     // if authHeader then return authHeader token portion else undefined
-    const token = authHeader && authHeader.split(", ")[1];
+    console.log("logging the AUTHHEADER ",authHeader)
+    const token = authHeader && authHeader.split(" ")[1];
+    console.log(authHeader.split(" ")[1])
+    console.log("LOGGING THE TOKEN ", token)
     if (token === null) return res.sendStatus(401);
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        console.log(err);
+        console.log("Logging the ERR ",err);
         if (err) return res.sendStatus(403);
-        req.user = user;
-        next;
+        console.log("requesting the user ", req.user )
+        // req.user = user;
+        console.log(next())
+        next();
     });
 }
 console.log(authenticateToken);

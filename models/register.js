@@ -12,7 +12,6 @@ const RegisterSchema = new Schema(
                 // enum: ["student", "teacer"],
                 required: "select role",
                 // validate: `student` || `teacher` 
-                default: "student"
             },
             firstName: {
                 type: String,

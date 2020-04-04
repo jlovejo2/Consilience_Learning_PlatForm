@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import ClassroomContext from '../utils/classroomContext';
 import API from '../utils/API';
 import custFunc from '../utils/customFunctions';
@@ -7,7 +8,11 @@ import custFunc from '../utils/customFunctions';
 import Container from '../components/Container/Container.jsx';
 import ClassCard from '../components/ClassCard/ClassCard';
 
+
 //Importing components and icons from material-ui
+// import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import { styled } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { Button, Input, TextField } from '@material-ui/core';
@@ -19,6 +24,18 @@ import AddIcon from '@material-ui/icons/Add';
 // import { makeStyles } from '@material-ui/core/styles';
 
 const DashBoardTeacher = (props) => {
+
+    // const useStyles = makeStyles({
+    //     root: {
+    //         paddingBottom: 25,
+    //     },
+    // });
+
+    const MyCard = styled(Card)({
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        boxShadow: '0px 0px 26px 7px #000000 inset',
+        color: 'white',
+    });
 
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
@@ -129,6 +146,7 @@ const DashBoardTeacher = (props) => {
             })
             .catch(err => console.log(err))
     }
+    // const classes = useStyles();
 
     return (
         <Container fluid>
@@ -139,39 +157,41 @@ const DashBoardTeacher = (props) => {
                     <AddIcon onClick={handleCreateClass} />
                 </Fab>
             </Grid>
-            <Grid
-                container
-                spacing={3}
-            >
-                <ClassroomContext.Provider value={{ currentClass }}>
-                    {
-                        classesArr.length > 0 ? classesArr.map((item, index) => {
-                            return (
-                                <Grid
-                                    key={index}
-                                    item
-                                    md={4}
-                                    align="center"
-                                >
-                                    <ClassCard
+            <MyCard>
+                <Grid
+                    container
+                    spacing={3}
+                >
+                    <ClassroomContext.Provider value={{ currentClass }}>
+                        {
+                            classesArr.length > 0 ? classesArr.map((item, index) => {
+                                return (
+                                    <Grid
                                         key={index}
-                                        title={item.courseTitle}
-                                        subheader={item.courseDiscipline}
-                                        paragraph1={item.courseDescription}
-                                        image={item.imageBase64Str}
-                                        imageTitle=''
-                                        imageCaption=''
-                                        settingsButton={handleMenuClick}
-                                        classID={item._id}
+                                        item
+                                        md={4}
+                                        align="center"
                                     >
-                                    </ClassCard>
-                                </Grid>
-                            )
-                        })
-                            : <p>No classes Found</p>
-                    }
-                </ClassroomContext.Provider>
-            </Grid>
+                                        <ClassCard
+                                            key={index}
+                                            title={item.courseTitle}
+                                            subheader={item.courseDiscipline}
+                                            paragraph1={item.courseDescription}
+                                            image={item.imageBase64Str}
+                                            imageTitle=''
+                                            imageCaption=''
+                                            settingsButton={handleMenuClick}
+                                            classID={item._id}
+                                        >
+                                        </ClassCard>
+                                    </Grid>
+                                )
+                            })
+                                : <p>No classes Found</p>
+                        }
+                    </ClassroomContext.Provider>
+                </Grid>
+            </MyCard>
             {/* --------------------------------------------------------------------- */}
             {/*______________ Below this line is menu for class cards________________ */}
             {/* ----------------------------------------------------------------------*/}

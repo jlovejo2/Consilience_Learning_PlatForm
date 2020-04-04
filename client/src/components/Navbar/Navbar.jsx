@@ -61,13 +61,24 @@ const Navbar = () => {
             <li
               className={`nav-item
                             ${
-                              window.location.pathname === "/assignments"
+                              window.location.pathname === "/assignmentsTeacher"
                                 ? "active"
                                 : ""
                             }
                             `}
             >
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/dashboardTeacher">DashboardTeach</Link>
+            </li>
+            <li
+              className={`nav-item
+                            ${
+                              window.location.pathname === "/assignmentsStudent"
+                                ? "active"
+                                : ""
+                            }
+                            `}
+            >
+              <Link to="/dashboardStudent">DashboardStu</Link>
             </li>
             <li
               className={window.location.pathname === "/grades" ? "active" : ""}
