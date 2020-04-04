@@ -1,5 +1,6 @@
 const db = require('../models');
 
+
 module.exports = {
     //Find all method is meant to find all classsRooms in the classroom schema
     //My need to add a component to this where we are finding all the classroom for a specific student or teacher
@@ -43,7 +44,8 @@ module.exports = {
       //Certain aspects of this will need user verification because a Teacher will have more ability to change things about classroom
       //Currenlty using req.body and understand that may need to be manipulated more when updating the schema
       update: function(req, res) {
-        console.log(req.body);
+        
+        console.log(req.file);
         db.ClassroomModel
           .findOneAndUpdate({ _id: req.params.id }, req.body)
           .then(dbModel => res.json(dbModel))

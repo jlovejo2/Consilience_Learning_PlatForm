@@ -63,8 +63,10 @@ const DashBoardTeacher = () => {
         console.log(selectedFile)
         console.log(currentClass);
         const fd = new FormData()
-        fd.append('image', selectedFile, selectedFile.name)
-        API.updateClass(currentClass, fd)
+
+        fd.set('image', selectedFile, selectedFile.name);
+        
+        API.updateClass(currentClass, fd )
             .then(resp => {
                 console.log(resp);
             })
@@ -152,7 +154,7 @@ const DashBoardTeacher = () => {
                 <MenuItem>
                     <label>
                         Add Image to Class:<hr></hr>
-                        <input type='file' onChange={fileSelectHandler}></input>
+                        <input type='file' onChange={fileSelectHandler}/>
                     </label>
                         <button onClick={updateClass}>UPLOAD</button>
                 </MenuItem>

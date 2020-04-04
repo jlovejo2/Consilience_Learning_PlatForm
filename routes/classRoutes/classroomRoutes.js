@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const classroomController = require("../../controllers/classroomController");
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' })
+ 
 
 
 
@@ -11,7 +14,7 @@ router.route("/")
 // Matches with "/api/classrooms/:id"
 router.route("/:id")
       .get(classroomController.findById)
-      .put(classroomController.update)
+      .post(upload.single('image'), classroomController.update)
       .delete(classroomController.remove);
      
 
