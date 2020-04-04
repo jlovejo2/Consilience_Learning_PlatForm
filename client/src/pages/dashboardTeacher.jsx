@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import ClassroomContext from '../utils/classroomContext';
+import API from '../utils/API';
+import custFunc from '../utils/customFunctions';
+
+//Importing components from component folder
 import Container from '../components/Container/Container.jsx';
 import ClassCard from '../components/ClassCard/ClassCard';
-// import Paper from '@material-ui/core/Paper';
-// import { makeStyles } from '@material-ui/core/styles';
+
+//Importing components and icons from material-ui
 import Fab from '@material-ui/core/Fab';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { Button, Input, TextField } from '@material-ui/core';
 import { Menu, MenuItem } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
-import API from '../utils/API';
-import custFunc from '../utils/customFunctions';
 // import NavigationIcon from '@material-ui/icons/Navigation';
+// import Paper from '@material-ui/core/Paper';
+// import { makeStyles } from '@material-ui/core/styles';
 
 const DashBoardTeacher = () => {
 
@@ -20,7 +25,7 @@ const DashBoardTeacher = () => {
     const [classesArr, setClassesArr] = useState([]);
     const [menuAnchor, setMenuAnchor] = useState(null);
     const [selectedFile, setSelectedFile] = useState({});
-    const [currentClass, setCurrentClass] = useState({})
+    const [currentClass, setCurrentClass] = useState('');
 
     useEffect(() => {
         // eslint-disable-next-line
@@ -29,6 +34,7 @@ const DashBoardTeacher = () => {
     }, [newClassFormObj])
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
+    //Eventually this function will only load the classes that the user has access too
     function loadClasses() {
         API.getClasses()
             .then(resp => {
@@ -41,8 +47,8 @@ const DashBoardTeacher = () => {
 
                         const base64flag = 'data:' + value.image.contentType + ';base64,';
                         const imageStr = custFunc.arrayBufferToBase64(value.image.data.data)
-                    
-                        value.imageBase65Str = base64flag + imageStr
+
+                        value.imageBase64Str = base64flag + imageStr
                         return value
                     } else {
                         console.log('does not exist')
@@ -72,6 +78,10 @@ const DashBoardTeacher = () => {
         setMenuAnchor(null);
     }
 
+    function handleCurrentClass(event) {
+        setCurrentClass(event.target.value);
+    }
+
     function fileSelectHandler(event) {
         setSelectedFile(event.target.files[0]);
     }
@@ -89,6 +99,13 @@ const DashBoardTeacher = () => {
                 console.log(resp);
             })
             .catch(err => console.log(err))
+    }
+
+    function handleChangeTitle() {
+
+        return (
+            <input type='email' placeholder='enter title info'></input>
+        )
     }
 
     //This function is called by the input tags and textarea tags on the dailog form for the add a class button
@@ -129,40 +146,41 @@ const DashBoardTeacher = () => {
             <Grid
                 container
                 spacing={3}
-            // justify="space-around"
-            // alignItems="center"
-            // direction="row" 
             >
-                {
-                    classesArr.length > 0 ? classesArr.map((value, index) => {
-
-                        return (
-                            <Grid
-                                key={index}
-                                item
-                                md={4}
-                                align="center"
-                            >
-                                <ClassCard
+                <ClassroomContext.Provider value={{ currentClass }}>
+                    {
+                        classesArr.length > 0 ? classesArr.map((item, index) => {
+                            return (
+                                <Grid
                                     key={index}
-                                    title={value.courseTitle}
-                                    subheader={value.courseDiscipline}
-                                    paragraph1={value.courseDescription}
-                                    paragraph2=''
-                                    image={value.imageBase65Str}
-                                    imageTitle=''
-                                    imageCaption=''
-                                    settingsButton={handleMenuClick}
-                                    classID={value._id}
-                                // classSelect={handleCurrentClassSelected}
+                                    item
+                                    md={4}
+                                    align="center"
                                 >
-                                </ClassCard>
-                            </Grid>
-                        )
-                    })
-                        : <p>No classes Found</p>
-                }
+                                    <ClassCard
+                                        key={index}
+                                        title={item.courseTitle}
+                                        subheader={item.courseDiscipline}
+                                        paragraph1={item.courseDescription}
+                                        image={item.imageBase64Str}
+                                        imageTitle=''
+                                        imageCaption=''
+                                        settingsButton={handleMenuClick}
+                                        classID={item._id}
+                                        setClassroomContext={handleCurrentClass}
+                                    // classSelect={handleCurrentClassSelected}
+                                    >
+                                    </ClassCard>
+                                </Grid>
+                            )
+                        })
+                            : <p>No classes Found</p>
+                    }
+                </ClassroomContext.Provider>
             </Grid>
+            {/* --------------------------------------------------------------------- */}
+            {/*______________ Below this line is menu for class cards________________ */}
+            {/* ----------------------------------------------------------------------*/}
             <Menu
                 id="simple-menu"
                 anchorEl={menuAnchor}
@@ -172,12 +190,12 @@ const DashBoardTeacher = () => {
             >
                 <MenuItem>
                     <label>
-                        Add Image to Class:<hr></hr>
+                        Add Image to Class: &nbsp;
                         <input type='file' onChange={fileSelectHandler} />
                     </label>
                     <button onClick={updateClassImage}>UPLOAD</button>
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>Change Title</MenuItem>
+                <MenuItem onClick={handleChangeTitle}>Change Title</MenuItem>
                 <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
             </Menu>
             {/* --------------------------------------------------------------------------------------------- */}

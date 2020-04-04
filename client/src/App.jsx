@@ -9,6 +9,7 @@ import Grades from './pages/gradesTeacher.jsx';
 import Login from './pages/login.jsx';
 import Register from './pages/register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
+import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
 
 
@@ -28,6 +29,7 @@ const App = () => {
                 <Route exact path = "/login" component={Login} />
                 <Route exact path = "/register" component={Register} />
                 <Route exact path = "/syllabus" component={Syllabus} />
+                <Route exact path = "/classrooms" component={Classroom} />
             </React.Fragment>
             <Footer />
         </BrowserRouter>
