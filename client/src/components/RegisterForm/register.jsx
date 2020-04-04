@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Container from "../components/Container/Container.jsx";
+import Container from "../Container/Container.jsx";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,28 +7,16 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Radio from '../components/Radio/Radio.jsx'
+import Radio from '../Radio/Radio.jsx';
 
-export default function FormDialog() {
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+export default function FormDialog(props) {
 
   return (
     <div className="overarching">
-      <Container>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          REGISTER
-        </Button>
+
         <Dialog
-          open={open}
-          onClose={handleClose}
+          open={props.open}
+          onClose={props.close}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Register</DialogTitle>
@@ -80,15 +68,14 @@ export default function FormDialog() {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={props.close} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={props.close} color="primary">
               Submit
             </Button>
           </DialogActions>
         </Dialog>
-      </Container>
     </div>
   );
 }

@@ -86,18 +86,6 @@ const Navbar = () => {
               <Link to="/grades">Grades</Link>
             </li>
             <li
-              className={window.location.pathname === "/login" ? "active" : ""}
-            >
-              <Link to="/login">Login</Link>
-            </li>
-            <li
-              className={
-                window.location.pathname === "/register" ? "active" : ""
-              }
-            >
-              <Link to="/register">Register</Link>
-            </li>
-            <li
               className={
                 window.location.pathname === "/syllabus" ? "active" : ""
               }

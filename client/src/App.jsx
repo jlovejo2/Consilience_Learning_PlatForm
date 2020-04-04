@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
-import Home from './pages/homeTeacher.jsx';
+import Home from './pages/home.jsx';
 import Activities from './pages/activitiesTeacher.jsx';
 import Assignments from './pages/assignmentsTeacher.jsx';
 import dashboardTeacher from './pages/dashboardTeacher.jsx';
 import dashboardStudent from './pages/dashboardStudent'
 import Grades from './pages/gradesTeacher.jsx';
 import Login from './pages/login.jsx';
-import Register from './pages/register.jsx';
+import Register from './components/RegisterForm/register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
 import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';

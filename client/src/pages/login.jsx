@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import RegisterForm from '../components/RegisterForm/register.jsx';
 import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
 import { Form, Input} from '../components/LoginForm/LoginForm.jsx';
@@ -8,6 +9,15 @@ import API from '../utils/API';
 const Login = () => {
 
     const[loginForm, setLoginForm] = useState({})
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const handleRegisterOpen = () => {
+        setOpenDialog(true);
+      };
+    
+    const handleRegisterClose = () => {
+        setOpenDialog(false);
+      };
 
     function handleInputChange(event) {
         console.log(event.target.name);
@@ -45,7 +55,7 @@ const Login = () => {
             color={'blue-grey'} 
             customclass={'darken-1 center'}
             action={<button type="submit" onClick={handleFormSubmit}disabled={!(loginForm.email && loginForm.password)} className="waves-effect waves-light btn-large">LOGIN</button>}
-            bottomLink={<p>Don't have an account? <a href="/register">Register Here!</a></p>}
+            bottomLink={<p>Don't have an account? <button className='linkButton' onClick={handleRegisterOpen} >Register Here!</button></p>}
             >
             <div className='row'>
                 <Form size={'col s12'}>
@@ -74,7 +84,10 @@ const Login = () => {
             </Card>
             </div>
             <div className='col s4'></div>
-        </div>   
+        </div>
+        <RegisterForm
+            open={openDialog}
+            close={handleRegisterClose}/>
         </Container>
 
     )
