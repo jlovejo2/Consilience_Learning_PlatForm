@@ -10,6 +10,7 @@ import { Menu, MenuItem } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import API from '../utils/API';
+import custFunc from '../utils/customFunctions';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 
 const DashBoardTeacher = () => {
@@ -39,32 +40,19 @@ const DashBoardTeacher = () => {
                         console.log('exists')
 
                         const base64flag = 'data:' + value.image.contentType + ';base64,';
-                        const imageStr = arrayBufferToBase64(value.image.data.data)
+                        const imageStr = custFunc.arrayBufferToBase64(value.image.data.data)
                     
                         value.imageBase65Str = base64flag + imageStr
-
                         return value
-
                     } else {
                         console.log('does not exist')
                         return value
                     }
                 })
-
                 setClassesArr(newDataObj);
                 // console.log(classesArr);
             })
             .catch(err => console.log(err))
-    }
-
-    //This function is used to convert the image data that was saved into mongoD as an array of binary to a base64 string
-    //Base 64 string is required for our browser to understand and display the image
-    function arrayBufferToBase64(buffer) {
-        console.log('converting to base 64')
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
     }
 
     function handleDialogClose() {
@@ -97,8 +85,10 @@ const DashBoardTeacher = () => {
 
         API.updateClassImage(currentClass, fd)
             .then(resp => {
+                console.log('image saved')
                 console.log(resp);
             })
+            .catch(err => console.log(err))
     }
 
     //This function is called by the input tags and textarea tags on the dailog form for the add a class button
