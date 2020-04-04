@@ -37,7 +37,7 @@ staffIDGenerator: function(firstname, lastname, discipline) {
             return ID
         })
         .catch(err => console.log(err))
-}
+},
 
 }
 

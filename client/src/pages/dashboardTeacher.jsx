@@ -32,10 +32,39 @@ const DashBoardTeacher = () => {
         API.getClasses()
             .then(resp => {
                 console.log(resp.data)
-                setClassesArr(resp.data);
+
+                const newDataObj = resp.data.map((value, index) => {
+                    // console.log(value.image);
+                    if (value.image) {
+                        console.log('exists')
+
+                        const base64flag = 'data:' + value.image.contentType + ';base64,';
+                        const imageStr = arrayBufferToBase64(value.image.data.data)
+                    
+                        value.imageBase65Str = base64flag + imageStr
+
+                        return value
+
+                    } else {
+                        console.log('does not exist')
+                        return value
+                    }
+                })
+
+                setClassesArr(newDataObj);
                 // console.log(classesArr);
             })
             .catch(err => console.log(err))
+    }
+
+    //This function is used to convert the image data that was saved into mongoD as an array of binary to a base64 string
+    //Base 64 string is required for our browser to understand and display the image
+    function arrayBufferToBase64(buffer) {
+        console.log('converting to base 64')
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
     }
 
     function handleDialogClose() {
@@ -59,12 +88,14 @@ const DashBoardTeacher = () => {
         setSelectedFile(event.target.files[0]);
     }
 
-    function updateClass() {
+    function updateClassImage() {
         console.log(selectedFile)
         console.log(currentClass);
         const fd = new FormData()
-        fd.append('image', selectedFile, selectedFile.name)
-        API.updateClass(currentClass, fd)
+
+        fd.set('image', selectedFile, selectedFile.name);
+
+        API.updateClassImage(currentClass, fd)
             .then(resp => {
                 console.log(resp);
             })
@@ -114,7 +145,7 @@ const DashBoardTeacher = () => {
             >
                 {
                     classesArr.length > 0 ? classesArr.map((value, index) => {
-                        
+
                         return (
                             <Grid
                                 key={index}
@@ -128,12 +159,12 @@ const DashBoardTeacher = () => {
                                     subheader={value.courseDiscipline}
                                     paragraph1={value.courseDescription}
                                     paragraph2=''
-                                    image=''
+                                    image={value.imageBase65Str}
                                     imageTitle=''
                                     imageCaption=''
                                     settingsButton={handleMenuClick}
                                     classID={value._id}
-                                    // classSelect={handleCurrentClassSelected}
+                                // classSelect={handleCurrentClassSelected}
                                 >
                                 </ClassCard>
                             </Grid>
@@ -152,9 +183,9 @@ const DashBoardTeacher = () => {
                 <MenuItem>
                     <label>
                         Add Image to Class:<hr></hr>
-                        <input type='file' onChange={fileSelectHandler}></input>
+                        <input type='file' onChange={fileSelectHandler} />
                     </label>
-                        <button onClick={updateClass}>UPLOAD</button>
+                    <button onClick={updateClassImage}>UPLOAD</button>
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose}>Change Title</MenuItem>
                 <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
