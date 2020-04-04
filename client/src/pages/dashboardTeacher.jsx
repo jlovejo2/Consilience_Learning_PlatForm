@@ -48,7 +48,7 @@ const DashBoardTeacher = () => {
 
     function handleMenuClick(event) {
         setMenuAnchor(event.currentTarget);
-        setCurrentClass({classID: event.currentTarget.dataset.class_id})
+        setCurrentClass(event.currentTarget.dataset.classid)
     }
 
     function handleMenuClose() {
@@ -64,7 +64,7 @@ const DashBoardTeacher = () => {
         console.log(currentClass);
         const fd = new FormData()
         fd.append('image', selectedFile, selectedFile.name)
-        API.updateClass(fd)
+        API.updateClass(currentClass, fd)
             .then(resp => {
                 console.log(resp);
             })
@@ -114,7 +114,7 @@ const DashBoardTeacher = () => {
             >
                 {
                     classesArr.length > 0 ? classesArr.map((value, index) => {
-                        console.log(value);
+                        
                         return (
                             <Grid
                                 key={index}

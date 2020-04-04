@@ -63,7 +63,7 @@ export default function ClassCard(props) {
           <Avatar alt="Teacher Image" src={props.teacherAvatar} />
         }
         action={
-          <IconButton aria-label="settings" onClick={props.settingsButton} data-classID={props.class_id} >
+          <IconButton aria-label="settings" onClick={props.settingsButton} data-classID={props.classID} >
             <MoreVertIcon />
           </IconButton>
         }
