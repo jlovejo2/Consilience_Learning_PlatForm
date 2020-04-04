@@ -6,7 +6,7 @@ const IDfunctions = require('./functions');
 require("dotenv").config();
 
 // get all users
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
     // /users
     try {
         const results = await db.RegisterModel.find({});
@@ -124,14 +124,39 @@ router.post("/login", (req, res) => {
             if (validPW) {
                 const user = { ...dbModel._doc };
                 delete user["password"];
-                const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+                const accessToken = generateAccessToken(user)
+                let refreshTokens = []
+                const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+                refreshTokens.push(refreshToken)
                 console.log({ dbModel, accessToken });
-                res.json({ user, accessToken });
+                res.json({ user, accessToken, refreshToken });
             }
         })
         .catch(err => console.log("err here", err));
 });
 
+// app.post('/token', (req, res) => {
+//   const refreshToken = req.body.token
+//   if (refreshToken == null) return res.sendStatus(401)
+//   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
+//   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+//       if (err) return res.sendStatus(403)
+//       const accessToken = generateAccessToken({ name: user.name })
+//       res.json({ accessToken: accessToken })
+//   })
+// })
+
+// app.delete('/logout', (req, res) => {
+//   refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+//   res.sendStatus(204)
+// })
+
+
+
+function generateAccessToken (user) {
+  // usually 10-20m for expiration 
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' })
+}
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers["authorization"];
