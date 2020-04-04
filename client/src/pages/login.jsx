@@ -5,6 +5,7 @@ import Card from '../components/Card/Card.jsx';
 import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
 
+import Modal from '@material-ui/core/Modal';
 
 const Login = () => {
 
@@ -21,21 +22,26 @@ const Login = () => {
     };
 
     function handleInputChange(event) {
-        console.log(event.target.name);
         const { name, value } = event.target
         setLoginForm({ ...loginForm, [name]: value })
-        console.log(loginForm);
     }
 
     function handleRegisterInputChange(event) {
-        console.log(event.target.name);
         const { name, value } = event.target
         setRegisterForm({ ...registerForm, [name]: value })
-        console.log(registerForm);
     }
 
     function handleRegisterSubmit(event) {
-        console.log(registerForm);
+        event.preventDefault();
+        if (registerForm.email && registerForm.password && registerForm.userType) {
+            console.log('Register looks good so far')
+            API.userRegister(registerForm)
+                .then(resp => {
+                    console.log(resp)
+                   setOpenDialog(false) 
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     function handleFormSubmit(event) {
@@ -53,7 +59,6 @@ const Login = () => {
                 .catch(err => console.log(err))
         }
     }
-
 
     return (
         <Container fluid>
@@ -80,7 +85,6 @@ const Login = () => {
                                         required='email'
                                         customclass='validate center'
                                         onChange={handleInputChange} />
-
                                     <Input
                                         size='s12'
                                         name='password'
@@ -103,8 +107,8 @@ const Login = () => {
                 radioValue={loginForm.userType}
                 handleInput={handleRegisterInputChange}
                 submitRegister={handleRegisterSubmit} />
-        </Container>
 
+        </Container>
     )
 }
 
