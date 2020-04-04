@@ -155,20 +155,26 @@ router.post("/login", (req, res) => {
 
 function generateAccessToken (user) {
   // usually 10-20m for expiration 
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' })
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '300m' })
 }
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers["authorization"];
+    console.log("requesting headers ", req.headers)
     // token portion of bearer token
     // if authHeader then return authHeader token portion else undefined
-    const token = authHeader && authHeader.split(", ")[1];
+    console.log("logging the AUTHHEADER ",authHeader)
+    const token = authHeader && authHeader.split(" ")[1];
+    console.log(authHeader.split(" ")[1])
+    console.log("LOGGING THE TOKEN ", token)
     if (token === null) return res.sendStatus(401);
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        console.log(err);
+        console.log("Logging the ERR ",err);
         if (err) return res.sendStatus(403);
-        req.user = user;
-        next;
+        console.log("requesting the user ", req.user )
+        // req.user = user;
+        console.log(next())
+        next();
     });
 }
 console.log(authenticateToken);
