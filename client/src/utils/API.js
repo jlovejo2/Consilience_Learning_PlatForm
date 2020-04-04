@@ -15,11 +15,17 @@ export default {
         return axios.post("api/classrooms", newClass)
     },
     updateClass: function (id, updateObj) {
-        return axios.post('api/classrooms/' + id, updateObj, {
+        return axios.post('api/classrooms/' + id, updateObj)
+    },
+    updateClassImage: function (id, image) {
+        return axios.post('api/classrooms/image/' + id, image, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    getClassImage: function(id) {
+        return axios.get('api/classrooms/image/' + id)
     }
 
 }
