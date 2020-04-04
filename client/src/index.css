@@ -10,3 +10,15 @@
 body {
   height: 100%;
 }
+
+.linkButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: rgba(255,255,255);
+  text-decoration: underline;
+  cursor: pointer;
+}
