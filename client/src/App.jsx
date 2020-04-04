@@ -10,6 +10,7 @@ import Grades from './pages/gradesTeacher.jsx';
 import Login from './pages/login.jsx';
 import Register from './pages/register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
+import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
 // import DashboardStudent from './pages/dashboardStudent';
 
@@ -18,6 +19,7 @@ import Footer from './components/Footer/Footer.jsx';
 export const ConfigContext = React.createContext();
 
 const App = () => {
+
     return (
         <BrowserRouter>
             <Navbar />
@@ -31,9 +33,11 @@ const App = () => {
                 <Route exact path = "/login" component={Login} />
                 <Route exact path = "/register" component={Register} />
                 <Route exact path = "/syllabus" component={Syllabus} />
+                <Route exact path = "/classrooms" component={Classroom} />
             </React.Fragment>
             <Footer />
         </BrowserRouter>
     )
 }
+
 export default App;

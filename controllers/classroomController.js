@@ -88,7 +88,12 @@ module.exports = {
 
     db.ClassroomModel
       .findOneAndUpdate({ _id: req.params.id }, newData)
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        console.log('updated')
+        //deletes the file from the temporary uploads folder
+        fs.unlinkSync(req.file.path)
+        res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
   },
 

@@ -1,22 +1,21 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
+
+import { Card, CardHeader, CardMedia, CardContent, CardActions } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
+import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red, blueGrey } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MailIcon from '@material-ui/icons/Mail';
 import CreateIcon from '@material-ui/icons/Create';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClassCard(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -60,6 +60,7 @@ export default function ClassCard(props) {
 
   return (
     <Card className={classes.root} value={props.classID} >
+      {/*------------------------ This is the beginning of CardHeader ---------------------------*/}
       <CardHeader data-classID={props.classID}
         avatar={
           <Avatar alt="Teacher Image" src={props.teacherAvatar} />
@@ -72,6 +73,8 @@ export default function ClassCard(props) {
         title={props.title}
         subheader={props.subheader}
       />
+      {/*------------------------ This is the end of CardHeader ---------------------------*/}
+      {/*----------------------- This is the beginning of Card Image and Caption Location------------- */}
       <CardMedia
         className={classes.media}
         image={props.image}
@@ -82,12 +85,21 @@ export default function ClassCard(props) {
           {props.imageCaption}
         </Typography>
       </CardContent>
+      {/*----------------------- This is the end of Card Image and Caption Location------------- */}
+      {/*----------------------- This is the Beginning of Card Button(Icons) location------------- */}
       <CardActions disableSpacing>
         <IconButton aria-label="edit">
           <CreateIcon />
         </IconButton>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton>
+        <Link to={{
+          pathname: '/classrooms',
+          state: {
+            classroomID: props.classID
+          }
+        }} >
+          <MeetingRoomIcon />
+        </Link>
         </IconButton>
         <Badge badgeContent={4} color="secondary">
           <MailIcon />
@@ -103,17 +115,17 @@ export default function ClassCard(props) {
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
+      {/*----------------------- This is end of Card Button(Icons) location------------- */}
+      {/*----------------------- This is the Beginning of Card Expanded menu, essentially description of Class------------- */}
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Description: </Typography>
           <Typography paragraph>
             {props.paragraph1}
           </Typography>
-          <Typography paragraph>
-            {props.paragraph2}
-          </Typography>
         </CardContent>
       </Collapse>
-    </Card>
+      {/*----------------------- This is the End of Card Expanded menu, essentially description of Class------------- */}
+    </Card >
   );
 }
