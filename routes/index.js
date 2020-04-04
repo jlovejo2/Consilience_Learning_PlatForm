@@ -13,7 +13,7 @@ router.use('/api', apiRoutes);
 //     .get('require the controller above and then bring in the method')
 
 // If no API routes are hit, send the React app
-router.use(function(req, res) {
+router.use((req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 

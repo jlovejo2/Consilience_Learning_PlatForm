@@ -3,27 +3,13 @@ const db = require("../models");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const IDfunctions = require('./functions');
-
 require("dotenv").config();
-
-// Matches with "/users"
-// router
-//   .route("/")
-//   .post(userController.create)
-//   .get(userController.findAll);
-
-// // Matches with "/users/:id"
-// router
-//   .route("/:id")
-//   .get(userController.findById)
-//   .put(userController.update);
-// .delete(userController.remove);
 
 // get all users
 router.get("/", async (req, res) => {
     // /users
     try {
-        const results = await db.RegisterModel.findAll({});
+        const results = await db.RegisterModel.find({});
         if (Array.isArray(results) && results.length) {
             res
                 .status(200)
@@ -139,8 +125,8 @@ router.post("/login", (req, res) => {
                 const user = { ...dbModel._doc };
                 delete user["password"];
                 const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-                console.log({ dbModel, accessToken: accessToken });
-                res.json({ user, accessToken: accessToken });
+                console.log({ dbModel, accessToken });
+                res.json({ user, accessToken });
             }
         })
         .catch(err => console.log("err here", err));
