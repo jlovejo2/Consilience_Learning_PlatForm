@@ -157,9 +157,18 @@ router.post("/login", (req, res) => {
 
 // user logout
 router.get("/logout", (req, res) => {
-  req.logout()
-  res.redirect("/")
-})
+  try {
+    req
+      .logout()
+    res
+      .redirect("/")
+  } 
+  catch (error) {
+    res
+      .sendStatus(500)
+      .send('logout error occurred')
+  }
+});
 
 
 
