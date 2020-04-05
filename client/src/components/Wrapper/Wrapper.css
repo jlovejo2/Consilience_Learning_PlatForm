@@ -2,5 +2,5 @@
     min-height: 50%;
     max-height: 100%;
     padding-bottom: 50px;
-    
+    height: 100% !important;
 }

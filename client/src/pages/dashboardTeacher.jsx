@@ -23,11 +23,13 @@ import AddIcon from '@material-ui/icons/Add';
 // import { makeStyles } from '@material-ui/core/styles';
 
 const MyCard = styled(Card)({
-    background: '-webkit-linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 80%)',
+    background: 'radial-gradient(ellipse farthest-side at bottom right, rgb(0, 0, 0) 53%, rgb(77, 77, 82) 88%, rgb(81, 81, 92) 93%, rgb(255, 255, 255) 100%)',
     color: 'white',
     align: 'center',
-    borderRadius: '25px',
+    borderRadius: '35px',
     boxShadow: '0px 0px 70px 21px #f4e5e5',
+    alignItems: "stretch",
+    height: '100%',
   });
 const DashBoardTeacher = (props) => {
     
