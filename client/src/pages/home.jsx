@@ -1,12 +1,13 @@
 import React from 'react';
 import Container from '../components/Container/Container.jsx'
+import Jumbotron from '../components/Jumbotron/Jumbotron.jsx'
 
-const Register = () => {
+const Home = () => {
     return (
         <Container fluid>
-            <div className="text-white">Register</div>
+            <Jumbotron href='/login' />
         </Container>
     )
 }
 
-export default Register;
+export default Home;
