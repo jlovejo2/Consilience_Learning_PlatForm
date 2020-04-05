@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import ClassroomContext from '../utils/classroomContext';
 import API from '../utils/API';
 import custFunc from '../utils/customFunctions';
@@ -22,21 +21,15 @@ import AddIcon from '@material-ui/icons/Add';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
+import API from '../utils/API';
 
+const MyCard = styled(Card)({
+    background: '-webkit-linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 80%)',
+    color: 'white',
+    align: 'center',
+  });
 const DashBoardTeacher = (props) => {
-
-    // const useStyles = makeStyles({
-    //     root: {
-    //         paddingBottom: 25,
-    //     },
-    // });
-
-    const MyCard = styled(Card)({
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        boxShadow: '0px 0px 26px 7px #000000 inset',
-        color: 'white',
-    });
-
+    
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
@@ -158,10 +151,11 @@ const DashBoardTeacher = (props) => {
                 </Fab>
             </Grid>
             <MyCard>
-                <Grid
-                    container
-                    spacing={3}
-                >
+                 <Grid 
+                container
+                spacing={5}
+                align='center'
+            >
                     <ClassroomContext.Provider value={{ currentClass }}>
                         {
                             classesArr.length > 0 ? classesArr.map((item, index) => {

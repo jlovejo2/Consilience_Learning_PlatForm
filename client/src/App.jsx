@@ -12,7 +12,9 @@ import Register from './components/RegisterForm/register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
 import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
-// import DashboardStudent from './pages/dashboardStudent';
+import Wrapper from './components/Wrapper/Wrapper.jsx'
+import DashboardStudent from './pages/dashboardStudent';
+
 
 
 // creating ConfigContext for user authenticated vs not authenticated UI
@@ -23,6 +25,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <Navbar />
+            <Wrapper>
             <React.Fragment>
                 <Route exact path = "/" component={Home} />
                 <Route exact path = "/activities" component={Activities} />
@@ -35,6 +38,7 @@ const App = () => {
                 <Route exact path = "/syllabus" component={Syllabus} />
                 <Route exact path = "/classrooms" component={Classroom} />
             </React.Fragment>
+            </Wrapper>
             <Footer />
         </BrowserRouter>
     )
