@@ -4,7 +4,7 @@ import React from "react";
 
 // This Container component allows us to use a bootstrap container without worrying about class names
 function Container({ fluid, children }) {
-  return <div style={{ margin: "2rem 3rem 5rem 3rem", padding: "3px 2px 3px 2px" }} className={`container${fluid ? "-fluid" : ""}`}>{children}</div>;
+  return <div style={{ margin: "1rem 5rem 1rem 5rem", padding: "25px 35px 25px 35px" }} className={`container${fluid ? "-fluid" : ""}`}>{children}</div>;
 }
 
 export default Container;
