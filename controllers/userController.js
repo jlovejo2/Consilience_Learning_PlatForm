@@ -120,16 +120,31 @@ router.post("/login", (req, res) => {
     const { username, password } = req.body;
     db.RegisterModel.findOne({ email: username })
         .then(dbModel => {
+            console.log("this is the dbModel")
             const validPW = pwCheck(password, dbModel.password);
             if (validPW) {
                 const user = { ...dbModel._doc };
                 delete user["password"];
+                delete db.RegisterModel["token"]
                 const accessToken = generateAccessToken(user)
                 let refreshTokens = []
                 const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
                 refreshTokens.push(refreshToken)
+                console.log(user)
+                try {db.RegisterModel.findByIdAndUpdate(
+                  { _id: user._id }, 
+                  {$set: { token: accessToken } },
+                  { new: true }
+                  ).then(accessTokenUpdate => { 
+                    console.log("this is access token within findupdate", accessTokenUpdate)
+                   res.json({user })
+                  })
+                .catch(error => console.log(error))}
+                catch (error) {
+                  if (error) console.log(error, "an error occured with try catch")
+                }
                 console.log({ dbModel, accessToken });
-                res.json({ user, accessToken, refreshToken });
+                // res.json({ user, accessToken, refreshToken });
             }
         })
         .catch(err => console.log("err here", err));
@@ -154,7 +169,7 @@ router.post("/login", (req, res) => {
 
 
 function generateAccessToken (user) {
-  // usually 10-20m for expiration 
+  // lifespan -> 5-10 hrs
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '300m' })
 }
 
@@ -168,14 +183,14 @@ function authenticateToken(req, res, next) {
     console.log(authHeader.split(" ")[1])
     console.log("LOGGING THE TOKEN ", token)
     if (token === null) return res.sendStatus(401);
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET || process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         console.log("Logging the ERR ",err);
         if (err) return res.sendStatus(403);
         console.log("requesting the user ", req.user )
         // req.user = user;
         console.log(next())
         next();
-    });
+    }).catch(err => res.status(500).send(err))
 }
 console.log(authenticateToken);
 
