@@ -13,7 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 import API from '../utils/API';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 
-const DashBoardStudent = () => {
+const DashboardStudent = () => {
 
     // const [openDialog, setOpenDialog] = useState(false);
     // const [newClassFormObj, setNewClassFormObj] = useState({});
@@ -202,4 +202,4 @@ const DashBoardStudent = () => {
     )
 }
 
-export default DashBoardStudent;
+export default DashboardStudent;

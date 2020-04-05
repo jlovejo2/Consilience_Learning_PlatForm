@@ -12,6 +12,7 @@ import Register from './pages/register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Wrapper from './components/Wrapper/Wrapper.jsx'
+import DashboardStudent from './pages/dashboardStudent';
 
 
 // creating ConfigContext for user authenticated vs not authenticated UI
