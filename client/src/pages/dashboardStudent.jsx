@@ -4,6 +4,7 @@ import ClassCard from '../components/ClassCard/ClassCard';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
+// eslint-disable-next-line
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { Button, Input, TextField } from '@material-ui/core';
 import { Menu, MenuItem } from '@material-ui/core';
@@ -54,6 +55,7 @@ const DashBoardStudent = () => {
     //It places the content the user is typing into those tags into the newClassFormObj so that it can be submitted upon button click
     function handleInputChange(event) {
         console.log(event.target.name);
+        // eslint-disable-next-line
         const { name, value } = event.target
         // setNewClassFormObj({ ...newClassFormObj, [name]: value })
     }
@@ -62,12 +64,14 @@ const DashBoardStudent = () => {
     //has been updated and placed into newClassFormObj by onChange and submits it to the backend through the API.addclass() function
     function handleDailogSubmit() {
         //This is being done manually because user model and authentication is still being worked on
+        // eslint-disable-next-line
         const currentUserID = '077432'
 
         // newClassFormObj.userID = currentUserID
 
         // console.log(newClassFormObj);
         // API.addClass(newClassFormObj)
+        // eslint-disable-next-line
             .then(resp => {
                 console.log("Class added successfully")
                 loadClasses()

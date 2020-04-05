@@ -20,16 +20,12 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
     backgroundColor: blueGrey[500],
-    // background: 'linear-gradient(45deg, #219gf3 30%, #9e9e9e 90%)',
-    border: 0,
-    borderRadius: 3,
+    borderRadius: 25,
     boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
     color: 'white',
-    padding: '0 30px 0 30px',
-    margin: '5 5 5 5'
-    
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   media: {
     height: 0,
@@ -60,7 +56,7 @@ export default function ClassCard(props) {
 
   return (
     <Card className={classes.root} value={props.classID} >
-      <CardHeader data-classID={props.classID}
+    <CardHeader  data-classID={props.classID}
         avatar={
           <Avatar alt="Teacher Image" src={props.teacherAvatar} />
         }

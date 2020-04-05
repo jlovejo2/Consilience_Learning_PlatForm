@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import Container from '../components/Container/Container.jsx';
-import Container from '@material-ui/core/Container';
+import Container from '../components/Container/Container.jsx';
+// import Container from '@material-ui/core/Container';
 import ClassCard from '../components/ClassCard/ClassCard';
 import Card from '@material-ui/core/Card';
 // import Paper from '@material-ui/core/Paper';
@@ -12,17 +12,11 @@ import { Menu, MenuItem } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import API from '../utils/API';
-// import NavigationIcon from '@material-ui/icons/Navigation';
-// const useStyles = makeStyles({
-//     root: {
-//         paddingBottom: 25,
-//     },
-// });
 
 const MyCard = styled(Card)({
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    boxShadow: '0px 0px 26px 7px #000000 inset',
+    background: '-webkit-linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 80%)',
     color: 'white',
+    align: 'center',
   });
 const DashBoardTeacher = () => {
     
@@ -152,11 +146,9 @@ const DashBoardTeacher = () => {
             <MyCard>
             <Grid 
                 container
-                spacing={3}
-               
-            // justify="space-around"
-            // alignItems="center"
-            // direction="row" 
+                spacing={5}
+                align='center'
+           
             >
                 {
                     classesArr.length > 0 ? classesArr.map((value, index) => {

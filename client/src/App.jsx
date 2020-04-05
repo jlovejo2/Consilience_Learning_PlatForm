@@ -11,6 +11,7 @@ import Login from './pages/login.jsx';
 import Register from './pages/register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import Wrapper from './components/Wrapper/Wrapper.jsx'
 
 
 // creating ConfigContext for user authenticated vs not authenticated UI
@@ -20,6 +21,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <Navbar />
+            <Wrapper>
             <React.Fragment>
                 <Route exact path = "/" component={Home} />
                 <Route exact path = "/activities" component={Activities} />
@@ -31,6 +33,7 @@ const App = () => {
                 <Route exact path = "/register" component={Register} />
                 <Route exact path = "/syllabus" component={Syllabus} />
             </React.Fragment>
+            </Wrapper>
             <Footer />
         </BrowserRouter>
     )

@@ -27,6 +27,5 @@
 
 .navbar-nav {
   color: #F0F2F0;
-  display: inline-block;
-  font-size: large;
+  display: inline-flex !important;
 }

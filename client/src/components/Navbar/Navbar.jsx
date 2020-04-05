@@ -67,7 +67,7 @@ const Navbar = () => {
                             }
                             `}
             >
-              <Link to="/dashboardTeacher">DashboardTeach</Link>
+              <Link to="/dashboardTeacher">DashBTeacher</Link>
             </li>
             <li
               className={`nav-item
@@ -78,7 +78,7 @@ const Navbar = () => {
                             }
                             `}
             >
-              <Link to="/dashboardStudent">DashboardStu</Link>
+              <Link to="/dashboardStudent">DashBStudent</Link>
             </li>
             <li
               className={window.location.pathname === "/grades" ? "active" : ""}
