@@ -3,7 +3,6 @@ const db = require("../models");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const IDfunctions = require('./functions');
-const { authenticate } = require("passport");
 require("dotenv").config();
 
 // get all users
