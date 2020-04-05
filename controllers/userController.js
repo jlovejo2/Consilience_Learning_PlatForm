@@ -148,25 +148,18 @@ router.post("/login", (req, res) => {
                   if (error) console.log(error, "an error occured with try catch")
                 }
             }
+            else {
+              res.redirect("/login")
+            }
         })
         .catch(err => console.log("err here", err));
 });
 
-// app.post('/token', (req, res) => {
-//   const refreshToken = req.body.token
-//   if (refreshToken == null) return res.sendStatus(401)
-//   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
-//   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-//       if (err) return res.sendStatus(403)
-//       const accessToken = generateAccessToken({ name: user.name })
-//       res.json({ accessToken: accessToken })
-//   })
-// })
-
-// app.delete('/logout', (req, res) => {
-//   refreshTokens = refreshTokens.filter(token => token !== req.body.token)
-//   res.sendStatus(204)
-// })
+// user logout
+router.get("/logout", (req, res) => {
+  req.logout()
+  res.redirect("/")
+})
 
 
 
@@ -218,16 +211,18 @@ async function pwCheck(password, hash) {
 
 module.exports = router;
 
-// function authenticateToken (req, res, next) {
-// const authHeader = req.headers['authorization']
-// // token portion of bearer token
-// // if authHeader then return authHeader token portion else undefined
-// const token = authHeader && authHeader.split(', ')[1]
-// if (token===null) return res.sendStatus(401)
-// jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-//       console.log(err)
+// app.post('/token', (req, res) => {
+//   const refreshToken = req.body.token
+//   if (refreshToken == null) return res.sendStatus(401)
+//   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
+//   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
 //       if (err) return res.sendStatus(403)
-//       req.user = user
-//       next
+//       const accessToken = generateAccessToken({ name: user.name })
+//       res.json({ accessToken: accessToken })
+//   })
 // })
-// }
+
+// app.delete('/logout', (req, res) => {
+//   refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+//   res.sendStatus(204)
+// })
