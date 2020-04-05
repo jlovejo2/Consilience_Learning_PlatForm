@@ -26,6 +26,8 @@ const MyCard = styled(Card)({
     background: '-webkit-linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 80%)',
     color: 'white',
     align: 'center',
+    borderRadius: '25px',
+    boxShadow: '0px 0px 70px 21px #f4e5e5',
   });
 const DashBoardTeacher = (props) => {
     
@@ -154,6 +156,7 @@ const DashBoardTeacher = (props) => {
                 container
                 spacing={5}
                 align='center'
+                
             >
                     <ClassroomContext.Provider value={{ currentClass }}>
                         {
@@ -164,6 +167,7 @@ const DashBoardTeacher = (props) => {
                                         item
                                         md={4}
                                         align="center"
+                                        
                                     >
                                         <ClassCard
                                             key={index}
