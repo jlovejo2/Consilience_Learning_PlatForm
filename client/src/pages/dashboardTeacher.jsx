@@ -21,7 +21,6 @@ import AddIcon from '@material-ui/icons/Add';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
-import API from '../utils/API';
 
 const MyCard = styled(Card)({
     background: '-webkit-linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 50%, rgb(66, 66, 66) 80%)',
