@@ -82,6 +82,13 @@ const RegisterSchema = new Schema(
   }
 );
 
+// possible methods PRE HOOK
+// // hash user password before saving into database
+// RegisterModel.pre('save', (next) => {
+//     this.password = bcrypt.hashSync(this.password, saltRounds(10));
+//     next();
+//     });
+
 // https://mongoosejs.com/docs/api/virtualtype.html#virtualtype_VirtualType-get
 // incorporate dynamically-created properties to workoutSchema
 // workoutSchema.virtual("totalDuration").get(function () {

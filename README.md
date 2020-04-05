@@ -8,6 +8,15 @@ connection with remote database established via robo3T
 - https://www.npmjs.com/package/passport-http-bearer
 - https://www.npmjs.com/package/bcrypt
 
+## Dependencies (Server-Side)
+
+### jsonwebtoken (jwt)
+- JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object
+
+
+### morgan
+-  HTTP request logger middleware for node.js
+
 
 ## Generating secrets
 - open terminal in vscode
