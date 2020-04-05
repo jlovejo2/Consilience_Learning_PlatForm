@@ -3,6 +3,7 @@ const db = require("../models");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const IDfunctions = require('./functions');
+const { authenticate } = require("passport");
 require("dotenv").config();
 
 // get all users
@@ -28,7 +29,7 @@ router.get("/", authenticateToken, async (req, res) => {
 });
 
 // user update
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticateToken, async (req, res) => {
     // /users/:id
     try {
         // const condition = `id = ${request.params.id}`;
@@ -63,7 +64,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // user delete
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
     // /users/:id
     try {
         console.log(req.body);
@@ -118,7 +119,6 @@ router.post("/login", (req, res) => {
     // /users/login
     console.log(req.body);
     const { username, password } = req.body;
-    
     db.RegisterModel.findOne({ email: username })
         .then(dbModel => {
             console.log("this is the dbModel")
@@ -127,28 +127,27 @@ router.post("/login", (req, res) => {
                 const user = { ...dbModel._doc };
                 delete user["password"];
                 delete user["token"];
-
                 const accessToken = generateAccessToken(user)
-                
                 let refreshTokens = []
                 const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
                 refreshTokens.push(refreshToken)
-
                 try {db.RegisterModel.findByIdAndUpdate(
                   { _id: dbModel._id }, 
                   {$set: { token: accessToken } },
                   { new: true }
                   ).then(accessTokenUpdate => { 
                     console.log("this is access token within findupdate", accessTokenUpdate)
-                    accessTokenUpdate.password = '';
-                   res.json({ accessTokenUpdate })
+                    const userUpdated = { ...accessTokenUpdate._doc }
+                    console.log("userUpdated before password delete", userUpdated)
+                    delete userUpdated["password"]
+                    console.log("userUpdated after password delete", userUpdated)
+                    res.json({ userUpdated })
                   })
-                .catch(error => console.log(error))}
+                .catch(error => console.log(error)
+                )}
                 catch (error) {
                   if (error) console.log(error, "an error occured with try catch")
                 }
-                console.log({ dbModel, accessToken });
-                // res.json({ user, accessToken, refreshToken });
             }
         })
         .catch(err => console.log("err here", err));
@@ -187,16 +186,15 @@ function authenticateToken(req, res, next) {
     console.log(authHeader.split(" ")[1])
     console.log("LOGGING THE TOKEN ", token)
     if (token === null) return res.sendStatus(401);
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET || process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         console.log("Logging the ERR ",err);
         if (err) return res.sendStatus(403);
         console.log("requesting the user ", req.user )
         // req.user = user;
         console.log(next())
         next();
-    }).catch(err => res.status(500).send(err))
+    })
 }
-console.log(authenticateToken);
 
 
 //create a middleware using bcryptjs npm to encrypt or "hash" user password in database
