@@ -14,6 +14,9 @@ export default {
     addClass: function (newClass) {
         return axios.post("api/classrooms", newClass)
     },
+    getClass: function (id) {
+        return axios.get("api/classrooms/" + id)
+    },
     updateClass: function (id, updateObj) {
         return axios.post('api/classrooms/' + id, updateObj)
     },

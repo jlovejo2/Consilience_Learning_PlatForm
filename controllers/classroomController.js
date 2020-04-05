@@ -14,7 +14,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  //This method is meand to find a specific classroom by Id.  This will be used when wanting to pull up a specific classroom page
+  //This method is meant to find a specific classroom by Id.  This will be used when wanting to pull up a specific classroom page
   findById: function (req, res) {
     db.ClassroomModel
       .findById(req.params.id)

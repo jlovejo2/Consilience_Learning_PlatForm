@@ -118,6 +118,7 @@ router.post("/login", (req, res) => {
     // /users/login
     console.log(req.body);
     const { username, password } = req.body;
+    
     db.RegisterModel.findOne({ email: username })
         .then(dbModel => {
             console.log("this is the dbModel")
@@ -125,19 +126,22 @@ router.post("/login", (req, res) => {
             if (validPW) {
                 const user = { ...dbModel._doc };
                 delete user["password"];
-                delete db.RegisterModel["token"]
+                delete user["token"];
+
                 const accessToken = generateAccessToken(user)
+                
                 let refreshTokens = []
                 const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
                 refreshTokens.push(refreshToken)
-                console.log(user)
+
                 try {db.RegisterModel.findByIdAndUpdate(
-                  { _id: user._id }, 
+                  { _id: dbModel._id }, 
                   {$set: { token: accessToken } },
                   { new: true }
                   ).then(accessTokenUpdate => { 
                     console.log("this is access token within findupdate", accessTokenUpdate)
-                   res.json({user })
+                    accessTokenUpdate.password = '';
+                   res.json({ accessTokenUpdate })
                   })
                 .catch(error => console.log(error))}
                 catch (error) {

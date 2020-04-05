@@ -5,16 +5,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-export default function RadioButtonsGroup() {
-  const [value, setValue] = useState('');
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+export default function RadioButtonsGroup(props) {
 
   return (
-    <FormControl component="fieldset">
-      <RadioGroup aria-label="user" name="usertype" value={value} onChange={handleChange}>
+    <FormControl component="fieldset" name='adsfasdf'>
+      <RadioGroup aria-label="user" name="usertype" value={props.radioValue} onChange={props.handleInput}>
         <FormControlLabel value="Teacher" control={<Radio />} label="Teacher" />
         <FormControlLabel value="Student" control={<Radio />} label="Student" />
       </RadioGroup>

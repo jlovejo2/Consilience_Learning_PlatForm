@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Container from "../Container/Container.jsx";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -24,13 +23,15 @@ export default function FormDialog(props) {
             {/* <DialogContentText>
               Please complete the following fields:
             </DialogContentText> */}
-            <Radio />
+            <Radio {...props} />
             <TextField
               autoFocus
               margin="dense"
               id="username"
               label="First Name*"
+              name='first'
               type="name"
+              onChange={props.handleInput}
               fullWidth
             />
             <TextField
@@ -38,7 +39,9 @@ export default function FormDialog(props) {
               margin="dense"
               id="username"
               label="Last Name*"
+              name='last'
               type="name"
+              onChange={props.handleInput}
               fullWidth
             />
             <TextField
@@ -46,7 +49,9 @@ export default function FormDialog(props) {
               margin="dense"
               id="username"
               label="Email Address*"
+              name='email'
               type="email"
+              onChange={props.handleInput}
               fullWidth
             />
             <TextField
@@ -54,8 +59,10 @@ export default function FormDialog(props) {
             id="filled-password-input"
             label="Password (8-32 characters)*"
             type="password"
+            name='password'
             autoComplete="current-password"
             margin="dense"
+            onChange={props.handleInput}
             fullWidth
             />
             <TextField
@@ -63,7 +70,9 @@ export default function FormDialog(props) {
               margin="dense"
               id="discipline"
               label="Primary Discipline (Teacher Only)*"
+              name='discipline'
               type="discipline"
+              onChange={props.handleInput}
               fullWidth
             />
           </DialogContent>
@@ -71,7 +80,7 @@ export default function FormDialog(props) {
             <Button onClick={props.close} color="primary">
               Cancel
             </Button>
-            <Button onClick={props.close} color="primary">
+            <Button onClick={props.submitRegister} color="primary">
               Submit
             </Button>
           </DialogActions>

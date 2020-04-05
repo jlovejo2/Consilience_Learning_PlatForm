@@ -184,8 +184,7 @@ const DashBoardTeacher = (props) => {
                         }
                     </ClassroomContext.Provider>
                 </Grid>
-            </MyCard>
-            {/* --------------------------------------------------------------------- */}
+                {/* --------------------------------------------------------------------- */}
             {/*______________ Below this line is menu for class cards________________ */}
             {/* ----------------------------------------------------------------------*/}
             <Menu
@@ -205,6 +204,7 @@ const DashBoardTeacher = (props) => {
                 <MenuItem onClick={handleChangeTitle}>Change Title</MenuItem>
                 <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
             </Menu>
+            </MyCard>
             {/* --------------------------------------------------------------------------------------------- */}
             {/*<________________________ Below This Line is Dialog Form for adding class __________________>  */}
             {/* --------------------------------------------------------------------------------------------- */}

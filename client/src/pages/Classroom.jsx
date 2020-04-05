@@ -1,13 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import API from '../utils/API';
 // import ClassroomContext from '../utils/classroomContext'
 
 export const Classroom = (props) => {
-    // const {currentClass} = useContext(ClassroomContext)
+    const {currentClassObj, setCurrentClassObj} = useState({})
 
     useEffect( () => {
         const { classroomID } = props.location.state
-        console.log(classroomID);
+        loadClassInfo(classroomID)
     })
+
+    function loadClassInfo(param) {
+        API.getClass(param)
+            .then(resp => {
+                console.log(resp)
+                setCurrentClassObj({resp})
+                console.log(currentClassObj)
+            })
+            .catch(err => console.log(err))
+    }
 
     function handleClass() {
     }
