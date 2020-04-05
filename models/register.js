@@ -68,12 +68,12 @@ const RegisterSchema = new Schema(
                 minlength: 8,
                 maxlength: 64
             },
-            tokens: [{
+            // tokens: [{
                 token: {
-                    type: String,
-                    required: true
-                }
-            }],
+                    type: Array,
+                    // required: true
+                },
+            // }],
             createDate: {
                 type: Date,
                 required: true,
@@ -92,14 +92,14 @@ const RegisterSchema = new Schema(
   }
 );
 
-RegisterSchema.methods.generateAuthToken = async function() {
-    // Generate an auth token for the user
-    const user = this
-    const token = jwt.sign({_id: user._id}, process.env.ACCESS_TOKEN_SECRET, )
-    user.tokens = user.tokens.concat({token})
-    await user.save()
-    return token
-}
+// RegisterSchema.methods.generateAuthToken = async function () {
+//     // Generate an auth token for the user
+//     const user = this
+//     const token = jwt.sign({_id: user._id}, process.env.ACCESS_TOKEN_SECRET,  { expiresIn: '300m' })
+//     user.tokens = user.tokens.concat({token})
+//     await user.save()
+//     return token
+// }
 
 
 // Mongoose Methods Github https://github.com/Automattic/mongoose
