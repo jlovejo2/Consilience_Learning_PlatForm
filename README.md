@@ -76,10 +76,10 @@ connection with remote database established via robo3T
 
 ### Password Hashing
 - Bcryptjs was used for password hashing
-    - It is implemented when a new user is created
-    - There are 10 rounds of salting
-    - The unhashed password is never stored in the database
-    - all objects performing a response to json have hashed passwords deliberately deleted (collection replicas made via {...xyz._doc})
+    - Implemented when a new user is created
+    - 10 rounds of salting
+    - Unhashed password is never stored in the database
+    - all objects performing a response to json have hashed passwords deliberately deleted from collection replicas made via ({ ...xyz._doc })
 
 ### Generating environmental secrets
 - open terminal in vscode
@@ -90,8 +90,9 @@ connection with remote database established via robo3T
     - hit: enter
 - this returns a 122 character string in hexadecimal
     - 1 Byte = 8 bits;
-    - 512 random bits (64 Bytes) used to generate crypto Hex string 
-     'ed3797711bd78a72186fae8b8200bca2e9e14bce3eba46a5797b3bb34f6e23ccac398ffc82fc4bf57d4afab2ffb1aa4a3357aede9f27bbb69d1150dd35'
+    - 512 random bits (64 Bytes) used in crypto secret generation
+    - example: 
+        - 'ed3797711bd78a72186fae8b8200bca2e9e14bce3eba46a5797b3bb34f6e23ccac398ffc82fc4bf57d4afab2ffb1aa4a3357aede9f27bbb69d1150dd35'
 
 
 Decimal | 8-bit Binary | Hexadecimal
