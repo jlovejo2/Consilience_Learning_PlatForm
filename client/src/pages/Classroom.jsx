@@ -37,15 +37,6 @@ const useStyles = makeStyles({
     },
 });
 
-// const MyCard = makeStyles(Card)({
-//     background: 'radial-gradient(ellipse farthest-side at bottom right, rgb(0, 0, 0) 53%, rgb(77, 77, 82) 88%, rgb(81, 81, 92) 93%, rgb(255, 255, 255) 100%)',
-//     color: 'white',
-//     align: 'center',
-//     borderRadius: '35px',
-//     boxShadow: '0px 0px 50px 30px #61dbfb',
-//     alignItems: "stretch",
-//     height: '100%',
-//   });
 
 export const Classroom = (props) => {
 
@@ -92,8 +83,8 @@ export const Classroom = (props) => {
     function handleDialogSubmit(event) {
         event.preventDefault();
         if (announcementObj.title && announcementObj.body) {
-            console.log('Register looks good so far')
-            API.userRegister(announcementObj)
+            console.log('Announcement looks good so far')
+            API.createAnnouncement(currentClassObj._id, announcementObj)
                 .then(resp => {
                     console.log(resp)
                     setOpenDialog(false)

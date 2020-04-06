@@ -39,6 +39,13 @@ staffIDGenerator: function(firstname, lastname, discipline) {
         .catch(err => console.log(err))
 },
 
+urlHttpToHttps: function(url) {
+    const slicedURL = url.slice(4, url.length)
+    const secureURL = 'https' + slicedURL
+
+    return secureURL
+}
+
 }
 
 // studentIdGenerator(firstName, lastName);

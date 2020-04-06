@@ -96,6 +96,10 @@ const ClassroomSchema = new Schema(
       type: String,
       trim: true,
     },
+    url: {
+      type: String,
+      trim: true
+    },
     comments: [
       {
         title: {
