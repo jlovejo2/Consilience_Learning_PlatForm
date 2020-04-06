@@ -55,6 +55,10 @@ const Login = () => {
                 .then(res => {
                     console.log(res);
                     //   if (res.data) setShow(true);
+                    const token = res.data.userUpdated.token
+
+                    localStorage.setItem('token', token);
+                    console.log(token)
                 })
                 .catch(err => console.log(err))
         }
