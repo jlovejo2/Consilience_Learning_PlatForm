@@ -92,6 +92,10 @@ const ClassroomSchema = new Schema(
       trim: true,
       required: "Enter an announcement message"
     },
+    attachment: {
+      type: String,
+      trim: true,
+    },
     comments: [
       {
         title: {

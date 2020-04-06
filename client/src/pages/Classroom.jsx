@@ -4,9 +4,10 @@ import API from '../utils/API';
 
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
+import Announcement from '../components/AnnouncementForm/Announcement';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { red, blueGrey } from '@material-ui/core/colors';
+// import { red, blueGrey } from '@material-ui/core/colors';
 import { Card, CardActions, CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -49,6 +50,7 @@ const useStyles = makeStyles({
 export const Classroom = (props) => {
 
     const classes = useStyles();
+    const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
 
@@ -74,6 +76,32 @@ export const Classroom = (props) => {
 
     }
 
+    const handleDialogOpen = () => {
+        setOpenDialog(true);
+    };
+
+    const handleDialogClose = () => {
+        setOpenDialog(false);
+    };
+
+    function handleDialogInputChange(event) {
+        const { name, value } = event.target
+        setAnnouncementObj({ ...announcementObj, [name]: value })
+    }
+    
+    function handleDialogSubmit(event) {
+        event.preventDefault();
+        if (announcementObj.title && announcementObj.body) {
+            console.log('Register looks good so far')
+            API.userRegister(announcementObj)
+                .then(resp => {
+                    console.log(resp)
+                    setOpenDialog(false)
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
     function handleClass() {
         console.log(currentClassObj)
     }
@@ -93,7 +121,7 @@ export const Classroom = (props) => {
                                                 ANNOUNCEMENTS BOARD &nbsp; &nbsp;
                                                 <Tooltip title="Add an announcement" aria-label="add">
                                                     <Fab size="small" color="primary" aria-label="add">
-                                                        <AddIcon />
+                                                        <AddIcon onClick={handleDialogOpen}/>
                                                     </Fab>
                                                 </Tooltip>
                                             </Typography>
@@ -140,17 +168,24 @@ export const Classroom = (props) => {
                                                 </CardContent>
 
                                         }
+                                        {/* ------------------------------------------------------------------------- */}
+                                        {/* ___________ This is the end of the announcment renderings________________ */}
+                                        {/* ------------------------------------------------------------------------- */}
                                     </Card>
                                 </Paper>
                             </Grid>
                         </Grid>
-                                ) :
                     </Box>
                 </Paper>
             </Container>
+            <Announcement
+             open={openDialog}
+             close={handleDialogClose}
+             handleInput={handleDialogInputChange}
+             submitDialog={handleDialogSubmit}
+            />
         </div>
     );
-
 }
 
 export default Classroom;

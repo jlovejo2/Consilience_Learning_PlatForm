@@ -39,6 +39,11 @@ export default {
     },
     getClassImage: function(id) {
         return axios.get('api/classrooms/image/' + id)
+    },
+    createAnnouncement: function(obj) {
+        return axios.get('api/classrooms/announcement')
     }
+
+
 
 }

@@ -1,11 +1,9 @@
 import React from 'react';
-// eslint-disable-next-line
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
     mainFeaturedPost: {
@@ -55,9 +53,6 @@ function ClassBanner(props) {
                         <Typography variant="h5" color="inherit" paragraph>
                             {props.desc}
                         </Typography>
-                        <Link variant="subtitle1" href="#">
-                            Link
-                        </Link>
                     </div>
                 </Grid>
             </Grid>
