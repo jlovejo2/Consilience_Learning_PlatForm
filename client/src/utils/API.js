@@ -9,6 +9,10 @@ export default {
     userRegister: function (userObj) {
         return axios.post("/users/register", userObj)
     },
+    // runs authenticateToken as middleware before getting user type
+    userAuthAndType: function (id) {
+        return axios.get("/users/:id", id)
+    },
     // user logout
     userLogout: function (userObj) {
         return axios.get('/users/logout', userObj)
