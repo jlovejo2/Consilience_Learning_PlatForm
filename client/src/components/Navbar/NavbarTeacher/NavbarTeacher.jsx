@@ -1,10 +1,10 @@
 import React from "react";
-import "./Navbar.css";
-import Questions from "../../images/feynman.jpg";
+import "./NavbarTeacher.css";
+import Questions from "../../../images/feynman.jpg";
 import { Link } from "react-router-dom";
 // import { Fade } from '@material-ui/core';
 
-const Navbar = () => {
+const NavbarTeacher = () => {
   // useState expanded and setExpanded onClick
   // circle back putas
   return (
@@ -33,66 +33,65 @@ const Navbar = () => {
           <ul className="navbar-nav right hide-on-sml-and-down" /*"navbar-nav"*/>
             <li id="li-nav"
               className={
-                window.location.pathname === "/" ||
-                window.location.pathname === "/home"
+                window.location.pathname === "/dashboardTeacher"
                   ? "active"
                   : ""
               }
             >
-              <Link to="/">Home</Link>
-            </li>
-            {/* <li
-              className={
-                window.location.pathname === "/activities" ? "active" : ""
-              }
-            >
-              <Link to="/activities">Activities</Link>
-            </li>
-            <li
-              className={`nav-item
-                            ${
-                              window.location.pathname === "/assignments"
-                                ? "active"
-                                : ""
-                            }
-                            `}
-            >
-              <Link to="/assignments">Assignments</Link>
-            </li> */}
-            <li
-              className={`nav-item
-                            ${
-                              window.location.pathname === "/dashboardTeacher"
-                                ? "active"
-                                : ""
-                            }
-                            `}
-            >
-              <Link to="/dashboardTeacher">Dashboard-T</Link>
-            </li>
-            <li
-              className={`nav-item
-                            ${
-                              window.location.pathname === "/dashboardStudent"
-                                ? "active"
-                                : ""
-                            }
-                            `}
-            >
-              <Link to="/dashboardStudent">Dashboard-S</Link>
-            </li>
-            {/* <li
-              className={window.location.pathname === "/grades" ? "active" : ""}
-            >
-              <Link to="/grades">Grades</Link>
+              <Link to="/dashboardTeacher">Dashboard</Link>
             </li>
             <li
               className={
-                window.location.pathname === "/syllabus" ? "active" : ""
+                window.location.pathname === "/Classroom" ? "active" : ""
               }
             >
-              <Link to="/syllabus">Syllabus</Link>
-            </li> */}
+              <Link to="/Classroom">Classroom</Link>
+            </li>
+            <li
+              className={`nav-item
+                            ${
+                              window.location.pathname === "/activitiesTeacher"
+                                ? "active"
+                                : ""
+                            }
+                            `}
+            >
+              <Link to="/activitiesTeacher">Activities</Link>
+            </li>
+            <li
+              className={`nav-item
+                            ${
+                              window.location.pathname === "/assignmentsTeacher"
+                                ? "active"
+                                : ""
+                            }
+                            `}
+            >
+              <Link to="/assignmentsTeacher">Assignments</Link>
+            </li>
+            <li
+              className={`nav-item
+                            ${
+                              window.location.pathname === "/gradesTeacher"
+                                ? "active"
+                                : ""
+                            }
+                            `}
+            >
+              <Link to="/gradesTeacher">Gradebook</Link>
+            </li>
+            <li
+              className={window.location.pathname === "/syllabusTeacher" ? "active" : ""}
+            >
+              <Link to="/syllabusTeacher">Syllabi</Link>
+            </li>
+            <li
+              className={
+                window.location.pathname === "/logout" ? "active" : ""
+              }
+            >
+              <Link to="/logout">Logout</Link>
+            </li>
           </ul>
         </nav>
       </div>
@@ -100,4 +99,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarTeacher;

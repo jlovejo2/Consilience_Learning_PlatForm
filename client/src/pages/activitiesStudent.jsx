@@ -1,9 +1,11 @@
 import React from 'react'
 
-export const activitiesStudent = () => {
+const activitiesStudent = () => {
     return (
         <div>
             
         </div>
     )
 }
+
+export default activitiesStudent;
