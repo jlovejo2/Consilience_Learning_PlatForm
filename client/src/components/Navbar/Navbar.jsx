@@ -41,7 +41,7 @@ const Navbar = () => {
             >
               <Link to="/">Home</Link>
             </li>
-            {/* <li
+            <li
               className={
                 window.location.pathname === "/activities" ? "active" : ""
               }
@@ -58,30 +58,30 @@ const Navbar = () => {
                             `}
             >
               <Link to="/assignments">Assignments</Link>
-            </li> */}
+            </li>
             <li
               className={`nav-item
                             ${
-                              window.location.pathname === "/dashboardTeacher"
+                              window.location.pathname === "/assignmentsTeacher"
                                 ? "active"
                                 : ""
                             }
                             `}
             >
-              <Link to="/dashboardTeacher">Dashboard-T</Link>
+              <Link to="/dashboardTeacher">DashBTeacher</Link>
             </li>
             <li
               className={`nav-item
                             ${
-                              window.location.pathname === "/dashboardStudent"
+                              window.location.pathname === "/assignmentsStudent"
                                 ? "active"
                                 : ""
                             }
                             `}
             >
-              <Link to="/dashboardStudent">Dashboard-S</Link>
+              <Link to="/dashboardStudent">DashBStudent</Link>
             </li>
-            {/* <li
+            <li
               className={window.location.pathname === "/grades" ? "active" : ""}
             >
               <Link to="/grades">Grades</Link>
@@ -92,7 +92,7 @@ const Navbar = () => {
               }
             >
               <Link to="/syllabus">Syllabus</Link>
-            </li> */}
+            </li>
           </ul>
         </nav>
       </div>
