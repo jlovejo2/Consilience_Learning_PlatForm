@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Selection from './Selection'
+import Card from './AssignmentCard'
 // import './style.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,18 +29,19 @@ export default function FullWidthGrid() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className= {classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={10}>
-          <Paper className={classes.paper}><Selection/></Paper>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Selection/>
+          </Paper>
         </Grid>
-        <Grid item xs={10}>
-          <Paper className={classes.paper}>Class</Paper>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Card/>
+          </Paper>
         </Grid>
-        <Grid item xs={10}>
-          <Paper className={classes.paper}>Class (add in js logic later)</Paper>
-        </Grid>
-      </Grid>
+      </Grid>  
     </div>
   );
 }
