@@ -18,6 +18,7 @@ import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import AddIcon from '@material-ui/icons/Add';
+import CommentIcon from '@material-ui/icons/Comment';
 
 
 const useStyles = makeStyles({
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
         fontSize: 14,
     },
     pos: {
-        marginBottom: 12,
+        // marginBottom: 12,
     },
 });
 
@@ -49,7 +50,7 @@ export const Classroom = (props) => {
     useEffect(() => {
         const { classroomID } = props.location.state
         loadClassInfo(classroomID)
-        loadAnnouncements();
+        // loadAnnouncements(classroomID);
     }, [props.location.state])
 
     function loadClassInfo(param) {
@@ -64,9 +65,14 @@ export const Classroom = (props) => {
             (err => console.log(err))
     }
 
-    function loadAnnouncements() {
+    // function loadAnnouncements(param) {
+    //     API.getAnnouncementByClass(param)
+    //         .then(resp => {
+    //             console.log(resp)
+    //         })
+    //         .catch(err => console.log(err))
 
-    }
+    // }
 
     const handleDialogOpen = () => {
         setOpenDialog(true);
@@ -80,7 +86,7 @@ export const Classroom = (props) => {
         const { name, value } = event.target
         setAnnouncementObj({ ...announcementObj, [name]: value })
     }
-    
+
     function handleDialogSubmit(event) {
         event.preventDefault();
         if (announcementObj.title && announcementObj.body) {
@@ -113,7 +119,7 @@ export const Classroom = (props) => {
                                                 ANNOUNCEMENTS BOARD &nbsp; &nbsp;
                                                 <Tooltip title="Add an announcement" aria-label="add">
                                                     <Fab size="small" color="primary" aria-label="add">
-                                                        <AddIcon onClick={handleDialogOpen}/>
+                                                        <AddIcon onClick={handleDialogOpen} />
                                                     </Fab>
                                                 </Tooltip>
                                             </Typography>
@@ -128,7 +134,7 @@ export const Classroom = (props) => {
                                         {/* ___________ This is the beginning of the announcment renderings_______ */}
                                         {/* ------------------------------------------------------------------------- */}
                                         {
-                                            announcementObj.length > 0 ? announcementObj.map((announcement, index) => {
+                                            currentClassObj.announcements ? currentClassObj.announcements.map((announcement, index) => {
                                                 return (
                                                     <>
                                                         <CardContent key={index}>
@@ -136,19 +142,19 @@ export const Classroom = (props) => {
                                                                 {/* {currentClassObj.courseTitle} */}
                                                             </Typography>
                                                             <Typography variant="h5" component="h2">
-                                                                where are all the students??
+                                                                {announcement.title}
                                                             </Typography>
                                                             <Typography className={classes.pos} color="textSecondary">
                                                                 well shit ...
                                                             </Typography>
                                                             <Typography variant="body2" component="p">
-                                                                well meaning and kindly.
-                                                        <br />
-                                                                {'"a benevolent smile"'}
+                                                                {announcement.body}
                                                             </Typography>
                                                         </CardContent>
                                                         <CardActions>
-                                                            <Button size="small" onClick={handleClass}>Learn More</Button>
+                                                            <Fab size="small" color="primary" aria-label="add">
+                                                                <CommentIcon onClick={handleClass} />
+                                                            </Fab>
                                                         </CardActions>
                                                     </>
                                                 )
@@ -171,10 +177,10 @@ export const Classroom = (props) => {
                 </Paper>
             </Container>
             <Announcement
-             open={openDialog}
-             close={handleDialogClose}
-             handleInput={handleDialogInputChange}
-             submitDialog={handleDialogSubmit}
+                open={openDialog}
+                close={handleDialogClose}
+                handleInput={handleDialogInputChange}
+                submitDialog={handleDialogSubmit}
             />
         </div>
     );
