@@ -23,12 +23,11 @@ const ClassroomSchema = new Schema(
       trim: true,
       // validate: /^[0-9]{0,1}\z/
     },
-    students: {
+    students: [{
       // has [] wrapping the {} !!!!!!!!!!
-      // type: Schema.Types.ObjectId,
-      type: String,
-      // ref: 'User',
-    },
+      type: Schema.Types.ObjectId,
+      ref: 'RegisterModel',
+    }],
     ID: {
       // type: Schema.Types.ObjectId,
       type: String,

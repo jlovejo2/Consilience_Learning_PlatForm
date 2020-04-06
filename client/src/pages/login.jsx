@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm/register.jsx';
 import Container from '../components/Container/Container.jsx'

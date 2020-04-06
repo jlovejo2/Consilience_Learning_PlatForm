@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-function ClassBanner() {
+function ClassBanner(props) {
     
     const classes = useStyles();
 
@@ -50,10 +50,10 @@ function ClassBanner() {
                 <Grid item md={6}>
                     <div className={classes.mainFeaturedPostContent}>
                         <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                            Title
+                            {props.title}
                         </Typography>
                         <Typography variant="h5" color="inherit" paragraph>
-                            Description
+                            {props.desc}
                         </Typography>
                         <Link variant="subtitle1" href="#">
                             Link

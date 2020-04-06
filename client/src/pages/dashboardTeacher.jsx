@@ -30,6 +30,7 @@ const MyCard = styled(Card)({
     alignItems: "stretch",
     height: '100%',
   });
+  
 const DashBoardTeacher = (props) => {
     
     const [openDialog, setOpenDialog] = useState(false);
