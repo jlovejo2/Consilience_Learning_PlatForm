@@ -1,4 +1,7 @@
-const router = require("express").Router();
+// caseSensitive routing option set to true
+// 5x - https://expressjs.com/en/5x/api.html - alpha documentation
+// 4x - https://expressjs.com/en/api.html - available v4.16.0 on
+const router = require("express").Router({ caseSensitive: true });
 const db = require("../models");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -26,6 +29,25 @@ router.get("/", authenticateToken, async (req, res) => {
         throw error;
     }
 });
+
+// get user authenticated status
+router.get("/:id", async (req, res, next) => {
+    try{
+      console.log(req.body)
+      const { type, token } = req.body
+      await db.RegisterModel.findOne({ type: type })
+        .then(dbModel => {
+          console.log(dbModel, "this is dbModel")
+            if (type) {
+
+            }
+        })
+
+    }
+    catch (error) {
+      if (error) console.log(error, "an error occured with try catch")
+    }
+})
 
 // user update
 router.put("/:id", authenticateToken, async (req, res) => {
