@@ -7,7 +7,6 @@ import custFunc from '../utils/customFunctions';
 import Container from '../components/Container/Container.jsx';
 import ClassCard from '../components/ClassCard/ClassCard';
 
-
 //Importing components and icons from material-ui
 // import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
