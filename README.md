@@ -83,12 +83,15 @@ connection with remote database established via robo3T
 
 ### Generating environmental secrets
 - open terminal in vscode
-- type node, hit enter
-    - this opens up node terminal
-- type require('crypto').randomBytes(64).toString('hex')
-    - hit enter
-    - this returns a 122 character string in hexadecimal (below)
-    - 'ed3797711bd78a72186fae8b8200bca2e9e14bce3eba46a5797b3bb34f6e23ccac398ffc82fc4bf57d4afab2ffb1aa4a3357aede9f27bbb69d1150dd35'
+    - type: node 
+    - hit: enter
+- this opens up node terminal
+    - type: require('crypto').randomBytes(64).toString('hex')
+    - hit: enter
+- this returns a 122 character string in hexadecimal
+    - 1 Byte = 8 bits;
+    - 512 random bits (64 Bytes) used to generate crypto Hex string 
+     'ed3797711bd78a72186fae8b8200bca2e9e14bce3eba46a5797b3bb34f6e23ccac398ffc82fc4bf57d4afab2ffb1aa4a3357aede9f27bbb69d1150dd35'
 
 
 Decimal | 8-bit Binary | Hexadecimal
