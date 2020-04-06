@@ -34,11 +34,15 @@ router.get("/", authenticateToken, async (req, res) => {
 router.get("/:id", async (req, res, next) => {
     try{
       console.log(req.body)
-      const { type, token } = req.body
-      await db.RegisterModel.findOne({ type: type })
+      const { token } = req.body
+      await db.RegisterModel.findOne({ token: token })
         .then(dbModel => {
           console.log(dbModel, "this is dbModel")
-            if (type) {
+          const tokenCheck = authenticateToken(token, dbModel.token)
+            if (tokenCheck) {
+              const collectionClone = { ...dbModel._doc }
+              delete collectionClone["password"]
+
 
             }
         })
@@ -195,8 +199,8 @@ router.get("/logout", (req, res) => {
 
 
 function generateAccessToken (user) {
-  // lifespan -> 5-10 hrs
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '300m' })
+  // lifespan -> 12 hrs
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '720m' })
 }
 
 function authenticateToken(req, res, next) {
