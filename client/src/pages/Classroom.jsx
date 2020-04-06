@@ -7,7 +7,7 @@ import Container from '../components/Container/Container';
 import Announcement from '../components/AnnouncementForm/Announcement';
 
 import { makeStyles } from '@material-ui/core/styles';
-// import { red, blueGrey } from '@material-ui/core/colors';
+import { black } from '@material-ui/core/colors';
 import { Card, CardActions, CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -27,7 +27,8 @@ const useStyles = makeStyles({
         justifyContent: 'center'
     },
     announcementTitle: {
-        // backgroundColor: 'red'
+        color: 'black',
+        // fontSize: 20
     },
     title: {
         fontSize: 14,
@@ -108,7 +109,7 @@ export const Classroom = (props) => {
                                 <Paper elevation={2}>
                                     <Card>
                                         <CardContent>
-                                            <Typography className={classes.announcementTitle} variant='h4' align='center'>
+                                            <Typography className={classes.announcementTitle} variant='h3' align='center'>
                                                 ANNOUNCEMENTS BOARD &nbsp; &nbsp;
                                                 <Tooltip title="Add an announcement" aria-label="add">
                                                     <Fab size="small" color="primary" aria-label="add">
