@@ -23,24 +23,27 @@ connection with remote database established via robo3T
 
 ### JSON Web Tokens (JWTs)
 - Access Token Standard
+- Structured and Stateless
 - Used for authorization and secure info exchange
 - Base64 encoded
 - Pronounced "JOT"
-- Digitally signed
-    - Content uncompromised
-    - Signature not authorized if tampering occurs; JWT permissions eliminated in absence of valid signature
+- Cryptographically signed
+    - If tampering occurs authorized status immediately revoked; signature invalid if modified in any way
 - Always encoded, can be encrypted
 - Open standard (RFC 7519) defining a compact and self-contained method for securely transmitting info between parties as a JSON object
 
 ### Anatomy of a JWT - Three Parts
 - Header
+    - Describes the token
     - Specifies type of token and hash algorithm used to create token's content
 - Body
-    - Contains the user identity claims
+    - Payload
+    - Contains user information known as "claims"
     - Information that JWT claiming to be true about user
-    - Commonly includes name and timestamp reflecting JWT issue time 
-- Signature 
-    - Verifies sender 
+    - Commonly includes name and timestamp reflecting JWT issue time
+    - Token expiration time 
+- Signature (cryptographically signed in this app)
+    - Verifies integrity of token 
     - Ensures content is uncompromised (hasn't been tampered with)
 
 ### Base64 Encoded
@@ -59,13 +62,17 @@ connection with remote database established via robo3T
 ### Cookies vs Local Storage -- JWTs on Client Side
 - Local storage vulnerable to cross-site-scripting (XSS) attacks
     - Attacker can inject malicious javascript into app
+    - Larger attack surface area
+    - Can impact all application users on successful attack
 - Cookies vulnerable to cross-site request forgery (CSRF)
     - Attacker can perform actions via an authenticated user
     - Similar to how viruses use capsids to infiltrate immune system undetected
 - This React app has a dedicated server so JWTs are stored in an HttpOnly Cookie w/ secure flag enabled 
     - protects from cross-site scripting (XSS)
+    - secure flag ensures cookie only sent over https
     - such cookies cannot be accessed by JavaScript
     - Hence, why they're generated on a server
+    - Can make CSRF protection stateless by including a xsrfToken JWT claim
 
 ### Password Hashing
 - Bcryptjs was used for password hashing
