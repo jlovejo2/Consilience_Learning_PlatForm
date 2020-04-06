@@ -58,6 +58,15 @@ connection with remote database established via robo3T
     - values 52-61 -> numbers 0-9
     - value 62 -> +
     - value 63 -> /
+    
+#### JWT Example (Header.Body.Signature)
+- Encoded (ASCII--American Standard Code for Information Interchange) 
+    - Header:
+        - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+    - Payload (Body): 
+        - eyJfaWQiOiI1ZThhMzFmZDRiMmQ0NTE2NjQ2YTFkYzUiLCJ0eXBlIjoidGVhY2hlciIsImZpcnN0TmFtZSI6Ikt5bGllIiwibGFzdE5hbWUiOiJNb25zdGVyIiwiZW1haWwiOiJLeWxlQGdtYWlsLmNvbSIsIklEIjoia21vbnN0ZXdvbWUxIiwiY3JlYXRlRGF0ZSI6IjIwMjAtMDQtMDVUMTk6MzE6MDkuMjk3WiIsIl9fdiI6MCwiaWF0IjoxNTg2MTczMDU4LCJleHAiOjIxOTA5NzMwNTh9.
+    - Signature:
+        - 9m0_s_N7T6WE9JfN9gZbQ_k8sEmPvIXszQlLvVk7WUU
 
 ### Cookies vs Local Storage -- JWTs on Client Side
 - Local storage vulnerable to cross-site-scripting (XSS) attacks

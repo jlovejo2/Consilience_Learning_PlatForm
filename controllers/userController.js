@@ -33,7 +33,6 @@ router.get("/", authenticateToken, async (req, res) => {
 // get user authenticated status
 router.get("/:id", authenticateToken, async (req, res) => {
     try{
-      console.log(req.body)
       await db.RegisterModel.findById({_id: req.params.id}, req.body)
         .then(dbModel => {
             if (req.body.type=== "teacher" || "student") {
@@ -197,25 +196,21 @@ router.get("/logout", (req, res) => {
 
 function generateAccessToken (user) {
   // lifespan -> 604800000 ms = 7 days
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 604800000 })
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1440m" })
 }
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers["authorization"];
-    console.log("requesting headers ", req.headers)
     // token portion of bearer token
     // if authHeader then return authHeader token portion else undefined
-    console.log("logging the AUTHHEADER ",authHeader)
     const token = authHeader && authHeader.split(" ")[1];
     console.log(authHeader.split(" ")[1])
-    console.log("LOGGING THE TOKEN ", token)
     if (token === null) return res.sendStatus(401);
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         console.log("Logging the ERR ",err);
         if (err) return res.sendStatus(403);
-        console.log("requesting the user ", req.user )
         // req.user = user;
-        console.log(next())
+        console.log(user)
         next();
     })
 }
