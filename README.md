@@ -7,28 +7,102 @@ connection with remote database established via robo3T
 - https://socket.io/
 - https://www.npmjs.com/package/passport-http-bearer
 - https://www.npmjs.com/package/bcrypt
+- http://www.npmjs.com/package/morgan
+    -  HTTP request logger middleware for node
 
-## Dependencies (Server-Side)
+## Security Considerations
 
-### jsonwebtoken (jwt)
-- JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object
+### Authentication vs Authorization
+- Authentication
+    - Who are you?
+    - Login with email and password
 
+- Authorization
+    - What are you allowed to do?
+    - Check user rights
 
-### morgan
--  HTTP request logger middleware for node.js
+### JSON Web Tokens (JWTs)
+- Access Token Standard
+- Structured and Stateless
+- Used for authorization and secure info exchange
+- Base64 encoded
+- Pronounced "JOT"
+- Cryptographically signed
+    - If tampering occurs authorized status immediately revoked; signature invalid if modified in any way
+- Always encoded, can be encrypted
+- Open standard (RFC 7519) defining a compact and self-contained method for securely transmitting info between parties as a JSON object
 
+### Anatomy of a JWT - Three Parts
+- Header
+    - Describes the token
+    - Specifies type of token and hash algorithm used to create token's content
+- Body
+    - Payload
+    - Contains user information known as "claims"
+    - Information that JWT claiming to be true about user
+    - Commonly includes name and timestamp reflecting JWT issue time
+    - Token expiration time 
+- Signature (cryptographically signed in this app)
+    - Verifies integrity of token 
+    - Ensures content is uncompromised (hasn't been tampered with)
 
-## Generating secrets
+### Base64 Encoded
+- JWT is compact
+- Header, Body, and Signature are each Base64 encoded
+    - Then separated by dots
+    - https://en.wikipedia.org/wiki/Base64
+    - https://www.base64encode.net/
+    - Base64 Index table (values 0-63)
+    - values 0-25 -> uppercase A-Z
+    - values 26-51 -> lowercase a-z
+    - values 52-61 -> numbers 0-9
+    - value 62 -> _
+    - value 63 -> -
+    
+#### JWT Example (Header.Body.Signature)
+- Encoded (ASCII--American Standard Code for Information Interchange) 
+    - Header:
+        - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+    - Payload (Body): 
+        - eyJfaWQiOiI1ZThhMzFmZDRiMmQ0NTE2NjQ2YTFkYzUiLCJ0eXBlIjoidGVhY2hlciIsImZpcnN0TmFtZSI6Ikt5bGllIiwibGFzdE5hbWUiOiJNb25zdGVyIiwiZW1haWwiOiJLeWxlQGdtYWlsLmNvbSIsIklEIjoia21vbnN0ZXdvbWUxIiwiY3JlYXRlRGF0ZSI6IjIwMjAtMDQtMDVUMTk6MzE6MDkuMjk3WiIsIl9fdiI6MCwiaWF0IjoxNTg2MTczMDU4LCJleHAiOjIxOTA5NzMwNTh9.
+    - Signature:
+        - 9m0_s_N7T6WE9JfN9gZbQ_k8sEmPvIXszQlLvVk7WUU
+
+### Cookies vs Local Storage -- JWTs on Client Side
+- Local storage vulnerable to cross-site-scripting (XSS) attacks
+    - Attacker can inject malicious javascript into app
+    - Larger attack surface area
+    - Can impact all application users on successful attack
+- Cookies vulnerable to cross-site request forgery (CSRF)
+    - Attacker can perform actions via an authenticated user
+    - Similar to how viruses use capsids to infiltrate immune system undetected
+- This React app has a dedicated server so JWTs are stored in an HttpOnly Cookie w/ secure flag enabled 
+    - protects from cross-site scripting (XSS)
+    - secure flag ensures cookie only sent over https
+    - such cookies cannot be accessed by JavaScript
+    - Hence, why they're generated on a server
+    - Can make CSRF protection stateless by including a xsrfToken JWT claim
+
+### Password Hashing
+- Bcryptjs was used for password hashing
+    - Implemented when a new user is created
+    - 10 rounds of salting
+    - Unhashed password is never stored in the database
+    - all objects performing a response to json have hashed passwords deliberately deleted from collection replicas made via ({ ...xyz._doc })
+
+### Generating environmental secrets
 - open terminal in vscode
-- type node, hit enter
-    - this opens up node terminal
-- type require('crypto').randomBytes(64).toString('hex')
-    - hit enter
-    - this returns a 122 character string in hexadecimal (below)
-    - 'ed3797711bd78a72186fae8b8200bca2e9e14bce3eba46a5797b3bb34f6e23ccac398ffc82fc4bf57d4afab2ffb1aa4a3357aede9f27bbb69d1150dd35'
+    - type: node 
+    - hit: enter
+- this opens up node terminal
+    - type: require('crypto').randomBytes(64).toString('hex')
+    - hit: enter
+- this returns a 122 character string in hexadecimal
+    - 1 Byte = 8 bits;
+    - 512 random bits (64 Bytes) used in crypto secret generation
+    - example: 
+        - 'ed3797711bd78a72186fae8b8200bca2e9e14bce3eba46a5797b3bb34f6e23ccac398ffc82fc4bf57d4afab2ffb1aa4a3357aede9f27bbb69d1150dd35'
 
-
-###  
 
 Decimal | 8-bit Binary | Hexadecimal
 ------- | ------------ | -----------

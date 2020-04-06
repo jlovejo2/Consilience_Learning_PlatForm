@@ -8,7 +8,8 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3003;
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
-
+// https://github.com/js-cookie/js-cookie/blob/HEAD/SERVER_SIDE.md
+// js-cookie
 
 // cross-origin request security (CORS) 
 // prevents requests to unauthorized domains

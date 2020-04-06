@@ -1,10 +1,15 @@
 import React from 'react'
+import Container from '../components/Container/Container.jsx'
+import Box from '../components/Assignments/BoxTeacher'
+
 
 const assignmentsStudent = () => {
     return (
-        <div>
-            
-        </div>
+    <>
+        <Container fluid>
+            <Box/>
+        </Container>
+    </>
     )
 }
 

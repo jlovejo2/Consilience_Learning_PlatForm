@@ -1,10 +1,11 @@
 import React from 'react';
 import Container from '../components/Container/Container.jsx'
+import Dashboard from '../components/Grades/TeacherDashboard'
 
 const Grades = () => {
     return (
         <Container fluid>
-            <div className="text-white">Grades</div>
+            <Dashboard/>
         </Container>
     )
 }
