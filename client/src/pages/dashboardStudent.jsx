@@ -31,7 +31,7 @@ const MyCard = styled(Card)({
     alignItems: "stretch",
     height: '100%',
   });
-const DashBoardTeacher = (props) => {
+const DashBoardStudent = (props) => {
     
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
@@ -278,4 +278,4 @@ const DashBoardTeacher = (props) => {
     )
 }
 
-export default DashBoardTeacher;
+export default DashBoardStudent;

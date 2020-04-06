@@ -2,15 +2,16 @@ import React from "react";
 import "./Navbar.css";
 import Questions from "../../images/feynman.jpg";
 import { Link } from "react-router-dom";
+// import { Fade } from '@material-ui/core';
 
 const Navbar = () => {
   // useState expanded and setExpanded onClick
   // circle back putas
   return (
     <React.Fragment>
-      <div className="navbar-fixed">
+      <div className="navbar-fixed col-md-8">
         <nav
-          className="nav-wrapper navbar-dark grey darken-3" /*"navbar navbar-expand-md navbar-dark sticky-top bg-dark"*/
+          className="nav-wrapper" /*"navbar navbar-expand-md navbar-dark sticky-top"*/
         >
           <Link to="/" className="brand-logo left" /*"navbar-brand"*/>
             <img
@@ -18,7 +19,7 @@ const Navbar = () => {
               alt="react"
               className="img-fluid logo"
               height="64px"
-              width="128px"
+              width="155px"
             />
           </Link>
           {/* The below a tag is the code that renders the hamburger menu when the size of the screen is minimized */}
