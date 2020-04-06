@@ -1,13 +1,23 @@
 import axios from 'axios';
 
 export default {
-
+    // user login
     userLogin: function (userObj) {
         return axios.post("/users/login", userObj);
     },
+    // user register
     userRegister: function (userObj) {
         return axios.post("/users/register", userObj)
     },
+    // user logout
+    userLogout: function (userObj) {
+        return axios.get('/users/logout', userObj)
+    },
+    // user update info
+    userUpdate: function (userObj) {
+        return axios.put('/users/:id', userObj)
+    },
+    // get classes
     getClasses: function () {
         return axios.get("/api/classrooms")
     },
