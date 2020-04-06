@@ -4,6 +4,7 @@ import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
 import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
+import '../index.css';
 // eslint-disable-next-line
 import Modal from '@material-ui/core/Modal';
 
@@ -65,7 +66,7 @@ const Login = () => {
             {/* <div className="text-white">Login</div> */}
             <div className='row valign-wrapper'>
                 <div className='col s4'></div>
-                <div className='col s6 center-align'>
+                <div className='loginform col s6 center-align'>
                     <Card
                         title={<i>Login Here</i>}
                         size={'medium'}
