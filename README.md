@@ -56,8 +56,8 @@ connection with remote database established via robo3T
     - values 0-25 -> uppercase A-Z
     - values 26-51 -> lowercase a-z
     - values 52-61 -> numbers 0-9
-    - value 62 -> +
-    - value 63 -> /
+    - value 62 -> _
+    - value 63 -> -
     
 #### JWT Example (Header.Body.Signature)
 - Encoded (ASCII--American Standard Code for Information Interchange) 
