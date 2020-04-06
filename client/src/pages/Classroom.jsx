@@ -28,24 +28,28 @@ const useStyles = makeStyles({
 export const Classroom = (props) => {
 
     const classes = useStyles();
-    const { currentClassObj, setCurrentClassObj } = useState({})
+    const [ currentClassObj, setCurrentClassObj ] = useState([])
 
     useEffect(() => {
         const { classroomID } = props.location.state
         loadClassInfo(classroomID)
-    })
+    }, [])
 
     function loadClassInfo(param) {
         API.getClass(param)
             .then(resp => {
-                console.log(resp)
-                setCurrentClassObj({ resp })
-                console.log(currentClassObj)
+                console.log(resp.data)
+                const classInfo = resp.data.classInfo
+
+                setCurrentClassObj( classInfo )
+
             })
-            .catch(err => console.log(err))
+            .catch
+            (err => console.log(err))
     }
 
     function handleClass() {
+        console.log(currentClassObj)
     }
 
     return (
@@ -58,7 +62,7 @@ export const Classroom = (props) => {
                         <Card className={classes.root} variant="outlined">
                             <CardContent>
                                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    Most Recent Announcement
+                                    {/* {currentClassObj.classInfo.courseTitle} */}
                                 </Typography>
                                 <Typography variant="h5" component="h2">
                                     where are all the students??
@@ -73,7 +77,7 @@ export const Classroom = (props) => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small">Learn More</Button>
+                                <Button size="small" onClick={handleClass}>Learn More</Button>
                             </CardActions>
                         </Card>
                     </Grid>
