@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm/register.jsx';
 import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
@@ -12,6 +13,21 @@ const Login = () => {
     const [loginForm, setLoginForm] = useState({})
     const [registerForm, setRegisterForm] = useState({})
     const [openDialog, setOpenDialog] = useState(false);
+    const [redirectUser, setRedirectUser] = useState(false);
+
+    // useEffect(() => {
+
+    //     if(userType === 'teacher') {
+    //         console.log('teacher')
+    //        return <Redirect to='/dashboardTeacher'/>
+    //     } else if (userType === 'student') {
+    //         console.log('student')
+    //         return <Redirect to='/dashboardStudent'/> 
+    //     } else {
+    //         console.log(userType)
+    //         console.log('something is weird')
+    //     }
+    // }, [userType])
 
     const handleRegisterOpen = () => {
         setOpenDialog(true);
@@ -38,7 +54,7 @@ const Login = () => {
             API.userRegister(registerForm)
                 .then(resp => {
                     console.log(resp)
-                   setOpenDialog(false) 
+                    setOpenDialog(false)
                 })
                 .catch(err => console.log(err))
         }
@@ -53,15 +69,30 @@ const Login = () => {
                 password: loginForm.password,
             })
                 .then(res => {
+                    const userInfo = res.data.userUpdated
                     console.log(res);
                     //   if (res.data) setShow(true);
-                    const token = res.data.userUpdated.token
+                    localStorage.setItem('token', userInfo.token);
+                    console.log(userInfo.token)
 
-                    localStorage.setItem('token', token);
-                    console.log(token)
+                    if (userInfo.type === 'teacher') {
+                        console.log('teacher')
+                        setRedirectUser('/dashboardTeacher')
+                    } else if (userInfo.type === 'student') {
+                        console.log('student')
+                        setRedirectUser('/dashboardStudent')
+                    } else {
+                        console.log(userInfo.type)
+                        console.log('something is weird')
+                    }
+
                 })
                 .catch(err => console.log(err))
         }
+    }
+
+    if (redirectUser) {
+        return <Redirect to={redirectUser} />
     }
 
     return (
