@@ -98,8 +98,17 @@ module.exports = {
   },
 
   createAnnouncement: function (req,res) {
-     console.log(req.body)
-     console.log(req.params.id)
+    
+    console.log(req.body)
+    console.log(req.params.id)
+ 
+    db.ClassroomModel
+      .findOneAndUpdate({ _id: req.params.id }, { $push: { announcements: req.body }})
+      .then(updatedClass => {
+        console.log(updatedClass)
+        res.json(updatedClass);
+      })
+      .catch(err => console.log(err))
   },
 
   findAnnouncementsByClassId: function (req, res) {
