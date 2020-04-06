@@ -7,8 +7,19 @@ connection with remote database established via robo3T
 - https://socket.io/
 - https://www.npmjs.com/package/passport-http-bearer
 - https://www.npmjs.com/package/bcrypt
+- http://www.npmjs.com/package/morgan
+    -  HTTP request logger middleware for node
 
 ## Security Considerations
+
+### Authentication vs Authorization
+- Authentication
+    - Who are you?
+    - Login with email and password
+
+- Authorization
+    - What are you allowed to do?
+    - Check user rights
 
 ### JSON Web Tokens (JWTs)
 - Access Token Standard
@@ -20,27 +31,6 @@ connection with remote database established via robo3T
     - Signature not authorized if tampering occurs; JWT permissions eliminated in absence of valid signature
 - Always encoded, can be encrypted
 - Open standard (RFC 7519) defining a compact and self-contained method for securely transmitting info between parties as a JSON object
-
-
-### Cookies vs Local Storage -- JWTs on Client Side
-- Local storage vulnerable to cross-site-scripting (XSS) attacks
-    - Attacker can inject malicious javascript into app
-- Cookies vulnerable to cross-site request forgery (CSRF)
-    - Attacker can perform actions via an authenticated user
-    - Similar to how viruses use capsids to infiltrate immune system undetected
-- This React app has a dedicated server so JWTs are stored in an HttpOnly Cookie w/ secure flag enabled 
-    - protects from cross-site scripting (XSS)
-    - such cookies cannot be accessed by JavaScript
-    - Hence, why they're generated on a server
-
-### Authentication vs Authorization
-- Authentication
-    - Who are you?
-    - Login with email and password
-
-- Authorization
-    - What are you allowed to do?
-    - Check user rights
 
 ### Anatomy of a JWT - Three Parts
 - Header
@@ -66,6 +56,17 @@ connection with remote database established via robo3T
     - value 62 -> +
     - value 63 -> /
 
+### Cookies vs Local Storage -- JWTs on Client Side
+- Local storage vulnerable to cross-site-scripting (XSS) attacks
+    - Attacker can inject malicious javascript into app
+- Cookies vulnerable to cross-site request forgery (CSRF)
+    - Attacker can perform actions via an authenticated user
+    - Similar to how viruses use capsids to infiltrate immune system undetected
+- This React app has a dedicated server so JWTs are stored in an HttpOnly Cookie w/ secure flag enabled 
+    - protects from cross-site scripting (XSS)
+    - such cookies cannot be accessed by JavaScript
+    - Hence, why they're generated on a server
+
 ### Password Hashing
 - Bcryptjs was used for password hashing
     - It is implemented when a new user is created
@@ -73,22 +74,7 @@ connection with remote database established via robo3T
     - The unhashed password is never stored in the database
     - all objects performing a response to json have hashed passwords deliberately deleted (collection replicas made via {...xyz._doc})
 
-- JWTs (JSONwebtokens)
-    - JWTs were utilized in this app
-    - it is an open standard (RFC 7519) defning a compact and self-contained method for securely transmitting info between parties as a JSON object
-    -  
-
-## Dependencies (Server-Side)
-
-### jsonwebtoken (jwt)
-- JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object
-
-
-### morgan
--  HTTP request logger middleware for node.js
-
-
-## Generating secrets
+### Generating environmental secrets
 - open terminal in vscode
 - type node, hit enter
     - this opens up node terminal
@@ -97,8 +83,6 @@ connection with remote database established via robo3T
     - this returns a 122 character string in hexadecimal (below)
     - 'ed3797711bd78a72186fae8b8200bca2e9e14bce3eba46a5797b3bb34f6e23ccac398ffc82fc4bf57d4afab2ffb1aa4a3357aede9f27bbb69d1150dd35'
 
-
-###  
 
 Decimal | 8-bit Binary | Hexadecimal
 ------- | ------------ | -----------
