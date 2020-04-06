@@ -19,7 +19,7 @@ const classSeed = [
     courseDescription: 
     'This class while cover your typical Alegebra 1&2 curriculum.  The goal is to get you ready for preCalc courses',
     staffId: '01',
-    students: ['Joe', 'Andy', 'Shirley'],
+    // students: ['Joe', 'Andy', 'Shirley'],
     createDate: 4-2-20
   },
   {
@@ -28,7 +28,7 @@ const classSeed = [
     courseDescription: 
     "This course will cover U.S. history from 1600 (pre United States) up until the 20th century",
     staffId: '01',
-    students: ['Billy', 'Theresa', 'Jebediah'],
+    // students: ['Billy', 'Theresa', 'Jebediah'],
     createDate: 4-2-20
   },
   {
@@ -37,7 +37,7 @@ const classSeed = [
     courseDescription: 
     "This course will go into depth of the magic of phyics in all things mechanical",
     staffId: '01',
-    students: ['Ange', 'Andrew', 'Brieanne'],
+    // students: ['Ange', 'Andrew', 'Brieanne'],
     createDate: 4-2-20
   },
 ];

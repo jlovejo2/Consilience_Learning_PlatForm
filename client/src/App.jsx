@@ -8,7 +8,7 @@ import dashboardTeacher from './pages/dashboardTeacher.jsx';
 import dashboardStudent from './pages/dashboardStudent'
 import Grades from './pages/gradesTeacher.jsx';
 import Login from './pages/login.jsx';
-import Register from './components/RegisterForm/register.jsx';
+import Register from './components/RegisterForm/Register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
 import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
