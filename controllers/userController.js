@@ -31,7 +31,7 @@ router.get("/", authenticateToken, async (req, res) => {
 });
 
 // get user authenticated status
-router.get("/:id", async (req, res, next) => {
+router.get("/authcheck", async (req, res) => {
     try{
       console.log(req.body)
       const { token } = req.body
@@ -40,13 +40,12 @@ router.get("/:id", async (req, res, next) => {
           console.log(dbModel, "this is dbModel")
           const tokenCheck = authenticateToken(token, dbModel.token)
             if (tokenCheck) {
+              console.log(`user has a token and their type is ${dbModel.type}`)
               const collectionClone = { ...dbModel._doc }
               delete collectionClone["password"]
-
-
+              res.json({ collectionClone })
             }
         })
-
     }
     catch (error) {
       if (error) console.log(error, "an error occured with try catch")

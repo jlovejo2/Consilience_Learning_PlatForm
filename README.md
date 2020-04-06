@@ -8,6 +8,76 @@ connection with remote database established via robo3T
 - https://www.npmjs.com/package/passport-http-bearer
 - https://www.npmjs.com/package/bcrypt
 
+## Security Considerations
+
+### JSON Web Tokens (JWTs)
+- Access Token Standard
+- Used for authorization and secure info exchange
+- Base64 encoded
+- Pronounced "JOT"
+- Digitally signed
+    - Content uncompromised
+    - Signature not authorized if tampering occurs; JWT permissions eliminated in absence of valid signature
+- Always encoded, can be encrypted
+- Open standard (RFC 7519) defining a compact and self-contained method for securely transmitting info between parties as a JSON object
+
+
+### Cookies vs Local Storage -- JWTs on Client Side
+- Local storage vulnerable to cross-site-scripting (XSS) attacks
+    - Attacker can inject malicious javascript into app
+- Cookies vulnerable to cross-site request forgery (CSRF)
+    - Attacker can perform actions via an authenticated user
+    - Similar to how viruses use capsids to infiltrate immune system undetected
+- This React app has a dedicated server so JWTs are stored in an HttpOnly Cookie w/ secure flag enabled 
+    - protects from cross-site scripting (XSS)
+    - such cookies cannot be accessed by JavaScript
+    - Hence, why they're generated on a server
+
+### Authentication vs Authorization
+- Authentication
+    - Who are you?
+    - Login with email and password
+
+- Authorization
+    - What are you allowed to do?
+    - Check user rights
+
+### Anatomy of a JWT - Three Parts
+- Header
+    - Specifies type of token and hash algorithm used to create token's content
+- Body
+    - Contains the user identity claims
+    - Information that JWT claiming to be true about user
+    - Commonly includes name and timestamp reflecting JWT issue time 
+- Signature 
+    - Verifies sender 
+    - Ensures content is uncompromised (hasn't been tampered with)
+
+### Base64 Encoded
+- JWT is compact
+- Header, Body, and Signature are each Base64 encoded
+    - Then separated by dots
+    - https://en.wikipedia.org/wiki/Base64
+    - https://www.base64encode.net/
+    - Base64 Index table (values 0-63)
+    - values 0-25 -> uppercase A-Z
+    - values 26-51 -> lowercase a-z
+    - values 52-61 -> numbers 0-9
+    - value 62 -> +
+    - value 63 -> /
+
+### Password Hashing
+- Bcryptjs was used for password hashing
+    - It is implemented when a new user is created
+    - There are 10 rounds of salting
+    - The unhashed password is never stored in the database
+    - all objects performing a response to json have hashed passwords deliberately deleted (collection replicas made via {...xyz._doc})
+
+- JWTs (JSONwebtokens)
+    - JWTs were utilized in this app
+    - it is an open standard (RFC 7519) defning a compact and self-contained method for securely transmitting info between parties as a JSON object
+    -  
+
 ## Dependencies (Server-Side)
 
 ### jsonwebtoken (jwt)
