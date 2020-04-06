@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red, blueGrey } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MailIcon from '@material-ui/icons/Mail';
 import CreateIcon from '@material-ui/icons/Create';

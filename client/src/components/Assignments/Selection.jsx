@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
+import './style.css';
 
 
 const options = ['Class 1', 'Class 2', 'Class 3'];
@@ -40,6 +41,7 @@ export default function Selection() {
   };
 
   return (
+    <React.Fragment>
     <Grid container direction="column" alignItems="center">
       <Grid item xs={12}>
         <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
@@ -85,6 +87,7 @@ export default function Selection() {
         </Popper>
       </Grid>
     </Grid>
+    </React.Fragment>
   );
 }
 

@@ -27,7 +27,7 @@ const MyCard = styled(Card)({
     color: 'white',
     align: 'center',
     borderRadius: '35px',
-    boxShadow: '0px 0px 70px 21px #f4e5e5',
+    boxShadow: '0px 0px 50px 30px #61dbfb',
     alignItems: "stretch",
     height: '100%',
   });
