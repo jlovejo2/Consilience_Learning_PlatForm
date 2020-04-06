@@ -177,7 +177,7 @@ const DashBoardTeacher = (props) => {
                                             subheader={item.courseDiscipline}
                                             paragraph1={item.courseDescription}
                                             image={item.imageBase64Str}
-                                            imageTitle=''
+                                            imageTitle='a'
                                             imageCaption=''
                                             settingsButton={handleMenuClick}
                                             classID={item._id}

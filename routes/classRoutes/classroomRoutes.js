@@ -23,6 +23,13 @@ router.route("/:id")
 router.route("/image/:id")
       .get(classroomController.findImgByClassId)
       .post(upload.single('image'), classroomController.updateClassImage)
-     
+ 
+router.route("/announcement/")
+      
+
+router.route("/announcement/:id")
+      .get(classroomController.findAnnouncementsByClassId)
+      .post(classroomController.createAnnouncement)
+      .put()
 
 module.exports = router;
