@@ -47,7 +47,7 @@ export const Classroom = (props) => {
             .catch
             (err => console.log(err))
     }
-
+// eslint-disable-next-line
     function handleClass() {
         console.log(currentClassObj)
     }

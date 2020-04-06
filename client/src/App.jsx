@@ -13,7 +13,7 @@ import Syllabus from './pages/syllabusTeacher.jsx';
 import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Wrapper from './components/Wrapper/Wrapper.jsx'
-import DashboardStudent from './pages/dashboardStudent';
+
 
 
 
