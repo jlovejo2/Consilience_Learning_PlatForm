@@ -7,7 +7,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -32,6 +31,7 @@ const classes = useStyles();
         startIcon={<CloudUploadIcon />}>
         Submit Assigment
       </Button>
+      
     </div>
     </>
   );
