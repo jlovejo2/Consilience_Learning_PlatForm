@@ -7,7 +7,7 @@ import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
 import '../index.css';
 // eslint-disable-next-line
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
 
 const Login = () => {
 
@@ -72,11 +72,11 @@ const Login = () => {
                 .then(res => {
                     console.log(res.data)
                     const userInfo = res.data.user
-                    console.log(res);
+                    console.log(userInfo);
                     //   if (res.data) setShow(true);
                     // localStorage.setItem('token', userInfo.token);
                     // console.log(userInfo.token)
-
+                    
                     if (userInfo.type === 'teacher') {
                         console.log('teacher')
                         setRedirectUser('/dashboardTeacher')
