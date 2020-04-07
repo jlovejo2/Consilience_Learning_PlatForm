@@ -112,7 +112,7 @@ const Login = () => {
                                         size='s12'
                                         name='email'
                                         label='Email :'
-                                        placeholder='Please enter your email address'
+                                        placeholder='email address'
                                         required='email'
                                         customclass='validate center'
                                         onChange={handleInputChange} />
@@ -120,7 +120,7 @@ const Login = () => {
                                         size='s12'
                                         name='password'
                                         label='Password :'
-                                        placeholder='Please enter your password'
+                                        placeholder='password'
                                         type='password'
                                         required='password'
                                         customclass='validate center'
