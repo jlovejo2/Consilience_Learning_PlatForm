@@ -34,7 +34,7 @@ const MyCard = styled(Card)({
 const DashBoardTeacher = (props) => {
 
     
-    const { userType, setUserType } = useContext(RootContext)
+    const { userType } = useContext(RootContext)
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
@@ -48,7 +48,7 @@ const DashBoardTeacher = (props) => {
 
         loadClasses()
 
-    }, [])
+    }, [userType])
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too

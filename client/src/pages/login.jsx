@@ -11,7 +11,7 @@ import './pageSty;e/login.css'
 
 const Login = () => {
 
-    const { userType, setUserType } = useContext(RootContext)
+    const { userType, setUserType, userID, setUserID } = useContext(RootContext)
     const [loginForm, setLoginForm] = useState({})
     const [registerForm, setRegisterForm] = useState({})
     const [openDialog, setOpenDialog] = useState(false);
@@ -32,12 +32,14 @@ const Login = () => {
 
     function handleRegisterInputChange(event) {
         const { name, value } = event.target
-        setRegisterForm({ ...registerForm, [name]: value })
+        setRegisterForm({ ...registerForm, [name]: value })   
     }
 
     function handleRegisterSubmit(event) {
+        console.log(registerForm);
+        console.log('submitting register');
         event.preventDefault();
-        if (registerForm.email && registerForm.password && registerForm.userType) {
+        if (registerForm.email && registerForm.password && registerForm.type) {
             console.log('Register looks good so far')
             API.userRegister(registerForm)
                 .then(resp => {
@@ -46,6 +48,8 @@ const Login = () => {
                     
                 })
                 .catch(err => console.log(err))
+        } else {
+            console.log('else');
         }
     }
 
@@ -60,7 +64,8 @@ const Login = () => {
                 .then(res => {
                     console.log(res.data)
                     const userInfo = res.data.user
-                    setUserType(userInfo.type);
+                    setUserID(userInfo.ID)
+                    setUserType(userInfo.type)
                     // double commented code out of commission
                     // because server-generated proxy-backed
                     // cookies were preferentially utilized
@@ -68,17 +73,16 @@ const Login = () => {
                     // // localStorage.setItem('token', userInfo.token);
                     // // console.log(userInfo.token)
                     
-                    if (userInfo.type === 'teacher') {
+                    if (userInfo.type === 'Teacher') {
                         console.log('teacher')
                         setRedirectUser('/dashboardTeacher')
-                    } else if (userInfo.type === 'student') {
+                    } else if (userInfo.type === 'Student') {
                         console.log('student')
                         setRedirectUser('/dashboardStudent')
                     } else {
                         console.log(userInfo.type)
                         console.log('something is weird')
                     }
-
                 })
                 .catch(err => console.log(err))
         }
@@ -87,6 +91,7 @@ const Login = () => {
     if (redirectUser) {
 
         console.log(userType);
+        console.log(userID);
        
        return <Redirect to={redirectUser}
         />
@@ -136,7 +141,7 @@ const Login = () => {
             <RegisterForm
                 open={openDialog}
                 close={handleRegisterClose}
-                radioValue={loginForm.userType}
+                radioValue={registerForm.type}
                 handleInput={handleRegisterInputChange}
                 submitRegister={handleRegisterSubmit} />
 
