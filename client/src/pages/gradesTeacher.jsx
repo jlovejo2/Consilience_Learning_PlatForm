@@ -9,6 +9,7 @@ import Dashboard from '../components/Grades/TeacherDashboard'
 // always display a cumulative grade
 // incorporate charts.js npm to model 
 // bell curve distribution 
+// https://www.npmjs.com/chart.js
 
 const Grades = () => {
     return (
