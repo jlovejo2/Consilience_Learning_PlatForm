@@ -12,8 +12,10 @@ import Dashboard from '../components/Grades/TeacherDashboard'
 // https://www.npmjs.com/chart.js
 
 const Grades = () => {
+    
     return (
         <Container fluid>
+            
             <Dashboard/>
         </Container>
     )

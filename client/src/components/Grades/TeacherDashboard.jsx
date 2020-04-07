@@ -12,7 +12,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 // import './style.css';
 
-const options = ['Select a Class','Class title0', 'Class title1', 'Class title2'];
+
+
+const options = ['Select a Class','Class title1', 'Class title1', 'Class title3'];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +36,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TeachDashboard() {
+  const [grades, setgrades] = React.useState({
+   class1: {
+      Sally: [5,6,9],
+    Jimmy: [5,8,9],
+    Patty: [5,6,1],
+    master: [5,10,10]
+  },
+  class2: {
+    Joe: [5,6,9],
+    Jack: [5,8,9],
+    Brie: [5,6,1],
+    master: [5,10,10]
+},
+class3: {
+  Andrew: [5,6,9],
+  Adam: [5,8,9],
+  Yong: [5,6,1],
+  master: [5,10,10]
+}
+  })
+  //const [whichClass, setWhichClass]=useState(1)
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -45,6 +68,7 @@ export default function TeachDashboard() {
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
+
     setOpen(false);
   };
 
@@ -110,11 +134,24 @@ export default function TeachDashboard() {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-                <h6>ajskelrjewklrjkwer</h6>
+                <h6> 
+                  {Object.keys(grades["class1"]).map(key =>{
+                let student = key
+                let thesegrades= grades[`class1`][key].map(grade=>{return(
+                  <span>{grade}</span>
+                )})
+                return (
+                  <span>
+                  <span>{student}</span>
+                  {thesegrades}
+                  </span>
+                  )
+                  })}
+                  </h6>
           </Paper>
         </Grid>
-      </Grid>  
+      </Grid>       
     </div>
-    
+      
   );
 }
