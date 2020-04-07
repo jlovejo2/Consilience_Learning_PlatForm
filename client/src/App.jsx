@@ -23,10 +23,11 @@ export const ConfigContext = React.createContext();
 const App = (props) => {
 
     const [userType, setUserType ] = useState('')
+    const [userID, setUserID ] = useState('')
 
     return (
         <BrowserRouter>
-            <RootContext.Provider value={{ userType, setUserType }}>
+            <RootContext.Provider value={{ userType, setUserType, userID, setUserID }}>
                 <Navbar />
                 <Wrapper>
                     <React.Fragment>

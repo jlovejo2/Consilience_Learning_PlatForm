@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import API from '../utils/API';
-// import ClassroomContext from '../utils/classroomContext'
+import RootContext from '../utils/RootContext';
 
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
@@ -8,19 +8,15 @@ import Announcement from '../components/AnnouncementForm/Announcement';
 import CommentButton from '../components/Comments/CommentButton';
 
 import { makeStyles } from '@material-ui/core/styles';
-// import { black } from '@material-ui/core/colors';
 import { Card, CardActions, CardContent } from '@material-ui/core';
-// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
-// import TextField from '@material-ui/core/TextField';
 
 import AddIcon from '@material-ui/icons/Add';
-// import CommentIcon from '@material-ui/icons/Comment';
 
 
 const useStyles = makeStyles({
@@ -49,6 +45,7 @@ const useStyles = makeStyles({
 export const Classroom = (props) => {
 
     const classes = useStyles();
+    const { userType, userID } = useContext(RootContext)
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
@@ -57,8 +54,10 @@ export const Classroom = (props) => {
     useEffect(() => {
         const { classroomID } = props.location.state
         loadClassInfo(classroomID)
+        console.log(userType);
+        console.log(userID);
         // loadAnnouncements(classroomID);
-    }, [props.location.state])
+    }, [props.location.state, userType, userID])
 
     function loadClassInfo(param) {
         API.getClass(param)

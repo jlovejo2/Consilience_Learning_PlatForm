@@ -2,7 +2,9 @@ import React from "react";
 
 const RootContext = React.createContext({
   userType: '',
-  setUserType: () => {}
+  setUserType: () => {},
+  userID: '',
+  setUserID: () => {}
 });
 
 export default RootContext;

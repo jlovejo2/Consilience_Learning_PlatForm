@@ -119,6 +119,8 @@ module.exports = {
   createComment: function (req, res) {
     console.log(req.params)
     console.log(req.body)
+    // db.ClassroomModel
+    //   .findOneAndUpdate({_id: req.params.announcementId}, { $push: { comments: }})
   }
 
 };
