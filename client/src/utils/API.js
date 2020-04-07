@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 export default {
+    users: function () {
+        return axios.get("/users")
+    },
     // user login
     userLogin: function (userObj) {
         return axios.post("/users/login", userObj);

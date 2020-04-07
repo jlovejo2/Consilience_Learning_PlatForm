@@ -19,6 +19,7 @@ import RootContext from './utils/RootContext';
 // creating ConfigContext for user authenticated vs not authenticated UI
 export const ConfigContext = React.createContext();
 
+
 const App = (props) => {
 
     const [userType, setUserType ] = useState('')

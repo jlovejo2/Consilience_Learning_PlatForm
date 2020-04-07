@@ -5,10 +5,8 @@ import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
 import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
-import '../index.css';
-// eslint-disable-next-line
-import Modal from '@material-ui/core/Modal';
 import RootContext from '../utils/RootContext';
+import '../index.css';
 
 const Login = () => {
 
@@ -65,7 +63,7 @@ const Login = () => {
                     //   if (res.data) setShow(true);
                     // localStorage.setItem('token', userInfo.token);
                     // console.log(userInfo.token)
-
+                    
                     if (userInfo.type === 'teacher') {
                         console.log('teacher')
                         setRedirectUser('/dashboardTeacher')
