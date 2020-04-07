@@ -54,11 +54,12 @@ svg {
 .teachertext {
     display:inline-block;
     overflow:hidden;
-    white-space:nowrap;
-    margin-top: -20rem;
+    height: auto;
     font-weight: bolder;
     color: #61dbfb;
     font-size: large;
+    max-width: -webkit-fill-available;
+  
 }
   
   .teachertext:first-of-type {    /* For increasing performance 
