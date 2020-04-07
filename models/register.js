@@ -68,11 +68,11 @@ const RegisterSchema = new Schema(
                 minlength: 8,
                 maxlength: 64
             },
-            // tokens: [{
-                token: {
-                    type: Array,
-                    // required: true
-                },
+            // // tokens: [{
+            //     token: {
+            //         type: Array,
+            //         // required: true
+            //     },
             // }],
             createDate: {
                 type: Date,
