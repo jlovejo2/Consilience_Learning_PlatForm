@@ -155,7 +155,7 @@ const DashBoardTeacher = (props) => {
             <Grid align='center'>
                 <svg viewBox="0 0 1700 290">
                     <symbol id="s-text">
-                        <text text-anchor="middle" x="50%" y="40%">Classroom Dashboard</text>
+                        <text textAnchor="middle" x="50%" y="40%">Classroom Dashboard</text>
                     </symbol>
 
                     <g className="g-ants">
