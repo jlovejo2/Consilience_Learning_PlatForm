@@ -153,7 +153,7 @@ router.post("/login", (req, res) => {
         const accessToken = generateAccessToken(user);
         res.cookie("authorization", accessToken, {
           expires: new Date(Date.now() + "1440m"),
-          secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
+          secure: false, // using https set book to true **IMPORTANT FOR PRODUCTION
           httpOnly: true,
           sameSite: true
         });
