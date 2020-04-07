@@ -10,7 +10,7 @@ import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-// import './style.css';
+import TextField from '@material-ui/core/TextField';
 
 const options = ['Select a Class','Class title0', 'Class title1', 'Class title2'];
 
@@ -21,15 +21,13 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    // marginTop: '4rem',
-    // marginBottom: '5rem',
-    // marginLeft: 'auto',
-    // marginRight: 'auto',
-    // paddingRight: 'auto',
-    // paddingLeft: 'auto',
-    // borderRadius: '20px',
     color: theme.palette.text.secondary,
-    // background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
+  },
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+ 
+    },
   },
 }));
 
@@ -66,51 +64,64 @@ export default function TeachDashboard() {
           <Paper className={classes.paper}>
                 <h3>Select a class to add an assignment:</h3>
                 <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-          <Button onClick={handleClick}>{options[selectedIndex]}</Button>
-          <Button
-            color="primary"
-            size="small"
-            aria-controls={open ? 'split-button-menu' : undefined}
-            aria-expanded={open ? 'true' : undefined}
-            aria-label="select merge strategy"
-            aria-haspopup="menu"
-            onClick={handleToggle}
-          >
-            <ArrowDropDownIcon />
-          </Button>
-        </ButtonGroup>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList id="split-button-menu">
-                    {options.map((option, index) => (
-                      <MenuItem
-                        key={option}
-                        disabled={index === 2}
-                        selected={index === selectedIndex}
-                        onClick={(event) => handleMenuItemClick(event, index)}
-                      >
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
+                  <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+                  <Button
+                    color="primary"
+                    size="small"
+                    aria-controls={open ? 'split-button-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    aria-label="select merge strategy"
+                    aria-haspopup="menu"
+                    onClick={handleToggle}
+                  >
+                    <ArrowDropDownIcon />
+                  </Button>
+                </ButtonGroup>
+                <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+                      }}
+                    >
+                      <Paper>
+                        <ClickAwayListener onClickAway={handleClose}>
+                          <MenuList id="split-button-menu">
+                            {options.map((option, index) => (
+                              <MenuItem
+                                key={option}
+                                disabled={index === 2}
+                                selected={index === selectedIndex}
+                                onClick={(event) => handleMenuItemClick(event, index)}
+                              >
+                                {option}
+                              </MenuItem>
+                            ))}
+                          </MenuList>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-                <h6>ajskelrjewklrjkwer</h6>
+            <form className={classes.root} noValidate autoComplete="off">
+              <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+              <TextField
+                id="outlined-multiline-static"
+                label="Multiline"
+                multiline
+                rows="4"
+                defaultValue="Default Value"
+                variant="outlined"
+              />
+            </form>
+            <Button variant="contained" color="primary">
+              SUBMIT
+            </Button>
           </Paper>
         </Grid>
       </Grid>  

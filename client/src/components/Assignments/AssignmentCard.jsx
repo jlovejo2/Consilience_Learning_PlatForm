@@ -1,12 +1,11 @@
 import React from 'react';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import FormGroup from '@material-ui/core/FormGroup';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormControl from '@material-ui/core/FormControl';
-// import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -14,8 +13,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function FormControlLabelPosition() {
+export default function AssigmentCard() {
 const classes = useStyles();
+
   return (
     <>
     <h7>[Class title]</h7>
@@ -31,7 +31,10 @@ const classes = useStyles();
         startIcon={<CloudUploadIcon />}>
         Submit Assigment
       </Button>
-      
+      <FormControlLabel
+        control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
+        label="Mark as important"
+      />
     </div>
     </>
   );
