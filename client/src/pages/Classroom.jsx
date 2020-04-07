@@ -5,19 +5,22 @@ import API from '../utils/API';
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
 import Announcement from '../components/AnnouncementForm/Announcement';
+import CommentButton from '../components/Comments/CommentButton';
 
 import { makeStyles } from '@material-ui/core/styles';
-// import { red, blueGrey } from '@material-ui/core/colors';
+// import { black } from '@material-ui/core/colors';
 import { Card, CardActions, CardContent } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
+// import TextField from '@material-ui/core/TextField';
 
 import AddIcon from '@material-ui/icons/Add';
+// import CommentIcon from '@material-ui/icons/Comment';
 
 
 const useStyles = makeStyles({
@@ -27,16 +30,21 @@ const useStyles = makeStyles({
         justifyContent: 'center'
     },
     announcementTitle: {
-        // backgroundColor: 'red'
+        color: 'black',
+        // fontSize: 20
     },
     title: {
         fontSize: 14,
     },
     pos: {
-        marginBottom: 12,
+        // marginBottom: 12,
     },
+    center: {
+        alignItems: 'center',
+        // margin: 'auto'
+        justifyContent: 'center'
+    }
 });
-
 
 export const Classroom = (props) => {
 
@@ -44,11 +52,12 @@ export const Classroom = (props) => {
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
+    const [commentObj, setCommentObj] = useState([])
 
     useEffect(() => {
         const { classroomID } = props.location.state
         loadClassInfo(classroomID)
-        loadAnnouncements();
+        // loadAnnouncements(classroomID);
     }, [props.location.state])
 
     function loadClassInfo(param) {
@@ -63,10 +72,6 @@ export const Classroom = (props) => {
             (err => console.log(err))
     }
 
-    function loadAnnouncements() {
-
-    }
-
     const handleDialogOpen = () => {
         setOpenDialog(true);
     };
@@ -79,7 +84,7 @@ export const Classroom = (props) => {
         const { name, value } = event.target
         setAnnouncementObj({ ...announcementObj, [name]: value })
     }
-    
+
     function handleDialogSubmit(event) {
         event.preventDefault();
         if (announcementObj.title && announcementObj.body) {
@@ -93,8 +98,24 @@ export const Classroom = (props) => {
         }
     }
 
-    function handleClass() {
-        console.log(currentClassObj)
+    function handleAddComment(event, announcementIndex) {
+        // console.log(event.keyCode);
+        // console.log(event.target);
+        // console.log(announcementIndex)
+        // console.log(currentClassObj)
+        if(event.keyCode === 13) {
+            console.log('submitted on enter');
+            API.createCommemt(currentClassObj._id, currentClassObj.announcements[announcementIndex]._id, event.target.value)
+            .then(resp => {
+                console.log(resp)
+            })
+            .catch(err => console.log(err))
+        }
+    }
+
+    function handleCommentChange(event) {
+        const { name, value } = event.target
+        setAnnouncementObj({ ...commentObj, [name]: value })
     }
 
     return (
@@ -108,11 +129,11 @@ export const Classroom = (props) => {
                                 <Paper elevation={2}>
                                     <Card>
                                         <CardContent>
-                                            <Typography className={classes.announcementTitle} variant='h4' align='center'>
+                                            <Typography className={classes.announcementTitle} variant='h3' align='center'>
                                                 ANNOUNCEMENTS BOARD &nbsp; &nbsp;
                                                 <Tooltip title="Add an announcement" aria-label="add">
                                                     <Fab size="small" color="primary" aria-label="add">
-                                                        <AddIcon onClick={handleDialogOpen}/>
+                                                        <AddIcon onClick={handleDialogOpen} />
                                                     </Fab>
                                                 </Tooltip>
                                             </Typography>
@@ -120,62 +141,71 @@ export const Classroom = (props) => {
                                     </Card>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Paper elevation={15}>
-                                    <Card className={classes.root} variant="outlined">
-                                        {/* ---------------------------------------------------------------------- */}
-                                        {/* ___________ This is the beginning of the announcment renderings_______ */}
-                                        {/* ------------------------------------------------------------------------- */}
-                                        {
-                                            announcementObj.length > 0 ? announcementObj.map((announcement, index) => {
-                                                return (
-                                                    <>
+                            {/* ---------------------------------------------------------------------- */}
+                            {/* ___________ This is the beginning of the announcment renderings_______ */}
+                            {/* ------------------------------------------------------------------------- */}
+                            {
+                                currentClassObj.announcements ? currentClassObj.announcements.map((announcement, index) => {
+                                    return (
+                                        <>
+                                            <Grid item xs={12}>
+                                                <Paper elevation={15}>
+                                                    <Card className={classes.root} variant="outlined">
                                                         <CardContent key={index}>
                                                             <Typography className={classes.title} color="textSecondary" gutterBottom>
                                                                 {/* {currentClassObj.courseTitle} */}
                                                             </Typography>
                                                             <Typography variant="h5" component="h2">
-                                                                where are all the students??
+                                                                {announcement.title}
                                                             </Typography>
                                                             <Typography className={classes.pos} color="textSecondary">
                                                                 well shit ...
                                                             </Typography>
                                                             <Typography variant="body2" component="p">
-                                                                well meaning and kindly.
-                                                        <br />
-                                                                {'"a benevolent smile"'}
+                                                                {announcement.body}
                                                             </Typography>
                                                         </CardContent>
                                                         <CardActions>
-                                                            <Button size="small" onClick={handleClass}>Learn More</Button>
+                                                            <Grid container className={classes.center}>
+                                                                <CommentButton inputComment={handleCommentChange}
+                                                                 submitComment={(event) => { handleAddComment(event, index) }}/> 
+                                                            </Grid>
                                                         </CardActions>
-                                                    </>
-                                                )
-                                            }) :
+                                                    </Card>
+                                                </Paper>
+                                            </Grid>
+                                        </>
+                                    )
+                                }) :
+                                    <Grid item xs={12}>
+                                        <Paper elevation={15}>
+                                            <Card className={classes.root} variant="outlined">
                                                 <CardContent>
                                                     <Typography variant="h5" component="h2">
                                                         No announcements at this time
                                                     </Typography>
                                                 </CardContent>
-
-                                        }
-                                        {/* ------------------------------------------------------------------------- */}
-                                        {/* ___________ This is the end of the announcment renderings________________ */}
-                                        {/* ------------------------------------------------------------------------- */}
-                                    </Card>
-                                </Paper>
-                            </Grid>
+                                            </Card>
+                                        </Paper>
+                                    </Grid>
+                            }
+                            {/* ------------------------------------------------------------------------- */}
+                            {/* ___________ This is the end of the announcment renderings________________ */}
+                            {/* ------------------------------------------------------------------------- */}
                         </Grid>
                     </Box>
                 </Paper>
             </Container>
+            {/* ---------------------------------------------------------------------------------------- */}
+            {/* _____________The below component renders the dialog to add an announcement______________ */}
+            {/* ----------------------------------------------------------------------------------------- */}
             <Announcement
-             open={openDialog}
-             close={handleDialogClose}
-             handleInput={handleDialogInputChange}
-             submitDialog={handleDialogSubmit}
+                open={openDialog}
+                close={handleDialogClose}
+                handleInput={handleDialogInputChange}
+                submitDialog={handleDialogSubmit}
             />
-        </div>
+        </div >
     );
 }
 

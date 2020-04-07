@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import ClassroomContext from '../utils/classroomContext';
+import React, { useState, useEffect, useContext } from 'react';
+import RootContext from '../utils/RootContext';
 import API from '../utils/API';
 import custFunc from '../utils/customFunctions';
 
@@ -29,10 +29,12 @@ const MyCard = styled(Card)({
     boxShadow: '0px 0px 50px 30px #61dbfb',
     alignItems: "stretch",
     height: '100%',
-  });
-  
+});
+
 const DashBoardTeacher = (props) => {
+
     
+    const { userType, setUserType } = useContext(RootContext)
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
@@ -41,14 +43,17 @@ const DashBoardTeacher = (props) => {
     const [currentClass, setCurrentClass] = useState('');
 
     useEffect(() => {
-        // eslint-disable-next-line
+
+            console.log(userType);
+
         loadClasses()
-        // eslint-disable-next-line
-    }, [newClassFormObj])
+
+    }, [])
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too
     function loadClasses() {
+        console.log(userType)
         API.getClasses()
             .then(resp => {
                 console.log(resp.data)
@@ -83,6 +88,7 @@ const DashBoardTeacher = (props) => {
     }
 
     function handleMenuClick(event) {
+        console.log(userType);
         setMenuAnchor(event.currentTarget);
         setCurrentClass(event.currentTarget.dataset.classid)
     }
@@ -147,84 +153,84 @@ const DashBoardTeacher = (props) => {
     return (
         <Container fluid>
             <Grid align='center'>
-            <svg viewBox="0 0 1700 290">
-	<symbol id="s-text">
-		<text text-anchor="middle" x="50%" y="30%">Classroom Dashboard</text>
-	</symbol>
+                <svg viewBox="0 0 1700 290">
+                    <symbol id="s-text">
+                        <text textAnchor="middle" x="50%" y="40%">Classroom Dashboard</text>
+                    </symbol>
 
-	<g className="g-ants">
-		<use xlinkHref="#s-text" className="text-copy"></use>
-		<use xlinkHref="#s-text" className="text-copy"></use>
-		<use xlinkHref="#s-text" className="text-copy"></use>
-		<use xlinkHref="#s-text" className="text-copy"></use>
-		<use xlinkHref="#s-text" className="text-copy"></use>
-	</g>
-</svg>
-        <p className='teachertext'>Click 
+                    <g className="g-ants">
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                    </g>
+                </svg>
+                <p className='teachertext'>Click
         <span> the "+" button to create a course</span>
-        </p>
-        <br/>
+                </p>
+                <br />
                 <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />
                 </Fab>
             </Grid>
             <MyCard>
-                 <Grid 
-                container
-                spacing={5}
-                align='center'
-                
-            >
-                    <ClassroomContext.Provider value={{ currentClass }}>
-                        {
-                            classesArr.length > 0 ? classesArr.map((item, index) => {
-                                return (
-                                    <Grid
+                <Grid
+                    container
+                    spacing={5}
+                    align='center'
+
+                >
+                    {/* <ClassroomContext.Provider value={{ currentClass }}> */}
+                    {
+                        classesArr.length > 0 ? classesArr.map((item, index) => {
+                            return (
+                                <Grid
+                                    key={index}
+                                    item
+                                    md={4}
+                                    align="center"
+
+                                >
+                                    <ClassCard
                                         key={index}
-                                        item
-                                        md={4}
-                                        align="center"
-                                        
+                                        title={item.courseTitle}
+                                        subheader={item.courseDiscipline}
+                                        paragraph1={item.courseDescription}
+                                        image={item.imageBase64Str}
+                                        imageTitle='a'
+                                        imageCaption=''
+                                        settingsButton={handleMenuClick}
+                                        classID={item._id}
                                     >
-                                        <ClassCard
-                                            key={index}
-                                            title={item.courseTitle}
-                                            subheader={item.courseDiscipline}
-                                            paragraph1={item.courseDescription}
-                                            image={item.imageBase64Str}
-                                            imageTitle='a'
-                                            imageCaption=''
-                                            settingsButton={handleMenuClick}
-                                            classID={item._id}
-                                        >
-                                        </ClassCard>
-                                    </Grid>
-                                )
-                            })
-                                : <p>No classes Found</p>
-                        }
-                    </ClassroomContext.Provider>
+                                    </ClassCard>
+                                </Grid>
+                            )
+                        })
+                            : <p>No classes Found</p>
+                    }
+                    {/* </ClassroomContext.Provider> */}
                 </Grid>
                 {/* --------------------------------------------------------------------- */}
-            {/*______________ Below this line is menu for class cards________________ */}
-            {/* ----------------------------------------------------------------------*/}
-            <Menu
-                id="simple-menu"
-                anchorEl={menuAnchor}
-                keepMounted
-                open={Boolean(menuAnchor)}
-                onClose={handleMenuClose}
-            >
-                <MenuItem>
-                    <label>
-                        Add Image to Class: &nbsp;
+                {/*______________ Below this line is menu for class cards________________ */}
+                {/* ----------------------------------------------------------------------*/}
+                <Menu
+                    id="simple-menu"
+                    anchorEl={menuAnchor}
+                    keepMounted
+                    open={Boolean(menuAnchor)}
+                    onClose={handleMenuClose}
+                >
+                    <MenuItem>
+                        <label>
+                            Add Image to Class: &nbsp;
                         <input type='file' onChange={fileSelectHandler} />
-                    </label>
-                    <button onClick={updateClassImage}>UPLOAD</button>
-                </MenuItem>
-                <MenuItem onClick={handleChangeTitle}>Change Title</MenuItem>
-                <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
-            </Menu>
+                        </label>
+                        <button onClick={updateClassImage}>UPLOAD</button>
+                    </MenuItem>
+                    <MenuItem onClick={handleChangeTitle}>Change Title</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
+                </Menu>
             </MyCard>
             {/* --------------------------------------------------------------------------------------------- */}
             {/*<________________________ Below This Line is Dialog Form for adding class __________________>  */}

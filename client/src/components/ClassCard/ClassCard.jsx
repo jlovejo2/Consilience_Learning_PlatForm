@@ -58,12 +58,12 @@ export default function ClassCard(props) {
   return (
     <Card className={classes.root} value={props.classID} >
 
-    <CardHeader data-classID={props.classID}
+    <CardHeader data-classid={props.classID}
         avatar={
           <Avatar alt="Teacher Image" src={props.teacherAvatar} />
         }
         action={
-          <IconButton aria-label="settings" aria-controls='simple-menu' onClick={props.settingsButton} data-classID={props.classID} >
+          <IconButton aria-label="settings" aria-controls='simple-menu' onClick={props.settingsButton} data-classid={props.classID} >
             <MoreVertIcon />
           </IconButton>
         }
@@ -72,11 +72,12 @@ export default function ClassCard(props) {
       />
       {/*------------------------ This is the end of CardHeader ---------------------------*/}
       {/*----------------------- This is the beginning of Card Image and Caption Location------------- */}
-      <CardMedia
+      { props.image ? <CardMedia
         className={classes.media}
         image={props.image}
         title={props.imageTitle}
-      />
+        src=''
+      /> : '' }
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.imageCaption}
