@@ -91,7 +91,7 @@ const Navbar = () => {
                 window.location.pathname === "/syllabus" ? "active" : ""
               }
             >
-              <Link to="/syllabus">Syllabus</Link>
+              <Link to="/syllabus">Syllabi</Link>
             </li>
           </ul>
         </nav>

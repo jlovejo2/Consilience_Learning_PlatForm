@@ -138,16 +138,6 @@ router.post("/register", async (req, res) => {
     .catch(error => console.log("this is a register error", error));
 });
 
-// router.post("/refresh", (req, res, next) => {
-//   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1440m" })
-// })
-// https://gist.github.com/ziluvatar/a3feb505c4c0ec37059054537b38fc48
-// function endpoint (user, cookie, res) {
-//         let refreshTokens = []
-//         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-//         refreshTokens.push(refreshToken)
-// }
-
 // user login
 router.post("/login", (req, res) => {
   // /users/login
@@ -237,6 +227,16 @@ async function pwCheck(password, hash) {
 }
 
 module.exports = router;
+
+// router.post("/refresh", (req, res, next) => {
+//   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1440m" })
+// })
+// https://gist.github.com/ziluvatar/a3feb505c4c0ec37059054537b38fc48
+// function endpoint (user, cookie, res) {
+//         let refreshTokens = []
+//         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+//         refreshTokens.push(refreshToken)
+// }
 
 // COOKIES!!!!!
 // function generateAccessToken (user, res) {

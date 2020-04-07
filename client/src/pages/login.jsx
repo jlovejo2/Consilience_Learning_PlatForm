@@ -60,9 +60,12 @@ const Login = () => {
                     console.log(res.data)
                     const userInfo = res.data.user
                     setUserType(userInfo.type);
-                    //   if (res.data) setShow(true);
-                    // localStorage.setItem('token', userInfo.token);
-                    // console.log(userInfo.token)
+                    // double commented code out of commission
+                    // because server-generated proxy-backed
+                    // cookies were preferentially utilized
+                    // //   if (res.data) setShow(true);
+                    // // localStorage.setItem('token', userInfo.token);
+                    // // console.log(userInfo.token)
                     
                     if (userInfo.type === 'teacher') {
                         console.log('teacher')

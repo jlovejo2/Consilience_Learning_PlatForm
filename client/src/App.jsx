@@ -26,29 +26,29 @@ const App = (props) => {
 
     return (
         <BrowserRouter>
-        <RootContext.Provider value={{ userType, setUserType }}>
-            <Navbar />
-            <Wrapper>
-                <React.Fragment>
-                    <Route exact path="/activities" component={Activities} />
-                    <Route exact path="/assignments" component={Assignments} />
-                    <Route exact path="/dashboardTeacher" component={dashboardTeacher} />
-                    <Route exact path="/dashboardStudent" component={dashboardStudent} />
-                    <Route exact path="/grades" component={Grades} />
-                    {/* <Route exact path="/register" component={Register} /> */}
-                    <Route exact path="/syllabus" component={Syllabus} />
-                    <Route exact path="/classrooms" component={Classroom} />
-                    <Route exact path="/" component={Home} />
-                    <Route path="/login">
-                        <Login/>
-                    </Route>
-                </React.Fragment>
-            </Wrapper>
-            <Footer />
+            <RootContext.Provider value={{ userType, setUserType }}>
+                <Navbar />
+                <Wrapper>
+                    <React.Fragment>
+                        <Route exact path="/activities" component={Activities} />
+                        <Route exact path="/assignments" component={Assignments} />
+                        <Route exact path="/dashboardTeacher" component={dashboardTeacher} />
+                        <Route exact path="/dashboardStudent" component={dashboardStudent} />
+                        <Route exact path="/grades" component={Grades} />
+                        {/* <Route exact path="/register" component={Register} /> */}
+                        <Route exact path="/syllabus" component={Syllabus} />
+                        <Route exact path="/classrooms" component={Classroom} />
+                        <Route exact path="/" component={Home} />
+                        <Route path="/login">
+                            <Login/>
+                        </Route>
+                    </React.Fragment>
+                </Wrapper>
+                <Footer />
             </RootContext.Provider>
         </BrowserRouter>
     )
-}
+};
 
 
 export default App;

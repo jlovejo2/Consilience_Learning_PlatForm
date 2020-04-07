@@ -1,4 +1,4 @@
-// backward compatibility
+// backward compatibile
 import 'react-app-polyfill/stable'
 import 'react-app-polyfill/ie9'
 import 'react-app-polyfill/ie11'
@@ -7,13 +7,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import AppStudent from './AppStudent.jsx'
 
 
 ReactDOM.render(
     <React.StrictMode>
       <App />
-      {/* <AppStudent /> */}
     </React.StrictMode>,
     document.getElementById('root')
   );
