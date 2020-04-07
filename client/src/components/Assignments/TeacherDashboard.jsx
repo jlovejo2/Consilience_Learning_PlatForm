@@ -12,7 +12,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import TextField from '@material-ui/core/TextField';
 
-
 const options = ['Select a class', 'Class title1', 'Class title2', 'Class title 3'];
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +59,7 @@ export default function TeachDashboard() {
 };
   return (
     <div className= {classes.root}>
+
       <Grid container
       spacing={3}
       direction="row"
