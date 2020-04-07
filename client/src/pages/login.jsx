@@ -7,6 +7,7 @@ import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
 import RootContext from '../utils/RootContext';
 import '../index.css';
+import './pageSty;e/login.css'
 
 const Login = () => {
 
@@ -109,18 +110,18 @@ const Login = () => {
                             <Form size={'col s12'}>
                                 <div className='row'>
                                     <Input
+                                        className="inputLogin"
                                         size='s12'
                                         name='email'
                                         label='Email :'
-                                        placeholder='email address'
                                         required='email'
                                         customclass='validate center'
                                         onChange={handleInputChange} />
                                     <Input
+                                        className="inputLogin"
                                         size='s12'
                                         name='password'
                                         label='Password :'
-                                        placeholder='password'
                                         type='password'
                                         required='password'
                                         customclass='validate center'
