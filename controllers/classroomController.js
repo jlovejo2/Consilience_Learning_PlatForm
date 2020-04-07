@@ -31,7 +31,7 @@ module.exports = {
       courseTitle: req.body.title,
       courseDiscipline: req.body.discipline,
       courseDescription: req.body.description,
-      ID: req.body.userID
+      teacherID: req.body.userID
     }
 
     db.ClassroomModel

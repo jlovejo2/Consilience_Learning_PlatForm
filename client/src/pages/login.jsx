@@ -64,7 +64,7 @@ const Login = () => {
                 .then(res => {
                     console.log(res.data)
                     const userInfo = res.data.user
-                    setUserID(userInfo.ID)
+                    setUserID(userInfo._id)
                     setUserType(userInfo.type)
                     // double commented code out of commission
                     // because server-generated proxy-backed
