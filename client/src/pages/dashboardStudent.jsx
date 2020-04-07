@@ -149,7 +149,7 @@ const DashboardStudent = (props) => {
                 {/* <p className='' style={{ color: "#ffff" }}>Welcome to the classroom dashboard.</p> */}
                 <svg viewBox="0 0 1700 290">
 	<symbol id="s-text">
-		<text text-anchor="middle" x="50%" y="40%">Classroom Dashboard</text>
+		<text text-anchor="middle" x="50%" y="30%">Classroom Dashboard</text>
 	</symbol>
 
 	<g className="g-ants">

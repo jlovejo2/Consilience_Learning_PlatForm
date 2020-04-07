@@ -6,4 +6,6 @@ footer {
     width: 100%;
     padding-top: 1px;
     opacity: 1 !important;
+    background: linear-gradient(315deg, rgba(66,66,66,1) 0%, rgba(97,219,251,0.7450689748555672) 59%);
+
 }
