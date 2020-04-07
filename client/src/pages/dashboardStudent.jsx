@@ -145,7 +145,7 @@ const DashboardStudent = (props) => {
 
     return (
         <Container fluid>
-            <Grid>
+            <Grid align='center'>
                 {/* <p className='' style={{ color: "#ffff" }}>Welcome to the classroom dashboard.</p> */}
                 <svg viewBox="0 0 1700 290">
 	<symbol id="s-text">
@@ -164,7 +164,7 @@ const DashboardStudent = (props) => {
                 {/* <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />
                 </Fab> */}
-            </Grid>
+            </Grid >
             <MyCard>
                  <Grid 
                 container
