@@ -5,20 +5,22 @@ import API from '../utils/API';
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
 import Announcement from '../components/AnnouncementForm/Announcement';
+import CommentButton from '../components/Comments/CommentButton';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { black } from '@material-ui/core/colors';
+// import { black } from '@material-ui/core/colors';
 import { Card, CardActions, CardContent } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
+// import TextField from '@material-ui/core/TextField';
 
 import AddIcon from '@material-ui/icons/Add';
-import CommentIcon from '@material-ui/icons/Comment';
+// import CommentIcon from '@material-ui/icons/Comment';
 
 
 const useStyles = makeStyles({
@@ -37,6 +39,11 @@ const useStyles = makeStyles({
     pos: {
         // marginBottom: 12,
     },
+    center: {
+        alignItems: 'center',
+        // margin: 'auto'
+        justifyContent: 'center'
+    }
 });
 
 
@@ -46,6 +53,7 @@ export const Classroom = (props) => {
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
+    const [announcementComments, setAnnouncementComments] = useState([])
 
     useEffect(() => {
         const { classroomID } = props.location.state
@@ -100,8 +108,16 @@ export const Classroom = (props) => {
         }
     }
 
-    function handleClass() {
-        console.log(currentClassObj)
+    // function handleComment(param) {
+
+    //     // const param = useRef(false)
+    //     // const { name, value } = event.target
+    //     // setAnnouncementComments({ ...announcementComments, [name]: value })
+    //     // console.log(announcementComments)
+    // }
+
+    function handleCommentTextField() {
+
     }
 
     return (
@@ -152,9 +168,9 @@ export const Classroom = (props) => {
                                                             </Typography>
                                                         </CardContent>
                                                         <CardActions>
-                                                            <Fab size="small" color="primary" aria-label="add">
-                                                                <CommentIcon onClick={handleClass} />
-                                                            </Fab>
+                                                            <Grid container className={classes.center}>
+                                                               <CommentButton/>
+                                                            </Grid>
                                                         </CardActions>
                                                     </>
                                                 )
