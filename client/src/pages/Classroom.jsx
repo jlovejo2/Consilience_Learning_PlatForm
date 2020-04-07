@@ -46,13 +46,13 @@ const useStyles = makeStyles({
     }
 });
 
-
 export const Classroom = (props) => {
 
     const classes = useStyles();
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
+    const [commentObj, setCommentObj] = useState([])
 
     useEffect(() => {
         const { classroomID } = props.location.state
@@ -98,10 +98,24 @@ export const Classroom = (props) => {
         }
     }
 
-    function handleAddComment(event) {
-        if(event.keycode == 13) {
-            console.log('submitted')
+    function handleAddComment(event, announcementIndex) {
+        // console.log(event.keyCode);
+        // console.log(event.target);
+        // console.log(announcementIndex)
+        // console.log(currentClassObj)
+        if(event.keyCode === 13) {
+            console.log('submitted on enter');
+            API.createCommemt(currentClassObj._id, currentClassObj.announcements[announcementIndex]._id, event.target.value)
+            .then(resp => {
+                console.log(resp)
+            })
+            .catch(err => console.log(err))
         }
+    }
+
+    function handleCommentChange(event) {
+        const { name, value } = event.target
+        setAnnouncementObj({ ...commentObj, [name]: value })
     }
 
     return (
@@ -127,7 +141,6 @@ export const Classroom = (props) => {
                                     </Card>
                                 </Paper>
                             </Grid>
-
                             {/* ---------------------------------------------------------------------- */}
                             {/* ___________ This is the beginning of the announcment renderings_______ */}
                             {/* ------------------------------------------------------------------------- */}
@@ -154,8 +167,8 @@ export const Classroom = (props) => {
                                                         </CardContent>
                                                         <CardActions>
                                                             <Grid container className={classes.center}>
-                                                                <CommentButton 
-                                                                 submitComment={handleAddComment}/>
+                                                                <CommentButton inputComment={handleCommentChange}
+                                                                 submitComment={(event) => { handleAddComment(event, index) }}/> 
                                                             </Grid>
                                                         </CardActions>
                                                     </Card>

@@ -97,7 +97,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  createAnnouncement: function (req,res) {
+  createAnnouncement: function (req, res) {
     
     console.log(req.body)
     console.log(req.params.id)
@@ -114,6 +114,11 @@ module.exports = {
   findAnnouncementsByClassId: function (req, res) {
     console.log(req.body);
     console.log(req.params.id)
+  },
+
+  createComment: function (req, res) {
+    console.log(req.params)
+    console.log(req.body)
   }
 
 };

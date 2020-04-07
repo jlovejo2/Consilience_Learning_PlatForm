@@ -102,11 +102,6 @@ const ClassroomSchema = new Schema(
     },
     comments: [
       {
-        title: {
-          type: String,
-          trim: true,
-          required: "Enter a comment title"
-        },
         author: {
           type: Schema.Types.ObjectId,
           ref: 'RegisterModel',

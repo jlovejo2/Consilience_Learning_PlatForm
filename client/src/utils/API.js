@@ -50,6 +50,9 @@ export default {
     },
     getAnnouncementByClass: function(id) {
         return axios.get('api/classrooms/announcement/' + id)
+    },
+    createCommemt: function(idOne, idTwo, obj) {
+        return axios.post('api/classrooms/comment/' + idOne + '/' + idTwo, obj)
     }
 
 

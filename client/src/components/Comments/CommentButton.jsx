@@ -39,6 +39,9 @@ const  CommentButton = (props) => {
                 multiline 
                 rows='2' 
                 margin='dense'
+                // name='body'
+                // value='body'
+                onChange={props.inputComment}
                 onKeyUp={props.submitComment}/>
             </Box>
         </Grid>
