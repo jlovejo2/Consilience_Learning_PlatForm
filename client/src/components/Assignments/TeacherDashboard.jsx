@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import TextField from '@material-ui/core/TextField';
 
+
 const options = ['Select a class', 'Class title1', 'Class title2', 'Class title 3'];
 
 const useStyles = makeStyles((theme) => ({
@@ -59,10 +60,14 @@ export default function TeachDashboard() {
 };
   return (
     <div className= {classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid container
+      spacing={3}
+      direction="row"
+      justify="center"
+      alignItems="stretch">
+        <Grid item xs={6}>
           <Paper className={classes.paper}>
-          <h3>Add an assignment:</h3>
+          <h5>Add an assignment:</h5>
               <form className={classes.root} noValidate autoComplete="off">
                   <TextField fullWidth id="standard-basic" label="Assignment Title" />
                   <TextField fullWidth id="standard-basic" label="Assignment Due Date" />
@@ -75,6 +80,12 @@ export default function TeachDashboard() {
                     variant="outlined"
                   />
                 </form>
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>
+          <h5>Preview assignment:</h5>
+         
           </Paper>
         </Grid>
 
