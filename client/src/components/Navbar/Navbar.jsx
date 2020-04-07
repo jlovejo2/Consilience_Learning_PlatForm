@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import Questions from "../../images/feynman.jpg";
+import LogoMin from "../../images/logoMin.png";
 import { Link } from "react-router-dom";
 // import { Fade } from '@material-ui/core';
 
@@ -15,11 +15,11 @@ const Navbar = () => {
         >
           <Link to="/" className="brand-logo left" /*"navbar-brand"*/>
             <img
-              src={Questions}
+              src={LogoMin}
               alt="react"
               className="img-fluid logo"
-              height="64px"
-              width="155px"
+              height="67px"
+              width="220px"
             />
           </Link>
           {/* The below a tag is the code that renders the hamburger menu when the size of the screen is minimized */}
