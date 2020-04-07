@@ -16,8 +16,6 @@
     padding-right: auto !important;
 }
 /* .btn-center {
-    -webkit-box-shadow:0px 0px 26px 7px #000000 inset;
-    -moz-box-shadow:0px 0px 26px 7px #000000 inset;
     box-shadow:0px 0px 26px 7px #000000 inset;
 } */
 .btn {
@@ -32,6 +30,7 @@
     padding-left: auto;
     background-image: linear-gradient(to right, #1c92d2 0%, #f2fcfe 51%, #1c92d2 100%)!important; 
 } 
+
 .btn:hover { background-position: right center; }
 
 .jumbotron {
@@ -57,8 +56,6 @@ h4 {
 	font-size: 73px!important;
 	margin: 10px 0;
 }
-/* styling my button */
-
 .white-mode {
 	text-decoration: none;
 	padding: 7px 10px;
@@ -70,7 +67,6 @@ h4 {
 	left: 15px;
 	bottom: 15px;
 }
-
 .white-mode:hover {
 	background-color: #FFF;
 	color: #122;

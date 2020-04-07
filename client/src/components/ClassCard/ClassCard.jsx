@@ -20,12 +20,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles((theme) => ({
   root: {
     // backgroundColor: '#61dbfb',
-    background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
+    // background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
     borderRadius: 35,
     // boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
     width: '90%',
     height: '100%',
     display: 'inline-grid',
+    // background: 'rgb(66,66,66)',
+    // background: 'linear-gradient(254deg, rgba(66,66,66,1) 0%, rgba(97,219,251,1) 100%)',
   },
   media: {
     height: 0,

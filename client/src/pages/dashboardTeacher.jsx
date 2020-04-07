@@ -26,7 +26,7 @@ const MyCard = styled(Card)({
     color: 'white',
     align: 'center',
     borderRadius: '35px',
-    boxShadow: '0px 0px 50px 30px #61dbfb',
+    // boxShadow: '0px 0px 50px 30px #61dbfb',
     alignItems: "stretch",
     height: '100%',
   });
@@ -160,13 +160,10 @@ const DashBoardTeacher = (props) => {
 		<use xlinkHref="#s-text" className="text-copy"></use>
 	</g>
 </svg>
-        <p className='teachertext'>Click 
-        <span> the "+" button to create a course</span>
-        </p>
-        <br/>
-                <Fab size="small" color="secondary" aria-label="add">
+        <p className='teachertext'>Click the <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />
-                </Fab>
+                </Fab> <span> to create a course</span>
+        </p>
             </Grid>
             <MyCard>
                  <Grid 

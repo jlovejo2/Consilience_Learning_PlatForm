@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ClassroomContext from '../utils/classroomContext';
 import API from '../utils/API';
 import custFunc from '../utils/customFunctions';
-
 //Importing components from component folder
 import Container from '../components/Container/Container.jsx';
 import ClassCard from '../components/ClassCard/ClassCard';
-
 //Importing components and icons from material-ui
 // import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
@@ -26,12 +24,11 @@ const MyCard = styled(Card)({
     color: 'white',
     align: 'center',
     borderRadius: '35px',
-    boxShadow: '0px 0px 50px 30px #61dbfb',
+    // boxShadow: '0px 0px 50px 30px #61dbfb',
     alignItems: "stretch",
     height: '100%',
   });
 const DashboardStudent = (props) => {
-    
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
