@@ -1,7 +1,8 @@
 import React from "react";
 
 const ClassroomContext = React.createContext({
-  currentClass: '',
+  userType: '',
+  setUserType: () => {}
 //   handleClass: () => {},
 
 });

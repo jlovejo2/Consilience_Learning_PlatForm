@@ -9,7 +9,7 @@ const IDfunctions = require("./functions");
 require("dotenv").config();
 
 // get all users
-router.get("/", authenticateToken, async (req, res) => {
+router.get("/", async (req, res) => {
   console.log("in this route 13");
   // /users
   try {
@@ -24,9 +24,13 @@ router.get("/", authenticateToken, async (req, res) => {
     throw error;
   }
 });
+// check token
+router.get("/checkToken", authenticateToken, (req, res) => {
+  res.sendStatus(200)
+});
 
 // get user authenticated status
-router.get("/:id", authenticateToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     await db.RegisterModel.findById({ _id: req.params.id }, req.body).then(
       dbModel => {
@@ -134,9 +138,9 @@ router.post("/register", async (req, res) => {
     .catch(error => console.log("this is a register error", error));
 });
 
-router.post("/refresh", (req, res, next) => {
-  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1440m" })
-})
+// router.post("/refresh", (req, res, next) => {
+//   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1440m" })
+// })
 // https://gist.github.com/ziluvatar/a3feb505c4c0ec37059054537b38fc48
 // function endpoint (user, cookie, res) {
 //         let refreshTokens = []
@@ -163,8 +167,9 @@ router.post("/login", (req, res) => {
           httpOnly: true,
           sameSite: true
         });
+        console.log("this is cookie data", accessToken)
         res.set("authorization", accessToken);
-        res.json({ user });
+        res.json({ accessToken, user });
       } else {
         res.redirect("/login");
       }
@@ -195,7 +200,12 @@ function authenticateToken(req, res, next) {
   // token portion of bearer token
   // if authHeader then return authHeader token portion else undefined
   const token = authHeader && authHeader.split(" ")[1];
-  console.log(authHeader.split(" ")[1]);
+
+//   console.log(authHeader.split(" ")[1]);
+  // console.log(authHeader.split(" ")[1]);
+  // const token = authHeader && authHeader.split(" ")[1];
+  // console.log(authHeader.split(" ")[1]);
+
   if (token === null) return res.sendStatus(401);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("Logging the ERR ", err);
