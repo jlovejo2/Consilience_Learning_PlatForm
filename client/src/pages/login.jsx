@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm/Register.jsx';
 import Container from '../components/Container/Container.jsx'
@@ -8,28 +8,16 @@ import API from '../utils/API';
 import '../index.css';
 // eslint-disable-next-line
 import Modal from '@material-ui/core/Modal';
+import RootContext from '../utils/RootContext';
 
 const Login = () => {
 
+    const { userType, setUserType } = useContext(RootContext)
     const [loginForm, setLoginForm] = useState({})
     const [registerForm, setRegisterForm] = useState({})
     const [openDialog, setOpenDialog] = useState(false);
     const [redirectUser, setRedirectUser] = useState(false);
-
-    // useEffect(() => {
-
-    //     if(userType === 'teacher') {
-    //         console.log('teacher')
-    //        return <Redirect to='/dashboardTeacher'/>
-    //     } else if (userType === 'student') {
-    //         console.log('student')
-    //         return <Redirect to='/dashboardStudent'/> 
-    //     } else {
-    //         console.log(userType)
-    //         console.log('something is weird')
-    //     }
-    // }, [userType])
-
+  
     const handleRegisterOpen = () => {
         setOpenDialog(true);
     };
@@ -56,6 +44,7 @@ const Login = () => {
                 .then(resp => {
                     console.log(resp)
                     setOpenDialog(false)
+                    
                 })
                 .catch(err => console.log(err))
         }
@@ -72,7 +61,7 @@ const Login = () => {
                 .then(res => {
                     console.log(res.data)
                     const userInfo = res.data.user
-                    console.log(res);
+                    setUserType(userInfo.type);
                     //   if (res.data) setShow(true);
                     // localStorage.setItem('token', userInfo.token);
                     // console.log(userInfo.token)
@@ -94,7 +83,11 @@ const Login = () => {
     }
 
     if (redirectUser) {
-        return <Redirect to={redirectUser} />
+
+        console.log(userType);
+       
+       return <Redirect to={redirectUser}
+        />
     }
 
     return (

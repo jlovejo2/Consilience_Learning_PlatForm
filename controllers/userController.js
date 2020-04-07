@@ -26,7 +26,7 @@ router.get("/", authenticateToken, async (req, res) => {
 });
 
 // get user authenticated status
-router.get("/:id", authenticateToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     await db.RegisterModel.findById({ _id: req.params.id }, req.body).then(
       dbModel => {
@@ -195,7 +195,7 @@ function authenticateToken(req, res, next) {
   // token portion of bearer token
   // if authHeader then return authHeader token portion else undefined
   const token = authHeader && authHeader.split(" ")[1];
-  console.log(authHeader.split(" ")[1]);
+//   console.log(authHeader.split(" ")[1]);
   if (token === null) return res.sendStatus(401);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("Logging the ERR ", err);

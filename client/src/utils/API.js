@@ -11,8 +11,8 @@ export default {
     },
     // runs authenticateToken as middleware before getting user type
     // to be called in App.jsx for conditional routing purposes
-    userAuthAndType: function (id) {
-        return axios.get("/users/:id", id)
+    userAuthAndType: function (userObj) {
+        return axios.get("/users/:id", userObj)
     },
     // user logout
     userLogout: function (userObj) {
