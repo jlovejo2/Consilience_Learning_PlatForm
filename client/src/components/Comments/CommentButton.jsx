@@ -2,8 +2,9 @@ import React, { useState, useRef } from 'react';
 
 import {Grid, Box, Tooltip, Fab, TextField, Button} from '@material-ui/core';
 import CommentIcon from '@material-ui/icons/Comment';
+// import SendIcon from '@material-ui/icons/Send';
 
-const  CommentButton = () => {
+const  CommentButton = (props) => {
 
     const [visible, setVisible] = useState(false)
     const visibleEl = useRef(null)
@@ -29,9 +30,16 @@ const  CommentButton = () => {
                 </Button>
             </Tooltip>
         </Grid>
-        <Grid item xs={11}>
+        <Grid item xs={10}>
             <Box ref={visibleEl} visibility={ visible ? 'visible' : 'hidden'}>
-                <TextField variant='outlined' placeholder='Enter comment here' fullWidth multiline rows='2' margin='dense'></TextField>
+                <TextField 
+                variant='outlined' 
+                placeholder='Enter comment here, submit by hitting enter' 
+                fullWidth 
+                multiline 
+                rows='2' 
+                margin='dense'
+                onKeyUp={props.submitComment}/>
             </Box>
         </Grid>
         </>
@@ -40,20 +48,3 @@ const  CommentButton = () => {
 }
 
 export default CommentButton;
-
-// const Counter = () => {
-//     const [count, setCount] = useState(0)
-//     const counterEl = useRef(null)
-  
-//     const increment = () => {
-//       setCount(count + 1)
-//       console.log(counterEl)
-//     }
-  
-//     return (
-//       <>
-//         Count: <span ref={counterEl}>{count}</span>
-//         <button onClick={increment}>+</button>
-//       </>
-//     )
-//   }

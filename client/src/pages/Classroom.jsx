@@ -53,7 +53,6 @@ export const Classroom = (props) => {
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
-    const [announcementComments, setAnnouncementComments] = useState([])
 
     useEffect(() => {
         const { classroomID } = props.location.state
@@ -72,15 +71,6 @@ export const Classroom = (props) => {
             .catch
             (err => console.log(err))
     }
-
-    // function loadAnnouncements(param) {
-    //     API.getAnnouncementByClass(param)
-    //         .then(resp => {
-    //             console.log(resp)
-    //         })
-    //         .catch(err => console.log(err))
-
-    // }
 
     const handleDialogOpen = () => {
         setOpenDialog(true);
@@ -108,16 +98,10 @@ export const Classroom = (props) => {
         }
     }
 
-    // function handleComment(param) {
-
-    //     // const param = useRef(false)
-    //     // const { name, value } = event.target
-    //     // setAnnouncementComments({ ...announcementComments, [name]: value })
-    //     // console.log(announcementComments)
-    // }
-
-    function handleCommentTextField() {
-
+    function handleAddComment(event) {
+        if(event.keycode == 13) {
+            console.log('submitted')
+        }
     }
 
     return (
@@ -143,16 +127,17 @@ export const Classroom = (props) => {
                                     </Card>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Paper elevation={15}>
-                                    <Card className={classes.root} variant="outlined">
-                                        {/* ---------------------------------------------------------------------- */}
-                                        {/* ___________ This is the beginning of the announcment renderings_______ */}
-                                        {/* ------------------------------------------------------------------------- */}
-                                        {
-                                            currentClassObj.announcements ? currentClassObj.announcements.map((announcement, index) => {
-                                                return (
-                                                    <>
+
+                            {/* ---------------------------------------------------------------------- */}
+                            {/* ___________ This is the beginning of the announcment renderings_______ */}
+                            {/* ------------------------------------------------------------------------- */}
+                            {
+                                currentClassObj.announcements ? currentClassObj.announcements.map((announcement, index) => {
+                                    return (
+                                        <>
+                                            <Grid item xs={12}>
+                                                <Paper elevation={15}>
+                                                    <Card className={classes.root} variant="outlined">
                                                         <CardContent key={index}>
                                                             <Typography className={classes.title} color="textSecondary" gutterBottom>
                                                                 {/* {currentClassObj.courseTitle} */}
@@ -169,36 +154,45 @@ export const Classroom = (props) => {
                                                         </CardContent>
                                                         <CardActions>
                                                             <Grid container className={classes.center}>
-                                                               <CommentButton/>
+                                                                <CommentButton 
+                                                                 submitComment={handleAddComment}/>
                                                             </Grid>
                                                         </CardActions>
-                                                    </>
-                                                )
-                                            }) :
+                                                    </Card>
+                                                </Paper>
+                                            </Grid>
+                                        </>
+                                    )
+                                }) :
+                                    <Grid item xs={12}>
+                                        <Paper elevation={15}>
+                                            <Card className={classes.root} variant="outlined">
                                                 <CardContent>
                                                     <Typography variant="h5" component="h2">
                                                         No announcements at this time
                                                     </Typography>
                                                 </CardContent>
-
-                                        }
-                                        {/* ------------------------------------------------------------------------- */}
-                                        {/* ___________ This is the end of the announcment renderings________________ */}
-                                        {/* ------------------------------------------------------------------------- */}
-                                    </Card>
-                                </Paper>
-                            </Grid>
+                                            </Card>
+                                        </Paper>
+                                    </Grid>
+                            }
+                            {/* ------------------------------------------------------------------------- */}
+                            {/* ___________ This is the end of the announcment renderings________________ */}
+                            {/* ------------------------------------------------------------------------- */}
                         </Grid>
                     </Box>
                 </Paper>
             </Container>
+            {/* ---------------------------------------------------------------------------------------- */}
+            {/* _____________The below component renders the dialog to add an announcement______________ */}
+            {/* ----------------------------------------------------------------------------------------- */}
             <Announcement
                 open={openDialog}
                 close={handleDialogClose}
                 handleInput={handleDialogInputChange}
                 submitDialog={handleDialogSubmit}
             />
-        </div>
+        </div >
     );
 }
 
