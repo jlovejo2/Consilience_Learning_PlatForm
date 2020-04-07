@@ -23,25 +23,34 @@ export const ConfigContext = React.createContext();
 const App = () => {
 
     return (
+
         <BrowserRouter>
             <Navbar />
             <Wrapper>
-            <React.Fragment>
-                <Route exact path = "/" component={Home} />
-                <Route exact path = "/activities" component={Activities} />
-                <Route exact path = "/assignments" component={Assignments} />
-                <Route exact path = "/dashboardTeacher" component={dashboardTeacher} />
-                <Route exact path = "/dashboardStudent" component ={dashboardStudent} />
-                <Route exact path = "/grades" component={Grades} />
-                <Route exact path = "/login" component={Login} />
-                <Route exact path = "/register" component={Register} />
-                <Route exact path = "/syllabus" component={Syllabus} />
-                <Route exact path = "/classrooms" component={Classroom} />
-            </React.Fragment>
+                <React.Fragment>
+                    {type === 'teacher' ?
+                        <>
+                            <Route exact path="/" component={Home} />
+                            <Route exact path="/activities" component={Activities} />
+                            <Route exact path="/assignments" component={Assignments} />
+                            <Route exact path="/dashboardTeacher" component={dashboardTeacher} />
+                            <Route exact path="/dashboardStudent" component={dashboardStudent} />
+                            <Route exact path="/grades" component={Grades} />
+                        </>
+                        :
+                        <>
+                            <Route exact path="/register" component={Register} />
+                            <Route exact path="/syllabus" component={Syllabus} />
+                            <Route exact path="/classrooms" component={Classroom} />
+                        </>
+                    }
+                    <Route exact path="/login" component={Login} />
+                </React.Fragment>
             </Wrapper>
             <Footer />
         </BrowserRouter>
     )
 }
+
 
 export default App;
