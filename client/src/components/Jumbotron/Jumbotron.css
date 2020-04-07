@@ -14,7 +14,6 @@
     text-align: center !important;
     padding-left: auto !important;
     padding-right: auto !important;
-    /* text-shadow:0px 5px 9px #000000,20px 0px 20px #00d940,4px -3px 20px #7800ff !important; */
 }
 /* .btn-center {
     -webkit-box-shadow:0px 0px 26px 7px #000000 inset;
@@ -23,11 +22,15 @@
 } */
 .btn {
     font-weight: bolder!important;
-   color: #424242!important;
-    border-radius: 25px;
-    padding-right: 50px;
-    padding-left: 50px;
-    background-image: linear-gradient(to right, #1c92d2 0%, #f2fcfe 51%, #1c92d2 100%)!important;
+    color: #121212;
+    text-shadow: -1px 1px 0 #FFFAFA,
+    1px 1px 0 #61dbfb,
+   1px -1px 0 #42afac,
+  -1px -1px 0 #61dbfb;
+    border-radius: 10px;
+    padding-right: auto;
+    padding-left: auto;
+    background-image: linear-gradient(to right, #1c92d2 0%, #f2fcfe 51%, #1c92d2 100%)!important; 
 } 
 .btn:hover { background-position: right center; }
 
@@ -36,8 +39,8 @@
     padding-bottom: 110px !important;
     padding-left: auto !important;
     padding-right: auto !important;
-    margin-top: 5rem !important;
-    margin-bottom: 5rem !important;
+    margin-top: 8rem !important;
+    margin-bottom: 8rem !important;
     margin-right: -8rem !important;
     margin-left: -8rem !important;
     box-shadow:0px 0px 50px 30px #61dbfb ;
@@ -45,7 +48,6 @@
 }
 h4 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-   /* text-decoration-color: #61dbfb; */
 	background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
 	/* background-size: cover; */
 	color: transparent;
@@ -72,4 +74,12 @@ h4 {
 .white-mode:hover {
 	background-color: #FFF;
 	color: #122;
+}
+.jumbotext {
+    color: #121212;
+    text-shadow: -1px 1px 0 #FFFAFA,
+    1px 1px 0 #61dbfb,
+   1px -1px 0 #42afac,
+  -1px -1px 0 #61dbfb;
+    font-size: auto;
 }

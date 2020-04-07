@@ -1,4 +1,3 @@
-
 import React from "react";
 import { MDBJumbotron, MDBBtn, MDBContainer, MDBCardTitle} from "mdbreact";
 import './Jumbotron.css'

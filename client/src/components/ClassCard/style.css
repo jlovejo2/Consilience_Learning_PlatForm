@@ -1,7 +1,97 @@
 .Card {
     background: 'linear-gradient(45deg, #219gf3 30%, #9e9e9e 90%)';
 }
-/* .overflow-ellipsis {
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
-} */
+svg {
+    display: block;
+    font: 8em 'Montserrat';
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+}
+.text-copy {
+    fill: none;
+    stroke: white;
+    stroke-dasharray: 6% 29%;
+    stroke-width: 2px;
+    stroke-dashoffset: 0%;
+    animation: stroke-offset 5.5s infinite linear;
+}
+.text-copy:nth-child(1){
+	stroke: #61dbfb;
+    animation-delay: 0;
+}
+
+.text-copy:nth-child(2){
+	stroke: #61dbfb;
+	animation-delay: -1s;
+}
+
+.text-copy:nth-child(3){
+	stroke: #61dbfb;
+	animation-delay: -2s;
+}
+
+.text-copy:nth-child(4){
+	stroke: #61dbfb;
+	animation-delay: -3s;
+}
+
+.text-copy:nth-child(5){
+	stroke: #61dbfb;
+	animation-delay: -4s;
+}
+
+@keyframes stroke-offset{
+	100% {stroke-dashoffset: -35%;}
+}
+
+.teachertext {
+    display:inline-block;
+    overflow:hidden;
+    height: auto;
+    font-weight: bolder;
+    color: #61dbfb;
+    font-size: large;
+    max-width: -webkit-fill-available;
+    margin-top: -1rem;
+}
+  
+  .teachertext:first-of-type {    /* For increasing performance 
+                         ID/Class should've been used. 
+                         For a small demo 
+                         it's okaish for now */
+    animation: showup 7s infinite;
+  }
+  
+.teachertext:last-of-type {
+    width:0px;
+    animation: reveal 7s infinite;
+  }
+  
+.teachertext:last-of-type span {
+    margin-left:-355px;
+    animation: slidein 7s infinite;
+  }
+  
+  @keyframes showup {
+      0% {opacity:0;}
+      20% {opacity:1;}
+      80% {opacity:1;}
+      100% {opacity:0;}
+  }
+  
+  @keyframes slidein {
+      0% { margin-left:-800px; }
+      20% { margin-left:-800px; }
+      35% { margin-left:0px; }
+      100% { margin-left:0px; }
+  }
+  
+  @keyframes reveal {
+      0% {opacity:0;width:0px;}
+      20% {opacity:1;width:0px;}
+      30% {width:355px;}
+      80% {opacity:1;}
+      100% {opacity:0;width:355px;}
+  }
+  

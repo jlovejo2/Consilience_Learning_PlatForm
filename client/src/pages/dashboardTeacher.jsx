@@ -22,7 +22,7 @@ import AddIcon from '@material-ui/icons/Add';
 // import { makeStyles } from '@material-ui/core/styles';
 
 const MyCard = styled(Card)({
-    background: 'radial-gradient(ellipse farthest-side at bottom right, rgb(0, 0, 0) 53%, rgb(77, 77, 82) 88%, rgb(81, 81, 92) 93%, rgb(255, 255, 255) 100%)',
+    background: 'linear-gradient(0deg, rgba(66,66,66,1) 0%, rgba(97,219,251,0.7450689748555672) 100%)',
     color: 'white',
     align: 'center',
     borderRadius: '35px',
@@ -147,8 +147,23 @@ const DashBoardTeacher = (props) => {
     return (
         <Container fluid>
             <Grid align='center'>
-                <p style={{ color: "#ffff" }}>Welcome to the classroom dashboard. Click the "+" button to create a course</p>
+            <svg viewBox="0 0 1700 290">
+	<symbol id="s-text">
+		<text text-anchor="middle" x="50%" y="30%">Classroom Dashboard</text>
+	</symbol>
 
+	<g className="g-ants">
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+	</g>
+</svg>
+        <p className='teachertext'>Click 
+        <span> the "+" button to create a course</span>
+        </p>
+        <br/>
                 <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />
                 </Fab>

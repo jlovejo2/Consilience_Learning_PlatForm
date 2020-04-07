@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '../components/Container/Container.jsx'
-// import Dashboard from '../components/Dashboard/Dashboard'
+// eslint-disable-next-line
+import Dashboard from '../components/Dashboard/Dashboard'
 
 const Activities = () => {
     return (
