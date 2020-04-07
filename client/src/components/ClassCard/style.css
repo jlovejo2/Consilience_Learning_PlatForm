@@ -11,40 +11,34 @@ svg {
 .text-copy {
     fill: none;
     stroke: white;
-    stroke-dasharray: 6% 29%;
-    stroke-width: 2px;
+    /* stroke-dasharray: 6% 29%; */
+    stroke-width: 1px;
     stroke-dashoffset: 0%;
-    animation: stroke-offset 5.5s infinite linear;
+    animation: stroke-offset 20s infinite linear;
 }
 .text-copy:nth-child(1){
 	stroke: #61dbfb;
     animation-delay: 0;
 }
-
 .text-copy:nth-child(2){
+	stroke: #61dbfb;
+	animation-delay: 0s;
+}
+.text-copy:nth-child(3){
 	stroke: #61dbfb;
 	animation-delay: -1s;
 }
-
-.text-copy:nth-child(3){
+.text-copy:nth-child(4){
 	stroke: #61dbfb;
 	animation-delay: -2s;
 }
-
-.text-copy:nth-child(4){
+.text-copy:nth-child(5){
 	stroke: #61dbfb;
 	animation-delay: -3s;
 }
-
-.text-copy:nth-child(5){
-	stroke: #61dbfb;
-	animation-delay: -4s;
-}
-
 @keyframes stroke-offset{
 	100% {stroke-dashoffset: -35%;}
 }
-
 .teachertext {
     display:inline-block;
     overflow:hidden;
@@ -54,44 +48,6 @@ svg {
     font-size: large;
     max-width: -webkit-fill-available;
     margin-top: -1rem;
+    font-family: math;
 }
-  
-  .teachertext:first-of-type {    /* For increasing performance 
-                         ID/Class should've been used. 
-                         For a small demo 
-                         it's okaish for now */
-    animation: showup 7s infinite;
-  }
-  
-.teachertext:last-of-type {
-    width:0px;
-    animation: reveal 7s infinite;
-  }
-  
-.teachertext:last-of-type span {
-    margin-left:-355px;
-    animation: slidein 7s infinite;
-  }
-  
-  @keyframes showup {
-      0% {opacity:0;}
-      20% {opacity:1;}
-      80% {opacity:1;}
-      100% {opacity:0;}
-  }
-  
-  @keyframes slidein {
-      0% { margin-left:-800px; }
-      20% { margin-left:-800px; }
-      35% { margin-left:0px; }
-      100% { margin-left:0px; }
-  }
-  
-  @keyframes reveal {
-      0% {opacity:0;width:0px;}
-      20% {opacity:1;width:0px;}
-      30% {width:355px;}
-      80% {opacity:1;}
-      100% {opacity:0;width:355px;}
-  }
   
