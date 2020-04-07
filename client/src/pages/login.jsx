@@ -70,11 +70,12 @@ const Login = () => {
                 password: loginForm.password,
             })
                 .then(res => {
-                    const userInfo = res.data.userUpdated
+                    console.log(res.data)
+                    const userInfo = res.data.user
                     console.log(res);
                     //   if (res.data) setShow(true);
-                    localStorage.setItem('token', userInfo.token);
-                    console.log(userInfo.token)
+                    // localStorage.setItem('token', userInfo.token);
+                    // console.log(userInfo.token)
 
                     if (userInfo.type === 'teacher') {
                         console.log('teacher')

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-
+import './style.css';
 import { Card, CardHeader, CardMedia, CardContent, CardActions } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: '#61dbfb',
     background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
     borderRadius: 35,
-    boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
+    // boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
     width: '90%',
     height: '100%',
     display: 'inline-grid',
