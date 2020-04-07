@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import TextField from '@material-ui/core/TextField';
 
-const options = ['Select a Class','Class title0', 'Class title1', 'Class title2'];
+const options = ['Select a class', 'Class title1', 'Class title2', 'Class title 3'];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,65 +62,69 @@ export default function TeachDashboard() {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-                <h3>Select a class to add an assignment:</h3>
-                <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-                  <Button onClick={handleClick}>{options[selectedIndex]}</Button>
-                  <Button
-                    color="primary"
-                    size="small"
-                    aria-controls={open ? 'split-button-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-label="select merge strategy"
-                    aria-haspopup="menu"
-                    onClick={handleToggle}
-                  >
-                    <ArrowDropDownIcon />
-                  </Button>
-                </ButtonGroup>
-                <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                  {({ TransitionProps, placement }) => (
-                    <Grow
-                      {...TransitionProps}
-                      style={{
-                        transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-                      }}
-                    >
-                      <Paper>
-                        <ClickAwayListener onClickAway={handleClose}>
-                          <MenuList id="split-button-menu">
-                            {options.map((option, index) => (
-                              <MenuItem
-                                key={option}
-                                disabled={index === 2}
-                                selected={index === selectedIndex}
-                                onClick={(event) => handleMenuItemClick(event, index)}
-                              >
-                                {option}
-                              </MenuItem>
-                            ))}
-                          </MenuList>
-                        </ClickAwayListener>
-                      </Paper>
-                    </Grow>
-                  )}
-                </Popper>
+          <h3>Add an assignment:</h3>
+              <form className={classes.root} noValidate autoComplete="off">
+                  <TextField fullWidth id="standard-basic" label="Assignment Title" />
+                  <TextField fullWidth id="standard-basic" label="Assignment Due Date" />
+                  <TextField fullWidth
+                    id="outlined-multiline-static"
+                    label="Description:"
+                    multiline
+                    rows="8"
+                    defaultValue="Add the description of the assignment here"
+                    variant="outlined"
+                  />
+                </form>
           </Paper>
         </Grid>
+
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <form className={classes.root} noValidate autoComplete="off">
-              <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-              <TextField
-                id="outlined-multiline-static"
-                label="Multiline"
-                multiline
-                rows="4"
-                defaultValue="Default Value"
-                variant="outlined"
-              />
-            </form>
-            <Button variant="contained" color="primary">
-              SUBMIT
+            <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
+                <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+                    <Button
+                      color="primary"
+                      size="small"
+                      aria-controls={open ? 'split-button-menu' : undefined}
+                      aria-expanded={open ? 'true' : undefined}
+                      aria-label="select merge strategy"
+                      aria-haspopup="menu"
+                      onClick={handleToggle}
+                    >
+                      <ArrowDropDownIcon />
+                    </Button>
+            </ButtonGroup>
+            
+            <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                    transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList id="split-button-menu">
+                        {options.map((option, index) => (
+                          <MenuItem
+                            key={option}
+                            disabled={index === 2}
+                            selected={index === selectedIndex}
+                            onClick={(event) => handleMenuItemClick(event, index)}
+                          >
+                            {option}
+                          </MenuItem>
+                        ))}
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+            <h8>&nbsp;&nbsp;&nbsp;</h8>
+            <Button variant="contained" color="primary"> 
+                  SUBMIT
             </Button>
           </Paper>
         </Grid>

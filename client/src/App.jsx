@@ -14,9 +14,6 @@ import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Wrapper from './components/Wrapper/Wrapper.jsx'
 
-
-
-
 // creating ConfigContext for user authenticated vs not authenticated UI
 export const ConfigContext = React.createContext();
 
