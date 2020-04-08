@@ -68,7 +68,7 @@ export default function ClassCard(props) {
       <CardHeader
         data-classid={props.classID}
         avatar={<Avatar alt="Teacher Image" src={props.teacherAvatar} />}
-        action={ userType === 'Teacher' ?
+        action={userType === 'Teacher' ?
           <IconButton
             aria-label="settings"
             aria-controls="simple-menu"
@@ -110,32 +110,32 @@ export default function ClassCard(props) {
           ) : ''}
         </>
         <Tooltip title="Enter Classroom" aria-label="enter">
-        <IconButton>
-          <Link
-            to={{
-              pathname: "/classrooms",
-              state: {
-                classroomID: props.classID,
-              },
-            }}
-          >
-            <MeetingRoomIcon />
-          </Link>
-        </IconButton>
+          <IconButton>
+            <Link
+              to={{
+                pathname: "/classrooms",
+                state: {
+                  classroomID: props.classID,
+                },
+              }}
+            >
+              <MeetingRoomIcon />
+            </Link>
+          </IconButton>
         </Tooltip>
         <>
           {userType === 'Teacher' ?
-          <Tooltip title="Go to Gradebook" aria-label="enter">
-            <IconButton>
-              <Link to={{
-                pathname: '/gradesTeacher',
-                state: {
-                  classroomID: props.classID
-                }
-              }} >
-                <TableChartIcon />
-              </Link>
-            </IconButton> 
+            <Tooltip title="Go to Gradebook" aria-label="enter">
+              <IconButton>
+                <Link to={{
+                  pathname: '/gradesTeacher',
+                  state: {
+                    classroomID: props.classID
+                  }
+                }} >
+                  <TableChartIcon />
+                </Link>
+              </IconButton>
             </Tooltip> : ''}
         </>
         <Badge badgeContent={4} color="secondary">
