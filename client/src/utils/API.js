@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export default {
+    // get all users
     users: function () {
         return axios.get("/users")
     },
@@ -12,8 +13,7 @@ export default {
     userRegister: function (userObj) {
         return axios.post("/users/register", userObj)
     },
-    // runs authenticateToken as middleware before getting user type
-    // to be called in App.jsx for conditional routing purposes
+    // get user auth and type by id
     userAuthAndType: function (userObj) {
         return axios.get("/users/:id", userObj)
     },
