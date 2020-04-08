@@ -33,158 +33,176 @@ const MyCard = styled(Card)({
 });
 
 const DashBoardTeacher = (props) => {
-  const { userType } = useContext(RootContext);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [newClassFormObj, setNewClassFormObj] = useState({});
-  const [classesArr, setClassesArr] = useState([]);
-  const [menuAnchor, setMenuAnchor] = useState(null);
-  const [selectedFile, setSelectedFile] = useState({});
-  const [currentClass, setCurrentClass] = useState("");
+    const { userType, userID } = useContext(RootContext)
+    const [openDialog, setOpenDialog] = useState(false);
+    const [newClassFormObj, setNewClassFormObj] = useState({});
+    const [classesArr, setClassesArr] = useState([]);
+    const [menuAnchor, setMenuAnchor] = useState(null);
+    const [selectedFile, setSelectedFile] = useState({});
+    const [currentClass, setCurrentClass] = useState('');
 
-  useEffect(() => {
-    console.log(userType);
+    useEffect(() => {
 
-    loadClasses();
-  }, [userType]);
+            console.log(userType);
 
-  //This function calls the backend and loads all the classes in the database onto the dashboard page
-  //Eventually this function will only load the classes that the user has access too
-  function loadClasses() {
-    console.log(userType);
-    API.getClasses()
-      .then((resp) => {
-        console.log(resp.data);
+        loadClasses()
 
-        const newDataObj = resp.data.map((value, index) => {
-          // console.log(value.image);
-          if (value.image) {
-            console.log("exists");
+    }, [userType])
 
-            const base64flag = "data:" + value.image.contentType + ";base64,";
-            const imageStr = custFunc.arrayBufferToBase64(
-              value.image.data.data
-            );
+    //This function calls the backend and loads all the classes in the database onto the dashboard page
+    //Eventually this function will only load the classes that the user has access too
+    function loadClasses() {
+        console.log(userType)
+        API.getClasses()
+            .then(resp => {
+                console.log(resp.data)
 
-            value.imageBase64Str = base64flag + imageStr;
-            return value;
-          } else {
-            console.log("does not exist");
-            return value;
-          }
-        });
-        setClassesArr(newDataObj);
-        // console.log(classesArr);
-      })
-      .catch((err) => console.log(err));
-  }
+                const newDataObj = resp.data.map((value, index) => {
+                    // console.log(value.image);
+                    if (value.image) {
+                        console.log('exists')
 
-  function handleDialogClose() {
-    setOpenDialog(false);
-  }
+                        const base64flag = 'data:' + value.image.contentType + ';base64,';
+                        const imageStr = custFunc.arrayBufferToBase64(value.image.data.data)
 
-  function handleCreateClass() {
-    setOpenDialog(true);
-  }
+                        value.imageBase64Str = base64flag + imageStr
+                        return value
+                    } else {
+                        console.log('does not exist')
+                        return value
+                    }
+                })
+                setClassesArr(newDataObj);
+                // console.log(classesArr);
+            })
+            .catch(err => console.log(err))
+    }
 
-  function handleMenuClick(event) {
-    console.log(userType);
-    setMenuAnchor(event.currentTarget);
-    setCurrentClass(event.currentTarget.dataset.classid);
-  }
+    function handleDialogClose() {
+        setOpenDialog(false);
+    }
 
-  function handleMenuClose() {
-    setMenuAnchor(null);
-  }
+    function handleCreateClass() {
+        setOpenDialog(true);
+    }
 
-  function fileSelectHandler(event) {
-    setSelectedFile(event.target.files[0]);
-  }
+    function handleMenuClick(event) {
+        console.log(userType);
+        setMenuAnchor(event.currentTarget);
+        setCurrentClass(event.currentTarget.dataset.classid)
+    }
 
-  function updateClassImage() {
-    console.log(selectedFile);
-    console.log(currentClass);
-    const fd = new FormData();
+    function handleMenuClose() {
+        setMenuAnchor(null);
+    }
 
-    fd.set("image", selectedFile, selectedFile.name);
+    function fileSelectHandler(event) {
+        setSelectedFile(event.target.files[0]);
+    }
 
-    API.updateClassImage(currentClass, fd)
-      .then((resp) => {
-        console.log("image saved");
-        console.log(resp);
-      })
-      .catch((err) => console.log(err));
-  }
+    function updateClassImage() {
+        console.log(selectedFile)
+        console.log(currentClass);
+        const fd = new FormData()
 
-  function handleChangeTitle() {
-    return <input type="email" placeholder="enter title info"></input>;
-  }
+        fd.set('image', selectedFile, selectedFile.name);
 
-  //This function is called by the input tags and textarea tags on the dailog form for the add a class button
-  //It places the content the user is typing into those tags into the newClassFormObj so that it can be submitted upon button click
-  function handleInputChange(event) {
-    console.log(event.target.name);
-    const { name, value } = event.target;
-    setNewClassFormObj({ ...newClassFormObj, [name]: value });
-  }
+        API.updateClassImage(currentClass, fd)
+            .then(resp => {
+                console.log('image saved')
+                console.log(resp);
+            })
+            .catch(err => console.log(err))
+    }
 
-  //This function is called by the submit button on the create class dialog form.  It takes all the information from the class dialog form that
-  //has been updated and placed into newClassFormObj by onChange and submits it to the backend through the API.addclass() function
-  function handleDailogSubmit() {
-    //This is being done manually because user model and authentication is still being worked on
-    const currentUserID = "077432";
+    function handleChangeTitle() {
 
-    newClassFormObj.userID = currentUserID;
+        return (
+            <input type='email' placeholder='enter title info'></input>
+        )
+    }
 
-    console.log(newClassFormObj);
-    API.addClass(newClassFormObj)
-      .then((resp) => {
-        console.log("Class added successfully");
-        loadClasses();
-        handleDialogClose();
-      })
-      .catch((err) => console.log(err));
-  }
-  // const classes = useStyles();
+    //This function is called by the input tags and textarea tags on the dailog form for the add a class button
+    //It places the content the user is typing into those tags into the newClassFormObj so that it can be submitted upon button click
+    function handleInputChange(event) {
+        console.log(event.target.name);
+        const { name, value } = event.target
+        setNewClassFormObj({ ...newClassFormObj, [name]: value })
+    }
 
-  return (
-    <Container fluid>
-      <Grid align="center">
-        <svg viewBox="0 0 2000 290">
-          <symbol id="s-text">
-            <text text-anchor="middle" x="50%" y="60%">
-              Classroom Dashboard
-            </text>
-          </symbol>
-          <g className="g-ants">
-            <use xlinkHref="#s-text" className="text-copy"></use>
-          </g>
-        </svg>
-        <p align="center" className="teachertext">
-          Click{" "}
-          <Fab size="small" color="secondary" aria-label="add">
-            <AddIcon onClick={handleCreateClass} />
-          </Fab>{" "}
-          <span> to create a new course</span>
+    //This function is called by the submit button on the create class dialog form.  It takes all the information from the class dialog form that 
+    //has been updated and placed into newClassFormObj by onChange and submits it to the backend through the API.addclass() function
+    function handleDailogSubmit() {
+        //This is being done manually because user model and authentication is still being worked on
+
+        newClassFormObj.userID = userID
+
+        console.log(newClassFormObj);
+        API.addClass(newClassFormObj)
+            .then(resp => {
+                console.log("Class added successfully")
+                loadClasses()
+                handleDialogClose()
+            })
+            .catch(err => console.log(err))
+    }
+    // const classes = useStyles();
+
+    return (
+        <Container fluid>
+            <Grid align='center'>
+            <svg viewBox="0 0 1700 290">
+	<symbol id="s-text">
+		<text text-anchor="middle" x="50%" y="30%">Classroom Dashboard</text>
+	</symbol>
+
+	<g className="g-ants">
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+	</g>
+</svg>
+        <p className='teachertext'>Click the <Fab size="small" color="secondary" aria-label="add">
+                    <AddIcon onClick={handleCreateClass} />
+                </Fab> <span> to create a course</span>
         </p>
-      </Grid>
-      <MyCard>
-        <Grid container spacing={5} align="center">
-          {/* <ClassroomContext.Provider value={{ currentClass }}> */}
-          {classesArr.length > 0 ? (
-            classesArr.map((item, index) => {
-              return (
-                <Grid key={index} item md={4} align="center">
-                  <ClassCard
-                    key={index}
-                    title={item.courseTitle}
-                    subheader={item.courseDiscipline}
-                    paragraph1={item.courseDescription}
-                    image={item.imageBase64Str}
-                    imageTitle="a"
-                    imageCaption=""
-                    settingsButton={handleMenuClick}
-                    classID={item._id}
-                  ></ClassCard>
+            </Grid>
+            <MyCard>
+                <Grid
+                    container
+                    spacing={5}
+                    align='center'
+                >
+                    {/* <ClassroomContext.Provider value={{ currentClass }}> */}
+                    {
+                        classesArr.length > 0 ? classesArr.map((item, index) => {
+                            return (
+                                <Grid
+                                    key={index}
+                                    item
+                                    md={4}
+                                    align="center"
+                                >
+                                    <ClassCard
+                                        key={index}
+                                        title={item.courseTitle}
+                                        subheader={item.courseDiscipline}
+                                        paragraph1={item.courseDescription}
+                                        image={item.imageBase64Str}
+                                        imageTitle='a'
+                                        imageCaption=''
+                                        settingsButton={handleMenuClick}
+                                        classID={item._id}
+                                    >
+                                    </ClassCard>
+                                </Grid>
+                            )
+                        })
+                            : <p>No classes Found</p>
+                    }
+                    {/* </ClassroomContext.Provider> */}
                 </Grid>
               );
             })

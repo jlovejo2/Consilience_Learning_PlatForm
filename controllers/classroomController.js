@@ -1,5 +1,7 @@
 const db = require('../models');
-const fs = require('fs')
+const fs = require('fs');
+const { RegisterModel } = require('../models');
+const { register } = require('../client/src/serviceWorker');
 // const func = require('./functions');
 
 module.exports = {
@@ -18,6 +20,16 @@ module.exports = {
   findById: function (req, res) {
     db.ClassroomModel
       .findById(req.params.id)
+      .populate({path: 'announcements'})
+      .exec((error, dbModel) => res.json(dbModel))
+  },
+  // populating student info 
+  findByIdandPopulate: function (req, res) {
+    db.ClassroomModel
+      .find({})
+      // model: 'RegisterModel', select: "_id"
+      .populate({ path: 'Register' })
+      .exec()
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -31,7 +43,7 @@ module.exports = {
       courseTitle: req.body.title,
       courseDiscipline: req.body.discipline,
       courseDescription: req.body.description,
-      ID: req.body.userID
+      teacherID: req.body.userID
     }
 
     db.ClassroomModel
@@ -98,17 +110,25 @@ module.exports = {
   },
 
   createAnnouncement: function (req, res) {
-    
+
     console.log(req.body)
     console.log(req.params.id)
- 
-    db.ClassroomModel
-      .findOneAndUpdate({ _id: req.params.id }, { $push: { announcements: req.body }})
-      .then(updatedClass => {
-        console.log(updatedClass)
-        res.json(updatedClass);
+
+    db.AnnouncementModel.create(req.body)
+      .then(dbModel => {
+
+        console.log('announcement created');
+
+        db.ClassroomModel
+          .findOneAndUpdate({ _id: req.params.id }, { $push: { announcements: dbModel._id } })
+          .populate({ path: 'announcements' })
+          .exec((err, updatedClass) => {
+            console.log("post update", updatedClass)
+            res.json(updatedClass);
+          })
       })
-      .catch(err => console.log(err))
+      .catch(err => res.status(422).json(err));
+
   },
 
   findAnnouncementsByClassId: function (req, res) {
@@ -119,8 +139,17 @@ module.exports = {
   createComment: function (req, res) {
     console.log(req.params)
     console.log(req.body)
-    // db.ClassroomModel
-    //   .findOneAndUpdate({_id: req.params.announcementId}, { $push: { comments: }})
+    console.log(req.body.body)
+    console.log(req.body.announcementID)
+
+    let arr = []
+    arr.push(req.body)
+    db.ClassroomModel
+      .findOneAndUpdate({ _id: req.params.classId }, { $push: { announcements: { $each: [{ $push: { comments: { $each: arr, $position: 0 } } }], $position: 0 } } })
+      .then(resp => {
+        console.log("response", resp);
+      })
+      .catch(err => console.log(err))
   }
 
 };

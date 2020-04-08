@@ -40,6 +40,7 @@ const Login = () => {
         console.log('submitting register');
         event.preventDefault();
         if (registerForm.email && registerForm.password && registerForm.type) {
+            console.log(registerForm)
             console.log('Register looks good so far')
             API.userRegister(registerForm)
                 .then(resp => {
@@ -64,7 +65,7 @@ const Login = () => {
                 .then(res => {
                     console.log(res.data)
                     const userInfo = res.data.user
-                    setUserID(userInfo.ID)
+                    setUserID(userInfo._id)
                     setUserType(userInfo.type)
                     // double commented code out of commission
                     // because server-generated proxy-backed

@@ -26,12 +26,12 @@ const ClassroomSchema = new Schema(
     students: [{
       // has [] wrapping the {} !!!!!!!!!!
       type: Schema.Types.ObjectId,
-      ref: 'RegisterModel',
+      ref: 'Register',
     }],
-    ID: {
-      // type: Schema.Types.ObjectId,
-      type: String,
-      // ref: 'User',
+    teacherID: {
+      type: Schema.Types.ObjectId,
+      // type: String,
+      ref: 'Register',
       required: true
     },
     image: {
@@ -49,88 +49,57 @@ const ClassroomSchema = new Schema(
     // },
     // array of objects
     gradebook: {
-  // has [] wrapping the {} !!!!!!!!!!!
-  //   assignments: [{
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'Classroom.assignments'
-  //   }],
-  //   studentId: [{
-  //     type: Schema.Types.ObjectId
-  //   }],
-  // type: Schema.Types.ObjectId,
-  type: String,
-  // ref: 'Classroom'
-},
-  //   email: {
-  //       type: String,
-  //       validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  //       required: true
-  //   },
-  //   password: {
-  //       type: String,
-  //       validate: /^[0-9A-Za-z!@.,;:'"?-]{6,50}\z/,
-  //       required: true
-  //   },
-  //no required true boolean because access tokens are only issued when logged in
-  accessToken: {
-  type: String
-},
-  createDate: {
-  type: Date,
-  required: true,
-  default: Date.now
-},
-  announcements: [
-  {
-    title: {
+      // has [] wrapping the {} !!!!!!!!!!!
+      //   assignments: [{
+      //     type: Schema.Types.ObjectId,
+      //     ref: 'Classroom.assignments'
+      //   }],
+      //   studentId: [{
+      //     type: Schema.Types.ObjectId
+      //   }],
+      // type: Schema.Types.ObjectId,
       type: String,
-      trim: true,
-      required: "Enter an announcement title"
+      // ref: 'Classroom'
     },
-    body: {
-      type: String,
-      trim: true,
-      required: "Enter an announcement message"
+    //   email: {
+    //       type: String,
+    //       validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    //       required: true
+    //   },
+    //   password: {
+    //       type: String,
+    //       validate: /^[0-9A-Za-z!@.,;:'"?-]{6,50}\z/,
+    //       required: true
+    //   },
+    //no required true boolean because access tokens are only issued when logged in
+    accessToken: {
+      type: String
     },
-    attachment: {
-      type: String,
-      trim: true,
+    createDate: {
+      type: Date,
+      required: true,
+      default: Date.now
     },
-    url: {
-      type: String,
-      trim: true
-    },
-    comments: [
+    announcements: [
       {
-        author: {
-          type: Schema.Types.ObjectId,
-          ref: 'RegisterModel',
-          required: true
-        },
-        body: {
-          type: String,
-          trim: true,
-          required: "Enter an announcement message"
-        },
+        type: Schema.Types.ObjectId,
+        // type: String,
+        ref: 'Announcement',
+        required: true
       }
-    ]
-  }
-],
-  post: [
 
-]
+    ]
   },
 
-// Mongoose Virtuals https://mongoosejs.com/docs/tutorials/virtuals.html
-// a property not stored in MongoDB
-// virtuals typically used for computed properties on documents
-// setting virtuals to true to pass properties to response.json()
-{
-  toJSON: {
-    virtuals: true
-  }
-}
-);
+  // Mongoose Virtuals https://mongoosejs.com/docs/tutorials/virtuals.html
+  // a property not stored in MongoDB
+  // virtuals typically used for computed properties on documents
+  // setting virtuals to true to pass properties to response.json()
+  {
+    toJSON: {
+      virtuals: true
+    }
+  });
 
 // https://mongoosejs.com/docs/api/virtualtype.html#virtualtype_VirtualType-get
 // incorporate dynamically-created properties to workoutSchema

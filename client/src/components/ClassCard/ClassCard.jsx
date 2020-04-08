@@ -1,26 +1,21 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import clsx from "clsx";
-import "./style.css";
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions,
-} from "@material-ui/core";
-import Collapse from "@material-ui/core/Collapse";
-import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Badge from "@material-ui/core/Badge";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
-import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
-import MailIcon from "@material-ui/icons/Mail";
-import CreateIcon from "@material-ui/icons/Create";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import clsx from 'clsx';
+import './style.css';
+import { Card, CardHeader, CardMedia, CardContent, CardActions } from '@material-ui/core';
+import Collapse from '@material-ui/core/Collapse';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import MailIcon from '@material-ui/icons/Mail';
+import CreateIcon from '@material-ui/icons/Create';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import TableChartIcon from '@material-ui/icons/TableChart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,6 +108,16 @@ export default function ClassCard(props) {
           >
             <MeetingRoomIcon />
           </Link>
+        </IconButton>
+        <IconButton>
+        <Link to={{
+          pathname: '/gradesTeacher',
+          state: {
+            classroomID: props.classID
+          }
+        }} >
+          <TableChartIcon />
+        </Link>
         </IconButton>
         <Badge badgeContent={4} color="secondary">
           <MailIcon />
