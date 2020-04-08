@@ -91,6 +91,7 @@ export const Classroom = (props) => {
             API.createAnnouncement(currentClassObj._id, announcementObj)
                 .then(resp => {
                     console.log(resp)
+                    setCurrentClassObj(resp);
                     setOpenDialog(false)
                 })
                 .catch(err => console.log(err))
@@ -104,14 +105,14 @@ export const Classroom = (props) => {
         const commentInfo = {
             body: event.target.value.split('\n',1),
             author: userID,
-            announcmentID: currentClassObj.announcements[0]._id
+            // announcementID: currentClassObj.announcements[0]._id
         }
 
         console.log(announcementIndex);
         // console.log(currentClassObj)
         if(event.keyCode === 13) {
             console.log('submitted on enter');
-            API.createComment(currentClassObj._id, commentInfo)
+            API.createComment(currentClassObj.announcements[0]._id, commentInfo)
             .then(resp => {
                 console.log(resp)
             })
