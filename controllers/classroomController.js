@@ -26,12 +26,13 @@ module.exports = {
   // populating student info 
   findByIdandPopulate: function (req, res) {
     db.ClassroomModel
-      .find({})
+      .findByIdAndUpdate(req.params.id)
       // model: 'RegisterModel', select: "_id"
-      .populate({ path: 'Register' })
-      .exec()
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .populate({ path: 'student' })
+      .exec((err, dbModel) => 
+        !err ?
+        res.json(dbModel) : 
+        res.status(422).json(err));
   },
 
   //This will be used to create a classroom.  Goal is for only a user that is a teacher to be able to do this.  Will need user Authentification
