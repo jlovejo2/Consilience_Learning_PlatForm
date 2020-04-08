@@ -8,9 +8,30 @@ module.exports = {
   //Find all method is meant to find all classsRooms in the classroom schema
   //My need to add a component to this where we are finding all the classroom for a specific student or teacher
   findAll: function (req, res) {
+    console.log('searching classes...')
+    console.log(req.query)
+
+    let query = {}
+      
+    if (req.query.select === 'all') {
+      //gets all classes regardless of what they type in the input
+      query = query
+    } else if (req.query.select === 'courseTitle') {
+      query.courseTitle = req.query.input
+    } else if ( req.query.select === 'courseDescription') {
+      //This query uses $regex which allows a regular expression to be delivered to mongoDb.
+      //the $options: 'i'  is a mongoDb operator that specifies case insensitivity.  Will match upper and lowercases in the field string I am searchin
+      query.courseDescription = { "$regex": req.query.input, "$options": "i" }
+    } else if ( req.query.select === 'subject'){
+      //right now this just does same as the All
+      query = query
+    }
+
+    console.log(query);
     db.ClassroomModel
-      .find(req.query)
+      .find(query)
       .then(dbModel => {
+        console.log(dbModel)
         res.json(dbModel)
       })
       .catch(err => res.status(422).json(err));
@@ -77,6 +98,8 @@ module.exports = {
   //Route: "api/classrooms/:id/addStudent"
   //:id is class id, student id is sent through the body
   AddStudentToClass: function (req, res) {
+    console.log('adding student to class ...')
+    console.log(req.body)
     db.RegisterModel
     .findOne({ _id: req.body.id })
     .then(dbModel => {

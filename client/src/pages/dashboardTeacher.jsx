@@ -13,11 +13,11 @@ import Card from "@material-ui/core/Card";
 import { styled } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
 } from "@material-ui/core";
 import { Button, Input, TextField } from "@material-ui/core";
 import { Menu, MenuItem } from "@material-ui/core";
@@ -29,7 +29,7 @@ import AddIcon from "@material-ui/icons/Add";
 // import { makeStyles } from '@material-ui/core/styles';
 
 const MyCard = styled(Card)({
-  background: "transparent",
+    background: "transparent",
 });
 
 const DashBoardTeacher = (props) => {
@@ -44,7 +44,7 @@ const DashBoardTeacher = (props) => {
 
     useEffect(() => {
 
-            console.log(userType);
+        console.log(userType);
 
         loadClasses()
 
@@ -58,7 +58,10 @@ const DashBoardTeacher = (props) => {
                 console.log(resp.data)
 
                 const newDataObj = resp.data.map((value, index) => {
+                    console.log(value)
                     // console.log(value.image);
+                   value.badgenotify = value.announcements.length
+
                     if (value.image) {
                         console.log('exists')
 
@@ -151,24 +154,24 @@ const DashBoardTeacher = (props) => {
     return (
         <Container fluid>
             <Grid align='center'>
-            {/* <svg: React.SVGProps<SVGSVGElement>; */}
-            <svg viewBox="0 0 1700 290">
-	<symbol id="s-text">
-		<text textAnchor="middle" x="50%" y="30%">Classroom Dashboard</text>
-	</symbol>
+                {/* <svg: React.SVGProps<SVGSVGElement>; */}
+                <svg viewBox="0 0 1700 290">
+                    <symbol id="s-text">
+                        <text textAnchor="middle" x="50%" y="30%">Classroom Dashboard</text>
+                    </symbol>
 
-	<g className="g-ants">
-		<use xlinkHref="#s-text" className="text-copy"></use>
-		<use xlinkHref="#s-text" className="text-copy"></use>
-		<use xlinkHref="#s-text" className="text-copy"></use>
-		<use xlinkHref="#s-text" className="text-copy"></use>
-		<use xlinkHref="#s-text" className="text-copy"></use>
-	</g>
-</svg>
-        <p className='teachertext'>Click the <Fab size="small" color="secondary" aria-label="add">
+                    <g className="g-ants">
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                        <use xlinkHref="#s-text" className="text-copy"></use>
+                    </g>
+                </svg>
+                <p className='teachertext'>Click the <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />
                 </Fab> <span> to create a course</span>
-        </p>
+                </p>
             </Grid>
             <MyCard>
                 <Grid
@@ -176,7 +179,6 @@ const DashBoardTeacher = (props) => {
                     spacing={5}
                     align='center'
                 >
-                    {/* <ClassroomContext.Provider value={{ currentClass }}> */}
                     {
                         classesArr.length > 0 ? classesArr.map((item, index) => {
                             return (
@@ -196,6 +198,7 @@ const DashBoardTeacher = (props) => {
                                         imageCaption=''
                                         settingsButton={handleMenuClick}
                                         classID={item._id}
+                                        badgenotify={item.badgenotify}
                                     >
                                     </ClassCard>
                                 </Grid>
@@ -203,98 +206,90 @@ const DashBoardTeacher = (props) => {
                         })
                             : <p>No classes Found</p>
                     }
-                    {/* </ClassroomContext.Provider> */}
-                {/* </Grid>
-              )
-            })
-          ) : (
-            <p>No classes Found</p>
-          )} */}
-          {/* </ClassroomContext.Provider> */}
-        </Grid>
-        {/* --------------------------------------------------------------------- */}
-        {/*______________ Below this line is menu for class cards________________ */}
-        {/* ----------------------------------------------------------------------*/}
-        <Menu
-          id="simple-menu"
-          anchorEl={menuAnchor}
-          keepMounted
-          open={Boolean(menuAnchor)}
-          onClose={handleMenuClose}
-        >
-          <MenuItem>
-            <label>
-              Add Image to Class: &nbsp;
+                </Grid>
+                {/* --------------------------------------------------------------------- */}
+                {/*______________ Below this line is menu for class cards________________ */}
+                {/* ----------------------------------------------------------------------*/}
+                <Menu
+                    id="simple-menu"
+                    anchorEl={menuAnchor}
+                    keepMounted
+                    open={Boolean(menuAnchor)}
+                    onClose={handleMenuClose}
+                >
+                    <MenuItem>
+                        <label>
+                            Add Image to Class: &nbsp;
               <input type="file" onChange={fileSelectHandler} />
-            </label>
-            <button onClick={updateClassImage}>UPLOAD</button>
-          </MenuItem>
-          <MenuItem onClick={handleChangeTitle}>Change Title</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
-        </Menu>
-      </MyCard>
-      <Dialog
-        open={openDialog}
-        onClose={handleDialogClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Add a Class</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please Enter your classroom Information below ...
+                        </label>
+                        <button onClick={updateClassImage}>UPLOAD</button>
+                    </MenuItem>
+                    <MenuItem onClick={handleChangeTitle}>Change Title</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
+                </Menu>
+            </MyCard>
+            <Dialog
+                open={openDialog}
+                onClose={handleDialogClose}
+                aria-labelledby="form-dialog-title"
+            >
+                <DialogTitle id="form-dialog-title">Add a Class</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please Enter your classroom Information below ...
           </DialogContentText>
-          <label>
-            Course Title:
+                    <label>
+                        Course Title:
             <Input
-              autoFocus
-              disableUnderline
-              margin="dense"
-              id="title"
-              name="title"
-              type="text"
-              fullWidth
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Course Discipline:
+                            autoFocus
+                            disableUnderline
+                            margin="dense"
+                            id="title"
+                            name="title"
+                            type="text"
+                            fullWidth
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Course Discipline:
             <Input
-              autoFocus
-              disableUnderline
-              margin="dense"
-              id="discipline"
-              name="discipline"
-              type="text"
-              fullWidth
-              onChange={handleInputChange}
-            />
-          </label>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="description"
-            name="description"
-            label="Course Description"
-            type="text"
-            variant="outlined"
-            multiline
-            rowsMax="4"
-            fullWidth
-            onChange={handleInputChange}
-          />
-          <DialogActions>
-            <Button onClick={handleDialogClose} color="primary">
-              Cancel
+                            autoFocus
+                            disableUnderline
+                            margin="dense"
+                            id="discipline"
+                            name="discipline"
+                            type="text"
+                            fullWidth
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="description"
+                        name="description"
+                        label="Course Description"
+                        type="text"
+                        variant="outlined"
+                        multiline
+                        rowsMax="4"
+                        fullWidth
+                        onChange={handleInputChange}
+                    />
+                    <DialogActions>
+                        <Button onClick={handleDialogClose} color="primary">
+                            Cancel
             </Button>
-            <Button onClick={handleDailogSubmit} color="primary" type="submit">
-              Submit
+                        <Button onClick={handleDailogSubmit} color="primary" type="submit">
+                            Submit
             </Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
-      <ToastContainer />
-    </Container>
-  );
+                    </DialogActions>
+                </DialogContent>
+            </Dialog>
+            <ToastContainer />
+        </Container>
+    );
 };
 
 export default DashBoardTeacher;

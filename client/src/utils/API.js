@@ -29,6 +29,9 @@ export default {
     getClasses: function () {
         return axios.get("/api/classrooms")
     },
+    searchClasses: function (selectValue, inputValue) {
+        return axios.get("/api/classrooms/?select=" + selectValue + "&input=" + inputValue)
+    },
     addClass: function (newClass) {
         return axios.post("api/classrooms", newClass)
     },
@@ -59,6 +62,9 @@ export default {
     },
     classesByUser: function() {
         return axios.get('api/user/classes/')
+    },
+    requestToJoinClass: function(requestInfo, user) {
+        return axios.post('api/classrooms/' + requestInfo + '/addStudent', user)
     }
 
 
