@@ -6,26 +6,26 @@ import dashboardTeacher from './pages/dashboardTeacher.jsx';
 import dashboardStudent from './pages/dashboardStudent'
 import Grades from './pages/gradesTeacher.jsx';
 import Login from './pages/login.jsx';
+import Logout from './pages/logout.jsx';
 import Search from './pages/search.jsx';
 // import Register from './components/RegisterForm/Register.jsx';
 import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import Wrapper from './components/Wrapper/Wrapper.jsx'
-// import API from './utils/API.js';
+import Wrapper from './components/Wrapper/Wrapper.jsx';
 import RootContext from './utils/RootContext';
-
-// // creating ConfigContext for user authenticated vs not authenticated UI
-// export const ConfigContext = React.createContext();
-
+// https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Router.md
+// Extensive documentation on history, its usage, and custom methods
+// note: history = createBrowserHistory(); keyLength of location.key defaults to 6; set to 12
+// see more about BrowserRouter options https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md
+import history from './history/history.jsx';
 
 const App = () => {
-
     const [userType, setUserType ] = useState('')
     const [userID, setUserID ] = useState('')
     const [classID, setClassID ] = useState('')
 
     return (
-        <BrowserRouter>
+        <BrowserRouter history={history} keyLength={12}>
             <RootContext.Provider value={{ userType, setUserType, userID, setUserID, classID, setClassID }}>
                 <Navbar />
                 <Wrapper>
@@ -37,6 +37,7 @@ const App = () => {
                         {/* <Route exact path="/register" component={Register} /> */}
                         <Route exact path="/classrooms" component={Classroom} />
                         <Route exact path="/" component={Home} />
+                        <Route exact path="/logout" component={Logout} />
                         <Route path="/login">
                             <Login/>
                         </Route>

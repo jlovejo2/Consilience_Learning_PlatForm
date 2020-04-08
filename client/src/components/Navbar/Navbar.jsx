@@ -60,31 +60,21 @@ const Navbar = () => {
             >
               <Link to="/"><HomeIcon /></Link>
             </li>
-            <li id="li-nav"
-              className={
-                window.location.pathname === "/" ||
-                window.location.pathname === "/search"
-                ? "active"
-                : ""
-              }
-            >
+            <li
+              className={`nav-item
+                            ${
+                              window.location.pathname === "/search"
+                              ? "active"
+                              : ""
+                            }
+                            `}
+                            >
               <Link to="/search">Search</Link>
             </li>
             <li
               className={`nav-item
                             ${
-                              window.location.pathname === "/assignments"
-                                ? "active"
-                                : ""
-                              }
-                            `}
-                            >
-              <Link to="/assignments">Assignments</Link>
-            </li>
-            <li
-              className={`nav-item
-                            ${
-                              window.location.pathname === "/assignmentsTeacher"
+                              window.location.pathname === "/dashboardTeacher"
                               ? "active"
                               : ""
                             }
@@ -95,7 +85,7 @@ const Navbar = () => {
             <li
               className={`nav-item
               ${
-                              window.location.pathname === "/assignmentsStudent"
+                              window.location.pathname === "/dashboardStudent"
                               ? "active"
                               : ""
                             }
@@ -107,13 +97,6 @@ const Navbar = () => {
               className={window.location.pathname === "/grades" ? "active" : ""}
               >
               <Link to="/grades">Grades</Link>
-            </li>
-            <li
-              className={
-                window.location.pathname === "/syllabus" ? "active" : ""
-              }
-              >
-              <Link to="/syllabus">Syllabi</Link>
             </li>
           </ul>
         </nav>
