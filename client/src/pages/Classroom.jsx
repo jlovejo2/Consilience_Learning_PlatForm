@@ -131,6 +131,8 @@ export const Classroom = (props) => {
     return (
         <div>
             <ClassBanner title={currentClassObj.courseTitle} desc={currentClassObj.courseDescription} />
+            <Grid container>
+            <Grid item xs={8}>
             <Container>
                 <Paper elevation={1} square={false}>
                     <Box p={4} alignItems='center' justifyContent='center' display='flex'>
@@ -233,6 +235,11 @@ export const Classroom = (props) => {
                 </Paper>
                 <ToastContainer />
             </Container>
+            </Grid>
+            <Grid item xs={4}>
+                <p>this is where the assignments show-up</p>
+            </Grid>
+            </Grid>
             {/* ---------------------------------------------------------------------------------------- */}
             {/* _____________The below component renders the dialog to add an announcement______________ */}
             {/* ----------------------------------------------------------------------------------------- */}
@@ -242,6 +249,7 @@ export const Classroom = (props) => {
                 handleInput={handleDialogInputChange}
                 submitDialog={handleDialogSubmit}
             />
+           
         </div >
     );
 }
