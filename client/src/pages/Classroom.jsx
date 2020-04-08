@@ -6,6 +6,7 @@ import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
 import Announcement from '../components/AnnouncementForm/Announcement';
 import CommentButton from '../components/Comments/CommentButton';
+import Expander from '../components/Comments/ExpansionDiv';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActions, CardContent } from '@material-ui/core';
@@ -15,8 +16,11 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
+// import { ExpansionPanel, ExpansionPanelSummary} from '@material-ui/core'
 
 import AddIcon from '@material-ui/icons/Add';
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionDiv from '../components/Comments/ExpansionDiv';
 
 
 const useStyles = makeStyles({
@@ -103,25 +107,25 @@ export const Classroom = (props) => {
         // console.log(event.target);
         // console.log(announcementObj);
         const commentInfo = {
-            body: event.target.value.split('\n',1),
             author: userID,
+            body: event.target.value.split('\n', 1)[0],
             // announcementID: currentClassObj.announcements[0]._id
         }
 
         console.log(announcementIndex);
         // console.log(currentClassObj)
-        if(event.keyCode === 13) {
+        if (event.keyCode === 13) {
             console.log('submitted on enter');
             API.createComment(currentClassObj.announcements[0]._id, commentInfo)
-            .then(resp => {
-                console.log(resp)
-            })
-            .catch(err => console.log(err))
+                .then(resp => {
+                    console.log(resp)
+                })
+                .catch(err => console.log(err))
         }
     }
 
     // function handleCommentChange(event, announceIndex) {
-        
+
     //     const commentBody = event.target.value
     //     setAnnouncementObj({ ...commentObj, announceIndex: value })
     // }
@@ -176,9 +180,33 @@ export const Classroom = (props) => {
                                                         <CardActions>
                                                             <Grid container className={classes.center}>
                                                                 <CommentButton /*inputComment={(event) => { handleCommentChange(event, index) }}*/
-                                                                 submitComment={(event) => { handleAddComment(event, index) }}/> 
+                                                                    submitComment={(event) => { handleAddComment(event, index) }} />
                                                             </Grid>
                                                         </CardActions>
+
+                                                        {announcement.comments ?
+                                                            <Expander>
+                                                                {
+                                                                    announcement.comments.map((comment, index) => {
+                                                                        return (
+                                                                            <>
+                                                                                <Grid item xs={12}>
+                                                                                    <Paper key={index} elevation={16}>
+                                                                                        <Card>
+                                                                                            <CardContent>
+                                                                                                {comment.body}
+                                                                                            </CardContent>
+                                                                                        </Card>
+                                                                                    </Paper>
+                                                                                </Grid>
+                                                                            </>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </Expander>
+
+                                                            : ''
+                                                        }
                                                     </Card>
                                                 </Paper>
                                             </Grid>

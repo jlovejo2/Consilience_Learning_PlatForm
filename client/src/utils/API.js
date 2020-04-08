@@ -55,7 +55,7 @@ export default {
         return axios.get('api/classrooms/announcement/' + id)
     },
     createComment: function(idOne, commentInfo) {
-        return axios.post('api/classrooms/comment/' + idOne, commentInfo)
+        return axios.put('api/classrooms/comment/' + idOne, commentInfo)
     },
     classesByUser: function() {
         return axios.get('api/user/classes/')
