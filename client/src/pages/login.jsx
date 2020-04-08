@@ -40,6 +40,7 @@ const Login = () => {
         console.log('submitting register');
         event.preventDefault();
         if (registerForm.email && registerForm.password && registerForm.type) {
+            console.log(registerForm)
             console.log('Register looks good so far')
             API.userRegister(registerForm)
                 .then(resp => {

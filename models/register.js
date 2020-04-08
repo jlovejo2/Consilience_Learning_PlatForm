@@ -30,20 +30,14 @@ const RegisterSchema = new Schema(
                 // type: Schema.Types.ObjectId,
                 type: String,
                 ref: 'User',
-                // required: 'enterID'
             },
-            // staffID: {
-            //     // type: Schema.Types.ObjectId,
-            //     type: String,
-            //     ref: 'User',
-            // },
             discipline: {
                 type: String,
                 trim: true
                 },
             // TOUCH ON THIS LATER
             // activeCourses: {
-            //     type: Array,
+            //     type: String,
             //     trim: true,
             // },
             // completedCourses: {

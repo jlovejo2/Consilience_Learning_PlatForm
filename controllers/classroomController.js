@@ -1,5 +1,7 @@
 const db = require('../models');
-const fs = require('fs')
+const fs = require('fs');
+const { RegisterModel } = require('../models');
+const { register } = require('../client/src/serviceWorker');
 // const func = require('./functions');
 
 module.exports = {
@@ -21,6 +23,18 @@ module.exports = {
       .populate({path: 'announcements'})
       // .populate({path:'comments'})
       .exec((error, dbModel) => res.json(dbModel))
+  },
+  // populating student info 
+  findByIdandPopulate: function (req, res) {
+    db.ClassroomModel
+      .findById(req.params.id)
+      // model: 'RegisterModel', select: "_id"
+      .select("teacherID courseTitle students")
+      .populate("students")
+      .exec((err, dbModel) => 
+        !err ?
+        res.json(dbModel) : 
+        res.status(422).json(err));
   },
 
   //This will be used to create a classroom.  Goal is for only a user that is a teacher to be able to do this.  Will need user Authentification

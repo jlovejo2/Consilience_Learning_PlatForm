@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import API from '../utils/API';
 import RootContext from '../utils/RootContext';
-
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
 import Announcement from '../components/AnnouncementForm/Announcement';
@@ -16,11 +15,11 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
-// import { ExpansionPanel, ExpansionPanelSummary} from '@material-ui/core'
-
 import AddIcon from '@material-ui/icons/Add';
+import { toast, ToastContainer } from 'react-toastify';
+// import { ExpansionPanel, ExpansionPanelSummary} from '@material-ui/core'
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionDiv from '../components/Comments/ExpansionDiv';
+// import ExpansionDiv from '../components/Comments/ExpansionDiv';
 
 
 const useStyles = makeStyles({
@@ -49,7 +48,8 @@ const useStyles = makeStyles({
 export const Classroom = (props) => {
 
     const classes = useStyles();
-    const { userType, userID } = useContext(RootContext)
+    const { userType, userID } = useContext(RootContext);
+    const [setState] = useState('')
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
@@ -88,16 +88,14 @@ export const Classroom = (props) => {
         setAnnouncementObj({ ...announcementObj, [name]: value })
     }
 
-    function handleDialogSubmit(event) {
-        event.preventDefault();
+    function handleDialogSubmit() {
         if (announcementObj.title && announcementObj.body) {
             console.log('Announcement looks good so far')
             API.createAnnouncement(currentClassObj._id, announcementObj)
-                .then(resp => {
-                    console.log(resp)
-                    setCurrentClassObj(resp);
-                    setOpenDialog(false)
-                })
+                .then((resp) => setCurrentClassObj(resp))
+                    .then(() => handleDialogClose())
+                    .then(() => setState({ msg: toast.success('announcement created') }))
+                    .then(() => console.log(announcementObj))
                 .catch(err => console.log(err))
         }
     }
@@ -218,7 +216,7 @@ export const Classroom = (props) => {
                                             <Card className={classes.root} variant="outlined">
                                                 <CardContent>
                                                     <Typography variant="h5" component="h2">
-                                                        No announcements at this time
+                                                       No announcements at this time
                                                     </Typography>
                                                 </CardContent>
                                             </Card>
@@ -231,6 +229,7 @@ export const Classroom = (props) => {
                         </Grid>
                     </Box>
                 </Paper>
+                <ToastContainer />
             </Container>
             {/* ---------------------------------------------------------------------------------------- */}
             {/* _____________The below component renders the dialog to add an announcement______________ */}

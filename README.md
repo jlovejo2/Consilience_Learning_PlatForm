@@ -176,3 +176,6 @@ Decimal | 8-bit Binary | Hexadecimal
 
 
 - https://introcs.cs.princeton.edu/java/61data/
+
+
+- Note: can delete node_modules from terminal via rm -rf node_modules/

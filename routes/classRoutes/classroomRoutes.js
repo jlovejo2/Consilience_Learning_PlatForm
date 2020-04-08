@@ -20,6 +20,9 @@ router.route("/:id")
       .post(classroomController.update)
       .delete(classroomController.remove);
 
+router.route("/populate/:id")
+      .get(classroomController.findByIdandPopulate);
+
 router.route("/image/:id")
       .get(classroomController.findImgByClassId)
       .post(upload.single('image'), classroomController.updateClassImage)
