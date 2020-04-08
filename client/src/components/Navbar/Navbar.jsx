@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+console.log(useStyles)
 
 function HomeIcon(props) {
   return (

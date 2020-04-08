@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import RootContext from "../utils/RootContext";
 import API from "../utils/API";
 import custFunc from "../utils/customFunctions";
-
+import { toast, ToastContainer } from 'react-toastify';
 //Importing components from component folder
 import Container from "../components/Container/Container.jsx";
 import ClassCard from "../components/ClassCard/ClassCard";
@@ -34,6 +34,7 @@ const MyCard = styled(Card)({
 
 const DashBoardTeacher = (props) => {
     const { userType, userID } = useContext(RootContext)
+    const [setState] = useState('')
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
@@ -52,7 +53,6 @@ const DashBoardTeacher = (props) => {
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too
     function loadClasses() {
-        console.log(userType)
         API.getClasses()
             .then(resp => {
                 console.log(resp.data)
@@ -140,9 +140,9 @@ const DashBoardTeacher = (props) => {
         console.log(newClassFormObj);
         API.addClass(newClassFormObj)
             .then(resp => {
-                console.log("Class added successfully")
                 loadClasses()
                 handleDialogClose()
+                setState({ msg: toast.success('announcement created') })
             })
             .catch(err => console.log(err))
     }
@@ -151,9 +151,10 @@ const DashBoardTeacher = (props) => {
     return (
         <Container fluid>
             <Grid align='center'>
+            {/* <svg: React.SVGProps<SVGSVGElement>; */}
             <svg viewBox="0 0 1700 290">
 	<symbol id="s-text">
-		<text text-anchor="middle" x="50%" y="30%">Classroom Dashboard</text>
+		<text textAnchor="middle" x="50%" y="30%">Classroom Dashboard</text>
 	</symbol>
 
 	<g className="g-ants">
@@ -291,6 +292,7 @@ const DashBoardTeacher = (props) => {
           </DialogActions>
         </DialogContent>
       </Dialog>
+      <ToastContainer />
     </Container>
   );
 };
