@@ -87,7 +87,6 @@ const ClassroomSchema = new Schema(
         ref: 'Announcement',
         required: true
       }
-
     ]
   },
 
