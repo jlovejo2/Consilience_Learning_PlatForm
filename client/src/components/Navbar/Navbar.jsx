@@ -49,7 +49,7 @@ const Navbar = () => {
             >
             <i className="material-icons">menu</i>
           </a>
-          <ul className="navbar-nav right hide-on-sml-and-down" /*"navbar-nav"*/>
+          <ul className="navbar-nav right hide-on-sm-and-down" /*"navbar-nav"*/>
             <li id="li-nav"
               className={
                 window.location.pathname === "/" ||

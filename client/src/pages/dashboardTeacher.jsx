@@ -58,7 +58,10 @@ const DashBoardTeacher = (props) => {
                 console.log(resp.data)
 
                 const newDataObj = resp.data.map((value, index) => {
+                    console.log(value)
                     // console.log(value.image);
+                   value.badgenotify = value.announcements.length
+
                     if (value.image) {
                         console.log('exists')
 
@@ -195,6 +198,7 @@ const DashBoardTeacher = (props) => {
                                         imageCaption=''
                                         settingsButton={handleMenuClick}
                                         classID={item._id}
+                                        badgenotify={item.badgenotify}
                                     >
                                     </ClassCard>
                                 </Grid>

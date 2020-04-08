@@ -119,7 +119,7 @@ export default function ClassCard(props) {
           <TableChartIcon />
         </Link>
         </IconButton>
-        <Badge badgeContent={4} color="secondary">
+        <Badge badgeContent={props.badgenotify} color="secondary">
           <MailIcon />
         </Badge>
         <IconButton
