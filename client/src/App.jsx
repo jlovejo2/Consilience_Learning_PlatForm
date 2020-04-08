@@ -16,18 +16,19 @@ import Wrapper from './components/Wrapper/Wrapper.jsx'
 // import API from './utils/API.js';
 import RootContext from './utils/RootContext';
 
-// creating ConfigContext for user authenticated vs not authenticated UI
-export const ConfigContext = React.createContext();
+// // creating ConfigContext for user authenticated vs not authenticated UI
+// export const ConfigContext = React.createContext();
 
 
 const App = (props) => {
 
     const [userType, setUserType ] = useState('')
     const [userID, setUserID ] = useState('')
+    const [classID, setClassID ] = useState('')
 
     return (
         <BrowserRouter>
-            <RootContext.Provider value={{ userType, setUserType, userID, setUserID }}>
+            <RootContext.Provider value={{ userType, setUserType, userID, setUserID, classID, setClassID }}>
                 <Navbar />
                 <Wrapper>
                     <React.Fragment>

@@ -4,7 +4,9 @@ const RootContext = React.createContext({
   userType: '',
   setUserType: () => {},
   userID: '',
-  setUserID: () => {}
+  setUserID: () => {},
+  classID: '',
+  setClassID: () => {}
 });
 
 export default RootContext;

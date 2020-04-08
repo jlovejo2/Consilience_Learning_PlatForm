@@ -101,6 +101,16 @@ export default function ClassCard(props) {
           <MeetingRoomIcon />
         </Link>
         </IconButton>
+        <IconButton>
+        <Link to={{
+          pathname: '/classrooms',
+          state: {
+            classroomID: props.classID
+          }
+        }} >
+          <MeetingRoomIcon />
+        </Link>
+        </IconButton>
         <Badge badgeContent={4} color="secondary">
           <MailIcon />
         </Badge>

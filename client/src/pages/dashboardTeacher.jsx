@@ -34,7 +34,7 @@ const MyCard = styled(Card)({
 const DashBoardTeacher = (props) => {
 
     
-    const { userType } = useContext(RootContext)
+    const { userType, classID, setClassID } = useContext(RootContext)
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);

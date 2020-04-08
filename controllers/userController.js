@@ -9,7 +9,7 @@ const IDfunctions = require("./functions");
 require("dotenv").config();
 
 // get all users
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   console.log("in this route 13");
   // /users
   try {
@@ -30,7 +30,7 @@ router.get("/checkToken", authenticateToken, (req, res) => {
 });
 
 // get user authenticated status
-router.get("/:id", async (req, res) => {
+router.get("/:id", authenticateToken, async (req, res) => {
   try {
     await db.RegisterModel.findById({ _id: req.params.id }, req.body).then(
       dbModel => {
