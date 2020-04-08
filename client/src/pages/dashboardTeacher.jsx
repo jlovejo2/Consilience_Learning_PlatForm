@@ -203,12 +203,12 @@ const DashBoardTeacher = (props) => {
                             : <p>No classes Found</p>
                     }
                     {/* </ClassroomContext.Provider> */}
-                </Grid>
-              );
+                {/* </Grid>
+              )
             })
           ) : (
             <p>No classes Found</p>
-          )}
+          )} */}
           {/* </ClassroomContext.Provider> */}
         </Grid>
         {/* --------------------------------------------------------------------- */}
@@ -232,9 +232,6 @@ const DashBoardTeacher = (props) => {
           <MenuItem onClick={handleMenuClose}>Update Description</MenuItem>
         </Menu>
       </MyCard>
-      {/* --------------------------------------------------------------------------------------------- */}
-      {/*<________________________ Below This Line is Dialog Form for adding class __________________>  */}
-      {/* --------------------------------------------------------------------------------------------- */}
       <Dialog
         open={openDialog}
         onClose={handleDialogClose}
