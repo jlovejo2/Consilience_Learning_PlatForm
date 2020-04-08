@@ -175,7 +175,6 @@ const DashBoardTeacher = (props) => {
                     container
                     spacing={5}
                     align='center'
-
                 >
                     {/* <ClassroomContext.Provider value={{ currentClass }}> */}
                     {
@@ -186,7 +185,6 @@ const DashBoardTeacher = (props) => {
                                     item
                                     md={4}
                                     align="center"
-
                                 >
                                     <ClassCard
                                         key={index}

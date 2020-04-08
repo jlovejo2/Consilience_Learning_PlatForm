@@ -32,7 +32,7 @@ router.route("/announcement/:id")
       .post(classroomController.createAnnouncement)
       .put()
 
-router.route("/comment/:classId/:announcementId")
+router.route("/comment/:classId")
       .post(classroomController.createComment)
 
 
