@@ -32,4 +32,9 @@ router.route("/announcement/:id")
       .post(classroomController.createAnnouncement)
       .put()
 
+router.route("/comment/:classId/:announcementId")
+      .post(classroomController.createComment)
+
+
+
 module.exports = router;

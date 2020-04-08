@@ -2,37 +2,33 @@ import React, { useState, useEffect } from 'react';
 import ClassroomContext from '../utils/classroomContext';
 import API from '../utils/API';
 import custFunc from '../utils/customFunctions';
-
 //Importing components from component folder
 import Container from '../components/Container/Container.jsx';
 import ClassCard from '../components/ClassCard/ClassCard';
-
-
 //Importing components and icons from material-ui
 // import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import { styled } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
+// import Fab from '@material-ui/core/Fab';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { Button, Input, TextField } from '@material-ui/core';
 import { Menu, MenuItem } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import AddIcon from '@material-ui/icons/Add';
+// import AddIcon from '@material-ui/icons/Add';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
 
 const MyCard = styled(Card)({
-    background: 'radial-gradient(ellipse farthest-side at bottom right, rgb(0, 0, 0) 53%, rgb(77, 77, 82) 88%, rgb(81, 81, 92) 93%, rgb(255, 255, 255) 100%)',
+    background: 'linear-gradient(0deg, rgba(66,66,66,1) 0%, rgba(97,219,251,0.7450689748555672) 100%)',
     color: 'white',
     align: 'center',
     borderRadius: '35px',
-    boxShadow: '0px 0px 70px 21px #f4e5e5',
+    // boxShadow: '0px 0px 50px 30px #61dbfb',
     alignItems: "stretch",
     height: '100%',
   });
 const DashboardStudent = (props) => {
-    
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
@@ -77,7 +73,7 @@ const DashboardStudent = (props) => {
     function handleDialogClose() {
         setOpenDialog(false);
     }
-
+// eslint-disable-next-line
     function handleCreateClass() {
         setOpenDialog(true);
     }
@@ -147,12 +143,25 @@ const DashboardStudent = (props) => {
     return (
         <Container fluid>
             <Grid align='center'>
-                <p style={{ color: "#ffff" }}>Welcome to the classroom dashboard. To get started click the "+" button to add a class</p>
+                {/* <p className='' style={{ color: "#ffff" }}>Welcome to the classroom dashboard.</p> */}
+                <svg viewBox="0 0 1700 290">
+	<symbol id="s-text">
+		<text text-anchor="middle" x="50%" y="30%">Classroom Dashboard</text>
+	</symbol>
 
-                <Fab size="small" color="secondary" aria-label="add">
+	<g className="g-ants">
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+		<use xlinkHref="#s-text" className="text-copy"></use>
+	</g>
+</svg>
+
+                {/* <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />
-                </Fab>
-            </Grid>
+                </Fab> */}
+            </Grid >
             <MyCard>
                  <Grid 
                 container

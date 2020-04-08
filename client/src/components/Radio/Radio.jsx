@@ -8,7 +8,7 @@ export default function RadioButtonsGroup(props) {
 
   return (
     <FormControl component="fieldset" name='adsfasdf'>
-      <RadioGroup aria-label="user" name="usertype" value={props.radioValue} onChange={props.handleInput}>
+      <RadioGroup aria-label="user" name="type" value={props.radioValue} onChange={props.handleInput}>
         <FormControlLabel value="Teacher" control={<Radio />} label="Teacher" />
         <FormControlLabel value="Student" control={<Radio />} label="Student" />
       </RadioGroup>

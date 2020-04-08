@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  // eslint-disable-next-line
   root: {
     '& > *': {
       margin: theme.spacing(1),

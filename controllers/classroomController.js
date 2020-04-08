@@ -97,14 +97,30 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  createAnnouncement: function (req,res) {
-     console.log(req.body)
-     console.log(req.params.id)
+  createAnnouncement: function (req, res) {
+    
+    console.log(req.body)
+    console.log(req.params.id)
+ 
+    db.ClassroomModel
+      .findOneAndUpdate({ _id: req.params.id }, { $push: { announcements: req.body }})
+      .then(updatedClass => {
+        console.log(updatedClass)
+        res.json(updatedClass);
+      })
+      .catch(err => console.log(err))
   },
 
   findAnnouncementsByClassId: function (req, res) {
     console.log(req.body);
     console.log(req.params.id)
+  },
+
+  createComment: function (req, res) {
+    console.log(req.params)
+    console.log(req.body)
+    // db.ClassroomModel
+    //   .findOneAndUpdate({_id: req.params.announcementId}, { $push: { comments: }})
   }
 
 };

@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm/Register.jsx';
 import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
 import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
+import RootContext from '../utils/RootContext';
 import '../index.css';
-// eslint-disable-next-line
-import Modal from '@material-ui/core/Modal';
+import './pageSty;e/login.css'
 
 const Login = () => {
 
+    const { userType, setUserType, userID, setUserID } = useContext(RootContext)
     const [loginForm, setLoginForm] = useState({})
     const [registerForm, setRegisterForm] = useState({})
     const [openDialog, setOpenDialog] = useState(false);
     const [redirectUser, setRedirectUser] = useState(false);
-
-    // useEffect(() => {
-
-    //     if(userType === 'teacher') {
-    //         console.log('teacher')
-    //        return <Redirect to='/dashboardTeacher'/>
-    //     } else if (userType === 'student') {
-    //         console.log('student')
-    //         return <Redirect to='/dashboardStudent'/> 
-    //     } else {
-    //         console.log(userType)
-    //         console.log('something is weird')
-    //     }
-    // }, [userType])
-
+  
     const handleRegisterOpen = () => {
         setOpenDialog(true);
     };
@@ -45,19 +32,24 @@ const Login = () => {
 
     function handleRegisterInputChange(event) {
         const { name, value } = event.target
-        setRegisterForm({ ...registerForm, [name]: value })
+        setRegisterForm({ ...registerForm, [name]: value })   
     }
 
     function handleRegisterSubmit(event) {
+        console.log(registerForm);
+        console.log('submitting register');
         event.preventDefault();
-        if (registerForm.email && registerForm.password && registerForm.userType) {
+        if (registerForm.email && registerForm.password && registerForm.type) {
             console.log('Register looks good so far')
             API.userRegister(registerForm)
                 .then(resp => {
                     console.log(resp)
                     setOpenDialog(false)
+                    
                 })
                 .catch(err => console.log(err))
+        } else {
+            console.log('else');
         }
     }
 
@@ -72,29 +64,37 @@ const Login = () => {
                 .then(res => {
                     console.log(res.data)
                     const userInfo = res.data.user
-                    console.log(res);
-                    //   if (res.data) setShow(true);
-                    // localStorage.setItem('token', userInfo.token);
-                    // console.log(userInfo.token)
-
-                    if (userInfo.type === 'teacher') {
+                    setUserID(userInfo.ID)
+                    setUserType(userInfo.type)
+                    // double commented code out of commission
+                    // because server-generated proxy-backed
+                    // cookies were preferentially utilized
+                    // //   if (res.data) setShow(true);
+                    // // localStorage.setItem('token', userInfo.token);
+                    // // console.log(userInfo.token)
+                    
+                    if (userInfo.type === 'Teacher') {
                         console.log('teacher')
                         setRedirectUser('/dashboardTeacher')
-                    } else if (userInfo.type === 'student') {
+                    } else if (userInfo.type === 'Student') {
                         console.log('student')
                         setRedirectUser('/dashboardStudent')
                     } else {
                         console.log(userInfo.type)
                         console.log('something is weird')
                     }
-
                 })
                 .catch(err => console.log(err))
         }
     }
 
     if (redirectUser) {
-        return <Redirect to={redirectUser} />
+
+        console.log(userType);
+        console.log(userID);
+       
+       return <Redirect to={redirectUser}
+        />
     }
 
     return (
@@ -115,18 +115,18 @@ const Login = () => {
                             <Form size={'col s12'}>
                                 <div className='row'>
                                     <Input
+                                        className="inputLogin"
                                         size='s12'
                                         name='email'
                                         label='Email :'
-                                        placeholder='Please enter your email address'
                                         required='email'
                                         customclass='validate center'
                                         onChange={handleInputChange} />
                                     <Input
+                                        className="inputLogin"
                                         size='s12'
                                         name='password'
                                         label='Password :'
-                                        placeholder='Please enter your password'
                                         type='password'
                                         required='password'
                                         customclass='validate center'
@@ -141,7 +141,7 @@ const Login = () => {
             <RegisterForm
                 open={openDialog}
                 close={handleRegisterClose}
-                radioValue={loginForm.userType}
+                radioValue={registerForm.type}
                 handleInput={handleRegisterInputChange}
                 submitRegister={handleRegisterSubmit} />
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-
+import './style.css';
 import { Card, CardHeader, CardMedia, CardContent, CardActions } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,12 +20,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles((theme) => ({
   root: {
     // backgroundColor: '#61dbfb',
-    background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
+    // background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
     borderRadius: 35,
-    boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
+    // boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
     width: '90%',
     height: '100%',
     display: 'inline-grid',
+    // background: 'rgb(66,66,66)',
+    // background: 'linear-gradient(254deg, rgba(66,66,66,1) 0%, rgba(97,219,251,1) 100%)',
   },
   media: {
     height: 0,
@@ -58,12 +60,12 @@ export default function ClassCard(props) {
   return (
     <Card className={classes.root} value={props.classID} >
 
-    <CardHeader data-classID={props.classID}
+    <CardHeader data-classid={props.classID}
         avatar={
           <Avatar alt="Teacher Image" src={props.teacherAvatar} />
         }
         action={
-          <IconButton aria-label="settings" aria-controls='simple-menu' onClick={props.settingsButton} data-classID={props.classID} >
+          <IconButton aria-label="settings" aria-controls='simple-menu' onClick={props.settingsButton} data-classid={props.classID} >
             <MoreVertIcon />
           </IconButton>
         }
@@ -72,11 +74,12 @@ export default function ClassCard(props) {
       />
       {/*------------------------ This is the end of CardHeader ---------------------------*/}
       {/*----------------------- This is the beginning of Card Image and Caption Location------------- */}
-      <CardMedia
+      { props.image ? <CardMedia
         className={classes.media}
         image={props.image}
         title={props.imageTitle}
-      />
+        src=''
+      /> : '' }
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.imageCaption}

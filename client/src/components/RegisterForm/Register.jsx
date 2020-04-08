@@ -30,7 +30,7 @@ export default function FormDialog(props) {
               margin="dense"
               id="username"
               label="First Name*"
-              name='first'
+              name='firstName'
               type="name"
               onChange={props.handleInput}
               fullWidth
@@ -40,7 +40,7 @@ export default function FormDialog(props) {
               margin="dense"
               id="username"
               label="Last Name*"
-              name='last'
+              name='lastName'
               type="name"
               onChange={props.handleInput}
               fullWidth

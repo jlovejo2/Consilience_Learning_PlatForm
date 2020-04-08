@@ -5,10 +5,12 @@ username and password for mLab also created
 connection with remote database established via robo3T
 
 - https://socket.io/
-- https://www.npmjs.com/package/passport-http-bearer
+- https://www.npmjs.com/package/jsonwebtoken
 - https://www.npmjs.com/package/bcrypt
 - http://www.npmjs.com/package/morgan
     -  HTTP request logger middleware for node
+- https://www.npmjs.com/package/helmet (tentative)
+
 
 ## Security Considerations
 

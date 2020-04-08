@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 export default {
+    users: function () {
+        return axios.get("/users")
+    },
     // user login
     userLogin: function (userObj) {
         return axios.post("/users/login", userObj);
@@ -11,8 +14,8 @@ export default {
     },
     // runs authenticateToken as middleware before getting user type
     // to be called in App.jsx for conditional routing purposes
-    userAuthAndType: function (id) {
-        return axios.get("/users/:id", id)
+    userAuthAndType: function (userObj) {
+        return axios.get("/users/:id", userObj)
     },
     // user logout
     userLogout: function (userObj) {
@@ -50,6 +53,9 @@ export default {
     },
     getAnnouncementByClass: function(id) {
         return axios.get('api/classrooms/announcement/' + id)
+    },
+    createCommemt: function(idOne, idTwo, obj) {
+        return axios.post('api/classrooms/comment/' + idOne + '/' + idTwo, obj)
     }
 
 
