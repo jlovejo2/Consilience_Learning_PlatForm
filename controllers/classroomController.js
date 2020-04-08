@@ -20,8 +20,8 @@ module.exports = {
   findById: function (req, res) {
     db.ClassroomModel
       .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .populate({path: 'announcements'})
+      .exec((error, dbModel) => res.json(dbModel))
   },
   // populating student info 
   findByIdandPopulate: function (req, res) {
@@ -111,17 +111,25 @@ module.exports = {
   },
 
   createAnnouncement: function (req, res) {
-    
+
     console.log(req.body)
     console.log(req.params.id)
- 
-    db.ClassroomModel
-      .findOneAndUpdate({ _id: req.params.id }, { $push: { announcements: req.body }})
-      .then(updatedClass => {
-        console.log(updatedClass)
-        res.json(updatedClass);
+
+    db.AnnouncementModel.create(req.body)
+      .then(dbModel => {
+
+        console.log('announcement created');
+
+        db.ClassroomModel
+          .findOneAndUpdate({ _id: req.params.id }, { $push: { announcements: dbModel._id } })
+          .populate({ path: 'announcements' })
+          .exec((err, updatedClass) => {
+            console.log("post update", updatedClass)
+            res.json(updatedClass);
+          })
       })
-      .catch(err => console.log(err))
+      .catch(err => res.status(422).json(err));
+
   },
 
   findAnnouncementsByClassId: function (req, res) {
@@ -132,12 +140,17 @@ module.exports = {
   createComment: function (req, res) {
     console.log(req.params)
     console.log(req.body)
+    console.log(req.body.body)
+    console.log(req.body.announcementID)
+
+    let arr = []
+    arr.push(req.body)
     db.ClassroomModel
-      .findOneAndUpdate({_id: req.params.id}/*, { $push: { comments: req.body }}*/)
-        .then( res => {
-          console.log(res);
-        })
-        .catch(err => console.log(err))
+      .findOneAndUpdate({ _id: req.params.classId }, { $push: { announcements: { $each: [{ $push: { comments: { $each: arr, $position: 0 } } }], $position: 0 } } })
+      .then(resp => {
+        console.log("response", resp);
+      })
+      .catch(err => console.log(err))
   }
 
 };
