@@ -8,7 +8,7 @@ import dashboardTeacher from './pages/dashboardTeacher.jsx';
 import dashboardStudent from './pages/dashboardStudent'
 import Grades from './pages/gradesTeacher.jsx';
 import Login from './pages/login.jsx';
-import Search from './pages/search.jsx';
+// import Search from './pages/search.jsx';
 // import Register from './components/RegisterForm/Register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
 import Classroom from './pages/Classroom.jsx';
@@ -21,7 +21,7 @@ import RootContext from './utils/RootContext';
 // export const ConfigContext = React.createContext();
 
 
-const App = (props) => {
+const App = () => {
 
     const [userType, setUserType ] = useState('')
     const [userID, setUserID ] = useState('')
@@ -34,7 +34,7 @@ const App = (props) => {
                 <Wrapper>
                     <React.Fragment>
                         <Route exact path="/activities" component={Activities} />
-                        <Route exact path="/search" component={Search} />
+                        {/* <Route exact path="/search" component={Search} /> */}
                         <Route exact path="/assignments" component={Assignments} />
                         <Route exact path="/dashboardTeacher" component={dashboardTeacher} />
                         <Route exact path="/dashboardStudent" component={dashboardStudent} />

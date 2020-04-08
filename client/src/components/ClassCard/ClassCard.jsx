@@ -15,6 +15,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import CreateIcon from '@material-ui/icons/Create';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import TableChartIcon from '@material-ui/icons/TableChart';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,12 +104,12 @@ export default function ClassCard(props) {
         </IconButton>
         <IconButton>
         <Link to={{
-          pathname: '/classrooms',
+          pathname: '/gradesTeacher',
           state: {
             classroomID: props.classID
           }
         }} >
-          <MeetingRoomIcon />
+          <TableChartIcon />
         </Link>
         </IconButton>
         <Badge badgeContent={4} color="secondary">

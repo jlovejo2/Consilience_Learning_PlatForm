@@ -1,5 +1,7 @@
 const db = require('../models');
-const fs = require('fs')
+const fs = require('fs');
+const { RegisterModel } = require('../models');
+const { register } = require('../client/src/serviceWorker');
 // const func = require('./functions');
 
 module.exports = {
@@ -18,6 +20,16 @@ module.exports = {
   findById: function (req, res) {
     db.ClassroomModel
       .findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  // populating student info 
+  findByIdandPopulate: function (req, res) {
+    db.ClassroomModel
+      .find({})
+      // model: 'RegisterModel', select: "_id"
+      .populate({ path: 'Register' })
+      .exec()
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
