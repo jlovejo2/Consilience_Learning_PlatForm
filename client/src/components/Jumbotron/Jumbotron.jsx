@@ -9,7 +9,7 @@ const Jumbotron = (props) => {
                 <MDBCardTitle className="jumbotitle">Consilience</MDBCardTitle>
 {/* Andrew Write your statement in the P tag below*/}
                 <p className="jumbotext"></p>
-                <MDBBtn className="btn-grad center" href={props.href}> Login/Signup</MDBBtn>
+                <MDBBtn className="btn-grad center" href={props.href}> Login/Register</MDBBtn>
           </MDBJumbotron>
     </MDBContainer>
   )

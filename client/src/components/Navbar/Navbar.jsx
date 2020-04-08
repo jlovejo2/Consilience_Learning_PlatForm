@@ -96,7 +96,7 @@ const Navbar = () => {
             <li
               className={window.location.pathname === "/grades" ? "active" : ""}
               >
-              <Link to="/grades">Grades</Link>
+              <Link to="/grades">Gradebook</Link>
             </li>
           </ul>
         </nav>

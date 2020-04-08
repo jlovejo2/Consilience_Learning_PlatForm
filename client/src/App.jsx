@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Home from './pages/home.jsx';
 import dashboardTeacher from './pages/dashboardTeacher.jsx';
@@ -24,8 +24,15 @@ const App = () => {
     const [userID, setUserID ] = useState('')
     const [classID, setClassID ] = useState('')
 
+    history.listen((location, action) => {
+        console.log(
+          `The current URL is ${location.pathname}${location.search}${location.hash}`
+        );
+        console.log(`The last navigation action was ${action}`);
+      });
+
     return (
-        <BrowserRouter history={history} keyLength={12}>
+        <Router history={history} keyLength={12}>
             <RootContext.Provider value={{ userType, setUserType, userID, setUserID, classID, setClassID }}>
                 <Navbar />
                 <Wrapper>
@@ -45,7 +52,7 @@ const App = () => {
                 </Wrapper>
                 <Footer />
             </RootContext.Provider>
-        </BrowserRouter>
+        </Router>
     )
 };
 
