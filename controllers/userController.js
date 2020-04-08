@@ -109,7 +109,7 @@ router.post("/register", async (req, res) => {
   const { type, firstName, lastName, email, password, discipline } = req.body;
 
   //This was added in to check for type of the student in order to direct to the proper ID generating function
-  if (type === "student") {
+  if (type === "Student") {
     generatedId = await IDfunctions.studentIdGenerator(firstName, lastName);
   } else {
     generatedId = await IDfunctions.staffIDGenerator(
