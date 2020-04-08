@@ -50,7 +50,9 @@ const DashboardStudent = (props) => {
         console.log(resp.data);
 
         const newDataObj = resp.data.map((value, index) => {
+          console.log(value);
           // console.log(value.image);
+          value.badgenotify = value.announcements.length;
           if (value.image) {
             console.log("exists");
 
@@ -159,27 +161,28 @@ const DashboardStudent = (props) => {
       </Grid>
       <MyCard>
         <Grid container spacing={5} align="center">
-            {classesArr.length > 0 ? (
-              classesArr.map((item, index) => {
-                return (
-                  <Grid key={index} item md={4} align="center">
-                    <ClassCard
-                      key={index}
-                      title={item.courseTitle}
-                      subheader={item.courseDiscipline}
-                      paragraph1={item.courseDescription}
-                      image={item.imageBase64Str}
-                      imageTitle=""
-                      imageCaption=""
-                      settingsButton={handleMenuClick}
-                      classID={item._id}
-                    ></ClassCard>
-                  </Grid>
-                );
-              })
-            ) : (
-              <p>No classes Found</p>
-            )}
+          {classesArr.length > 0 ? (
+            classesArr.map((item, index) => {
+              return (
+                <Grid key={index} item md={4} align="center">
+                  <ClassCard
+                    key={index}
+                    title={item.courseTitle}
+                    subheader={item.courseDiscipline}
+                    paragraph1={item.courseDescription}
+                    image={item.imageBase64Str}
+                    imageTitle=""
+                    imageCaption=""
+                    settingsButton={handleMenuClick}
+                    classID={item._id}
+                    badgenotify={item.badgenotify}
+                  ></ClassCard>
+                </Grid>
+              );
+            })
+          ) : (
+            <p>No classes Found</p>
+          )}
         </Grid>
         {/* --------------------------------------------------------------------- */}
         {/*______________ Below this line is menu for class cards________________ */}
