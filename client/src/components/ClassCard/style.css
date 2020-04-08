@@ -2,42 +2,15 @@
     background: 'linear-gradient(45deg, #219gf3 30%, #9e9e9e 90%)';
 }
 svg {
-    display: block;
+    display: inline-block;
     font: 8em 'Montserrat';
     width: auto;
     height: auto;
     margin: 0 auto;
+    box-sizing: content-box;
 }
 .text-copy {
-    fill: none;
-    stroke: white;
-    /* stroke-dasharray: 6% 29%; */
-    stroke-width: 1px;
-    stroke-dashoffset: 0%;
-    animation: stroke-offset 20s infinite linear;
-}
-.text-copy:nth-child(1){
-	stroke: #61dbfb;
-    animation-delay: 0;
-}
-.text-copy:nth-child(2){
-	stroke: #61dbfb;
-	animation-delay: 0s;
-}
-.text-copy:nth-child(3){
-	stroke: #61dbfb;
-	animation-delay: -1s;
-}
-.text-copy:nth-child(4){
-	stroke: #61dbfb;
-	animation-delay: -2s;
-}
-.text-copy:nth-child(5){
-	stroke: #61dbfb;
-	animation-delay: -3s;
-}
-@keyframes stroke-offset{
-	100% {stroke-dashoffset: -35%;}
+    stroke: #61dbfb;
 }
 .teachertext {
     display:inline-block;
@@ -47,7 +20,10 @@ svg {
     color: #61dbfb;
     font-size: large;
     max-width: -webkit-fill-available;
-    margin-top: -1rem;
+    margin-top: -3rem;
     font-family: math;
 }
-  
+/* .dashcontain {
+    margin: -6rem 8rem 5rem 8rem !important;
+    linear-gradient(0deg, rgba(66,66,66,1) 0%, rgba(97,219,251,0.7450689748555672) 100%)
+} */

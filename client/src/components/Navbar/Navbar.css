@@ -7,10 +7,10 @@
   font-size: large;
 } */
 /* .nav-item__active{
-  display: inline-block;
+  display: inline-block; 
   color: #F0F2F0;
   font-size: large; 
-  border-bottom: solid white 3px !important; 
+  border-bottom: solid white 3px !important;  
   transition: border-bottom .5s ease-in-out; 
 } */
 /* .navbar-dark {
@@ -29,4 +29,8 @@
 .nav-wrapper {
   background: rgb(66,66,66);
   background: linear-gradient(254deg, rgba(66,66,66,1) 0%, rgba(97,219,251,1) 100%);
+}
+#li-nav {
+  background: none !important;
+  line-height: 70px;
 }
