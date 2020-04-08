@@ -176,7 +176,6 @@ const DashBoardTeacher = (props) => {
                     spacing={5}
                     align='center'
                 >
-                    {/* <ClassroomContext.Provider value={{ currentClass }}> */}
                     {
                         classesArr.length > 0 ? classesArr.map((item, index) => {
                             return (
@@ -203,14 +202,6 @@ const DashBoardTeacher = (props) => {
                         })
                             : <p>No classes Found</p>
                     }
-                    {/* </ClassroomContext.Provider> */}
-                    {/* </Grid>
-              )
-            })
-          ) : (
-            <p>No classes Found</p>
-          )} */}
-                    {/* </ClassroomContext.Provider> */}
                 </Grid>
                 {/* --------------------------------------------------------------------- */}
                 {/*______________ Below this line is menu for class cards________________ */}

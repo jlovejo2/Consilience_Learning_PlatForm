@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import API from '../utils/API';
+import RootContext from '../utils/RootContext';
 
-import { Input, Button, MenuItem, Select, Grid, Box, Paper } from '@material-ui/core';
+import { Input, Button, MenuItem, Select, Grid, Box, ListItem, Paper } from '@material-ui/core';
 import Container from '../components/Container/Container.jsx';
+
 
 
 
 const Search = () => {
 
-    const [classSearchObj, setClassSearchObj] = useState({})
-
+    const { userID } = useContext(RootContext);
+    const [classSearchObj, setClassSearchObj] = useState({});
     const [apiClasses, setApiClasses] = useState([]);
     // const [activateModal, setActivateModal] = useState(false);
 
@@ -25,6 +27,18 @@ const Search = () => {
     //     console.log('closing Modal');
     //     setActivateModal(false);
     // }
+
+    function handleJoinClass(event) {
+        const requestInfo = event.currentTarget.value
+        const userInfo = {}
+        userInfo.id = userID
+        
+        API.requestToJoinClass(requestInfo, userInfo)
+            .then( resp => {
+                console.log(resp)
+            })
+            .catch( err => console.log(err))
+    }
 
     function handleSearchChange(event) {
 
@@ -51,7 +65,6 @@ const Search = () => {
                 .catch(err => console.log(err))
         }
     }
-
 
     return (
 
@@ -107,14 +120,32 @@ const Search = () => {
                     <Grid item xs={12} justifyContent='center'>
 
                         <Box m={2} p={2}>
-
-
+                            <ul>
+                            {
+                        apiClasses.length > 0 ? apiClasses.map((item, index) => {
+                            return (
+                               <ListItem key={index}>
+                                   {item.courseTitle}, {item.courseDescription}, {item.courseDiscipline}
+                                    <Button
+                                    size='small'
+                                    variant='contained'
+                                    color='primary'
+                                    value={item.id}
+                                    onClick={handleJoinClass}
+                                    >
+                                        Request to Join
+                                    </Button>
+                               </ListItem>
+                            )
+                        })
+                            : <p>No classes Found</p>
+                    }
+                            </ul>
                         </Box>
 
                     </Grid>
                 </Paper>
             </Box>
-
         </Grid>
         // </Container >
     )
