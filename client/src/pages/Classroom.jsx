@@ -141,11 +141,13 @@ export const Classroom = (props) => {
                                         <CardContent>
                                             <Typography className={classes.announcementTitle} variant='h3' align='center'>
                                                 ANNOUNCEMENTS BOARD &nbsp; &nbsp;
+                                                { userType === 'Teacher' ?
                                                 <Tooltip title="Add an announcement" aria-label="add">
                                                     <Fab size="small" color="primary" aria-label="add">
                                                         <AddIcon onClick={handleDialogOpen} />
                                                     </Fab>
-                                                </Tooltip>
+                                                </Tooltip> : ''
+                                                }
                                             </Typography>
                                         </CardContent>
                                     </Card>

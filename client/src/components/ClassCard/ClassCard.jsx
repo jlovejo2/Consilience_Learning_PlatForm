@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import RootContext from '../../utils/RootContext';
 import clsx from 'clsx';
 import './style.css';
+
 import { Card, CardHeader, CardMedia, CardContent, CardActions } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,13 +11,16 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 import { red } from '@material-ui/core/colors';
+
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MailIcon from '@material-ui/icons/Mail';
 import CreateIcon from '@material-ui/icons/Create';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import TableChartIcon from '@material-ui/icons/TableChart';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +54,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ClassCard(props) {
+
+  const { userType } = useContext(RootContext)
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -61,7 +68,7 @@ export default function ClassCard(props) {
       <CardHeader
         data-classid={props.classID}
         avatar={<Avatar alt="Teacher Image" src={props.teacherAvatar} />}
-        action={
+        action={userType === 'Teacher' ?
           <IconButton
             aria-label="settings"
             aria-controls="simple-menu"
@@ -69,7 +76,7 @@ export default function ClassCard(props) {
             data-classid={props.classID}
           >
             <MoreVertIcon />
-          </IconButton>
+          </IconButton> : ''
         }
         title={props.title}
         subheader={props.subheader}
@@ -84,8 +91,8 @@ export default function ClassCard(props) {
           src=""
         />
       ) : (
-        ""
-      )}
+          ""
+        )}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.imageCaption}
@@ -94,32 +101,44 @@ export default function ClassCard(props) {
       {/*----------------------- This is the end of Card Image and Caption Location------------- */}
       {/*----------------------- This is the Beginning of Card Button(Icons) location------------- */}
       <CardActions disableSpacing>
-        <IconButton aria-label="edit">
-          <CreateIcon />
-        </IconButton>
-        <IconButton>
-          <Link
-            to={{
-              pathname: "/classrooms",
-              state: {
-                classroomID: props.classID,
-              },
-            }}
-          >
-            <MeetingRoomIcon />
-          </Link>
-        </IconButton>
-        <IconButton>
-        <Link to={{
-          pathname: '/gradesTeacher',
-          state: {
-            classroomID: props.classID
-          }
-        }} >
-          <TableChartIcon />
-        </Link>
-        </IconButton>
-        <Badge badgeContent={props.badgenotify} color="secondary">
+        <>
+          {userType === 'Teacher' ? (
+            <IconButton aria-label="edit">
+              <CreateIcon />
+            </IconButton>
+
+          ) : ''}
+        </>
+        <Tooltip title="Enter Classroom" aria-label="enter">
+          <IconButton>
+            <Link
+              to={{
+                pathname: "/classrooms",
+                state: {
+                  classroomID: props.classID,
+                },
+              }}
+            >
+              <MeetingRoomIcon />
+            </Link>
+          </IconButton>
+        </Tooltip>
+        <>
+          {userType === 'Teacher' ?
+            <Tooltip title="Go to Gradebook" aria-label="enter">
+              <IconButton>
+                <Link to={{
+                  pathname: '/gradesTeacher',
+                  state: {
+                    classroomID: props.classID
+                  }
+                }} >
+                  <TableChartIcon />
+                </Link>
+              </IconButton>
+            </Tooltip> : ''}
+        </>
+        <Badge badgeContent={4} color="secondary">
           <MailIcon />
         </Badge>
         <IconButton
