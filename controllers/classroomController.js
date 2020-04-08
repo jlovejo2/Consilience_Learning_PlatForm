@@ -31,7 +31,7 @@ module.exports = {
       courseTitle: req.body.title,
       courseDiscipline: req.body.discipline,
       courseDescription: req.body.description,
-      ID: req.body.userID
+      teacherID: req.body.userID
     }
 
     db.ClassroomModel
@@ -119,8 +119,12 @@ module.exports = {
   createComment: function (req, res) {
     console.log(req.params)
     console.log(req.body)
-    // db.ClassroomModel
-    //   .findOneAndUpdate({_id: req.params.announcementId}, { $push: { comments: }})
+    db.ClassroomModel
+      .findOneAndUpdate({_id: req.params.id}/*, { $push: { comments: req.body }}*/)
+        .then( res => {
+          console.log(res);
+        })
+        .catch(err => console.log(err))
   }
 
 };

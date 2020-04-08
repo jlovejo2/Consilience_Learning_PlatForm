@@ -100,11 +100,18 @@ export const Classroom = (props) => {
     function handleAddComment(event, announcementIndex) {
         // console.log(event.keyCode);
         // console.log(event.target);
-        // console.log(announcementIndex)
+        // console.log(announcementObj);
+        const commentInfo = {
+            body: event.target.value.split('\n',1),
+            author: userID,
+            announcmentID: currentClassObj.announcements[0]._id
+        }
+
+        console.log(announcementIndex);
         // console.log(currentClassObj)
         if(event.keyCode === 13) {
             console.log('submitted on enter');
-            API.createCommemt(currentClassObj._id, currentClassObj.announcements[announcementIndex]._id, event.target.value)
+            API.createComment(currentClassObj._id, commentInfo)
             .then(resp => {
                 console.log(resp)
             })
@@ -112,10 +119,11 @@ export const Classroom = (props) => {
         }
     }
 
-    function handleCommentChange(event) {
-        const { name, value } = event.target
-        setAnnouncementObj({ ...commentObj, [name]: value })
-    }
+    // function handleCommentChange(event, announceIndex) {
+        
+    //     const commentBody = event.target.value
+    //     setAnnouncementObj({ ...commentObj, announceIndex: value })
+    // }
 
     return (
         <div>
@@ -166,7 +174,7 @@ export const Classroom = (props) => {
                                                         </CardContent>
                                                         <CardActions>
                                                             <Grid container className={classes.center}>
-                                                                <CommentButton inputComment={handleCommentChange}
+                                                                <CommentButton /*inputComment={(event) => { handleCommentChange(event, index) }}*/
                                                                  submitComment={(event) => { handleAddComment(event, index) }}/> 
                                                             </Grid>
                                                         </CardActions>

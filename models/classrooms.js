@@ -28,10 +28,10 @@ const ClassroomSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'RegisterModel',
     }],
-    ID: {
-      // type: Schema.Types.ObjectId,
-      type: String,
-      // ref: 'User',
+    teacherID: {
+      type: Schema.Types.ObjectId,
+      // type: String,
+      ref: 'RegisterModel',
       required: true
     },
     image: {
