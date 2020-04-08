@@ -33,7 +33,7 @@ const App = (props) => {
                 <Wrapper>
                     <React.Fragment>
                         <Route exact path="/activities" component={Activities} />
-                        <Route exact path="/search" component={Search} />
+                        {/* <Route exact path="/search" component={Search} /> */}
                         <Route exact path="/assignments" component={Assignments} />
                         <Route exact path="/dashboardTeacher" component={dashboardTeacher} />
                         <Route exact path="/dashboardStudent" component={dashboardStudent} />

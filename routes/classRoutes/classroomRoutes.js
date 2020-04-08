@@ -32,8 +32,8 @@ router.route("/announcement/:id")
       .post(classroomController.createAnnouncement)
       .put()
 
-router.route("/comment/:classId")
-      .post(classroomController.createComment)
+router.route("/comment/:id")
+      .put(classroomController.createComment)
 
 
 

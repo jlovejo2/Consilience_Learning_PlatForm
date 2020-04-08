@@ -130,14 +130,13 @@ module.exports = {
     console.log(req.body.body)
     console.log(req.body.announcementID)
 
-    let arr = []
-    arr.push(req.body)
-    db.ClassroomModel
-      .findOneAndUpdate({ _id: req.params.classId }, { $push: { announcements: { $each: [{ $push: { comments: { $each: arr, $position: 0 } } }], $position: 0 } } })
-      .then(resp => {
-        console.log("response", resp);
+    db.AnnouncementModel
+      .findOneAndUpdate({_id: req.params.id}, {$push: { comments: {body: req.body.body, author: req.body.author}}})
+      .then(updateWithComment => {
+        console.log(updateWithComment)
       })
-      .catch(err => console.log(err))
+      
+      // .catch(err => console.log(err))
   }
 
 };
