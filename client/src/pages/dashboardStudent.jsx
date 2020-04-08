@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ClassroomContext from "../utils/classroomContext";
+// import ClassroomContext from "../utils/classroomContext";
 import API from "../utils/API";
 import custFunc from "../utils/customFunctions";
 //Importing components from component folder
@@ -159,7 +159,6 @@ const DashboardStudent = (props) => {
       </Grid>
       <MyCard>
         <Grid container spacing={5} align="center">
-          <ClassroomContext.Provider value={{ currentClass }}>
             {classesArr.length > 0 ? (
               classesArr.map((item, index) => {
                 return (
@@ -181,7 +180,6 @@ const DashboardStudent = (props) => {
             ) : (
               <p>No classes Found</p>
             )}
-          </ClassroomContext.Provider>
         </Grid>
         {/* --------------------------------------------------------------------- */}
         {/*______________ Below this line is menu for class cards________________ */}

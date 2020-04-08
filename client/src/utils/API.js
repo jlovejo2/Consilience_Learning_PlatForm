@@ -62,6 +62,9 @@ export default {
     },
     classesByUser: function() {
         return axios.get('api/user/classes/')
+    },
+    requestToJoinClass: function(requestInfo, user) {
+        return axios.post('api/classrooms/' + requestInfo + '/addStudent', user)
     }
 
 

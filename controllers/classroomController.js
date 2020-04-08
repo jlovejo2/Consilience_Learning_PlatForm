@@ -23,6 +23,7 @@ module.exports = {
       //the $options: 'i'  is a mongoDb operator that specifies case insensitivity.  Will match upper and lowercases in the field string I am searchin
       query.courseDescription = { "$regex": req.query.input, "$options": "i" }
     } else if ( req.query.select === 'subject'){
+      //right now this just does same as the All
       query = query
     }
 
@@ -97,6 +98,8 @@ module.exports = {
   //Route: "api/classrooms/:id/addStudent"
   //:id is class id, student id is sent through the body
   AddStudentToClass: function (req, res) {
+    console.log('adding student to class ...')
+    console.log(req.body)
     db.RegisterModel
     .findOne({ _id: req.body.id })
     .then(dbModel => {
