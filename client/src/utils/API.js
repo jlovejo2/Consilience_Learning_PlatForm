@@ -29,6 +29,9 @@ export default {
     getClasses: function () {
         return axios.get("/api/classrooms")
     },
+    searchClasses: function (selectValue, inputValue) {
+        return axios.get("/api/classrooms/?select=" + selectValue + "&input=" + inputValue)
+    },
     addClass: function (newClass) {
         return axios.post("api/classrooms", newClass)
     },
