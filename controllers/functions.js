@@ -12,7 +12,7 @@ module.exports = {
 
     const stepOne = first.slice(0,1) + last.slice(0,6);
 
-   return db.RegisterModel.find({lastName: lastname, type: 'student'})
+   return db.RegisterModel.find({lastName: lastname, type: 'Student'})
         .then(resp => {
             const stepTwo = resp.length
             const ID = stepOne + stepTwo
@@ -29,7 +29,7 @@ staffIDGenerator: function(firstname, lastname, discipline) {
 
     const stepOne = first.slice(0,1) + last.slice(0,6).trim() + disc.slice(0,4).trim();
 
-   return db.RegisterModel.find({lastName: lastname, type: 'teacher'})
+   return db.RegisterModel.find({lastName: lastname, type: 'Teacher'})
         .then(resp => {
             const stepTwo = resp.length
             const ID = stepOne + stepTwo

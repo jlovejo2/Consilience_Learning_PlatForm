@@ -20,6 +20,9 @@ router.route("/:id")
       .post(classroomController.update)
       .delete(classroomController.remove);
 
+router.route('/:id/addStudent')
+      .post(classroomController.AddStudentToClass)
+
 router.route("/populate/:id")
       .get(classroomController.findByIdandPopulate);
 

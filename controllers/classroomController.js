@@ -24,18 +24,23 @@ module.exports = {
       // .populate({path:'comments'})
       .exec((error, dbModel) => res.json(dbModel))
   },
+
   // populating student info 
+  // route: "api/classrooms/populate/:id"
   findByIdandPopulate: function (req, res) {
+    console.log(req.params.id)
     db.ClassroomModel
       .findById(req.params.id)
       // model: 'RegisterModel', select: "_id"
-      .select("teacherID courseTitle students")
+      // .select("teacherID courseTitle students")
       .populate("students")
-      .exec((err, dbModel) => 
-        !err ?
-        res.json(dbModel) : 
-        res.status(422).json(err));
-  },
+      .exec((err, dbModel) => {
+        // !err ?
+        console.log(dbModel)
+        res.json(dbModel)
+        // res.status(422).json(err);
+      })
+    },
 
   //This will be used to create a classroom.  Goal is for only a user that is a teacher to be able to do this.  Will need user Authentification
   //Currenlty using req.body and understand that may need to be manipulated more when updating the schema
@@ -58,7 +63,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  //This will update a current classrooms information, assignments, posts, students etc.
+  //This will update a current classrooms information, assignments, title, descript, but not something that is an array of obect ids
   //Certain aspects of this will need user verification because a Teacher will have more ability to change things about classroom
   //Currenlty using req.body and understand that may need to be manipulated more when updating the schema
   update: function (req, res) {
@@ -67,6 +72,20 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
+  //This is used to place a student into a classroom
+  //Route: "api/classrooms/:id/addStudent"
+  //:id is class id, student id is sent through the body
+  AddStudentToClass: function (req, res) {
+    db.RegisterModel
+    .findOne({ _id: req.body.id })
+    .then(dbModel => {
+      db.ClassroomModel.findOneAndUpdate({ _id: req.params.id },{$push: {students: dbModel._id } })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+    })
+},
+
 
   //This will remove the classroom
   //User verfication needed because only a teach can remove a classroom
