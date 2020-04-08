@@ -19,6 +19,7 @@ module.exports = {
     db.ClassroomModel
       .findById(req.params.id)
       .populate({path: 'announcements'})
+      // .populate({path:'comments'})
       .exec((error, dbModel) => res.json(dbModel))
   },
 
