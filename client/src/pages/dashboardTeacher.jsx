@@ -34,7 +34,7 @@ const MyCard = styled(Card)({
 const DashBoardTeacher = (props) => {
 
     
-    const { userType, classID, setClassID } = useContext(RootContext)
+    const { userType, userID } = useContext(RootContext)
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
@@ -135,9 +135,8 @@ const DashBoardTeacher = (props) => {
     //has been updated and placed into newClassFormObj by onChange and submits it to the backend through the API.addclass() function
     function handleDailogSubmit() {
         //This is being done manually because user model and authentication is still being worked on
-        const currentUserID = '077432'
 
-        newClassFormObj.userID = currentUserID
+        newClassFormObj.userID = userID
 
         console.log(newClassFormObj);
         API.addClass(newClassFormObj)
@@ -176,7 +175,6 @@ const DashBoardTeacher = (props) => {
                     container
                     spacing={5}
                     align='center'
-
                 >
                     {/* <ClassroomContext.Provider value={{ currentClass }}> */}
                     {
@@ -187,7 +185,6 @@ const DashBoardTeacher = (props) => {
                                     item
                                     md={4}
                                     align="center"
-
                                 >
                                     <ClassCard
                                         key={index}
