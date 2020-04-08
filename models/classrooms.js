@@ -38,16 +38,6 @@ const ClassroomSchema = new Schema(
       data: Buffer,
       contentType: String
     },
-    // TOUCH ON THIS LATER
-    // activeCourses: {
-    //     type: Array,
-    //     trim: true,
-    // },
-    // completedCourses: {
-    //     type: Array,
-    //     trim: true
-    // },
-    // array of objects
     gradebook: {
       // has [] wrapping the {} !!!!!!!!!!!
       //   assignments: [{
@@ -60,20 +50,6 @@ const ClassroomSchema = new Schema(
       // type: Schema.Types.ObjectId,
       type: String,
       // ref: 'Classroom'
-    },
-    //   email: {
-    //       type: String,
-    //       validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    //       required: true
-    //   },
-    //   password: {
-    //       type: String,
-    //       validate: /^[0-9A-Za-z!@.,;:'"?-]{6,50}\z/,
-    //       required: true
-    //   },
-    //no required true boolean because access tokens are only issued when logged in
-    accessToken: {
-      type: String
     },
     createDate: {
       type: Date,

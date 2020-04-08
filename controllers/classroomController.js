@@ -26,9 +26,10 @@ module.exports = {
   // populating student info 
   findByIdandPopulate: function (req, res) {
     db.ClassroomModel
-      .findByIdAndUpdate(req.params.id)
+      .findById(req.params.id)
       // model: 'RegisterModel', select: "_id"
-      .populate({ path: 'student' })
+      .select("teacherID courseTitle students")
+      .populate("students")
       .exec((err, dbModel) => 
         !err ?
         res.json(dbModel) : 
