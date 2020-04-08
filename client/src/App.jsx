@@ -7,7 +7,7 @@ import dashboardTeacher from './pages/dashboardTeacher.jsx';
 import dashboardStudent from './pages/dashboardStudent'
 import Grades from './pages/gradesTeacher.jsx';
 import Login from './pages/login.jsx';
-// import Search from './pages/search.jsx';
+import Search from './pages/search.jsx';
 // import Register from './components/RegisterForm/Register.jsx';
 import Syllabus from './pages/syllabusTeacher.jsx';
 import Classroom from './pages/Classroom.jsx';
@@ -32,7 +32,8 @@ const App = () => {
                 <Navbar />
                 <Wrapper>
                     <React.Fragment>
-                        {/* <Route exact path="/search" component={Search} /> */}
+                        <Route exact path="/activities" component={Activities} />
+                        <Route exact path="/search" component={Search} />
                         <Route exact path="/assignments" component={Assignments} />
                         <Route exact path="/dashboardTeacher" component={dashboardTeacher} />
                         <Route exact path="/dashboardStudent" component={dashboardStudent} />
