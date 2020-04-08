@@ -33,7 +33,7 @@ module.exports = {
       .findById(req.params.id)
       // model: 'RegisterModel', select: "_id"
       // .select("teacherID courseTitle students")
-      .populate("students")
+      .populate("students", 'firstName lastName email -_id')
       .exec((err, dbModel) => {
         // !err ?
         console.log(dbModel)
