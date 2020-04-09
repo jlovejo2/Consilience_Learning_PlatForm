@@ -1,8 +1,12 @@
-import React from "react";
+// import React from "react";
 
-const RootContext = React.createContext({
-  classID: '',
-  setClassID: () => {}
-});
+// const RootContext = React.createContext({
+//   userType: '',
+//   setUserType: () => {},
+//   userID: '',
+//   setUserID: () => {},
+//   classID: '',
+//   setClassID: () => {}
+// });
 
-export default RootContext;
+// export default RootContext;

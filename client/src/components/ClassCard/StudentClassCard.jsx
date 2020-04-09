@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
-// import RootContext from '../../utils/RootContext';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import RootContext from '../../utils/RootContext';
+import custFunc from '../../utils/customFunctions';
 import clsx from 'clsx';
 import './style.css';
 
@@ -15,10 +16,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { red } from '@material-ui/core/colors';
 
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import CreateIcon from '@material-ui/icons/Create';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import TableChartIcon from '@material-ui/icons/TableChart';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
 
@@ -56,13 +54,13 @@ const useStyles = makeStyles((theme) => ({
 export default function ClassCard(props) {
 
 
-  // const { userType, classID, setClassID } = useContext(RootContext)
+//   const { userType, setUserType, userID, setUserID, classID, setClassID } = useContext(RootContext)
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [redirectUser, setRedirectUser] = useState(false);
-  // const [userID, setUserID] = useState('')
-  // const [userType, setUserType] = useState('')
-  // const [classID, setClassID] = useState('')
+//   const [userID, setUserID] = useState('')
+//   const [userType, setUserType] = useState('')
+//   const [classID, setClassID] = useState('')
 
 
   const handleExpandClick = () => {
@@ -75,13 +73,9 @@ export default function ClassCard(props) {
     setRedirectUser('/classrooms')
   }
 
-  const handleEnterGradebook = (event, classID) => {
-    localStorage.setItem ( 'classId', classID)
-    setRedirectUser('/gradebook')
-  }
 
   if (redirectUser) {
-   
+
    return <Redirect to={redirectUser}
     />
 }
@@ -91,15 +85,6 @@ export default function ClassCard(props) {
       <CardHeader
         data-classid={props.classID}
         avatar={<Avatar alt="Teacher Image" src={props.teacherAvatar} />}
-        action={
-          <IconButton
-            aria-label="settings"
-            aria-controls="simple-menu"
-            onClick={props.settingsButton}
-            data-classid={props.classID}
-          >
-            <MoreVertIcon />
-          </IconButton> }
         title={props.title}
         subheader={props.subheader}
       />
@@ -123,19 +108,11 @@ export default function ClassCard(props) {
       {/*----------------------- This is the end of Card Image and Caption Location------------- */}
       {/*----------------------- This is the Beginning of Card Button(Icons) location------------- */}
       <CardActions disableSpacing>
-            <IconButton aria-label="edit">
-              <CreateIcon />
-            </IconButton>
         <Tooltip title="Enter Classroom" aria-label="enter">
           <IconButton onClick={(event) => handleEnterClass(event, props.classID)}>
               <MeetingRoomIcon />
           </IconButton>
         </Tooltip>
-            <Tooltip title="Go to Gradebook" aria-label="enter">
-              <IconButton onClick={(event) => handleEnterGradebook(event, props.classID)}>
-                  <TableChartIcon />
-              </IconButton>
-            </Tooltip>
         <Badge badgeContent={4} color="secondary">
           <NotificationsIcon />
         </Badge>
