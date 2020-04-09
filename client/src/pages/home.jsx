@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React /*, { useState, useEffect }*/ from 'react';
 import Container from '../components/Container/Container.jsx'
 import Jumbotron from '../components/Jumbotron/Jumbotron.jsx'
 

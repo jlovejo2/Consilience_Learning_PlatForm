@@ -12,7 +12,7 @@ import Search from './pages/search.jsx';
 import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Wrapper from './components/Wrapper/Wrapper.jsx';
-import RootContext from './utils/RootContext';
+// import RootContext from './utils/RootContext';
 // https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Router.md
 // Extensive documentation on history, its usage, and custom methods
 // note: history = createBrowserHistory(); keyLength of location.key defaults to 6; set to 12
