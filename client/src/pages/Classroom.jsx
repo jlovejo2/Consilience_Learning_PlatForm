@@ -34,6 +34,8 @@ export const Classroom = (props) => {
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
     const [commentObj, setCommentObj] = useState([])
+    const [userType, setUserType] = useState("");
+    const [userID, setUserID] = useState("")
 
 
     useEffect(() => {
