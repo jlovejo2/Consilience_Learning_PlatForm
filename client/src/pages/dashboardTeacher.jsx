@@ -4,7 +4,8 @@ import API from "../utils/API";
 import custFunc from "../utils/customFunctions";
 //Importing components from component folder
 import Container from "../components/Container/Container.jsx";
-import ClassCard from "../components/ClassCard/ClassCard";
+import TeacherClassCard from "../components/ClassCard/TeacherClassCard";
+import StudentClassCard from '../components/ClassCard/StudentClassCard'
 
 //Importing components and icons from material-ui
 // import Paper from '@material-ui/core/Paper';
@@ -47,30 +48,34 @@ const DashBoardTeacher = (props) => {
         getAndVerifyUserInfo()
         // getAndVerifyUserInfo()
         // console.log(userType);
-
-        loadClasses()
         console.log(userType)
         console.log(userID)
-    }, [])
+        loadClasses()
 
-    async function getAndVerifyUserInfo() {
-        try {await API.readAndVerifyCookie().then((resp) => {
+    },[userType, userID])
+    
+
+    function getAndVerifyUserInfo() {
+         API.readAndVerifyCookie()
+            .then((resp) => {
             console.log("cookie call resp: ", resp)
             console.log("dropping the load: ", resp.data.payload)
             setUserType(resp.data.payload.type)
             setUserID(resp.data.payload._id)
             console.log(userType)
             console.log(userID)
-        })}
-        catch (error) {
+            //load the classes after the userID And userType are received from token
+            })
+            .catch (error => {
             console.log(error)
-        }
+            })
     }
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too
     function loadClasses() {
-        API.getClasses()
+        console.log(userID)
+        API.getClassesbyUser(userID)
             .then(resp => {
                 console.log(resp.data)
 
@@ -92,6 +97,8 @@ const DashBoardTeacher = (props) => {
                         return value
                     }
                 })
+
+
                 setClassesArr(newDataObj);
                 // console.log(classesArr);
             })
@@ -196,6 +203,29 @@ const DashBoardTeacher = (props) => {
                 >
                     {
                         classesArr.length > 0 ? classesArr.map((item, index) => {
+                            if (item.students.includes(userID)) {
+                                return (
+                                    <Grid
+                                        key={index}
+                                        item
+                                        md={4}
+                                        align="center"
+                                    >
+                                        <StudentClassCard
+                                            key={index}
+                                            title={item.courseTitle}
+                                            subheader={item.courseDiscipline}
+                                            paragraph1={item.courseDescription}
+                                            image={item.imageBase64Str}
+                                            imageTitle='a'
+                                            imageCaption=''
+                                            settingsButton={handleMenuClick}
+                                            classID={item._id}
+                                            badgenotify={item.badgenotify}
+                                        >
+                                        </StudentClassCard>
+                                    </Grid> )
+                            } else {
                             return (
                                 <Grid
                                     key={index}
@@ -203,7 +233,7 @@ const DashBoardTeacher = (props) => {
                                     md={4}
                                     align="center"
                                 >
-                                    <ClassCard
+                                    <TeacherClassCard
                                         key={index}
                                         title={item.courseTitle}
                                         subheader={item.courseDiscipline}
@@ -215,9 +245,10 @@ const DashBoardTeacher = (props) => {
                                         classID={item._id}
                                         badgenotify={item.badgenotify}
                                     >
-                                    </ClassCard>
+                                    </TeacherClassCard>
                                 </Grid>
                             )
+                            }
                         })
                             : <p>No classes Found</p>
                     }
