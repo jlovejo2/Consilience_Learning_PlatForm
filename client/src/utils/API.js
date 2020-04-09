@@ -1,6 +1,16 @@
 import axios from 'axios';
 
 export default {
+    // get cookie and decode
+    readcookie: () => {
+        return axios.get('/users/getcookie') 
+    },
+    // get cookie to verify token using secret
+    // call still under construction**
+    verifycookie: () => {
+        return axios.get('/getcookieauth')
+    },
+    // get all users
     users: function () {
         return axios.get("/users")
     },
@@ -12,8 +22,7 @@ export default {
     userRegister: function (userObj) {
         return axios.post("/users/register", userObj)
     },
-    // runs authenticateToken as middleware before getting user type
-    // to be called in App.jsx for conditional routing purposes
+    // get user auth and type by id
     userAuthAndType: function (userObj) {
         return axios.get("/users/:id", userObj)
     },

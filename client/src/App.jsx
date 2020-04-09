@@ -1,48 +1,50 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Home from './pages/home.jsx';
-import Activities from './pages/activitiesTeacher.jsx';
-import Assignments from './pages/assignmentsTeacher.jsx';
 import dashboardTeacher from './pages/dashboardTeacher.jsx';
 import dashboardStudent from './pages/dashboardStudent'
 import Grades from './pages/gradesTeacher.jsx';
 import Login from './pages/login.jsx';
+import Logout from './pages/logout.jsx';
 import Search from './pages/search.jsx';
 // import Register from './components/RegisterForm/Register.jsx';
-import Syllabus from './pages/syllabusTeacher.jsx';
 import Classroom from './pages/Classroom.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import Wrapper from './components/Wrapper/Wrapper.jsx'
-// import API from './utils/API.js';
+import Wrapper from './components/Wrapper/Wrapper.jsx';
 import RootContext from './utils/RootContext';
-
-// // creating ConfigContext for user authenticated vs not authenticated UI
-// export const ConfigContext = React.createContext();
-
+// https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Router.md
+// Extensive documentation on history, its usage, and custom methods
+// note: history = createBrowserHistory(); keyLength of location.key defaults to 6; set to 12
+// see more about BrowserRouter options https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md
+import history from './history/history.jsx';
 
 const App = () => {
-
     const [userType, setUserType ] = useState('')
     const [userID, setUserID ] = useState('')
     const [classID, setClassID ] = useState('')
 
+    history.listen((location, action) => {
+        console.log(
+          `The current URL is ${location.pathname}${location.search}${location.hash}`
+        );
+        console.log(`The last navigation action was ${action}`);
+      });
+
     return (
-        <BrowserRouter>
+        <Router history={history} keyLength={12}>
             <RootContext.Provider value={{ userType, setUserType, userID, setUserID, classID, setClassID }}>
                 <Navbar />
                 <Wrapper>
                     <React.Fragment>
-                        <Route exact path="/activities" component={Activities} />
                         <Route exact path="/search" component={Search} />
-                        <Route exact path="/assignments" component={Assignments} />
                         <Route exact path="/dashboardTeacher" component={dashboardTeacher} />
                         <Route exact path="/dashboardStudent" component={dashboardStudent} />
                         <Route exact path="/grades" component={Grades} />
                         {/* <Route exact path="/register" component={Register} /> */}
-                        <Route exact path="/syllabus" component={Syllabus} />
                         <Route exact path="/classrooms" component={Classroom} />
                         <Route exact path="/" component={Home} />
+                        <Route exact path="/logout" component={Logout} />
                         <Route path="/login">
                             <Login/>
                         </Route>
@@ -50,7 +52,7 @@ const App = () => {
                 </Wrapper>
                 <Footer />
             </RootContext.Provider>
-        </BrowserRouter>
+        </Router>
     )
 };
 
