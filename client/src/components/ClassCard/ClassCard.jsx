@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import RootContext from '../../utils/RootContext';
 import clsx from 'clsx';
 import './style.css';
@@ -55,13 +55,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClassCard(props) {
 
-  const { userType } = useContext(RootContext)
+  const { userType, classID, setClassID } = useContext(RootContext)
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const [redirectUser, setRedirectUser] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const handleEnterClass = () => {
+    setClassID(props.classID)
+    setRedirectUser('/classrooms')
+
+  }
+
+  if (redirectUser) {
+
+    console.log(userType);
+    console.log(classID);
+   
+   return <Redirect to={redirectUser}
+    />
+}
 
   return (
     <Card className={classes.root} value={props.classID}>
@@ -110,17 +126,8 @@ export default function ClassCard(props) {
           ) : ''}
         </>
         <Tooltip title="Enter Classroom" aria-label="enter">
-          <IconButton>
-            <Link
-              to={{
-                pathname: "/classrooms",
-                state: {
-                  classroomID: props.classID,
-                },
-              }}
-            >
+          <IconButton onClick={handleEnterClass}>
               <MeetingRoomIcon />
-            </Link>
           </IconButton>
         </Tooltip>
         <>
