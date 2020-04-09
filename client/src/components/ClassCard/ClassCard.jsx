@@ -15,11 +15,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { red } from '@material-ui/core/colors';
 
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import MailIcon from '@material-ui/icons/Mail';
 import CreateIcon from '@material-ui/icons/Create';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import TableChartIcon from '@material-ui/icons/TableChart';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -146,7 +146,7 @@ export default function ClassCard(props) {
             </Tooltip> : ''}
         </>
         <Badge badgeContent={4} color="secondary">
-          <MailIcon />
+          <NotificationsIcon />
         </Badge>
         <IconButton
           className={clsx(classes.expand, {

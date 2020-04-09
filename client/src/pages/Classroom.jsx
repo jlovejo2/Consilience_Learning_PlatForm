@@ -7,7 +7,7 @@ import Announcement from '../components/AnnouncementForm/Announcement';
 import CommentButton from '../components/Comments/CommentButton';
 import Expander from '../components/Comments/ExpansionDiv';
 
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActions, CardContent } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -15,39 +15,41 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
+
 import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 // import { toast, ToastContainer } from 'react-toastify';
 // import { ExpansionPanel, ExpansionPanelSummary} from '@material-ui/core'
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import ExpansionDiv from '../components/Comments/ExpansionDiv';
 
 
-const useStyles = makeStyles({
-    root: {
-        minWidth: 275,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    announcementTitle: {
-        color: 'black',
-        // fontSize: 20
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        // marginBottom: 12,
-    },
-    center: {
-        alignItems: 'center',
-        // margin: 'auto'
-        justifyContent: 'center'
-    }
-});
+// const useStyles = makeStyles({
+//     root: {
+//         minWidth: 275,
+//         alignItems: 'center',
+//         justifyContent: 'center'
+//     },
+//     announcementTitle: {
+//         color: 'black',
+//         // fontSize: 20
+//     },
+//     title: {
+//         fontSize: 14,
+//     },
+//     pos: {
+//         // marginBottom: 12,
+//     },
+//     center: {
+//         alignItems: 'center',
+//         // margin: 'auto'
+//         justifyContent: 'center'
+//     }
+// });
 
 export const Classroom = (props) => {
 
-    const classes = useStyles();
+    // const classes = useStyles();
     const { userType, userID, classID } = useContext(RootContext);
     // const [setState] = useState('')
     const [openDialog, setOpenDialog] = useState(false)
@@ -57,7 +59,7 @@ export const Classroom = (props) => {
 
     useEffect(() => {
         loadClassInfo();
-    })
+    }, [])
 
     function loadClassInfo() {
         API.populateByID(classID)
@@ -119,7 +121,7 @@ export const Classroom = (props) => {
             API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
                 .then(resp => {
                     console.log('got response', resp)
-                    
+
                     // currentClassObj.announcements[announcementIndex].comments.push(commentInfo)
                     loadClassInfo()
                     console.log(resp.data)
@@ -148,7 +150,7 @@ export const Classroom = (props) => {
                                         <Paper elevation={2}>
                                             <Card>
                                                 <CardContent>
-                                                    <Typography className={classes.announcementTitle} variant='h3' align='center'>
+                                                    <Typography /*className={classes.announcementTitle}*/ variant='h3' align='center'>
                                                         ANNOUNCEMENTS BOARD &nbsp; &nbsp;
                                                 {userType === 'Teacher' ?
                                                             <Tooltip title="Add an announcement" aria-label="add">
@@ -171,23 +173,32 @@ export const Classroom = (props) => {
                                                 <>
                                                     <Grid item xs={12}>
                                                         <Paper elevation={15}>
-                                                            <Card className={classes.root} variant="outlined">
+                                                            <Card /*className={classes.root}*/ variant="outlined">
                                                                 <CardContent key={index}>
-                                                                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                                        {/* {currentClassObj.courseTitle} */}
-                                                                    </Typography>
+                                                                    
                                                                     <Typography variant="h5" component="h2">
-                                                                        {announcement.title}
+                                                                        <Grid container spacing={2} alignItems='center' justifyContent='center'>
+                                                                            <Grid item s={10}>
+                                                                            {announcement.title}
+                                                                            </Grid>
+                                                                            <Grid item s={2}>
+                                                                            {userType === 'Teacher' ?
+                                                                        <Tooltip title="Delete announcement thread" aria-label="add">
+ 
+                                                                                <DeleteOutlineIcon onClick={handleDialogOpen} color='primary' />
+ 
+                                                                        </Tooltip> : ''
+                                                                    }
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        
                                                                     </Typography>
-                                                                    <Typography className={classes.pos} color="textSecondary">
-                                                                        well shit ...
-                                                            </Typography>
                                                                     <Typography variant="body2" component="p">
                                                                         {announcement.body}
                                                                     </Typography>
                                                                 </CardContent>
                                                                 <CardActions>
-                                                                    <Grid container className={classes.center}>
+                                                                    <Grid container /*className={classes.center}*/>
                                                                         <CommentButton /*inputComment={(event) => { handleCommentChange(event, index) }}*/
                                                                             submitComment={(event) => { handleAddComment(event, index) }} />
                                                                     </Grid>
@@ -223,7 +234,7 @@ export const Classroom = (props) => {
                                         }) :
                                             <Grid item xs={12}>
                                                 <Paper elevation={15}>
-                                                    <Card className={classes.root} variant="outlined">
+                                                    <Card /*className={classes.root}*/ variant="outlined">
                                                         <CardContent>
                                                             <Typography variant="h5" component="h2">
                                                                 No announcements at this time

@@ -77,6 +77,9 @@ export default {
     },
     populateByID: function(id) {
         return axios.get('api/classrooms/populate/' + id)
+    },
+    getClassbyUser: function(id) {
+        return axios.get('/user/getClasses/' + id)
     }
 
 
