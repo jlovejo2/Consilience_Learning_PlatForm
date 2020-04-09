@@ -179,6 +179,16 @@ module.exports = {
 
   },
 
+  removeAnnouncement: function (req, res) {
+    console.log(req.params.id)
+    db.AnnouncementModel
+    .findById({ _id: req.params.id })
+    .then(dbModel => dbModel.remove())
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+}, 
+
+
   findAnnouncementsByClassId: function (req, res) {
     console.log(req.body);
     console.log(req.params.id)

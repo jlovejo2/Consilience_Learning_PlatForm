@@ -29,6 +29,9 @@ export default {
     userUpdate: function (userObj) {
         return axios.put('/users/:id', userObj)
     },
+    classesByUser: function() {
+        return axios.get('api/user/classes/')
+    },
     // get classes
     getClasses: function () {
         return axios.get("/api/classrooms")
@@ -55,17 +58,8 @@ export default {
     getClassImage: function(id) {
         return axios.get('api/classrooms/image/' + id)
     },
-    createAnnouncement: function(id, obj) {
-        return axios.post('api/classrooms/announcement/' + id, obj)
-    },
-    getAnnouncementByClass: function(id) {
-        return axios.get('api/classrooms/announcement/' + id)
-    },
     createComment: function(idOne, commentInfo) {
         return axios.put('api/classrooms/comment/' + idOne, commentInfo)
-    },
-    classesByUser: function() {
-        return axios.get('api/user/classes/')
     },
     requestToJoinClass: function(requestInfo, user) {
         return axios.post('api/classrooms/' + requestInfo + '/addStudent', user)
@@ -75,7 +69,22 @@ export default {
     },
     getClassbyUser: function(id) {
         return axios.get('/user/getClasses/' + id)
-    }
+    },
+    deleteClassById: function(id) {
+        return axios.delete('/api/classrooms/' + id)
+    },
+    deleteAnnouncementById: function(id) {
+        return axios.delete('/api/classrooms/announcement/' + id)
+    },
+    deleteCommentById: function(id) {
+        return axios.delete('api/classrooms/announcement/comment/' + id)
+    },
+    createAnnouncement: function(id, obj) {
+        return axios.post('api/classrooms/announcement/' + id, obj)
+    },
+    getAnnouncementByClass: function(id) {
+        return axios.get('api/classrooms/announcement/' + id)
+    },
 
 
 }

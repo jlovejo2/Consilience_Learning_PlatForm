@@ -39,7 +39,7 @@ router.route("/announcement/")
 router.route("/announcement/:id")
       .get(classroomController.findAnnouncementsByClassId)
       .post(classroomController.createAnnouncement)
-      .put()
+      .delete(classroomController.removeAnnouncement)
 
 router.route("/comment/:id")
       .put(classroomController.createComment)

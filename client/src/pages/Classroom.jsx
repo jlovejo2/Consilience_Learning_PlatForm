@@ -8,7 +8,7 @@ import CommentButton from '../components/Comments/CommentButton';
 import Expander from '../components/Comments/ExpansionDiv';
 
 // import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActions, CardContent } from '@material-ui/core';
+import { Card, CardActions, CardContent, IconButton } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -23,29 +23,6 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import ExpansionDiv from '../components/Comments/ExpansionDiv';
 
-
-// const useStyles = makeStyles({
-//     root: {
-//         minWidth: 275,
-//         alignItems: 'center',
-//         justifyContent: 'center'
-//     },
-//     announcementTitle: {
-//         color: 'black',
-//         // fontSize: 20
-//     },
-//     title: {
-//         fontSize: 14,
-//     },
-//     pos: {
-//         // marginBottom: 12,
-//     },
-//     center: {
-//         alignItems: 'center',
-//         // margin: 'auto'
-//         justifyContent: 'center'
-//     }
-// });
 
 export const Classroom = (props) => {
 
@@ -122,6 +99,15 @@ export const Classroom = (props) => {
                 .then(() => console.log(announcementObj))
                 .catch(err => console.log(err))
         }
+    }
+
+    function handleDeleteAnnouncement( event, announcementID) {
+        API.deleteAnnouncementById(announcementID)
+            .then(resp => {
+                console.log(resp)
+                loadClassInfo()
+            })
+            .catch(err => console.log(err))
     }
 
     function handleAddComment(event, announcementIndex) {
@@ -205,9 +191,9 @@ export const Classroom = (props) => {
                                                                             <Grid item s={2}>
                                                                             {userType === 'Teacher' ?
                                                                         <Tooltip title="Delete announcement thread" aria-label="add">
- 
-                                                                                <DeleteOutlineIcon onClick={handleDialogOpen} color='primary' />
- 
+                                                                            <IconButton onClick={(event) => handleDeleteAnnouncement(event, announcement._id)}>
+                                                                                <DeleteOutlineIcon  color='primary' />
+                                                                                </IconButton>
                                                                         </Tooltip> : ''
                                                                     }
                                                                             </Grid>
