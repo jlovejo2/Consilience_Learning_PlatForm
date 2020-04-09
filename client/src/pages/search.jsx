@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import API from '../utils/API';
-import RootContext from '../utils/RootContext';
+// import RootContext from '../utils/RootContext';
 
 import { Input, Button, MenuItem, Select, Grid, Box, ListItem, Paper } from '@material-ui/core';
 import Container from '../components/Container/Container.jsx';
@@ -10,15 +10,18 @@ import Container from '../components/Container/Container.jsx';
 const Search = () => {
 
 
+    const [ userID, setUserID ] = useState('');
+    const [ userType, setUserType] = useState('');
     const [classSearchObj, setClassSearchObj] = useState({});
     const [apiClasses, setApiClasses] = useState([]);
-    const [userType, setUserType] = useState('');
-    const [userID, setUserID] = useState('')
 
     useEffect(() => {
+
         getAndVerifyUserInfo()
-        console.log(apiClasses)
-    }, [userType, userID, apiClasses]);
+        console.log(apiClasses);
+
+    }, [apiClasses])
+
 
     async function getAndVerifyUserInfo() {
         try {
@@ -37,6 +40,7 @@ const Search = () => {
             console.log(error)
         }
     }
+
 
     //This function is called when the user his the request to join button
     //it sends the user's info back to the database and adds them to the class

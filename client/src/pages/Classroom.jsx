@@ -7,8 +7,8 @@ import Announcement from '../components/AnnouncementForm/Announcement';
 import CommentButton from '../components/Comments/CommentButton';
 import Expander from '../components/Comments/ExpansionDiv';
 
-// import { makeStyles } from '@material-ui/core/styles'
-import { Card, CardActions, CardContent } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
+import { Card, CardActions, CardContent, IconButton } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -24,29 +24,6 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 // import ExpansionDiv from '../components/Comments/ExpansionDiv';
 
 
-// const useStyles = makeStyles({
-//     root: {
-//         minWidth: 275,
-//         alignItems: 'center',
-//         justifyContent: 'center'
-//     },
-//     announcementTitle: {
-//         color: 'black',
-//         // fontSize: 20
-//     },
-//     title: {
-//         fontSize: 14,
-//     },
-//     pos: {
-//         // marginBottom: 12,
-//     },
-//     center: {
-//         alignItems: 'center',
-//         // margin: 'auto'
-//         justifyContent: 'center'
-//     }
-// });
-
 export const Classroom = (props) => {
 
 
@@ -57,8 +34,7 @@ export const Classroom = (props) => {
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
     const [commentObj, setCommentObj] = useState([])
-    const [userType, setUserType] = useState('');
-    const [userID, setUserID] = useState('')
+
 
     useEffect(() => {
         getAndVerifyUserInfo()
@@ -128,6 +104,24 @@ export const Classroom = (props) => {
         }
     }
 
+    function handleDeleteAnnouncement( event, announcementID) {
+        API.deleteAnnouncementById(announcementID)
+            .then(resp => {
+                console.log(resp)
+                loadClassInfo()
+            })
+            .catch(err => console.log(err))
+    }
+
+    function getAuthor(param) {
+        console.log(param)
+        API.findUserByID(param)
+            .then( resp => {
+                const author = resp.name
+                console.log(resp)
+                return author
+            })
+    }
     function handleAddComment(event, announcementIndex) {
         event.preventDefault()
         // console.log(event.keyCode);
@@ -136,13 +130,20 @@ export const Classroom = (props) => {
         const commentInfo = {
             author: userID,
             body: event.target.value.split('\n', 1)[0],
+            authorName: ''
             // announcementID: currentClassObj.announcements[0]._id
         }
-
+        
         console.log(announcementIndex);
         // console.log(currentClassObj)
         if (event.keyCode === 13) {
+
             console.log('submitted on enter');
+            API.findUserByID(userID)
+        .then(resp=> {
+            const fullName = resp.firstName + " " + resp.lastName
+            commentInfo.authorName = fullName
+            console.log(commentInfo)
             API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
                 .then(resp => {
                     console.log('got response', resp)
@@ -153,6 +154,8 @@ export const Classroom = (props) => {
                     console.log(commentObj)
                 })
                 .catch(err => console.log(err))
+        })
+            
         }
     }
 
@@ -162,7 +165,7 @@ export const Classroom = (props) => {
     //     setAnnouncementObj({ ...commentObj, announceIndex: value })
     // }
 
-    return (
+     return (
         <div>
             <ClassBanner title={currentClassObj.courseTitle} desc={currentClassObj.courseDescription} />
             <Grid container>
@@ -209,9 +212,9 @@ export const Classroom = (props) => {
                                                                             <Grid item s={2}>
                                                                             {userType === 'Teacher' ?
                                                                         <Tooltip title="Delete announcement thread" aria-label="add">
- 
-                                                                                <DeleteOutlineIcon onClick={handleDialogOpen} color='primary' />
- 
+                                                                            <IconButton onClick={(event) => handleDeleteAnnouncement(event, announcement._id)}>
+                                                                                <DeleteOutlineIcon  color='primary' />
+                                                                                </IconButton>
                                                                         </Tooltip> : ''
                                                                     }
                                                                             </Grid>
@@ -239,7 +242,15 @@ export const Classroom = (props) => {
                                                                                             <Paper key={index} elevation={16}>
                                                                                                 <Card>
                                                                                                     <CardContent>
-                                                                                                        {comment.body}
+                                                                                                        <Grid container>
+                                                                                                            <Grid item s={2}>
+                                                                                                               Author: &nbsp; {comment.authorName ? comment.authorName : ''}                                                                                                       
+                                                                                                            </Grid>
+                                                                                                            <Grid item s={10}>
+                                                                                                            {comment.body}
+                                                                                                            </Grid>
+                                                                                                        </Grid>
+                                                                                                        
                                                                                                     </CardContent>
                                                                                                 </Card>
                                                                                             </Paper>

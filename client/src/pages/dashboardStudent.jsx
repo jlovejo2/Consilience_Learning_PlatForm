@@ -4,7 +4,7 @@ import API from "../utils/API";
 import custFunc from "../utils/customFunctions";
 //Importing components from component folder
 import Container from "../components/Container/Container.jsx";
-import ClassCard from "../components/ClassCard/ClassCard";
+import ClassCard from "../components/ClassCard/StudentClassCard";
 //Importing components and icons from material-ui
 
 import Card from "@material-ui/core/Card";
@@ -26,6 +26,17 @@ const DashboardStudent = (props) => {
   const [ userID, setUserID] = useState("")
   const [classesArr, setClassesArr] = useState([]);
 
+  useEffect(() => {
+
+    getAndVerifyUserInfo()
+    // getAndVerifyUserInfo()
+    // console.log(userType);
+    console.log(userType)
+    console.log(userID)
+    loadClasses()
+    
+  },[userType, userID])
+
   async function getAndVerifyUserInfo() {
     try {await API.readAndVerifyCookie().then((resp) => {
         console.log("cookie call resp: ", resp)
@@ -40,16 +51,10 @@ const DashboardStudent = (props) => {
     }
 }
 
-  useEffect(() => {
-
-    loadClasses();
-  
-  }, []);
-
   //This function calls the backend and loads all the classes in the database onto the dashboard page
   //Eventually this function will only load the classes that the user has access too
   function loadClasses() {
-    API.getClasses()
+    API.getClassesbyUser(userID)
       .then((resp) => {
         console.log(resp.data);
 

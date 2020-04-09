@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import RootContext from '../../utils/RootContext';
-import custFunc from '../../utils/customFunctions';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+// import RootContext from '../../utils/RootContext';
+// import custFunc from '../../utils/customFunctions';
 import clsx from 'clsx';
 import './style.css';
 
