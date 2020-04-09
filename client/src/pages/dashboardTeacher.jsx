@@ -33,7 +33,7 @@ const MyCard = styled(Card)({
 });
 
 const DashBoardTeacher = (props) => {
-    const { userType, userID } = useContext(RootContext)
+    // const { userType, userID } = useContext(RootContext)
     const [setState] = useState('')
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
@@ -41,14 +41,30 @@ const DashBoardTeacher = (props) => {
     const [menuAnchor, setMenuAnchor] = useState(null);
     const [selectedFile, setSelectedFile] = useState({});
     const [currentClass, setCurrentClass] = useState('');
+    const [userType, setUserType] = useState("");
+    const [ userID, setUserID] = useState("")
 
+  
+    async function getAndVerifyUserInfo() {
+      try {await API.readAndVerifyCookie().then((resp) => {
+          console.log("cookie call resp: ", resp)
+          console.log("dropping the load: ", resp.data.payload)
+          setUserType(resp.data.payload.type)
+          setUserID(resp.data.payload._id)
+          console.log(userType)
+          console.log(userID)
+      })}
+      catch (error) {
+          console.log(error)
+      }
+  }
     useEffect(() => {
-
+        getAndVerifyUserInfo()
         console.log(userType);
 
         loadClasses()
 
-    }, [userType])
+    }, [userType, userID])
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too

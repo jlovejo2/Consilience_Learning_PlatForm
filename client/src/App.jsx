@@ -20,8 +20,8 @@ import RootContext from './utils/RootContext';
 import history from './history/history.jsx';
 
 const App = () => {
-    const [userType, setUserType ] = useState('')
-    const [userID, setUserID ] = useState('')
+    // const [userType, setUserType ] = useState('')
+    // const [userID, setUserID ] = useState('')
     const [classID, setClassID ] = useState('')
 
     history.listen((location, action) => {
@@ -33,7 +33,7 @@ const App = () => {
 
     return (
         <Router history={history} keyLength={12}>
-            <RootContext.Provider value={{ userType, setUserType, userID, setUserID, classID, setClassID }}>
+            <RootContext.Provider value={{ classID, setClassID }}>
                 <Navbar />
                 <Wrapper>
                     <React.Fragment>
