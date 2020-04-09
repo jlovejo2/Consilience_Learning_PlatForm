@@ -42,17 +42,6 @@ const DashBoardTeacher = (props) => {
     const [userType, setUserType] = useState("");
     const [ userID, setUserID] = useState("")
 
-    useEffect(() => {
-
-        getAndVerifyUserInfo()
-        // getAndVerifyUserInfo()
-        // console.log(userType);
-
-        loadClasses()
-        console.log(userType)
-        console.log(userID)
-    }, [])
-
     async function getAndVerifyUserInfo() {
         try {await API.readAndVerifyCookie().then((resp) => {
             console.log("cookie call resp: ", resp)
@@ -66,6 +55,20 @@ const DashBoardTeacher = (props) => {
             console.log(error)
         }
     }
+
+
+    useEffect(() => {
+
+        getAndVerifyUserInfo()
+        // getAndVerifyUserInfo()
+        // console.log(userType);
+
+        loadClasses()
+        console.log(userType)
+        console.log(userID)
+    }, [userType, userID])
+
+
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too

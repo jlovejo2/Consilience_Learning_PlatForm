@@ -53,8 +53,6 @@ export const Classroom = (props) => {
     // const classes = useStyles();
     // const { userType, setUserType, userID, setUserID, classID } = useContext(RootContext);
     const [classID, setClassID] = useState('')
-    const [userID, setUserID] = useState('')
-    const [userType, setUserType] = useState('')
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
