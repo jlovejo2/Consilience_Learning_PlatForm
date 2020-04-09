@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import RootContext from "../utils/RootContext";
+import React, { useState, useEffect } from "react";
+// import RootContext from "../utils/RootContext";
 import API from "../utils/API";
 import custFunc from "../utils/customFunctions";
-import { toast, ToastContainer } from 'react-toastify';
 //Importing components from component folder
 import Container from "../components/Container/Container.jsx";
 import ClassCard from "../components/ClassCard/ClassCard";
@@ -33,8 +32,7 @@ const MyCard = styled(Card)({
 });
 
 const DashBoardTeacher = (props) => {
-    // const { userType, userID } = useContext(RootContext)
-    const [setState] = useState('')
+
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
@@ -44,29 +42,30 @@ const DashBoardTeacher = (props) => {
     const [userType, setUserType] = useState("");
     const [ userID, setUserID] = useState("")
 
-  
-    async function getAndVerifyUserInfo() {
-      try {
-          await API.readAndVerifyCookie().then((resp) => {
-          console.log("cookie call resp: ", resp)
-          console.log("dropping the load: ", resp.data.payload)
-          setUserType(resp.data.payload.type)
-          setUserID(resp.data.payload._id)
-          console.log(userType)
-          console.log(userID)
-      })}
-      catch (error) {
-          console.log(error)
-
-      }
-  }
     useEffect(() => {
+
         getAndVerifyUserInfo()
-        console.log(userType);
+        // getAndVerifyUserInfo()
+        // console.log(userType);
 
         loadClasses()
+        console.log(userType)
+        console.log(userID)
+    }, [])
 
-    }, [userType, userID])
+    async function getAndVerifyUserInfo() {
+        try {await API.readAndVerifyCookie().then((resp) => {
+            console.log("cookie call resp: ", resp)
+            console.log("dropping the load: ", resp.data.payload)
+            setUserType(resp.data.payload.type)
+            setUserID(resp.data.payload._id)
+            console.log(userType)
+            console.log(userID)
+        })}
+        catch (error) {
+            console.log(error)
+        }
+    }
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too
@@ -137,7 +136,6 @@ const DashBoardTeacher = (props) => {
     }
 
     function handleChangeTitle() {
-
         return (
             <input type='email' placeholder='enter title info'></input>
         )
@@ -163,7 +161,6 @@ const DashBoardTeacher = (props) => {
             .then(resp => {
                 loadClasses()
                 handleDialogClose()
-                setState({ msg: toast.success('announcement created') })
             })
             .catch(err => console.log(err))
     }
@@ -305,7 +302,6 @@ const DashBoardTeacher = (props) => {
                     </DialogActions>
                 </DialogContent>
             </Dialog>
-            <ToastContainer />
         </Container>
     );
 };
