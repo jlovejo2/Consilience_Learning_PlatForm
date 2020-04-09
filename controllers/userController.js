@@ -34,9 +34,11 @@ router.get("/checkToken", authenticateToken, (req, res) => {
 router.get('/getcookie', (req, res) => {
   const authorization = req.cookies['authorization']
   if (authorization !== null) {
+    const verified = authenticateToken(); // jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
+    if (!verified) {
+      return res.status(403).redirect('http://localhost:3000/')
+    }
     const decoded = jwt.decode(authorization, { complete: true })
-    const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
-    if (!verified) return false
     console.log("token verified: ", verified)
     console.log("token decoded: ", decoded)
     console.log("cookie content: ", authorization)
