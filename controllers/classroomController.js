@@ -39,6 +39,7 @@ module.exports = {
 
   //This method is meant to find a specific classroom by Id.  This will be used when wanting to pull up a specific classroom page
   findById: function (req, res) {
+    console.log('finding class by id ...')
     db.ClassroomModel
       .findById(req.params.id)
       .populate({path: 'announcements'})
@@ -49,12 +50,14 @@ module.exports = {
   // populating student info 
   // route: "api/classrooms/populate/:id"
   findByIdandPopulate: function (req, res) {
+    console.log('populating ...')
     console.log(req.params.id)
     db.ClassroomModel
       .findById(req.params.id)
       // model: 'RegisterModel', select: "_id"
       // .select("teacherID courseTitle students")
-      .populate("students", 'firstName lastName email -_id')
+      .populate({path: "students", select: ['firstName','lastName','email']})  /*'firstName lastName email -_id'}*/
+      .populate({path: 'announcements'})
       .exec((err, dbModel) => {
         // !err ?
         console.log(dbModel)
@@ -191,6 +194,7 @@ module.exports = {
       .findOneAndUpdate({_id: req.params.id}, {$push: { comments: {body: req.body.body, author: req.body.author}}})
       .then(updateWithComment => {
         console.log(updateWithComment)
+        res.json(updateWithComment)
       })
       
       // .catch(err => console.log(err))
