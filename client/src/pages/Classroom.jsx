@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import API from '../utils/API';
-import RootContext from '../utils/RootContext';
+// import RootContext from '../utils/RootContext';
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
 import Announcement from '../components/AnnouncementForm/Announcement';
@@ -51,8 +51,10 @@ export const Classroom = (props) => {
 
 
     // const classes = useStyles();
-    const { userType, setUserType, userID, setUserID, classID } = useContext(RootContext);
-    // const [setState] = useState('')
+    // const { userType, setUserType, userID, setUserID, classID } = useContext(RootContext);
+    const [classID, setClassID] = useState('')
+    const [userID, setUserID] = useState('')
+    const [userType, setUserType] = useState('')
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
@@ -77,8 +79,10 @@ export const Classroom = (props) => {
         }
     }
 
-
     function loadClassInfo() {
+
+        setClassID(localStorage.getItem('classId'))
+        console.log(classID);
         API.populateByID(classID)
             .then(resp => {
 

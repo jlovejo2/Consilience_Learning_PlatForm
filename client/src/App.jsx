@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Home from './pages/home.jsx';
@@ -20,9 +20,11 @@ import RootContext from './utils/RootContext';
 import history from './history/history.jsx';
 
 const App = () => {
+
     // const [userType, setUserType ] = useState('')
     // const [userID, setUserID ] = useState('')
-    const [classID, setClassID ] = useState('')
+    // const [classID, setClassID ] = useState('')
+
 
     history.listen((location, action) => {
         console.log(
@@ -33,7 +35,7 @@ const App = () => {
 
     return (
         <Router history={history} keyLength={12}>
-            <RootContext.Provider value={{ classID, setClassID }}>
+            {/* <RootContext.Provider value={{ userType, setUserType, userID, setUserID, classID, setClassID }}> */}
                 <Navbar />
                 <Wrapper>
                     <React.Fragment>
@@ -51,7 +53,7 @@ const App = () => {
                     </React.Fragment>
                 </Wrapper>
                 <Footer />
-            </RootContext.Provider>
+            {/* </RootContext.Provider> */}
         </Router>
     )
 };
