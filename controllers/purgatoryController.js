@@ -1,3 +1,4 @@
+// middleware purgatory
 const db = require('../models');
 const bcryptjs = require('bcryptjs')
 const Chance = require('chance');
