@@ -47,30 +47,34 @@ const DashBoardTeacher = (props) => {
         getAndVerifyUserInfo()
         // getAndVerifyUserInfo()
         // console.log(userType);
-
-        loadClasses()
         console.log(userType)
         console.log(userID)
-    }, [])
+        loadClasses()
+        
+    },[userType, userID])
+    
 
-    async function getAndVerifyUserInfo() {
-        try {await API.readAndVerifyCookie().then((resp) => {
+    function getAndVerifyUserInfo() {
+         API.readAndVerifyCookie()
+            .then((resp) => {
             console.log("cookie call resp: ", resp)
             console.log("dropping the load: ", resp.data.payload)
             setUserType(resp.data.payload.type)
             setUserID(resp.data.payload._id)
             console.log(userType)
             console.log(userID)
-        })}
-        catch (error) {
+            //load the classes after the userID And userType are received from token
+            })
+            .catch (error => {
             console.log(error)
-        }
+            })
     }
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too
     function loadClasses() {
-        API.getClasses()
+        console.log(userID)
+        API.getClassesbyUser(userID)
             .then(resp => {
                 console.log(resp.data)
 

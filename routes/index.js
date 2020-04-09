@@ -5,11 +5,13 @@ const path = require("path");
 const router = require("express").Router({ mergeParams: true });
 const apiRoutes = require('./classRoutes');
 const userController = require('../controllers/userController.js');
+// const aController = require('../controllers/announcementController');
 
 router.use('/users', userController);
 
 // API Routes
 router.use('/api', apiRoutes);
+
 
 //External API routes
 // router.route('route for methods directly to a controller')
