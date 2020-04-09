@@ -14,9 +14,6 @@ const Search = () => {
     const [ userType, setUserType] = useState('');
     const [classSearchObj, setClassSearchObj] = useState({});
     const [apiClasses, setApiClasses] = useState([]);
-    const [userType, setUserType] = useState('');
-    const [userID, setUserID] = useState('')
-
 
     useEffect(() => {
 
