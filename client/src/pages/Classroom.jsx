@@ -110,6 +110,15 @@ export const Classroom = (props) => {
             .catch(err => console.log(err))
     }
 
+    function getAuthor(param) {
+        console.log(param)
+        API.findUserByID(param)
+            .then( resp => {
+                const author = resp.name
+                console.log(resp)
+                return author
+            })
+    }
     function handleAddComment(event, announcementIndex) {
         event.preventDefault()
         // console.log(event.keyCode);
@@ -118,13 +127,20 @@ export const Classroom = (props) => {
         const commentInfo = {
             author: userID,
             body: event.target.value.split('\n', 1)[0],
+            authorName: ''
             // announcementID: currentClassObj.announcements[0]._id
         }
-
+        
         console.log(announcementIndex);
         // console.log(currentClassObj)
         if (event.keyCode === 13) {
+
             console.log('submitted on enter');
+            API.findUserByID(userID)
+        .then(resp=> {
+            const fullName = resp.firstName + " " + resp.lastName
+            commentInfo.authorName = fullName
+            console.log(commentInfo)
             API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
                 .then(resp => {
                     console.log('got response', resp)
@@ -135,6 +151,8 @@ export const Classroom = (props) => {
                     console.log(commentObj)
                 })
                 .catch(err => console.log(err))
+        })
+            
         }
     }
 
@@ -144,7 +162,7 @@ export const Classroom = (props) => {
     //     setAnnouncementObj({ ...commentObj, announceIndex: value })
     // }
 
-    return (
+     return (
         <div>
             <ClassBanner title={currentClassObj.courseTitle} desc={currentClassObj.courseDescription} />
             <Grid container>
@@ -221,7 +239,15 @@ export const Classroom = (props) => {
                                                                                             <Paper key={index} elevation={16}>
                                                                                                 <Card>
                                                                                                     <CardContent>
-                                                                                                        {comment.body}
+                                                                                                        <Grid container>
+                                                                                                            <Grid item s={2}>
+                                                                                                               Author: &nbsp; {comment.authorName ? comment.authorName : ''}                                                                                                       
+                                                                                                            </Grid>
+                                                                                                            <Grid item s={10}>
+                                                                                                            {comment.body}
+                                                                                                            </Grid>
+                                                                                                        </Grid>
+                                                                                                        
                                                                                                     </CardContent>
                                                                                                 </Card>
                                                                                             </Paper>

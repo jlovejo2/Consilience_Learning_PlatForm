@@ -4,7 +4,7 @@ import API from "../utils/API";
 import custFunc from "../utils/customFunctions";
 //Importing components from component folder
 import Container from "../components/Container/Container.jsx";
-import ClassCard from "../components/ClassCard/ClassCard";
+import ClassCard from "../components/ClassCard/StudentClassCard";
 //Importing components and icons from material-ui
 
 import Card from "@material-ui/core/Card";
