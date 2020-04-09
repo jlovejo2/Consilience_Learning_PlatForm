@@ -29,6 +29,31 @@ router.get("/checkToken", authenticateToken, (req, res) => {
   res.sendStatus(200)
 });
 
+// get cookie and verify token
+router.get('/getcookieauth', (req, res, next) => {
+  const authorization = req.cookies['authorization']
+  if (authorization === null) return res.sendStatus(401);
+  jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    console.log("Logging the ERR ", err);
+    if (err) return res.sendStatus(403);
+    // req.user = user;
+    console.log(user);
+    next()
+  });
+})
+
+// get cookie and decode header, payload, and signature via {complete: true}
+router.get('/getcookie', (req, res) => {
+  const authorization = req.cookies['authorization']
+  if (authorization) {
+    const decoded = jwt.decode(authorization, {complete: true})
+    console.log(decoded)
+    console.log(authorization)
+    return res.json(decoded)
+  }
+  return res.send('no cookie found')
+})
+
 // get user authenticated status
 router.get("/:id", authenticateToken, async (req, res) => {
   try {

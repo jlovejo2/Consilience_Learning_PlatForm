@@ -1,6 +1,15 @@
 import axios from 'axios';
 
 export default {
+    // get cookie and decode
+    readcookie: () => {
+        return axios.get('/users/getcookie') 
+    },
+    // get cookie to verify token using secret
+    // call still under construction**
+    verifycookie: () => {
+        return axios.get('/getcookieauth')
+    },
     // get all users
     users: function () {
         return axios.get("/users")
