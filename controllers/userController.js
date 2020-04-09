@@ -29,19 +29,6 @@ router.get("/checkToken", authenticateToken, (req, res) => {
   res.sendStatus(200)
 });
 
-// get cookie and verify token
-router.get('/getcookieauth', (req, res, next) => {
-  const authorization = req.cookies['authorization']
-  if (authorization === null) return res.sendStatus(401);
-  jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log("Logging the ERR ", err);
-    if (err) return res.sendStatus(403);
-    // req.user = user;
-    console.log(user);
-    next()
-  });
-})
-
 // get cookie and decode header, payload, and signature via {complete: true}
 router.get('/getcookie', (req, res) => {
   const authorization = req.cookies['authorization']
@@ -146,9 +133,7 @@ router.post("/register", async (req, res) => {
       discipline
     );
   }
-
   const encryptedPW = await hashPW(password);
-
   console.log(generatedId);
   console.log("the secret code", encryptedPW);
   db.RegisterModel.create({
@@ -219,7 +204,7 @@ function authenticateToken(req, res, next) {
   // if authHeader then return authHeader token portion else undefined
   const token = authHeader && authHeader.split(" ")[1];
 
-//   console.log(authHeader.split(" ")[1]);
+// console.log(authHeader.split(" ")[1]);
   // console.log(authHeader.split(" ")[1]);
   // const token = authHeader && authHeader.split(" ")[1];
   // console.log(authHeader.split(" ")[1]);
@@ -255,6 +240,19 @@ async function pwCheck(password, hash) {
 }
 
 module.exports = router;
+
+// get cookie and verify token
+// router.get('/getcookieauth', (req, res, next) => {
+//   const authorization = req.cookies['authorization']
+//   if (authorization === null) return res.sendStatus(401);
+//   jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+//     console.log("Logging the ERR ", err);
+//     if (err) return res.sendStatus(403);
+//     // req.user = user;
+//     console.log(user);
+//     next()
+//   });
+// })
 
 // router.post("/refresh", (req, res, next) => {
 //   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1440m" })
