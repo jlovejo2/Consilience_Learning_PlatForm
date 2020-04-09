@@ -6,7 +6,6 @@ import Container from '../components/Container/Container';
 import Announcement from '../components/AnnouncementForm/Announcement';
 import CommentButton from '../components/Comments/CommentButton';
 import Expander from '../components/Comments/ExpansionDiv';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActions, CardContent } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -48,27 +47,33 @@ const useStyles = makeStyles({
 export const Classroom = (props) => {
 
     const classes = useStyles();
-    const { userType, setUserType, userID, setUserID, classID } = useContext(RootContext);
+    const { classID } = useContext(RootContext);
     // const [setState] = useState('')
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
     const [commentObj, setCommentObj] = useState([])
+    const [userType, setUserType] = useState('');
+    const [userID, setUserID] = useState('')
 
     useEffect(() => {
         getAndVerifyUserInfo()
-        loadClassInfo();
+        loadClassInfo()
     }, [userType, userID]);
 
     async function getAndVerifyUserInfo() {
-        try {await API.readAndVerifyCookie().then((resp) => {
-            console.log("cookie call resp: ", resp)
-            console.log("dropping the load: ", resp.data.payload)
-            setUserType(resp.data.payload.type)
-            setUserID(resp.data.payload._id)
-            console.log(userType)
-            console.log(userID)
-        })}
+        try {
+            await API.readAndVerifyCookie()
+            .then((resp) => {
+                console.log("cookie call resp: ", resp)
+                console.log("dropping the load: ", resp.data.payload)
+                setUserType(resp.data.payload.type)
+                setUserID(resp.data.payload._id)
+                console.log(userType)
+                console.log(userID)
+                }
+            )
+        }
         catch (error) {
             console.log(error)
         }

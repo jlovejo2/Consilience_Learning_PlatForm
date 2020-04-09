@@ -9,16 +9,34 @@ import Container from '../components/Container/Container.jsx';
 
 const Search = () => {
 
-    const { userID } = useContext(RootContext);
+
     const [classSearchObj, setClassSearchObj] = useState({});
     const [apiClasses, setApiClasses] = useState([]);
-
+    const [userType, setUserType] = useState('');
+    const [userID, setUserID] = useState('')
 
     useEffect(() => {
+        getAndVerifyUserInfo()
+        console.log(apiClasses)
+    }, [userType, userID, apiClasses]);
 
-        console.log(apiClasses);
-
-    }, [apiClasses])
+    async function getAndVerifyUserInfo() {
+        try {
+            await API.readAndVerifyCookie()
+            .then((resp) => {
+                console.log("cookie call resp: ", resp)
+                console.log("dropping the load: ", resp.data.payload)
+                setUserType(resp.data.payload.type)
+                setUserID(resp.data.payload._id)
+                console.log(userType)
+                console.log(userID)
+                }
+            )
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 
     //This function is called when the user his the request to join button
     //it sends the user's info back to the database and adds them to the class

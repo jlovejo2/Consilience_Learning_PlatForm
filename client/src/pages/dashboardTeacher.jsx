@@ -46,7 +46,8 @@ const DashBoardTeacher = (props) => {
 
   
     async function getAndVerifyUserInfo() {
-      try {await API.readAndVerifyCookie().then((resp) => {
+      try {
+          await API.readAndVerifyCookie().then((resp) => {
           console.log("cookie call resp: ", resp)
           console.log("dropping the load: ", resp.data.payload)
           setUserType(resp.data.payload.type)
@@ -56,6 +57,7 @@ const DashBoardTeacher = (props) => {
       })}
       catch (error) {
           console.log(error)
+
       }
   }
     useEffect(() => {

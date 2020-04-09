@@ -18,7 +18,7 @@ import API from '../utils/API';
 const GradesTeacher = (props) => {
     
     const { userType, userID } = useContext(RootContext);
-    const [currentClassObj, setCurrentClassObj] = useState([]);
+    const [/*currentClassObj,*/ setCurrentClassObj] = useState([]);
 
     useEffect(() => {
         const { classroomID } = props.location.state
