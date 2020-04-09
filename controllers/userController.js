@@ -47,11 +47,14 @@ router.get('/getcookie', (req, res) => {
   const authorization = req.cookies['authorization']
   if (authorization) {
     const decoded = jwt.decode(authorization, {complete: true})
-    console.log(decoded)
-    console.log(authorization)
+    const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
+    if (!verified) return false
+    console.log("token verified: ", verified)
+    console.log("token decoded: ", decoded)
+    console.log("cookie content: ", authorization)
     return res.json(decoded)
   }
-  return res.send('no cookie found')
+  return res.send('no cookie found').redirect('/login')
 })
 
 // get user authenticated status

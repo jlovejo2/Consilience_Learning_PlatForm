@@ -49,8 +49,9 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 export const Classroom = (props) => {
 
+
     // const classes = useStyles();
-    const { userType, userID, classID } = useContext(RootContext);
+    const { userType, setUserType, userID, setUserID, classID } = useContext(RootContext);
     // const [setState] = useState('')
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
@@ -58,8 +59,24 @@ export const Classroom = (props) => {
     const [commentObj, setCommentObj] = useState([])
 
     useEffect(() => {
+        getAndVerifyUserInfo()
         loadClassInfo();
-    }, [])
+    }, [userType, userID]);
+
+    async function getAndVerifyUserInfo() {
+        try {await API.readAndVerifyCookie().then((resp) => {
+            console.log("cookie call resp: ", resp)
+            console.log("dropping the load: ", resp.data.payload)
+            setUserType(resp.data.payload.type)
+            setUserID(resp.data.payload._id)
+            console.log(userType)
+            console.log(userID)
+        })}
+        catch (error) {
+            console.log(error)
+        }
+    }
+
 
     function loadClassInfo() {
         API.populateByID(classID)

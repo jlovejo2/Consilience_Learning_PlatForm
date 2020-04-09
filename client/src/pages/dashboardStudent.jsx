@@ -21,9 +21,24 @@ const MyCard = styled(Card)({
 });
 const DashboardStudent = (props) => {
 
-  const { userType, userID } = useContext(RootContext)
-
+  // const { userType, userID } = useContext(RootContext)
+  const [userType, setUserType] = useState("");
+  const [ userID, setUserID] = useState("")
   const [classesArr, setClassesArr] = useState([]);
+
+  async function getAndVerifyUserInfo() {
+    try {await API.readAndVerifyCookie().then((resp) => {
+        console.log("cookie call resp: ", resp)
+        console.log("dropping the load: ", resp.data.payload)
+        setUserType(resp.data.payload.type)
+        setUserID(resp.data.payload.ID)
+        console.log(userType)
+        console.log(userID)
+    })}
+    catch (error) {
+        console.log(error)
+    }
+}
 
   useEffect(() => {
 
