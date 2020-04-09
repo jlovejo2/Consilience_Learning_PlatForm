@@ -30,10 +30,11 @@ router.get("/checkToken", authenticateToken, (req, res) => {
 });
 
 // get cookie and decode header, payload, and signature via {complete: true}
+// then, verify cookie using environmental access token secret 
 router.get('/getcookie', (req, res) => {
   const authorization = req.cookies['authorization']
-  if (authorization) {
-    const decoded = jwt.decode(authorization, {complete: true})
+  if (authorization !== null) {
+    const decoded = jwt.decode(authorization, { complete: true })
     const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
     if (!verified) return false
     console.log("token verified: ", verified)
@@ -41,7 +42,7 @@ router.get('/getcookie', (req, res) => {
     console.log("cookie content: ", authorization)
     return res.json(decoded)
   }
-  return res.send('no cookie found').redirect('/login')
+  return res.send('no cookie found')
 })
 
 // get user authenticated status
@@ -134,8 +135,6 @@ router.post("/register", async (req, res) => {
     );
   }
   const encryptedPW = await hashPW(password);
-  console.log(generatedId);
-  console.log("the secret code", encryptedPW);
   db.RegisterModel.create({
     type,
     firstName,
@@ -172,7 +171,7 @@ router.post("/login", (req, res) => {
         });
         console.log("this is cookie data", accessToken)
         res.set("authorization", accessToken);
-        res.json({ accessToken, user });
+        res.json({ user });
       } else {
         res.redirect("/login");
       }
@@ -203,12 +202,6 @@ function authenticateToken(req, res, next) {
   // token portion of bearer token
   // if authHeader then return authHeader token portion else undefined
   const token = authHeader && authHeader.split(" ")[1];
-
-// console.log(authHeader.split(" ")[1]);
-  // console.log(authHeader.split(" ")[1]);
-  // const token = authHeader && authHeader.split(" ")[1];
-  // console.log(authHeader.split(" ")[1]);
-
   if (token === null) return res.sendStatus(401);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("Logging the ERR ", err);
