@@ -65,8 +65,10 @@ export default {
     },
     requestToJoinClass: function(requestInfo, user) {
         return axios.post('api/classrooms/' + requestInfo + '/addStudent', user)
+    },
+    populateByID: function(id) {
+        return axios.get('api/classrooms/populate/' + id)
     }
-
 
 
 }

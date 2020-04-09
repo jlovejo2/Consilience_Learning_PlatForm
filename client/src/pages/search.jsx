@@ -7,27 +7,21 @@ import { Input, Button, MenuItem, Select, Grid, Box, ListItem, Paper } from '@ma
 import Container from '../components/Container/Container.jsx';
 
 
-
-
 const Search = () => {
 
     const { userID } = useContext(RootContext);
     const [classSearchObj, setClassSearchObj] = useState({});
     const [apiClasses, setApiClasses] = useState([]);
-    // const [activateModal, setActivateModal] = useState(false);
+
 
     useEffect(() => {
 
-        // setSelectOptions(['Keyword', 'Author', 'Title', 'Subject']);
         console.log(apiClasses);
 
     }, [apiClasses])
 
-    // function handleCloseModal() {
-    //     console.log('closing Modal');
-    //     setActivateModal(false);
-    // }
-
+    //This function is called when the user his the request to join button
+    //it sends the user's info back to the database and adds them to the class
     function handleJoinClass(event) {
         const requestInfo = event.currentTarget.value
         const userInfo = {}
@@ -40,11 +34,14 @@ const Search = () => {
             .catch( err => console.log(err))
     }
 
+    //This function what the user is typing and what they select in the select dropdown
+    //Sets those to the classSearchObj state
     function handleSearchChange(event) {
-
         console.log(event.target.name);
         console.log(event.target.value);
+
         const { name, value } = event.target;
+        
         setClassSearchObj({ ...classSearchObj, [name]: value })
         console.log(classSearchObj);
     };
@@ -150,5 +147,6 @@ const Search = () => {
         // </Container >
     )
 }
+
 
 export default Search;
