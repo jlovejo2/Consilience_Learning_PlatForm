@@ -47,10 +47,10 @@ router.route("/announcement/:id")
       .delete(classroomController.removeAnnouncement)
 
 router.route("/announcement/comment/:id")
-      .put(classroomController.createComment)
+      .post(classroomController.createComment)
       .delete()
 
 router.route('/findAuthor/comment/:id')
-      .get(classroomController.findUserById)
+      .get(classroomController.findAuthorById)
 
 module.exports = router;

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Container from "../components/Container/Container.jsx";
 // import Dashboard from '../components/Grades/TeacherDashboard'
 import MaterialTable from "material-table";
-import RootContext from '../utils/RootContext.js';
+// import RootContext from '../utils/RootContext.js';
 import API from '../utils/API';
 
 // creating a gradebook that is student (n) responsive
@@ -17,16 +17,18 @@ import API from '../utils/API';
 
 const GradesTeacher = (props) => {
     
-    const { userType, userID } = useContext(RootContext);
-    const [/*currentClassObj,*/ setCurrentClassObj] = useState([]);
+    // const { userType, userID } = useContext(RootContext);
+    const [currentClassObj, setCurrentClassObj] = useState([]);
+    const [userID, setUserID] = useState('');
+    const [userType, setUserType] = useState('')
 
     useEffect(() => {
-        const { classroomID } = props.location.state
-        loadClassInfo(classroomID)
+        // // const { classroomID } = props.location.state
+        // loadClassInfo(classroomID)
         console.log(userType);
         console.log(userID);
         // loadAnnouncements(classroomID);
-    }, [props.location.state, userType, userID])
+    }, [ userType, userID])
 
     function loadClassInfo(param) {
         API.getClass(param)
@@ -42,6 +44,7 @@ const GradesTeacher = (props) => {
 
 
   const [state, setState] = useState({
+
     columns: [
       { title: "Surname", field: "surname" },
       { title: "Name", field: "name" },
@@ -61,6 +64,7 @@ const GradesTeacher = (props) => {
       }
     ]
   });
+  
   return (
     <Container fluid>
       <MaterialTable

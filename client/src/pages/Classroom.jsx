@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import API from '../utils/API';
+import history from '../history/history.jsx';
 // import RootContext from '../utils/RootContext';
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
@@ -22,11 +23,8 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 // import { ExpansionPanel, ExpansionPanelSummary} from '@material-ui/core'
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import ExpansionDiv from '../components/Comments/ExpansionDiv';
-import history from '../history/history.jsx';
-
 
 export const Classroom = (props) => {
-
 
     // const classes = useStyles();
     // const { userType, setUserType, userID, setUserID, classID } = useContext(RootContext);
@@ -39,32 +37,28 @@ export const Classroom = (props) => {
     const [userID, setUserID] = useState("")
 
 
+    useEffect(() => {
+        getAndVerifyUserInfo()
+        loadClassInfo()
+    }, [userType, userID]);
+
     async function getAndVerifyUserInfo() {
         try {
             await API.readAndVerifyCookie()
-            .then((resp) => {
-                console.log("cookie call resp: ", resp)
-                console.log("dropping the load: ", resp.data.payload)
-                setUserType(resp.data.payload.type)
-                setUserID(resp.data.payload._id)
-                console.log(userType)
-                console.log(userID)
-                }
-            )
+                .then((resp) => {
+                    console.log("cookie call resp: ", resp)
+                    console.log("dropping the load: ", resp.data.payload)
+                    setUserType(resp.data.payload.type)
+                    setUserID(resp.data.payload._id)
+                    console.log(userType)
+                    console.log(userID)
+                })
         }
         catch (error) {
             console.log(error)
             history.replace('/')
         }
     }
-
-
-    useEffect(() => {
-        getAndVerifyUserInfo()
-        loadClassInfo()
-    }, [userType, userID]);
-
-
 
     function loadClassInfo() {
 
@@ -111,7 +105,7 @@ export const Classroom = (props) => {
         }
     }
 
-    function handleDeleteAnnouncement( event, announcementID) {
+    function handleDeleteAnnouncement(event, announcementID) {
         API.deleteAnnouncementById(announcementID)
             .then(resp => {
                 console.log(resp)
@@ -122,47 +116,48 @@ export const Classroom = (props) => {
 
     function getAuthor(param) {
         console.log(param)
-        API.findUserByID(param)
-            .then( resp => {
-                const author = resp.name
+        API.getUserbyId(param)
+            .then(resp => {
                 console.log(resp)
+                const author = resp.data.userUpdated.firstName + " " + resp.data.userUpdated.lastName
+                console.log(author)
                 return author
             })
     }
+
     function handleAddComment(event, announcementIndex) {
-        event.preventDefault()
+        console.log('Adding comment ...')
+        // event.preventDefault()
         // console.log(event.keyCode);
         // console.log(event.target);
         // console.log(announcementObj);
         const commentInfo = {
             author: userID,
             body: event.target.value.split('\n', 1)[0],
-            authorName: ''
             // announcementID: currentClassObj.announcements[0]._id
         }
-        
+
         console.log(announcementIndex);
         // console.log(currentClassObj)
         if (event.keyCode === 13) {
 
-            console.log('submitted on enter');
-            API.findUserByID(userID)
-        .then(resp=> {
-            const fullName = resp.firstName + " " + resp.lastName
-            commentInfo.authorName = fullName
-            console.log(commentInfo)
-            API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
-                .then(resp => {
-                    console.log('got response', resp)
+            // console.log('submitted on enter');
+            // API.findUserByID(userID)
+            //     .then(resp => 
+            //         const fullName = resp.firstName + " " + resp.lastName
+            //         commentInfo.authorName = fullName
+            //         console.log(commentInfo)
+                    API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
+                        .then(resp => {
+                            console.log('got response', resp)
 
-                    // currentClassObj.announcements[announcementIndex].comments.push(commentInfo)
-                    loadClassInfo()
-                    console.log(resp.data)
-                    console.log(commentObj)
-                })
-                .catch(err => console.log(err))
-        })
-            
+                            // currentClassObj.announcements[announcementIndex].comments.push(commentInfo)
+                            loadClassInfo()
+                            console.log(resp.data)
+                            console.log(commentObj)
+                        })
+                        .catch(err => console.log(err))
+
         }
     }
 
@@ -172,7 +167,7 @@ export const Classroom = (props) => {
     //     setAnnouncementObj({ ...commentObj, announceIndex: value })
     // }
 
-     return (
+    return (
         <div>
             <ClassBanner title={currentClassObj.courseTitle} desc={currentClassObj.courseDescription} />
             <Grid container>
@@ -210,23 +205,23 @@ export const Classroom = (props) => {
                                                         <Paper elevation={15}>
                                                             <Card /*className={classes.root}*/ variant="outlined">
                                                                 <CardContent key={index}>
-                                                                    
+
                                                                     <Typography variant="h5" component="h2">
                                                                         <Grid container spacing={2} alignItems='center' justifyContent='center'>
                                                                             <Grid item s={10}>
-                                                                            {announcement.title}
+                                                                                {announcement.title}
                                                                             </Grid>
                                                                             <Grid item s={2}>
-                                                                            {userType === 'Teacher' ?
-                                                                        <Tooltip title="Delete announcement thread" aria-label="add">
-                                                                            <IconButton onClick={(event) => handleDeleteAnnouncement(event, announcement._id)}>
-                                                                                <DeleteOutlineIcon  color='primary' />
-                                                                                </IconButton>
-                                                                        </Tooltip> : ''
-                                                                    }
+                                                                                {userType === 'Teacher' ?
+                                                                                    <Tooltip title="Delete announcement thread" aria-label="add">
+                                                                                        <IconButton onClick={(event) => handleDeleteAnnouncement(event, announcement._id)}>
+                                                                                            <DeleteOutlineIcon color='primary' />
+                                                                                        </IconButton>
+                                                                                    </Tooltip> : ''
+                                                                                }
                                                                             </Grid>
                                                                         </Grid>
-                                                                        
+
                                                                     </Typography>
                                                                     <Typography variant="body2" component="p">
                                                                         {announcement.body}
@@ -250,14 +245,15 @@ export const Classroom = (props) => {
                                                                                                 <Card>
                                                                                                     <CardContent>
                                                                                                         <Grid container>
-                                                                                                            <Grid item s={2}>
-                                                                                                               Author: &nbsp; {comment.authorName ? comment.authorName : ''}                                                                                                       
+                                                                                                            <Grid item s={12}>
+                                                                                                                Author: &nbsp; {comment.author ? comment.author.firstName + " " + comment.author.lastName  : ' '}
                                                                                                             </Grid>
-                                                                                                            <Grid item s={10}>
-                                                                                                            {comment.body}
+                                                                                                            <br/>
+                                                                                                            <Grid item s={12}>
+                                                                                                                Body: &nbsp; {comment.body}
                                                                                                             </Grid>
                                                                                                         </Grid>
-                                                                                                        
+
                                                                                                     </CardContent>
                                                                                                 </Card>
                                                                                             </Paper>

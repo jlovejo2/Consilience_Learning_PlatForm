@@ -4,6 +4,7 @@ import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
 import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
+// import History from '../history/history.jsx';
 // import RootContext from '../utils/RootContext';
 import '../index.css';
 import './pageStyle/login.css'
@@ -15,7 +16,7 @@ const Login = () => {
     const [loginForm, setLoginForm] = useState({})
     const [registerForm, setRegisterForm] = useState({})
     const [openDialog, setOpenDialog] = useState(false);
-    const [redirectUser, setRedirectUser] = useState(false);
+    // const [redirectUser, setRedirectUser] = useState(false);
   
     const handleRegisterOpen = () => {
         setOpenDialog(true);
@@ -74,17 +75,20 @@ const Login = () => {
                     // // localStorage.setItem('token', userInfo.token);
                     // // console.log(userInfo.token)
                     
-                    if (userInfo.type === 'Teacher') {
-                        console.log('teacher')
-                        history.replace('/dashboardTeacher')
-                    } else if (userInfo.type === 'Student') {
-                        console.log('student')
-                        history.replace('/dashboardStudent')
-                    } else {
-                        console.log(userInfo.type)
-                        console.log('something is weird')
-                        history.push('/login')
-                    }
+                    history.replace('/dashboardTeacher')
+
+                    // if (userInfo.type === 'Teacher') {
+                    //     console.log('teacher')
+                    //     history.replace('/dashboardTeacher')
+                    // } else if (userInfo.type === 'Student') {
+                    //     console.log('student')
+                    //     history.replace('/dashboardStudent')
+                    // } else {
+                    //     console.log(userInfo.type)
+                    //     console.log('something is weird')
+                    //     history.push('/login')
+                    // }
+
                 })
                 .catch(err => console.log(err))
         }
