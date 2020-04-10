@@ -9,7 +9,6 @@ connection with remote database established via robo3T
 - https://www.npmjs.com/package/bcrypt
 - http://www.npmjs.com/package/morgan
     -  HTTP request logger middleware for node
-- https://www.npmjs.com/package/helmet (tentative)
 
 
 ## Security Considerations
