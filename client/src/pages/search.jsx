@@ -5,6 +5,7 @@ import API from '../utils/API';
 
 import { Input, Button, MenuItem, Select, Grid, Box, ListItem, Paper, Container } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import AddIcon from '@material-ui/icons/AddCircleOutline';
 import './pageStyle/search.css';
     
 
@@ -140,22 +141,32 @@ const Search = () => {
             <Box m={3}>
                 <Paper>
                     <Grid item xs={12} justifyContent='center'>
-                        <Box m={2} p={2} xs={10}>
+                        <Box m={2} p={2}>
                             <ul>
                             {
                         apiClasses.length > 0 ? apiClasses.map((item, index) => {
                             return (
-                               <ListItem key={index}>
-                                   {item.courseTitle}, {item.courseDescription}, {item.courseDiscipline}
-                                    <Button
-                                    size='small'
-                                    variant='contained'
-                                    color='primary'
-                                    value={item.id}
-                                    onClick={handleJoinClass}
-                                    >
-                                        Request to Join
-                                    </Button>
+                               <ListItem key={index} className = 'addicon'>
+                                   <Grid item xs={3}>
+                                        <h3>{item.courseTitle}</h3>
+                                        <Button
+                                            size='small'
+                                            variant='contained'
+                                            color='primary'
+                                            value={item.id}
+                                            onClick={handleJoinClass}
+                                            >
+                                                <AddIcon/>
+                                                Request to Join
+                                        </Button>
+                                   </Grid>
+                                   <Grid item xs={6} className='description'>
+                                   {item.courseDescription}
+                                   </Grid>
+                                   <Grid item xs={3}>
+                                   Course subject: <p/> <h6>{item.courseDiscipline}</h6>
+                                    </Grid>
+                                    
                                </ListItem>
                             )
                         })

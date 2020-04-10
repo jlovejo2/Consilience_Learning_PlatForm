@@ -180,7 +180,7 @@ const DashBoardTeacher = (props) => {
                 {/* <svg: React.SVGProps<SVGSVGElement>; */}
                 <svg viewBox="0 0 4000 490">
                     <symbol id="s-text">
-                        <text textAnchor="middle" x="50%" y="50%" style={{ fontSize: "20vw" }}>Classroom Dashboard</text>
+                        <text textAnchor="middle" x="50%" y="50%" style={{ fontSize:"14vw"}}>Classroom Dashboard</text>
                     </symbol>
 
                     <g className="g-ants">
