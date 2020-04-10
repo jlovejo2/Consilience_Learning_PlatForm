@@ -9,7 +9,7 @@ const IDfunctions = require("./functions");
 require("dotenv").config();
 
 // get all users
-router.get("/", authenticateToken, async (req, res) => {
+router.get("/", async (req, res) => {
   console.log("in this route 13");
   // /users
   try {
@@ -45,7 +45,7 @@ router.get('/getcookie', (req, res) => {
   return res.status(403).send("forbidden")
 })
 
-// get user authenticated status
+// get user by id
 router.get("/:id", async (req, res) => {
   try {
     // console.log(id)
@@ -68,7 +68,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// user update
+// user update info
 router.put("/:id", authenticateToken, async (req, res) => {
   // /users/:id
   try {
@@ -98,7 +98,7 @@ router.put("/:id", authenticateToken, async (req, res) => {
 });
 
 // user delete
-router.delete("/:id", authenticateToken, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   // /users/:id
   try {
     console.log(req.body);
@@ -153,7 +153,8 @@ router.post("/register", async (req, res) => {
     .catch(error => console.log("this is a register error", error));
 });
 
-// user login
+// user login, generate access token, embed access token in cookie with
+// identical lifespan; header = authorization
 router.post("/login", (req, res) => {
   // /users/login
   console.log(req.body);
@@ -182,7 +183,7 @@ router.post("/login", (req, res) => {
     .catch(err => console.log("err here", err));
 });
 
-// user logout
+// user logout --> delete cookie on logout puta 
 router.get("/logout", (req, res) => {
   try {
     res.status(403)
@@ -201,10 +202,10 @@ function generateAccessToken(user) {
 
 function authenticateToken(req, res, next) {
   console.log("requesting cookies", req.cookies);
-  const authHeader = req.headers["authorization"];
+  const token = req.cookies["authorization"];
   // token portion of bearer token
   // if authHeader then return authHeader token portion else undefined
-  const token = authHeader && authHeader.split(" ")[1];
+  // const token = authHeader && authHeader.split(" ")[1];
   if (token === null) return res.sendStatus(401);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("Logging the ERR ", err);
