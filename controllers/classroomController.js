@@ -247,7 +247,39 @@ module.exports = {
         res.json(dbModel)
       })
 
-  }
+  },
 
+  removeComment: function (req, res) {
+
+    console.log(req.params.id)
+
+    db.CommentModel
+      .findById(req.params.id)
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  createAssignment: function (req, res) {
+
+    console.log(req.body)
+    console.log(req.params.id)
+
+    db.AnnouncementModel.create(req.body)
+      .then(dbModel => {
+
+        console.log('announcement created');
+
+        db.ClassroomModel
+          .findOneAndUpdate({ _id: req.params.id }, { $push: { announcements: dbModel._id } })
+          .populate({ path: 'announcements' })
+          .exec((err, updatedClass) => {
+            console.log("post update", updatedClass)
+            res.json(updatedClass);
+          })
+      })
+      .catch(err => res.status(422).json(err));
+
+  },
 
 };

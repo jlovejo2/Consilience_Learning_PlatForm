@@ -10,8 +10,13 @@
         return window.btoa(binary);
     }
 
+    function formatDate(string){
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',  };
+        return new Date(string).toLocaleDateString([],options);
+    }
+
  
 
-export default {arrayBufferToBase64}
+export default {arrayBufferToBase64, formatDate}
 
 

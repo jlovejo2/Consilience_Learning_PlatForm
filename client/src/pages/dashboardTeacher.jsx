@@ -46,25 +46,24 @@ const DashBoardTeacher = (props) => {
     const [currentClass, setCurrentClass] = useState('');
     const [userType, setUserType] = useState("");
     const [userID, setUserID] = useState("")
-    
+
 
     function getAndVerifyUserInfo() {
-         API.readAndVerifyCookie()
+        API.readAndVerifyCookie()
             .then((resp) => {
-            console.log("cookie call resp: ", resp)
-            console.log("dropping the payload: ", resp.data.payload)
-            setUserType(resp.data.payload.type)
-            setUserID(resp.data.payload._id)
-            console.log(userType)
-            console.log(userID)
-            //load the classes after the userID And userType are received from token
+                console.log("cookie call resp: ", resp)
+                console.log("dropping the payload: ", resp.data.payload)
+                setUserType(resp.data.payload.type)
+                setUserID(resp.data.payload._id)
+                console.log(userType)
+                console.log(userID)
+                //load the classes after the userID And userType are received from token
             })
-            .catch (error => {
-            console.log(error)
-            history.replace('/')
+            .catch(error => {
+                console.log(error)
+                history.replace('/')
             })
     }
-
 
     useEffect(() => {
         getAndVerifyUserInfo()
@@ -72,8 +71,6 @@ const DashBoardTeacher = (props) => {
         console.log(userType)
         console.log(userID)
     }, [userType, userID])
-
-
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too
@@ -86,7 +83,7 @@ const DashBoardTeacher = (props) => {
                 const newDataObj = resp.data.map((value, index) => {
                     console.log(value)
                     // console.log(value.image);
-                   value.badgenotify = value.announcements.length
+                    value.badgenotify = value.announcements.length
 
                     if (value.image) {
                         console.log('exists')
@@ -194,10 +191,12 @@ const DashBoardTeacher = (props) => {
                         <use xlinkHref="#s-text" className="text-copy"></use>
                     </g>
                 </svg>
-                <p className='teachertext'>Click the <Fab size="small" color="secondary" aria-label="add">
-                    <AddIcon onClick={handleCreateClass} />
-                </Fab> <span> to create a course</span>
-                </p>
+                {userType === 'Teacher' ?
+                    <p className='teachertext'>Click the <Fab size="small" color="secondary" aria-label="add">
+                        <AddIcon onClick={handleCreateClass} />
+                    </Fab> <span> to create a course</span>
+                    </p> : ''
+                }
             </Grid>
             <MyCard>
                 <Grid
@@ -208,7 +207,30 @@ const DashBoardTeacher = (props) => {
                 >
                     {
                         classesArr.length > 0 ? classesArr.map((item, index) => {
-                            if (item.students.includes(userID)) {
+                            if (item.teacherID.includes(userID)) {
+                                return (
+                                    <Grid
+                                        key={index}
+                                        item
+                                        md={4}
+                                        align="center"
+                                    >
+                                        <TeacherClassCard
+                                            key={index}
+                                            title={item.courseTitle}
+                                            subheader={item.courseDiscipline}
+                                            paragraph1={item.courseDescription}
+                                            image={item.imageBase64Str}
+                                            imageTitle='a'
+                                            imageCaption=''
+                                            settingsButton={handleMenuClick}
+                                            classID={item._id}
+                                            badgenotify={item.badgenotify}
+                                        >
+                                        </TeacherClassCard>
+
+                                    </Grid>)
+                            } else {
                                 return (
                                     <Grid
                                         key={index}
@@ -229,30 +251,8 @@ const DashBoardTeacher = (props) => {
                                             badgenotify={item.badgenotify}
                                         >
                                         </StudentClassCard>
-                                    </Grid> )
-                            } else {
-                            return (
-                                <Grid 
-                                    key={index}
-                                    item
-                                    md={4}
-                                    align="center"
-                                >
-                                    <TeacherClassCard
-                                        key={index}
-                                        title={item.courseTitle}
-                                        subheader={item.courseDiscipline}
-                                        paragraph1={item.courseDescription}
-                                        image={item.imageBase64Str}
-                                        imageTitle='a'
-                                        imageCaption=''
-                                        settingsButton={handleMenuClick}
-                                        classID={item._id}
-                                        badgenotify={item.badgenotify}
-                                    >
-                                    </TeacherClassCard>
-                                </Grid>
-                            )
+                                    </Grid>
+                                )
                             }
                         })
                             : <p>No classes Found</p>

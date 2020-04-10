@@ -77,7 +77,7 @@ export default function ClassCard(props) {
 
   const handleEnterGradebook = (event, classID) => {
     localStorage.setItem ( 'classId', classID)
-    setRedirectUser('/gradebook')
+    setRedirectUser('/grades')
   }
 
   if (redirectUser) {
