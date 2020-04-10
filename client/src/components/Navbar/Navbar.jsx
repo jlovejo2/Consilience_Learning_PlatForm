@@ -392,3 +392,6 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
+
+
+
