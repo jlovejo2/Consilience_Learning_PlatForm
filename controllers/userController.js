@@ -189,6 +189,7 @@ router.post("/login", (req, res) => {
     .catch(err => console.log("err here", err));
 });
 
+// generate an ephemeral token for user logout
 function generateEphemeralToken(user) {
   // lifespan -> ephemeral af
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
@@ -196,7 +197,10 @@ function generateEphemeralToken(user) {
   })
 };
 
-// user logout; delete cookie on logout after authenticating client 
+// user logout; replace cookie by setting cookie with same name
+// on button click; lifespan of this cookie is 1 millisecond 
+// which will prompt the getcookie api to history.push("/") in
+// the blink of an eye 
 router.get("/logout/:id", async (req, res) => {
   try {
     await db.RegisterModel.findById({ _id: req.params.id }).then(
