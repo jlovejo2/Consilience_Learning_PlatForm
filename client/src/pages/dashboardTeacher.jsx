@@ -27,6 +27,7 @@ import AddIcon from "@material-ui/icons/Add";
 // import NavigationIcon from '@material-ui/icons/Navigation';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
+import history from '../history/history.jsx';
 
 const MyCard = styled(Card)({
     background: "transparent",
@@ -41,14 +42,14 @@ const DashBoardTeacher = (props) => {
     const [selectedFile, setSelectedFile] = useState({});
     const [currentClass, setCurrentClass] = useState('');
     const [userType, setUserType] = useState("");
-    const [ userID, setUserID] = useState("")
+    const [userID, setUserID] = useState("")
     
 
     function getAndVerifyUserInfo() {
          API.readAndVerifyCookie()
             .then((resp) => {
             console.log("cookie call resp: ", resp)
-            console.log("dropping the load: ", resp.data.payload)
+            console.log("dropping the payload: ", resp.data.payload)
             setUserType(resp.data.payload.type)
             setUserID(resp.data.payload._id)
             console.log(userType)
@@ -57,16 +58,13 @@ const DashBoardTeacher = (props) => {
             })
             .catch (error => {
             console.log(error)
+            history.replace('/')
             })
     }
 
 
     useEffect(() => {
-
         getAndVerifyUserInfo()
-        // getAndVerifyUserInfo()
-        // console.log(userType);
-
         loadClasses()
         console.log(userType)
         console.log(userID)

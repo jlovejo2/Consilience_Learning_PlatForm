@@ -42,7 +42,7 @@ router.get('/getcookie', (req, res) => {
     console.log("cookie content: ", authorization)
     return res.json(decoded)
   }
-  return res.send('no cookie found').redirect('/login')
+  return res.status(403).send("forbidden")
 })
 
 // get user authenticated status
@@ -184,8 +184,8 @@ router.post("/login", (req, res) => {
 // user logout
 router.get("/logout", (req, res) => {
   try {
+    res.status(403)
     req.logout();
-    res.redirect("/");
   } catch (error) {
     res.sendStatus(500).send("logout error occurred");
   }

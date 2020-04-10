@@ -38,11 +38,6 @@ export const Classroom = (props) => {
     const [userID, setUserID] = useState("")
 
 
-    useEffect(() => {
-        getAndVerifyUserInfo()
-        loadClassInfo()
-    }, [userType, userID]);
-
     async function getAndVerifyUserInfo() {
         try {
             await API.readAndVerifyCookie()
@@ -58,8 +53,17 @@ export const Classroom = (props) => {
         }
         catch (error) {
             console.log(error)
+            history.replace('/')
         }
     }
+
+
+    useEffect(() => {
+        getAndVerifyUserInfo()
+        loadClassInfo()
+    }, [userType, userID]);
+
+
 
     function loadClassInfo() {
 
