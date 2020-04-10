@@ -9,21 +9,48 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
     button: {
-      margin: theme.spacing(1),
+      margin: theme.spacing(4),
     },
   }));
 
-export default function AssigmentCard() {
+const stylin={
+  color:"white",
+  backgroundColor: "#61dbfb",
+  borderRadius: "10px",
+    borderColor: "#8B0000",
+    borderWidth: "3px",
+    borderStyle: "outset",
+    alignItems: 'center',
+    marginTop: '2rem',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+
+}
+const stylin2={
+  color:"white",
+  backgroundColor: "#DC143C",
+  // marginRight: "2rem",
+  alignItems: 'center',
+  marginRight: 'auto',
+  marginLeft: 'auto',
+
+}
+const stylin3={
+  color:"white",
+  
+
+}
+
+export default function AssigmentCard({classTitle, title, description, attachments}) {
 const classes = useStyles();
 
   return (
-    <>
-    <h7>[Class title]</h7>
-    <h3>[Assignment title]</h3>
-        <h6>[ASSIGNMENT DESCRIPTION]Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laborum sed iusto, ipsum quod quis adipisci, molestias corporis neque.
-    </h6>
+    <div style={stylin}>
+    {/* <h7>{classTitle}</h7> */}
+    <h3>{title}</h3>
+    <h5>{description}</h5>
     <div>
-      <Button
+      <Button style={stylin2}
         variant="contained"
         color="default"
         href="..."
@@ -36,6 +63,6 @@ const classes = useStyles();
         label="Mark as important"
       />
     </div>
-    </>
+        </div>
   );
 }
