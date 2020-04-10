@@ -13,8 +13,13 @@ const CommentSchema = new Schema(
             trim: true,
             required: "Enter an announcement message"
         },
+        createDate: {
+            type: Date,
+            required: true,
+            default: Date.now
+        },
     }
-    )
+)
 
 const CommentModel = mongoose.model("Comment", CommentSchema);
 

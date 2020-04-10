@@ -23,7 +23,6 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 // import { ExpansionPanel, ExpansionPanelSummary} from '@material-ui/core'
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import ExpansionDiv from '../components/Comments/ExpansionDiv';
-import history from '../history/history.jsx';
 
 export const Classroom = (props) => {
 
@@ -246,11 +245,12 @@ export const Classroom = (props) => {
                                                                                                 <Card>
                                                                                                     <CardContent>
                                                                                                         <Grid container>
-                                                                                                            <Grid item s={2}>
-                                                                                                                Author: &nbsp; {comment.author ?  <p>{getAuthor(comment.author)}</p> : ' '}
+                                                                                                            <Grid item s={12}>
+                                                                                                                Author: &nbsp; {comment.author ? comment.author.firstName + " " + comment.author.lastName  : ' '}
                                                                                                             </Grid>
-                                                                                                            <Grid item s={10}>
-                                                                                                                {comment.body}
+                                                                                                            <br/>
+                                                                                                            <Grid item s={12}>
+                                                                                                                Body: &nbsp; {comment.body}
                                                                                                             </Grid>
                                                                                                         </Grid>
 

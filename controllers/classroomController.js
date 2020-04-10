@@ -57,9 +57,10 @@ module.exports = {
       // model: 'RegisterModel', select: "_id"
       // .select("teacherID courseTitle students")
       .populate({ path: "students", select: ['firstName', 'lastName', 'email'] })  /*'firstName lastName email -_id'}*/
-      .populate({ path: 'announcements', populate: {path: 'comments', populate: { path: 'authors' } }})
+      .populate({ path: 'announcements', populate: {path: 'comments', populate: {path: 'author', select: ['-password']} }})
       .exec((err, dbModel) => {
         // !err ?
+        // CommentModel.populate(dbModel)
         console.log(dbModel)
         res.json(dbModel)
 
