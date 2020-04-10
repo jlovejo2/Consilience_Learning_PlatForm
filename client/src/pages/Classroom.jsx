@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import API from '../utils/API';
 import history from '../history/history.jsx';
+import CustFunc from '../utils/customFunctions';
 // import RootContext from '../utils/RootContext';
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
@@ -147,16 +148,16 @@ export const Classroom = (props) => {
             //         const fullName = resp.firstName + " " + resp.lastName
             //         commentInfo.authorName = fullName
             //         console.log(commentInfo)
-                    API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
-                        .then(resp => {
-                            console.log('got response', resp)
+            API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
+                .then(resp => {
+                    console.log('got response', resp)
 
-                            // currentClassObj.announcements[announcementIndex].comments.push(commentInfo)
-                            loadClassInfo()
-                            console.log(resp.data)
-                            console.log(commentObj)
-                        })
-                        .catch(err => console.log(err))
+                    // currentClassObj.announcements[announcementIndex].comments.push(commentInfo)
+                    loadClassInfo()
+                    console.log(resp.data)
+                    console.log(commentObj)
+                })
+                .catch(err => console.log(err))
 
         }
     }
@@ -244,13 +245,17 @@ export const Classroom = (props) => {
                                                                                             <Paper key={index} elevation={16}>
                                                                                                 <Card>
                                                                                                     <CardContent>
-                                                                                                        <Grid container>
-                                                                                                            <Grid item s={12}>
-                                                                                                                Author: &nbsp; {comment.author ? comment.author.firstName + " " + comment.author.lastName  : ' '}
+                                                                                                        <Grid container spacing={2}>
+                                                                                                            <Grid item s={6}>
+                                                                                                                Author: &nbsp; {comment.author.firstName + " " + comment.author.lastName}
                                                                                                             </Grid>
-                                                                                                            <br/>
-                                                                                                            <Grid item s={12}>
+                                                                                                            <br />
+                                                                                                            <Grid item s={6}>
+                                                                                                                Posted on: &nbsp; {CustFunc.formatDate(comment.createDate)}
+                                                                                                            </Grid>
+                                                                                                            <Grid item>
                                                                                                                 Body: &nbsp; {comment.body}
+
                                                                                                             </Grid>
                                                                                                         </Grid>
 

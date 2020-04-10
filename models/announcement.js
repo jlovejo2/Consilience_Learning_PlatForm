@@ -28,7 +28,12 @@ const AnnouncementSchema = new Schema(
         ref: 'Comment',
         required: true
         }
-      ]
+      ],
+      createDate: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
     },
     {
       toJSON: {
