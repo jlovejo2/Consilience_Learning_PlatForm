@@ -48,15 +48,14 @@ router.get('/getcookie', (req, res) => {
 // get user by id
 router.get("/:id", async (req, res) => {
   try {
-    // console.log(id)
     await db.RegisterModel.findById({ _id: req.params.id }).then(
       dbModel => {
         if (req.body.type === "teacher" || "student") {
           console.log(`user has a token and a type`);
+          // clone dbModel via spread
           const userUpdated = { ...dbModel._doc };
           delete userUpdated["password"];
           console.log({ userUpdated });
-          // only return user type
           res.json({ userUpdated });
         }
       }
@@ -153,6 +152,13 @@ router.post("/register", async (req, res) => {
     .catch(error => console.log("this is a register error", error));
 });
 
+function generateAccessToken(user) {
+  // lifespan -> 1440m = 24h = 1d
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1440m"
+  })
+};
+
 // user login, generate access token, embed access token in cookie with
 // identical lifespan; header = authorization
 router.post("/login", (req, res) => {
@@ -183,22 +189,52 @@ router.post("/login", (req, res) => {
     .catch(err => console.log("err here", err));
 });
 
-// user logout --> delete cookie on logout puta 
-router.get("/logout", (req, res) => {
+function generateEphemeralToken(user) {
+  // lifespan -> ephemeral af
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: 1
+  })
+};
+
+// user logout; delete cookie on logout after authenticating client 
+router.get("/logout/:id", async (req, res) => {
   try {
-    res.status(403)
-    req.logout();
+    await db.RegisterModel.findById({ _id: req.params.id }).then(
+      dbModel => {
+        if (req.body.type === "teacher" || "student") {
+          console.log(`user has a token and a type`);
+          // clone dbModel via spread
+          const user = { ...dbModel._doc };
+          delete user["password"];
+          const authorization = req.cookies['authorization']
+          if (authorization) {
+            const decoded = jwt.decode(authorization, { complete: true })
+            const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
+            if (!verified) res.status(403)
+            console.log("token verified: ", verified)
+            console.log("token decoded: ", decoded)
+            console.log("cookie content: ", authorization)
+            const ephemeralToken = generateEphemeralToken(user);
+            res.cookie("authorization", ephemeralToken, {
+              expires: new Date(Date.now() + "1440m"),
+              secure: false, // using https set book to true **IMPORTANT FOR PRODUCTION
+              httpOnly: true,
+              sameSite: true
+            })
+            console.log("this is ephemeralToken data", ephemeralToken)
+            // res.removeHeader("authorization", ephemeralToken);
+            res.json({ user });
+          }
+        }
+      }
+    ).catch(() => res.status(404))
   } catch (error) {
-    res.sendStatus(500).send("logout error occurred");
+    if (error) {
+      console.log(error, "please register or login")
+      res.status(500)
+    }
   }
 });
-
-function generateAccessToken(user) {
-  // lifespan -> 604800000 ms = 7 days
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "1440m"
-  });
-}
 
 function authenticateToken(req, res, next) {
   console.log("requesting cookies", req.cookies);
@@ -237,7 +273,7 @@ async function pwCheck(password, hash) {
 }
 
 module.exports = router;
-
+// REFRESH TOKEN IMPORTANT https://medium.com/devgorilla/how-to-log-out-when-using-jwt-a8c7823e8a6
 // get cookie and verify token
 // router.get('/getcookieauth', (req, res, next) => {
 //   const authorization = req.cookies['authorization']

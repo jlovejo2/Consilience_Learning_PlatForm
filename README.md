@@ -26,6 +26,8 @@ connection with remote database established via robo3T
 - Access Token Standard
 - Structured and Stateless
 - Used for authorization and secure info exchange
+- Statelessly handle user authentication
+    - Renders need to reference a session or database obsolete
 - Base64 encoded
 - Pronounced "JOT"
 - Cryptographically signed
