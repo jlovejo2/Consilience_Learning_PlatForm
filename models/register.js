@@ -66,11 +66,11 @@ const RegisterSchema = new Schema(
                 {
                   classId: {
                     type: Schema.Types.ObjectId,
-                    ref: 'classrooms',
+                    ref: 'Classroom',
                   },
                   assignment: {
                     type: Schema.Types.ObjectId,
-                    ref: 'classrooms'
+                    ref: 'Assignments'
                   },
                   grade: {
                     type: String,

@@ -29,8 +29,9 @@ export default {
     userUpdate: function (userObj) {
         return axios.put('/users/:id', userObj)
     },
-
-
+    getUserbyId: function (id) {
+        return axios.get('/users/' + id)
+    },
 
     // classesByUser: function() {
     //     return axios.get('api/user/classes/')
@@ -92,8 +93,7 @@ export default {
         return axios.post('/api/classrooms/announcement/comment/' + idOne, commentInfo)
     },
   
-
-    findUserByID: function (id) {
+    findAuthorByID: function (id) {
         return axios.get('/api/classrooms/findAuthor/comment/' + id)
     },
 

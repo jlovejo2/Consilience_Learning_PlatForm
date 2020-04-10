@@ -40,12 +40,14 @@ const ClassroomSchema = new Schema(
       data: Buffer,
       contentType: String
     },
-    assignments: [{
-      title: {
-        type: String,
-        trim: true,
-      }
-    }],
+    assignments: [
+      {
+      type: Schema.Types.ObjectId,
+        // type: String,
+        ref: 'Assignments',
+        required: true
+    }
+  ],
     createDate: {
       type: Date,
       required: true,

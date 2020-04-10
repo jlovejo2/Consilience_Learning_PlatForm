@@ -57,7 +57,7 @@ module.exports = {
       // model: 'RegisterModel', select: "_id"
       // .select("teacherID courseTitle students")
       .populate({ path: "students", select: ['firstName', 'lastName', 'email'] })  /*'firstName lastName email -_id'}*/
-      .populate({ path: 'announcements' })
+      .populate({ path: 'announcements', populate: {path: 'comments', populate: { path: 'authors' } }})
       .exec((err, dbModel) => {
         // !err ?
         console.log(dbModel)
@@ -113,7 +113,6 @@ module.exports = {
           .catch(err => res.status(422).json(err));
       })
   },
-
 
   //This will remove the classroom
   //User verfication needed because only a teach can remove a classroom
@@ -190,7 +189,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-
   findAnnouncementsByClassId: function (req, res) {
     console.log(req.body);
     console.log(req.params.id)
@@ -202,11 +200,16 @@ module.exports = {
     console.log(req.body.body)
     console.log(req.body.announcementID)
 
-    db.AnnouncementModel
-      .findOneAndUpdate({ _id: req.params.id }, { $push: { comments: { body: req.body.body, author: req.body.author } } })
-      .then(updateWithComment => {
-        console.log(updateWithComment)
-        res.json(updateWithComment)
+    db.CommentModel
+      .create(req.body)
+      .then(newComment => {
+
+        db.AnnouncementModel
+      .findOneAndUpdate({ _id: req.params.id }, { $push: { comments: newComment._id } })
+      .then(updatedAnnouncement => {
+        console.log(updatedAnnouncement)
+        res.json(updatedAnnouncement)
+      })
       })
 
     // .catch(err => console.log(err))
@@ -216,16 +219,7 @@ module.exports = {
     console.log('finding user by id')
     console.log(req.body)
     db.AnnouncementModel
-      .aggregate([
-        {
-        $lookup: {
-          from: RegisterModel,
-          localField: author,
-          foreignField: firstName,
-          as: fullName
-        }
-      }
-    ])
+      .find({ comments: { _id: req.body.id }})
       .then(resp => {
 
         console.log('got the response', resp)
@@ -237,7 +231,6 @@ module.exports = {
         // }
       })
   },
-
 
   //This function will find all the classes that the user is either a student or a teacher for
   findClassesByUser: function (req, res) {
