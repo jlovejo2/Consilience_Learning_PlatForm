@@ -42,17 +42,6 @@ const DashBoardTeacher = (props) => {
     const [currentClass, setCurrentClass] = useState('');
     const [userType, setUserType] = useState("");
     const [ userID, setUserID] = useState("")
-
-    useEffect(() => {
-
-        getAndVerifyUserInfo()
-        // getAndVerifyUserInfo()
-        // console.log(userType);
-        console.log(userType)
-        console.log(userID)
-        loadClasses()
-
-    },[userType, userID])
     
 
     function getAndVerifyUserInfo() {

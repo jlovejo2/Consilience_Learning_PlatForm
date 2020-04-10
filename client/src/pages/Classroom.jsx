@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import API from '../utils/API';
 // import RootContext from '../utils/RootContext';
 import ClassBanner from '../components/ClassBanner/ClassBanner';

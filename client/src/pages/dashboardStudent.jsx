@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import RootContext from "../utils/RootContext";
+import React, { useState, useEffect } from "react";
+// import RootContext from "../utils/RootContext";
 import API from "../utils/API";
 import custFunc from "../utils/customFunctions";
 //Importing components from component folder
