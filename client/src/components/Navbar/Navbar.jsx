@@ -168,7 +168,7 @@ export default function PrimarySearchAppBar() {
           </Badge>
         </IconButton>
         <Link to="/dashboardTeacher">
-          <p>DashBoardTeacher</p>
+          <p>Teacher Dashboard</p>
         </Link>
       </MenuItem>
       <MenuItem>
@@ -189,7 +189,7 @@ export default function PrimarySearchAppBar() {
           </Badge>
         </IconButton>
         <Link to="/dashboardStudent">
-          <p>DashBoardStudent</p>
+          <p>Student Dashboard</p>
         </Link>
       </MenuItem>
       <MenuItem>
@@ -206,7 +206,7 @@ export default function PrimarySearchAppBar() {
           </Badge>
         </IconButton>
         <Link to="/grades">
-          <p>GradeBook</p>
+          <p>Gradebook</p>
         </Link>
       </MenuItem>
       <MenuItem>
