@@ -51,6 +51,6 @@ router.route("/announcement/comment/:id")
       .delete()
 
 router.route('/findAuthor/comment/:id')
-      .get(classroomController.findUserById)
+      .get(classroomController.findAuthorById)
 
 module.exports = router;

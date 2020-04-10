@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+// import { Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm/Register.jsx';
 import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
 import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
+import History from '../history/history.jsx';
 // import RootContext from '../utils/RootContext';
 import '../index.css';
 
@@ -14,7 +15,7 @@ const Login = () => {
     const [loginForm, setLoginForm] = useState({})
     const [registerForm, setRegisterForm] = useState({})
     const [openDialog, setOpenDialog] = useState(false);
-    const [redirectUser, setRedirectUser] = useState(false);
+    // const [redirectUser, setRedirectUser] = useState(false);
   
     const handleRegisterOpen = () => {
         setOpenDialog(true);
@@ -73,25 +74,10 @@ const Login = () => {
                     // // localStorage.setItem('token', userInfo.token);
                     // // console.log(userInfo.token)
                     
-                    if (userInfo.type === 'Teacher') {
-                        console.log('teacher')
-                        setRedirectUser('/dashboardTeacher')
-                    } else if (userInfo.type === 'Student') {
-                        console.log('student')
-                        setRedirectUser('/dashboardStudent')
-                    } else {
-                        console.log(userInfo.type)
-                        console.log('something is weird')
-                    }
+                    History.replace('/dashboardTeacher')
                 })
                 .catch(err => console.log(err))
         }
-    }
-
-    if (redirectUser) {
-      
-       return <Redirect to={redirectUser}
-        />
     }
 
     return (

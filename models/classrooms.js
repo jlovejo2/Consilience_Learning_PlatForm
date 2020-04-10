@@ -25,9 +25,9 @@ const ClassroomSchema = new Schema(
     },
     students: [
       {
-      // has [] wrapping the {} !!!!!!!!!!
-      type: Schema.Types.ObjectId,
-      ref: 'Register',
+        // has [] wrapping the {} !!!!!!!!!!
+        type: Schema.Types.ObjectId,
+        ref: 'Register',
       }
     ],
     teacherID: {
@@ -40,12 +40,12 @@ const ClassroomSchema = new Schema(
       data: Buffer,
       contentType: String
     },
-    assignments: [
-      {
-         title: String,
-          trim: true,
-        }
-      ],
+    assignments: [{
+      title: {
+        type: String,
+        trim: true,
+      }
+    }],
     createDate: {
       type: Date,
       required: true,
