@@ -9,7 +9,7 @@ const Logout = () => {
     const [userType, setUserType] = useState("");
     const [userID, setUserID] = useState("")
 
-    // boilerplate or boilerbased? 
+    // boilerplate
     function getAndVerifyUserInfo() {
         API.readAndVerifyCookie()
             .then((resp) => {
@@ -22,7 +22,6 @@ const Logout = () => {
             })
             .catch(error => {
                 console.log(error)
-                // boot their expired ass back home
                 history.replace('/')
             })
     }
@@ -31,14 +30,16 @@ const Logout = () => {
         getAndVerifyUserInfo()
     }, [userType, userID])
 
-    // the edible has taken hold, RIP 
+    function logoutUser () {
+        API.userAuthLogout(userID)
+        console.log("logging out")
+        history.replace('/')
+    }
     // api to use ====> 
     // API.userLogout (by id, userID) ==> replaces cookie containing JWT with
     // new cookie (same name) containing ephemeral JWT (lifespan of 1 millisecond)
     return (
-        <Container fluid>
-            <JumbotronLogout />
-        </Container>
+        <button className='linkButton' onClick={logoutUser} >Log out</button>
     )
  
 }

@@ -180,7 +180,7 @@ router.post("/login", (req, res) => {
         const accessToken = generateAccessToken(user);
         res.cookie("authorization", accessToken, {
           expires: new Date(Date.now() + "1440m"),
-          secure: false, // using https set book to true **IMPORTANT FOR PRODUCTION
+          secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
           httpOnly: true,
           sameSite: true
         });
@@ -194,7 +194,7 @@ router.post("/login", (req, res) => {
     .catch(err => console.log("err here", err));
 });
 
-// generate an ephemeral token for user logout
+
 function generateEphemeralToken(user) {
   // lifespan -> ephemeral af
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
@@ -226,7 +226,7 @@ router.get("/logout/:id", async (req, res) => {
             const ephemeralToken = generateEphemeralToken(user);
             res.cookie("authorization", ephemeralToken, {
               expires: new Date(Date.now() + "1440m"),
-              secure: false, // using https set book to true **IMPORTANT FOR PRODUCTION
+              secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
               httpOnly: true,
               sameSite: true
             })
