@@ -30,6 +30,9 @@ import AddIcon from "@material-ui/icons/Add";
 
 const MyCard = styled(Card)({
     background: "transparent",
+    margin: "0",
+    // align: 'stretch',
+    alignItems: 'center',
 });
 
 const DashBoardTeacher = (props) => {
@@ -180,9 +183,9 @@ const DashBoardTeacher = (props) => {
         <Container fluid>
             <Grid align='center'>
                 {/* <svg: React.SVGProps<SVGSVGElement>; */}
-                <svg viewBox="0 0 1700 290">
+                <svg viewBox="0 0 4000 490">
                     <symbol id="s-text">
-                        <text textAnchor="middle" x="50%" y="30%">Classroom Dashboard</text>
+                        <text textAnchor="middle" x="50%" y="50%" style={{ fontSize:"20vw"}}>Classroom Dashboard</text>
                     </symbol>
 
                     <g className="g-ants">
@@ -200,6 +203,7 @@ const DashBoardTeacher = (props) => {
             </Grid>
             <MyCard>
                 <Grid
+
                     container
                     spacing={5}
                     align='center'
@@ -230,7 +234,7 @@ const DashBoardTeacher = (props) => {
                                     </Grid> )
                             } else {
                             return (
-                                <Grid
+                                <Grid 
                                     key={index}
                                     item
                                     md={4}
@@ -331,7 +335,7 @@ const DashBoardTeacher = (props) => {
                             Cancel
             </Button>
                         <Button onClick={handleDailogSubmit} color="primary" type="submit">
-                            Submit
+                            Submit Course
             </Button>
                     </DialogActions>
                 </DialogContent>

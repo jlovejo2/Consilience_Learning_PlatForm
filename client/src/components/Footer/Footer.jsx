@@ -1,12 +1,22 @@
 import React from 'react';
-import './Footer.css';
+
+const style = {
+    display: 'inline-table',
+    paddingTop: '1px',
+    opacity: '1 !important',
+    position: 'fixed',
+    color: 'white',
+    width: '100%',
+    bottom: '0',
+    background: 'linear-gradient(254deg, rgba(66,66,66,1) 0%, rgba(97,219,251,1) 100%)',
+}
 
 const Footer = () => {
     return (
-        <footer className="center-align valign grey darken-4">
+        <footer style={style}>
             {/* <div className='container'> */}
                 {/* <div className='row'> */}
-                    <div className=''>©2020</div>
+                    <div className='center'>©2020</div>
                 {/* </div> */}
             {/* </div> */}
         </footer>

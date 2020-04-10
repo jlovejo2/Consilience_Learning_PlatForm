@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 
 function ClassBanner(props) {
 
-
   return (
     <Paper elevation={25} /*style={{ backgroundImage: `url(${post.image})` }}*/>
       <Box p={4}>
