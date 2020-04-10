@@ -46,9 +46,10 @@ router.get('/getcookie', (req, res) => {
 })
 
 // get user authenticated status
-router.get("/:id", authenticateToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    await db.RegisterModel.findById({ _id: req.params.id }, req.body).then(
+    // console.log(id)
+    await db.RegisterModel.findById({ _id: req.params.id }).then(
       dbModel => {
         if (req.body.type === "teacher" || "student") {
           console.log(`user has a token and a type`);
@@ -56,7 +57,7 @@ router.get("/:id", authenticateToken, async (req, res) => {
           delete userUpdated["password"];
           console.log({ userUpdated });
           // only return user type
-          res.json({ type: userUpdated.type });
+          res.json({ userUpdated });
         }
       }
     );

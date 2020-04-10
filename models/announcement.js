@@ -23,19 +23,24 @@ const AnnouncementSchema = new Schema(
       },
       comments: [
         {
-          author: {
-            type: Schema.Types.ObjectId,
-            ref: 'Register',
-            required: true
-          },
-          body: {
-            type: String,
-            trim: true,
-            required: "Enter an announcement message"
-          },
+        type: Schema.Types.ObjectId,
+        // type: String,
+        ref: 'Comment',
+        required: true
         }
       ]
+    },
+    {
+      toJSON: {
+        // include any virtual properties when data is requested
+        virtuals: true
+      }
     })
+
+    // AnnouncementSchema.virtual("commentAuthor").get(function () {
+    //   // "reduce" array of exercises down to just the sum of their durations
+    //   return this.comments.populate({path: 'author'})
+    //   }, 0);
 
     const AnnouncementModel = mongoose.model("Announcement", AnnouncementSchema);
 

@@ -6,9 +6,6 @@ import Jumbotron from '../components/Jumbotron/Jumbotron.jsx'
 
 const Home = () => {
     
-
-
-
     return (
             <Container fluid>
                 <Jumbotron href='/login' />
