@@ -194,10 +194,12 @@ const DashBoardTeacher = (props) => {
                         <use xlinkHref="#s-text" className="text-copy"></use>
                     </g>
                 </svg>
+                { userType === 'Teacher' ?
                 <p className='teachertext'>Click the <Fab size="small" color="secondary" aria-label="add">
                     <AddIcon onClick={handleCreateClass} />
                 </Fab> <span> to create a course</span>
-                </p>
+                </p> : ''
+                }
             </Grid>
             <MyCard>
                 <Grid

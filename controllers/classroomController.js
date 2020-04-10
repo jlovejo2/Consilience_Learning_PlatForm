@@ -247,7 +247,17 @@ module.exports = {
         res.json(dbModel)
       })
 
-  }
+  },
 
+  removeComment: function (req, res) {
+
+    console.log(req.params.id)
+
+    db.CommentModel
+      .findById(req.params.id)
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  }
 
 };
