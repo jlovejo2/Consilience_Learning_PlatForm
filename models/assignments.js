@@ -7,6 +7,14 @@ const AssignmentSchema = new Schema(
           type: String,
           trim: true
       },
+      desription: {
+          type: String,
+          trim: true
+      },
+      attachments: {
+          type: String,
+          trim: true
+      }
   }
 )
 

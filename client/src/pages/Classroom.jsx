@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import API from '../utils/API';
 import history from '../history/history.jsx';
+import CustFunc from '../utils/customFunctions';
 // import RootContext from '../utils/RootContext';
 import ClassBanner from '../components/ClassBanner/ClassBanner';
 import Container from '../components/Container/Container';
@@ -114,14 +115,11 @@ export const Classroom = (props) => {
             .catch(err => console.log(err))
     }
 
-    function getAuthor(param) {
-        console.log(param)
-        API.getUserbyId(param)
+    function handleDeleteComment(event, commentID) {
+        API.deleteCommentById(commentID)
             .then(resp => {
                 console.log(resp)
-                const author = resp.data.userUpdated.firstName + " " + resp.data.userUpdated.lastName
-                console.log(author)
-                return author
+                loadClassInfo()
             })
     }
 
@@ -147,16 +145,16 @@ export const Classroom = (props) => {
             //         const fullName = resp.firstName + " " + resp.lastName
             //         commentInfo.authorName = fullName
             //         console.log(commentInfo)
-                    API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
-                        .then(resp => {
-                            console.log('got response', resp)
+            API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
+                .then(resp => {
+                    console.log('got response', resp)
 
-                            // currentClassObj.announcements[announcementIndex].comments.push(commentInfo)
-                            loadClassInfo()
-                            console.log(resp.data)
-                            console.log(commentObj)
-                        })
-                        .catch(err => console.log(err))
+                    // currentClassObj.announcements[announcementIndex].comments.push(commentInfo)
+                    loadClassInfo()
+                    console.log(resp.data)
+                    console.log(commentObj)
+                })
+                .catch(err => console.log(err))
 
         }
     }
@@ -228,7 +226,7 @@ export const Classroom = (props) => {
                                                                     </Typography>
                                                                 </CardContent>
                                                                 <CardActions>
-                                                                    <Grid container /*className={classes.center}*/>
+                                                                    <Grid container spacing={2} alignItem='center' justifyContent='center' /*className={classes.center}*/>
                                                                         <CommentButton /*inputComment={(event) => { handleCommentChange(event, index) }}*/
                                                                             submitComment={(event) => { handleAddComment(event, index) }} />
                                                                     </Grid>
@@ -244,16 +242,35 @@ export const Classroom = (props) => {
                                                                                             <Paper key={index} elevation={16}>
                                                                                                 <Card>
                                                                                                     <CardContent>
-                                                                                                        <Grid container>
-                                                                                                            <Grid item s={12}>
-                                                                                                                Author: &nbsp; {comment.author ? comment.author.firstName + " " + comment.author.lastName  : ' '}
+                                                                                                        <Grid container spacing={2}>
+                                                                                                            <Grid item xs={10}>
+                                                                                                                <Grid container spacing={2}>
+                                                                                                                    <Grid item s={6}>
+                                                                                                                        Author: &nbsp; {comment.author.firstName + " " + comment.author.lastName}
+                                                                                                                    </Grid>
+                                                                                                                    <br />
+                                                                                                                    <Grid item s={6}>
+                                                                                                                        Posted on: &nbsp; {CustFunc.formatDate(comment.createDate)}
+                                                                                                                    </Grid>
+                                                                                                                    <Grid item s={12}>
+                                                                                                                        Body: &nbsp; {comment.body}
+                                                                                                                    </Grid>
+                                                                                                                </Grid>
                                                                                                             </Grid>
-                                                                                                            <br/>
-                                                                                                            <Grid item s={12}>
-                                                                                                                Body: &nbsp; {comment.body}
+                                                                                                            <Grid item xs={2}>
+                                                                                                                <Grid container spacing={1}>
+                                                                                                                    <Grid item>
+                                                                                                                        {userType === 'Teacher' ?
+                                                                                                                            <Tooltip title="Delete comment thread" aria-label="add">
+                                                                                                                                <IconButton onClick={(event) => handleDeleteComment(event, comment._id)}>
+                                                                                                                                    <DeleteOutlineIcon color='primary' />
+                                                                                                                                </IconButton>
+                                                                                                                            </Tooltip> : ''
+                                                                                                                        }
+                                                                                                                    </Grid>
+                                                                                                                </Grid>
                                                                                                             </Grid>
                                                                                                         </Grid>
-
                                                                                                     </CardContent>
                                                                                                 </Card>
                                                                                             </Paper>

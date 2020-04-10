@@ -21,7 +21,8 @@ const  CommentButton = (props) => {
 
     return (
         <>
-        <Grid item xs={1}>
+        <Box p={1} alignItems='center'>
+        <Grid item xs={2}>
             <Tooltip title="Comment on Annoucement" aria-label="comment">
                 <Button onClick={makeComment}>
                     <Fab size="small" color="primary" aria-label='comment' >
@@ -30,6 +31,7 @@ const  CommentButton = (props) => {
                 </Button>
             </Tooltip>
         </Grid>
+        </Box>
         <Grid item xs={10}>
             <Box ref={visibleEl} visibility={ visible ? 'visible' : 'hidden'}>
                 <TextField 

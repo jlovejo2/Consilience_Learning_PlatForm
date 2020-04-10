@@ -48,7 +48,7 @@ router.route("/announcement/:id")
 
 router.route("/announcement/comment/:id")
       .post(classroomController.createComment)
-      .delete()
+      .delete(classroomController.removeComment)
 
 router.route('/findAuthor/comment/:id')
       .get(classroomController.findAuthorById)
