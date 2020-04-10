@@ -32,7 +32,7 @@ app.use(routes);
 // router.post('/login) cookie parameter "secure" to true
 const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds127260.mlab.com:27260/heroku_zpz7kd01`
 console.log(MONGODB_URI)
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect("mongodb://localhost/ProjectThree", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
