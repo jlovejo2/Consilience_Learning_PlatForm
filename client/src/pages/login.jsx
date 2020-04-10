@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-// import { Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm/Register.jsx';
 import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
 import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
-import History from '../history/history.jsx';
+// import History from '../history/history.jsx';
 // import RootContext from '../utils/RootContext';
 import '../index.css';
 import './pageStyle/login.css'
+import history from '../history/history.jsx';
 
 const Login = () => {
 
@@ -75,7 +75,20 @@ const Login = () => {
                     // // localStorage.setItem('token', userInfo.token);
                     // // console.log(userInfo.token)
                     
-                    History.replace('/dashboardTeacher')
+                    history.replace('/dashboardTeacher')
+
+                    // if (userInfo.type === 'Teacher') {
+                    //     console.log('teacher')
+                    //     history.replace('/dashboardTeacher')
+                    // } else if (userInfo.type === 'Student') {
+                    //     console.log('student')
+                    //     history.replace('/dashboardStudent')
+                    // } else {
+                    //     console.log(userInfo.type)
+                    //     console.log('something is weird')
+                    //     history.push('/login')
+                    // }
+
                 })
                 .catch(err => console.log(err))
         }

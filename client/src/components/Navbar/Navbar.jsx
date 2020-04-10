@@ -1,130 +1,3 @@
-// import React from "react";
-// import "./Navbar.css";
-// import LogoMin from "../../images/logoMin.png";
-// import { Link } from "react-router-dom";
-// import { makeStyles } from '@material-ui/core/styles';
-// import SvgIcon from '@material-ui/core/SvgIcon';
-// import useMediaQuery from '@material-ui/core/useMediaQuery';
-// // import { Fade } from '@material-ui/core';
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     '& > svg': {
-//       margin: theme.spacing(2),
-//     },
-//   },
-// }));
-// console.log(useStyles)
-
-// function HomeIcon(props) {
-//   return (
-//     <SvgIcon {...props}>
-//       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-//     </SvgIcon>
-//   );
-// }
-
-// const Navbar = () => {
-//   const notTiny = useMediaQuery('(min-width:600px)');
-//   // useState expanded and setExpanded onClick
-//   // circle back putas
-//     return (
-//       <React.Fragment>
-//       <div className="navbar-fixed col-md-8">
-//         <nav
-//           className="nav-wrapper" /*"navbar navbar-expand-md navbar-dark sticky-top"*/
-//           >
-//           <Link to="/" className="brand-logo left" /*"navbar-brand"*/>
-//             <img
-//               src={LogoMin}
-//               alt="react"
-//               className="img-fluid logo"
-//               height="67px"
-//               width="220px"
-//               />
-//           </Link>
-//           {/* The below a tag is the code that renders the hamburger menu when the size of the screen is minimized */}
-//           <a
-//             href="/"
-//             data-target="mobile-demo"
-//             className="sidenav-trigger right hide-on-med-and-up"
-//             >
-//             <i className="material-icons">menu</i>
-//           </a>
-//           <ul className="navbar-nav right hide-on-sml-and-down" /*"navbar-nav"*/>
-// <li id="li-nav"
-//   className={
-//     window.location.pathname === "/" ||
-//     window.location.pathname === "/home"
-//     ? "active"
-//     : ""
-//   }
-// >
-//   <Link to="/"><HomeIcon /></Link>
-// </li>
-//             <li id="li-nav"
-//   className={
-//     window.location.pathname === "/" ||
-//     window.location.pathname === "/search"
-//     ? "active"
-//     : ""
-//   }
-// >
-//   <Link to="/search">Search</Link>
-//             </li>
-//             <li
-//               className={`nav-item
-//                             ${
-//                               window.location.pathname === "/assignments"
-//                                 ? "active"
-//                                 : ""
-//                               }
-//                             `}
-//                             >
-//               <Link to="/assignments">Assignments</Link>
-//             </li>
-//             <li
-//               className={`nav-item
-//                             ${
-//                               window.location.pathname === "/assignmentsTeacher"
-//                               ? "active"
-//                               : ""
-//                             }
-//                             `}
-//                             >
-//               <Link to="/dashboardTeacher">Teacher</Link>
-//             </li>
-//             <li
-//               className={`nav-item
-//               ${
-//                               window.location.pathname === "/assignmentsStudent"
-//                               ? "active"
-//                               : ""
-//                             }
-//                             `}
-//             >
-//               <Link to="/dashboardStudent">Student</Link>
-//             </li>
-// <li
-//   className={window.location.pathname === "/grades" ? "active" : ""}
-//   >
-//   <Link to="/grades">Grades</Link>
-// </li>
-// <li
-//   className={
-//     window.location.pathname === "/syllabus" ? "active" : ""
-//   }
-//   >
-//   <Link to="/syllabus">Syllabi</Link>
-// </li>
-//           </ul>
-//         </nav>
-//       </div>
-//     </React.Fragment>
-//   );
-// };
-
-// export default Navbar;
-
 import React from "react";
 import { Link } from "react-router-dom";
 // import SvgIcon from '@material-ui/core/SvgIcon';
@@ -155,10 +28,9 @@ import GradeIcon from "@material-ui/icons/Grade";
 import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import DescriptionIcon from "@material-ui/icons/Description";
 
-
-
 const style = {
-  background: 'linear-gradient(254deg, rgba(66,66,66,1) 0%, rgba(97,219,251,1) 100%)',
+  background:
+    "linear-gradient(254deg, rgba(66,66,66,1) 0%, rgba(97,219,251,1) 100%)",
 };
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -195,9 +67,9 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleProfileMenuOpen = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -223,11 +95,10 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
   );
-
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -250,10 +121,14 @@ export default function PrimarySearchAppBar() {
           }
         >
           <Badge color="secondary">
-            <HomeIcon />
+            <Link to="/">
+              <HomeIcon />
+            </Link>
           </Badge>
         </IconButton>
-        <p>Home</p>
+        <Link to="/">
+          <p>Home</p>
+        </Link>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -266,10 +141,14 @@ export default function PrimarySearchAppBar() {
           }
         >
           <Badge color="secondary">
-            <FindInPageIcon />
+            <Link to="/search">
+              <FindInPageIcon />
+            </Link>
           </Badge>
         </IconButton>
-        <p>Search</p>
+        <Link to="/search">
+          <p>Search</p>
+        </Link>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -283,10 +162,14 @@ export default function PrimarySearchAppBar() {
                             `}
         >
           <Badge color="secondary">
-            <NoteAddIcon />
+            <Link to="/dashboardTeacher">
+              <NoteAddIcon />
+            </Link>
           </Badge>
         </IconButton>
-        <p>DashBoardTeacher</p>
+        <Link to="/dashboardTeacher">
+          <p>DashBoardTeacher</p>
+        </Link>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -300,12 +183,15 @@ export default function PrimarySearchAppBar() {
                             `}
         >
           <Badge color="secondary">
-            <SchoolIcon />
+            <Link to="/dashboardStudent">
+              <SchoolIcon />
+            </Link>
           </Badge>
         </IconButton>
-        <p>DashBoardStudent</p>
+        <Link to="/dashboardStudent">
+          <p>DashBoardStudent</p>
+        </Link>
       </MenuItem>
-
       <MenuItem>
         <IconButton
           color="inherit"
@@ -314,12 +200,15 @@ export default function PrimarySearchAppBar() {
                           `}
         >
           <Badge color="secondary">
-            <GradeIcon />
+            <Link to="/grades">
+              <GradeIcon />
+            </Link>
           </Badge>
         </IconButton>
-        <p>GradeBook</p>
+        <Link to="/grades">
+          <p>GradeBook</p>
+        </Link>
       </MenuItem>
-
       <MenuItem>
         <IconButton
           color="inherit"
@@ -328,54 +217,38 @@ export default function PrimarySearchAppBar() {
                         `}
         >
           <Badge color="secondary">
-            <DescriptionIcon />
+            <Link to="/syllabus">
+              <DescriptionIcon />
+            </Link>
           </Badge>
         </IconButton>
-        <p>Syllabus</p>
-      </MenuItem>
-
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
+        <Link to="/syllabus">
+          <p>Syllabus</p>
+        </Link>
       </MenuItem>
     </Menu>
   );
-
   return (
     <div className={classes.grow}>
       <AppBar style={style} position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          </IconButton> */}
             <img
+              edge="start"
               src={LogoMin}
               alt="react"
               className="img-fluid logo"
               height="67px"
               width="220px"
             />
+          <Typography className={classes.title} variant="h6" noWrap>
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
@@ -396,7 +269,6 @@ export default function PrimarySearchAppBar() {
             </IconButton>
 
             <IconButton
-          
               color="inherit"
               className={
                 window.location.pathname === "/" ||
@@ -412,7 +284,6 @@ export default function PrimarySearchAppBar() {
               </Badge>
             </IconButton>
             <IconButton
-             
               color="inherit"
               className={`nav-item
                             ${
@@ -429,7 +300,6 @@ export default function PrimarySearchAppBar() {
               </Badge>
             </IconButton>
             <IconButton
-      
               color="inherit"
               className={`nav-item
               ${
@@ -447,7 +317,6 @@ export default function PrimarySearchAppBar() {
             </IconButton>
 
             <IconButton
-              
               color="inherit"
               className={`nav-item
               ${window.location.pathname === "/grades" ? "active" : ""}
@@ -471,21 +340,14 @@ export default function PrimarySearchAppBar() {
                 </Link>
               </Badge>
             </IconButton>
-
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={2} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              // onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -506,3 +368,6 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
+
+
+
