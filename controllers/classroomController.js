@@ -212,19 +212,29 @@ module.exports = {
     // .catch(err => console.log(err))
   },
 
-  findUserById: function (req, res) {
+  findAuthorById: function (req, res) {
     console.log('finding user by id')
     console.log(req.body)
-    db.RegisterModel
-      .findById({ _id: req.params.id })
-      .then(resp => {
-        console.log('got the response', resp)
-        if (resp.alias) {
-          res.json({ alias: resp.alias })
-        } else {
-          const fullName = resp.firstName + " " + resp.lastName
-          res.json({ name: fullName })
+    db.AnnouncementModel
+      .aggregate([
+        {
+        $lookup: {
+          from: RegisterModel,
+          localField: author,
+          foreignField: firstName,
+          as: fullName
         }
+      }
+    ])
+      .then(resp => {
+
+        console.log('got the response', resp)
+        // if (resp.alias) {
+        //   res.json({ alias: resp.alias })
+        // } else {
+        //   const fullName = resp.firstName + " " + resp.lastName
+        //   res.json({ name: fullName })
+        // }
       })
   },
 

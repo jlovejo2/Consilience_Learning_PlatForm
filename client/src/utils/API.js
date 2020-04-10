@@ -80,7 +80,7 @@ export default {
         return axios.delete('/api/classrooms/announcement/' + id)
     },
     createAnnouncement: function(id, obj) {
-        return axios.put('/api/classrooms/announcement/' + id, obj)
+        return axios.post('/api/classrooms/announcement/' + id, obj)
     },
     getAnnouncementByClass: function(id) {
         return axios.get('/api/classrooms/announcement/' + id)

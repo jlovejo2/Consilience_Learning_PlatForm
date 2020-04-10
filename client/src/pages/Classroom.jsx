@@ -23,9 +23,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import ExpansionDiv from '../components/Comments/ExpansionDiv';
 
-
 export const Classroom = (props) => {
-
 
     // const classes = useStyles();
     // const { userType, setUserType, userID, setUserID, classID } = useContext(RootContext);
@@ -36,7 +34,6 @@ export const Classroom = (props) => {
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
     const [commentObj, setCommentObj] = useState([])
-
 
     useEffect(() => {
         getAndVerifyUserInfo()

@@ -62,6 +62,22 @@ const RegisterSchema = new Schema(
                 minlength: 8,
                 maxlength: 64
             },
+            grades: [
+                {
+                  classId: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'classrooms',
+                  },
+                  assignment: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'classrooms'
+                  },
+                  grade: {
+                    type: String,
+                    trim: true,
+                  }
+                }
+              ],
             // // tokens: [{
             //     token: {
             //         type: Array,
