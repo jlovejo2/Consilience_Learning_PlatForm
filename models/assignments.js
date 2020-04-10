@@ -7,7 +7,7 @@ const AssignmentSchema = new Schema(
           type: String,
           trim: true
       },
-      desription: {
+      description: {
           type: String,
           trim: true
       },

@@ -103,11 +103,11 @@ export default {
     },
 
     createAssignment: function (id, obj) {
-        return axios.post('/api/classrooms/assignment/' + id, obj)
+        return axios.post('/api/classrooms/assignments/' + id, obj)
     },
 
     deleteAssignment: function (id) {
-        return axios.delete('/api/classrooms/assignment/' + id)
+        return axios.delete('/api/classrooms/assignments/' + id)
     },
 
 

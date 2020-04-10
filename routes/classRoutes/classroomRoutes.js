@@ -53,4 +53,8 @@ router.route("/announcement/comment/:id")
 router.route('/findAuthor/comment/:id')
       .get(classroomController.findAuthorById)
 
+router.route('/assignments/:id')
+      .post(classroomController.createAssignment)
+      // .delete(classroomController)
+
 module.exports = router;
