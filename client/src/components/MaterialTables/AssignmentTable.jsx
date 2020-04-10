@@ -39,7 +39,7 @@ return (
     actions={[
         {
           icon: 'save',
-          tooltip: 'Save User',
+          tooltip: 'Save Assignment',
           onClick: (event, rowData) => {
               API.createAssignment(classID, rowData)
                 .then(resp => {

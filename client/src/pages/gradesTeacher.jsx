@@ -153,6 +153,7 @@ const GradesTeacher = (props) => {
             <TabPanel value={tabValue} index={0}>
                 <Gradebook
                     students={studentArr}
+                    assignments={assignmentArr}
                 />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
