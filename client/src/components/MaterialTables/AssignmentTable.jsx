@@ -13,7 +13,12 @@ function AssignmentTable (props) {
             { title: "Attachments", field: "attachments" },
         ],
         data: props.assignments.map(assignment => {
-            return assignment
+            const obj = {
+                title: assignment.title,
+                description: assignment.description,
+                attachments: assignment.attachments
+            }
+            return obj
         })
 
     })
