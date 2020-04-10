@@ -1,10 +1,14 @@
 import React from 'react';
-import './style.css';
+
+
+const style = {
+    borderRadius: '25px !important',
+}
 
 function Card(props) {
 
     return (
-                    <div className={`card ${props.size} hoverable ${props.color} ${props.customClass}`}>
+                    <div style={style} className={`card ${props.size} hoverable ${props.color} ${props.customClass}`}>
                         <div className="card-content white-text">
                             {/* <div class='row'> */}
                             <span className="card-title">{props.title}</span>

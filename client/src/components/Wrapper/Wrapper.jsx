@@ -1,8 +1,12 @@
 import React from 'react';
-import './Wrapper.css';
+
+const style = {
+    height: 'auto !important',
+    width: 'auto !important',
+}
 const Wrapper = (props) => {
     return (
-        <main className="wrapper" {...props} />
+        <main className="wrapper" style={style}{...props} />
     )
 }
 export default Wrapper;

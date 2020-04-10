@@ -7,7 +7,7 @@ import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
 import RootContext from '../utils/RootContext';
 import '../index.css';
-import './pageSty;e/login.css'
+import './pageStyle/login.css'
 
 const Login = () => {
 

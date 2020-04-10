@@ -145,12 +145,10 @@ const DashboardStudent = (props) => {
     <Container fluid>
       <Grid align="center">
         {/* <p className='' style={{ color: "#ffff" }}>Welcome to the classroom dashboard.</p> */}
-        <svg viewBox="0 0 2000 290">
-          <symbol id="s-text">
-            <text textAnchor="middle" x="50%" y="70%">
-              Classroom Dashboard
-            </text>
-          </symbol>
+        <svg viewBox="0 0 4000 490">
+                    <symbol id="s-text">
+                        <text textAnchor="middle" x="50%" y="50%" style={{ fontSize:"20vw"}}>Classroom Dashboard</text>
+                    </symbol>
           <g className="g-ants">
             <use xlinkHref="#s-text" className="text-copy"></use>
           </g>

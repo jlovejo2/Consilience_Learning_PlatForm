@@ -6,7 +6,7 @@ import React from "react";
 function Container({ fluid, children }) {
   return (
     <div
-      style={{ margin: "1rem 4rem 1rem 4rem", padding: "20px 40px 20px 40px" }}
+      style={{ margin: "1rem 2rem 1rem 2rem", padding: "20px 40px 20px 40px" }}
       className={`container${fluid ? "-fluid" : ""}`}
     >
       {children}
