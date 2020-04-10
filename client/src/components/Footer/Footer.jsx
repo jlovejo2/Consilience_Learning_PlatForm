@@ -14,11 +14,7 @@ const style = {
 const Footer = () => {
     return (
         <footer style={style}>
-            {/* <div className='container'> */}
-                {/* <div className='row'> */}
                     <div className='center'>©2020</div>
-                {/* </div> */}
-            {/* </div> */}
         </footer>
     )
 };
