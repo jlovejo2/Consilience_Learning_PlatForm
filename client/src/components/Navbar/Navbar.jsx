@@ -193,7 +193,6 @@ export default function PrimarySearchAppBar() {
           <p>DashBoardStudent</p>
         </Link>
       </MenuItem>
-
       <MenuItem>
         <IconButton
           color="inherit"
@@ -211,7 +210,6 @@ export default function PrimarySearchAppBar() {
           <p>GradeBook</p>
         </Link>
       </MenuItem>
-
       <MenuItem>
         <IconButton
           color="inherit"
@@ -229,7 +227,6 @@ export default function PrimarySearchAppBar() {
           <p>Syllabus</p>
         </Link>
       </MenuItem>
-
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="secondary">
@@ -251,7 +248,6 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
     </Menu>
   );
-
   return (
     <div className={classes.grow}>
       <AppBar style={style} position="static">
@@ -363,7 +359,6 @@ export default function PrimarySearchAppBar() {
                 </Link>
               </Badge>
             </IconButton>
-
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={2} color="secondary">
                 <NotificationsIcon />
