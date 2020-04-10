@@ -25,8 +25,13 @@ router.get("/", async (req, res) => {
   }
 });
 // check token
-router.get("/checkToken", authenticateToken, (req, res) => {
-  res.sendStatus(200)
+router.get("/checkToken", (req, res) => {
+    const authorization = req.cookies['authorization']
+    const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
+    if (verified) {
+      res.status(200).send("access token verified")
+    }
+    else res.send("access token not verified")
 });
 
 // get cookie and decode header, payload, and signature via {complete: true}

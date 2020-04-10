@@ -13,6 +13,10 @@ export default {
     userLogin: function (userObj) {
         return axios.post("/users/login", userObj);
     },
+    // user authorization => click logout => ephemeral token time => redirect to "/"
+    userAuthLogout: function (id) {
+        return axios.get(`/users/logout/${id}`)
+    },
     // user register
     userRegister: function (userObj) {
         return axios.post("/users/register", userObj)
@@ -29,6 +33,7 @@ export default {
     userUpdate: function (userObj) {
         return axios.put('/users/:id', userObj)
     },
+    // getting user by id
     getUserbyId: function (id) {
         return axios.get('/users/' + id)
     },
