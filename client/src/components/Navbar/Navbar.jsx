@@ -99,7 +99,6 @@ export default function PrimarySearchAppBar() {
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
-
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
