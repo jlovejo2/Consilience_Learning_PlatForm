@@ -10,11 +10,23 @@
     margin-left: -2rem;
   }
 
-  .dropdown, .searchbutton{
+  .dropdown, .searchbutton, .description{
     padding-left: 3% !important;
     padding-right: 3% !important;
+}
+.description{
+    padding-top: 3% !important;
 }
 
 .searchbox {
     width: 100%;
 }
+
+.addicon {
+    width: 50px;
+}
+
+#ListItem {
+    outline: paleturquoise;
+}
+
