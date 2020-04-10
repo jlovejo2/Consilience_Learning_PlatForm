@@ -102,5 +102,13 @@ export default {
         return axios.get('/api/classrooms/findAuthor/comment/' + id)
     },
 
+    createAssignment: function (id, obj) {
+        return axios.post('/api/classrooms/assignment/' + id, obj)
+    },
+
+    deleteAssignment: function (id) {
+        return axios.delete('/api/classrooms/assignment/' + id)
+    },
+
 
 }
