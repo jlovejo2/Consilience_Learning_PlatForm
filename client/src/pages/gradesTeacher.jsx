@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Container from "../components/Container/Container.jsx";
+import Gradebook from '../components/MaterialTables/GradebookTable.jsx';
+import AssignmentsTable from '../components/MaterialTables/AssignmentTable.jsx';
 // import Dashboard from '../components/Grades/TeacherDashboard'
 import MaterialTable from "material-table";
 // import RootContext from '../utils/RootContext.js';
 import API from '../utils/API';
 import history from '../history/history.jsx';
-
+import PropTypes from 'prop-types';
 import { Tab, Tabs, AppBar, Box, Typography } from '@material-ui/core';
 
 // creating a gradebook that is student (n) responsive
@@ -26,27 +28,29 @@ const GradesTeacher = (props) => {
     const [userType, setUserType] = useState('');
     const [classID, setClassID] = useState('');
     const [tabValue, setTabValue] = useState('');
-    const [gradebook, setGradebook] = useState({
+    const [studentArr, setStudentArr] = useState([]);
+    const [assignmentArr, setAssignmentArr] = useState([]);
 
-        columnsGradeBook: [
-            { title: "Surname", field: "surname" },
-            { title: "Name", field: "name" },
-            { title: "Email", field: "email", }
-        ],
-    });
-    const [ assignments, setAssignments] = useState({
-        columnsAssignment: [
-            { title: "Title", field: "title" },
-            { title: "Description", field: "description" },
-            { title: "Attachments", field: "attachments" },
-        ]
-    })
 
     useEffect(() => {
+        // let mounted = true;
+
         getAndVerifyUserInfo()
         loadClassInfo()
-        console.log(userType)
-        console.log(userID)
+        console.log("useEffect userType", userType)
+        console.log('useEffect userID', userID)
+
+        // console.log('useEffect Assignments', assignments)
+        // console.log('useEffect Tab Value', tabValue)
+
+        TabPanel.propTypes = {
+            children: PropTypes.node,
+            index: PropTypes.any.isRequired,
+            value: PropTypes.any.isRequired,
+        };
+
+        // return () => mounted = false;
+
     }, [userType, userID])
 
 
@@ -57,8 +61,9 @@ const GradesTeacher = (props) => {
                 console.log("dropping the payload: ", resp.data.payload)
                 setUserType(resp.data.payload.type)
                 setUserID(resp.data.payload._id)
-                console.log(userType)
-                console.log(userID)
+                selectLastTab()
+                console.log("verify ", userType)
+                console.log("verify ", userID)
                 //load the classes after the userID And userType are received from token
             })
             .catch(error => {
@@ -69,38 +74,47 @@ const GradesTeacher = (props) => {
 
     function loadClassInfo() {
         setClassID(localStorage.getItem('classId'))
-        console.log(classID);
+
+        console.log("load class ID", classID);
+        console.log("load class Tab Value", tabValue)
+
         API.populateByID(classID)
             .then(resp => {
 
                 console.log(resp.data)
+                const studentsData = resp.data.students
+                const assignmentsData = resp.data.assignments
 
-                setGradebook({
-                    ...gradebook, dataGradebook: resp.data.students.map(student => {
-                        const obj = {
-                            name: student.firstName,
-                            surname: student.lastName,
-                            email: student.email
-                        }
-                        return obj
-                    })
-                })
+                setStudentArr(studentsData)
 
-                for (assignments of resp.data.assignments) {
-                    gradebook.columnsGradeBook.push(assignments.title)
-                }
-                
+                // for (assignments of resp.data.assignments) {
+                //     // console.log(assignments)
+                //     gradebook.columnsGradeBook.push(assignments.title)
+                // }
 
-                setAssignments({...assignments, dataAssignments: resp.data.assignments.map(assignment => {
-                    return assignment
-                })})
+                setAssignmentArr(assignmentsData)
 
             })
             .catch(err => console.log(err))
     }
 
+    function selectLastTab() {
+        const value = localStorage.getItem('tabValue')
+
+        console.log(value)
+        if (!value) {
+            console.log('welcome to gradebook page')
+        } else {
+            console.log('Welcome back')
+            setTabValue(value)
+        }
+
+    }
+
     const handleTabSelect = (event, newValue) => {
         setTabValue(newValue);
+        localStorage.setItem('tabValue', newValue)
+
     };
 
     function TabPanel(props) {
@@ -120,11 +134,6 @@ const GradesTeacher = (props) => {
 
     }
 
-    // TabPanel.propTypes = {
-    //     children: PropTypes.node,
-    //     index: PropTypes.any.isRequired,
-    //     value: PropTypes.any.isRequired,
-    //   };
 
     function a11yProps(index) {
         return {
@@ -142,93 +151,13 @@ const GradesTeacher = (props) => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0}>
-                <Container fluid>
-                    <MaterialTable
-                        title="Grade Book"
-                        columns={gradebook.columnsGradeBook}
-                        data={gradebook.dataGradebook}
-                        editable={{
-                            onRowAdd: newData =>
-                                new Promise(resolve => {
-                                    setTimeout(() => {
-                                        resolve();
-                                        setGradebook(prevState => {
-                                            const data = [...prevState.data];
-                                            data.push(newData);
-                                            return { ...prevState, data };
-                                        });
-                                    }, 600);
-                                }),
-                            onRowUpdate: (newData, oldData) =>
-                                new Promise(resolve => {
-                                    setTimeout(() => {
-                                        resolve();
-                                        if (oldData) {
-                                            setGradebook(prevState => {
-                                                const data = [...prevState.data];
-                                                data[data.indexOf(oldData)] = newData;
-                                                return { ...prevState, data };
-                                            });
-                                        }
-                                    }, 600);
-                                }),
-                            onRowDelete: oldData =>
-                                new Promise(resolve => {
-                                    setTimeout(() => {
-                                        resolve();
-                                        setGradebook(prevState => {
-                                            const data = [...prevState.data];
-                                            data.splice(data.indexOf(oldData), 1);
-                                            return { ...prevState, data };
-                                        });
-                                    }, 600);
-                                })
-                        }}
-                    />
-                </Container>
+                <Gradebook
+                    students={studentArr}
+                />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
-                <MaterialTable
-                    title="Assignments"
-                    columns={assignments.columnsAssignment}
-                    data={assignments.dataAssignments}
-                    editable={{
-                        onRowAdd: newData =>
-                            new Promise(resolve => {
-                                setTimeout(() => {
-                                    resolve();
-                                    setAssignments(prevState => {
-                                        const data = [...prevState.data];
-                                        data.push(newData);
-                                        return { ...prevState, data };
-                                    });
-                                }, 600);
-                            }),
-                        onRowUpdate: (newData, oldData) =>
-                            new Promise(resolve => {
-                                setTimeout(() => {
-                                    resolve();
-                                    if (oldData) {
-                                        setAssignments(prevState => {
-                                            const data = [...prevState.data];
-                                            data[data.indexOf(oldData)] = newData;
-                                            return { ...prevState, data };
-                                        });
-                                    }
-                                }, 600);
-                            }),
-                        onRowDelete: oldData =>
-                            new Promise(resolve => {
-                                setTimeout(() => {
-                                    resolve();
-                                    setAssignments(prevState => {
-                                        const data = [...prevState.data];
-                                        data.splice(data.indexOf(oldData), 1);
-                                        return { ...prevState, data };
-                                    });
-                                }, 600);
-                            })
-                    }}
+                <AssignmentsTable
+                    assignments={assignmentArr}
                 />
             </TabPanel>
 
@@ -238,3 +167,49 @@ const GradesTeacher = (props) => {
 };
 
 export default GradesTeacher;
+
+
+
+
+
+
+
+
+// onRowAdd: newData =>
+// new Promise(resolve => {
+//     setTimeout(() => {
+//         resolve();
+//         setGradebook(prevState => {
+//             const data = [...prevState.data];
+//             data.push(newData);
+//             return { ...prevState, data };
+//         });
+//     }, 600);
+// }),
+// onRowUpdate: (newData, oldData) =>
+// new Promise(resolve => {
+//     setTimeout(() => {
+//         resolve();
+//         if (oldData) {
+//             setGradebook(prevState => {
+//                 console.log(prevState);
+//                 const data = [...prevState.data];
+//                 data[data.indexOf(oldData)] = newData;
+//                 return { ...prevState, data };
+//             });
+//         }
+//     }, 600);
+// }),
+// onRowDelete: oldData =>
+// new Promise(resolve => {
+//     setTimeout(() => {
+//         resolve();
+//         setGradebook(prevState => {
+//             const data = [...prevState.data];
+//             data.splice(data.indexOf(oldData), 1);
+//             return { ...prevState, data };
+//         });
+//     }, 600);
+// })
+// }}
+

@@ -44,7 +44,7 @@ const ClassroomSchema = new Schema(
       {
       type: Schema.Types.ObjectId,
         // type: String,
-        ref: 'Assignments',
+        ref: 'Assignment',
         required: true
     }
   ],

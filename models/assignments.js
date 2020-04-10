@@ -7,7 +7,7 @@ const AssignmentSchema = new Schema(
           type: String,
           trim: true
       },
-      desription: {
+      description: {
           type: String,
           trim: true
       },
@@ -15,6 +15,12 @@ const AssignmentSchema = new Schema(
           type: String,
           trim: true
       }
+  },
+  {
+    toJSON: {
+      // include any virtual properties when data is requested
+      virtuals: true
+    }
   }
 )
 

@@ -52,11 +52,13 @@ module.exports = {
   findByIdandPopulate: function (req, res) {
     console.log('populating ...')
     console.log(req.params.id)
+
     db.ClassroomModel
       .findById(req.params.id)
       // model: 'RegisterModel', select: "_id"
       // .select("teacherID courseTitle students")
       .populate({ path: "students", select: ['firstName', 'lastName', 'email'] })  /*'firstName lastName email -_id'}*/
+      .populate({ path: 'assignments'})
       .populate({ path: 'announcements', populate: {path: 'comments', populate: {path: 'author', select: ['-password']} }})
       .exec((err, dbModel) => {
         // !err ?
@@ -265,14 +267,14 @@ module.exports = {
     console.log(req.body)
     console.log(req.params.id)
 
-    db.AnnouncementModel.create(req.body)
+    db.AssignmentModel.create(req.body)
       .then(dbModel => {
 
-        console.log('announcement created');
+        console.log('Assignment created');
 
         db.ClassroomModel
-          .findOneAndUpdate({ _id: req.params.id }, { $push: { announcements: dbModel._id } })
-          .populate({ path: 'announcements' })
+          .findOneAndUpdate({ _id: req.params.id }, { $push: { assignments: dbModel._id } })
+          // .populate({ path: 'assignments' })
           .exec((err, updatedClass) => {
             console.log("post update", updatedClass)
             res.json(updatedClass);
