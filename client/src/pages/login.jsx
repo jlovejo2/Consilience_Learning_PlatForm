@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
 import RegisterForm from '../components/RegisterForm/Register.jsx';
 import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
@@ -8,6 +7,7 @@ import API from '../utils/API';
 // import RootContext from '../utils/RootContext';
 import '../index.css';
 import './pageStyle/login.css'
+import history from '../history/history.jsx';
 
 const Login = () => {
 
@@ -76,23 +76,18 @@ const Login = () => {
                     
                     if (userInfo.type === 'Teacher') {
                         console.log('teacher')
-                        setRedirectUser('/dashboardTeacher')
+                        history.replace('/dashboardTeacher')
                     } else if (userInfo.type === 'Student') {
                         console.log('student')
-                        setRedirectUser('/dashboardStudent')
+                        history.replace('/dashboardStudent')
                     } else {
                         console.log(userInfo.type)
                         console.log('something is weird')
+                        history.push('/login')
                     }
                 })
                 .catch(err => console.log(err))
         }
-    }
-
-    if (redirectUser) {
-      
-       return <Redirect to={redirectUser}
-        />
     }
 
     return (

@@ -22,6 +22,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 // import { ExpansionPanel, ExpansionPanelSummary} from '@material-ui/core'
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import ExpansionDiv from '../components/Comments/ExpansionDiv';
+import history from '../history/history.jsx';
 
 
 export const Classroom = (props) => {
@@ -38,11 +39,6 @@ export const Classroom = (props) => {
     const [userID, setUserID] = useState("")
 
 
-    useEffect(() => {
-        getAndVerifyUserInfo()
-        loadClassInfo()
-    }, [userType, userID]);
-
     async function getAndVerifyUserInfo() {
         try {
             await API.readAndVerifyCookie()
@@ -58,8 +54,17 @@ export const Classroom = (props) => {
         }
         catch (error) {
             console.log(error)
+            history.replace('/')
         }
     }
+
+
+    useEffect(() => {
+        getAndVerifyUserInfo()
+        loadClassInfo()
+    }, [userType, userID]);
+
+
 
     function loadClassInfo() {
 
