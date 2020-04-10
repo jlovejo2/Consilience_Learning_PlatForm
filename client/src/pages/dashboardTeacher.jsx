@@ -27,9 +27,13 @@ import AddIcon from "@material-ui/icons/Add";
 // import NavigationIcon from '@material-ui/icons/Navigation';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
+import history from '../history/history.jsx';
 
 const MyCard = styled(Card)({
     background: "transparent",
+    margin: "0",
+    // align: 'stretch',
+    alignItems: 'center',
 });
 
 const DashBoardTeacher = (props) => {
@@ -41,25 +45,14 @@ const DashBoardTeacher = (props) => {
     const [selectedFile, setSelectedFile] = useState({});
     const [currentClass, setCurrentClass] = useState('');
     const [userType, setUserType] = useState("");
-    const [ userID, setUserID] = useState("")
-
-    useEffect(() => {
-
-        getAndVerifyUserInfo()
-        // getAndVerifyUserInfo()
-        // console.log(userType);
-        console.log(userType)
-        console.log(userID)
-        loadClasses()
-
-    },[userType, userID])
+    const [userID, setUserID] = useState("")
     
 
     function getAndVerifyUserInfo() {
          API.readAndVerifyCookie()
             .then((resp) => {
             console.log("cookie call resp: ", resp)
-            console.log("dropping the load: ", resp.data.payload)
+            console.log("dropping the payload: ", resp.data.payload)
             setUserType(resp.data.payload.type)
             setUserID(resp.data.payload._id)
             console.log(userType)
@@ -68,8 +61,19 @@ const DashBoardTeacher = (props) => {
             })
             .catch (error => {
             console.log(error)
+            history.replace('/')
             })
     }
+
+
+    useEffect(() => {
+        getAndVerifyUserInfo()
+        loadClasses()
+        console.log(userType)
+        console.log(userID)
+    }, [userType, userID])
+
+
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too
@@ -177,9 +181,9 @@ const DashBoardTeacher = (props) => {
         <Container fluid>
             <Grid align='center'>
                 {/* <svg: React.SVGProps<SVGSVGElement>; */}
-                <svg viewBox="0 0 1700 290">
+                <svg viewBox="0 0 4000 490">
                     <symbol id="s-text">
-                        <text textAnchor="middle" x="50%" y="30%">Classroom Dashboard</text>
+                        <text textAnchor="middle" x="50%" y="50%" style={{ fontSize:"20vw"}}>Classroom Dashboard</text>
                     </symbol>
 
                     <g className="g-ants">
@@ -197,6 +201,7 @@ const DashBoardTeacher = (props) => {
             </Grid>
             <MyCard>
                 <Grid
+
                     container
                     spacing={5}
                     align='center'
@@ -227,7 +232,7 @@ const DashBoardTeacher = (props) => {
                                     </Grid> )
                             } else {
                             return (
-                                <Grid
+                                <Grid 
                                     key={index}
                                     item
                                     md={4}
@@ -328,7 +333,7 @@ const DashBoardTeacher = (props) => {
                             Cancel
             </Button>
                         <Button onClick={handleDailogSubmit} color="primary" type="submit">
-                            Submit
+                            Submit Course
             </Button>
                     </DialogActions>
                 </DialogContent>

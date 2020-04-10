@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default {
-    // get cookie and decode
+    // get cookie, veryify using secret, decode payload
     readAndVerifyCookie: () => {
         return axios.get('/users/getcookie') 
     },

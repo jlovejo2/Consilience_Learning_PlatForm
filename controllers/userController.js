@@ -33,7 +33,7 @@ router.get("/checkToken", authenticateToken, (req, res) => {
 // then, verify cookie using environmental access token secret 
 router.get('/getcookie', (req, res) => {
   const authorization = req.cookies['authorization']
-  if (authorization !== null) {
+  if (authorization) {
     const decoded = jwt.decode(authorization, { complete: true })
     const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
     if (!verified) return false
@@ -42,7 +42,7 @@ router.get('/getcookie', (req, res) => {
     console.log("cookie content: ", authorization)
     return res.json(decoded)
   }
-  return res.send('no cookie found')
+  return res.status(403).send("forbidden")
 })
 
 // get user authenticated status
@@ -135,6 +135,8 @@ router.post("/register", async (req, res) => {
     );
   }
   const encryptedPW = await hashPW(password);
+  console.log(generatedId);
+  console.log("the secret code", encryptedPW);
   db.RegisterModel.create({
     type,
     firstName,
@@ -182,8 +184,8 @@ router.post("/login", (req, res) => {
 // user logout
 router.get("/logout", (req, res) => {
   try {
+    res.status(403)
     req.logout();
-    res.redirect("/");
   } catch (error) {
     res.sendStatus(500).send("logout error occurred");
   }

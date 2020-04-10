@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import API from '../utils/API';
 // import RootContext from '../utils/RootContext';
 import ClassBanner from '../components/ClassBanner/ClassBanner';
@@ -28,13 +28,14 @@ export const Classroom = (props) => {
     // const classes = useStyles();
     // const { userType, setUserType, userID, setUserID, classID } = useContext(RootContext);
     const [classID, setClassID] = useState('')
-    const [userID, setUserID] = useState('')
-    const [userType, setUserType] = useState('')
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
     const [commentObj, setCommentObj] = useState([])
+    const [userType, setUserType] = useState("");
+    const [userID, setUserID] = useState("")
 
+    
     useEffect(() => {
         getAndVerifyUserInfo()
         loadClassInfo()
@@ -55,6 +56,7 @@ export const Classroom = (props) => {
         }
         catch (error) {
             console.log(error)
+            history.replace('/')
         }
     }
 

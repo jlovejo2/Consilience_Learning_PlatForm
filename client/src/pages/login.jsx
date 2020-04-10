@@ -8,6 +8,7 @@ import API from '../utils/API';
 import History from '../history/history.jsx';
 // import RootContext from '../utils/RootContext';
 import '../index.css';
+import './pageStyle/login.css'
 
 const Login = () => {
 
