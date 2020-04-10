@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import API from '../utils/API';
 // import RootContext from '../utils/RootContext';
 
-import { Input, Button, MenuItem, Select, Grid, Box, ListItem, Paper } from '@material-ui/core';
-import Container from '../components/Container/Container.jsx';
+import { Input, Button, MenuItem, Select, Grid, Box, ListItem, Paper, Container } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import './pageStyle/search.css';
+    
 
 
 const Search = () => {
-
 
     const [ userID, setUserID ] = useState('');
     const [ userType, setUserType] = useState('');
@@ -86,59 +87,60 @@ const Search = () => {
     }
 
     return (
-
-        <Grid container>
-            <Grid item xs={12}>
-                <Container>
-                    <Paper>
-                        <Box px={2}>
-                            <Grid container spacing={3} alignItems='center' justifyContent='center'>
-                                <Grid item xs={2}>
-                                    <Select
-                                        // labelId="demo-simple-select-label"
-                                        // id="demo-simple-select"
-                                        variant='outlined'
-                                        name={'selectValue'}
-                                        // value={age}
-                                        onChange={handleSearchChange}
-                                    >
-                                        <MenuItem value={'all'}>All Classes</MenuItem>
-                                        <MenuItem value={'courseTitle'}>Title</MenuItem>
-                                        <MenuItem value={'courseDescription'}>Description</MenuItem>
-                                        <MenuItem value={'subject'}>Subject</MenuItem>
-                                    </Select>
-                                </Grid>
-                                <Grid item xs={8}>
-                                    <Box py={2}>
-                                        <Input
-                                            color='primary'
-                                            placeholder='search for classes here'
-                                            fullWidth
-                                            disableUnderline
-                                            name={'inputValue'}
-                                            onChange={handleSearchChange} />
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={2} alignContent='center'>
-                                    <Button
-                                        size='small'
-                                        variant='contained'
-                                        color='primary'
-                                        onClick={handleSearchSubmit}>
-                                        Search
-                                    </Button>
-                                </Grid>
-                            </Grid>
-
+        <Container className= 'parent'>
+            <Grid xs ={12} justifyContent='center' className= 'child'>
+                <Paper>
+                <Box px={1}>
+                    <Grid 
+                    container 
+                    spacing={2} 
+                    alignItems='center' 
+                    container className= 'content'
+                    >
+                    <Grid item xs={3} className = 'dropdown'>
+                        <Select className = 'searchbox'
+                            // labelId="demo-simple-select-label"
+                            // id="demo-simple-select"
+                            variant='outlined'
+                            name={'selectValue'}
+                            // value={age}
+                            onChange={handleSearchChange}
+                        >
+                            <MenuItem value={'all'}>All Classes</MenuItem>
+                            <MenuItem value={'courseTitle'}>Title</MenuItem>
+                            <MenuItem value={'courseDescription'}>Description</MenuItem>
+                            <MenuItem value={'subject'}>Subject</MenuItem>
+                        </Select>
+                    </Grid>
+                    <Grid item xs={6} className = 'searchbar'>
+                        <Box py={2}>
+                            <Input
+                                color='primary'
+                                placeholder='search for classes here'
+                                fullWidth
+                                disableUnderline
+                                name={'inputValue'}
+                                onChange={handleSearchChange} />
                         </Box>
-                    </Paper>
-                </Container>
+                    </Grid>
+                        <Grid item xs={2} alignContent='center' className = 'searchbutton'>
+                            <Button
+                                size='large'
+                                variant='contained'
+                                color='primary'
+                                onClick={handleSearchSubmit}>
+                                <SearchIcon/>
+                                Search
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+                </Paper>
             </Grid>
-            <Box m={2}>
+            <Box m={3}>
                 <Paper>
                     <Grid item xs={12} justifyContent='center'>
-
-                        <Box m={2} p={2}>
+                        <Box m={2} p={2} xs={10}>
                             <ul>
                             {
                         apiClasses.length > 0 ? apiClasses.map((item, index) => {
@@ -165,8 +167,7 @@ const Search = () => {
                     </Grid>
                 </Paper>
             </Box>
-        </Grid>
-        // </Container >
+        </Container>
     )
 }
 
