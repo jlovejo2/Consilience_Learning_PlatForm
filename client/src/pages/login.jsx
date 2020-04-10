@@ -5,13 +5,13 @@ import Container from '../components/Container/Container.jsx'
 import Card from '../components/Card/Card.jsx';
 import { Form, Input } from '../components/LoginForm/LoginForm.jsx';
 import API from '../utils/API';
-import RootContext from '../utils/RootContext';
+// import RootContext from '../utils/RootContext';
 import '../index.css';
 import './pageStyle/login.css'
 
 const Login = () => {
 
-    const { userType, setUserType, userID, setUserID } = useContext(RootContext)
+    // const { userType, setUserType, userID, setUserID } = useContext(RootContext)
     const [loginForm, setLoginForm] = useState({})
     const [registerForm, setRegisterForm] = useState({})
     const [openDialog, setOpenDialog] = useState(false);
@@ -65,8 +65,8 @@ const Login = () => {
                 .then(res => {
                     console.log(res.data)
                     const userInfo = res.data.user
-                    setUserID(userInfo._id)
-                    setUserType(userInfo.type)
+                    // setUserID(userInfo._id)
+                    // setUserType(userInfo.type)
                     // double commented code out of commission
                     // because server-generated proxy-backed
                     // cookies were preferentially utilized
@@ -90,10 +90,7 @@ const Login = () => {
     }
 
     if (redirectUser) {
-
-        console.log(userType);
-        console.log(userID);
-       
+      
        return <Redirect to={redirectUser}
         />
     }

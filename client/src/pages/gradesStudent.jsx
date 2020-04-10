@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import RootContext from '../utils/RootContext';
+import React, { useState, useEffect } from 'react';
 
 const gradesStudent = () => {
 

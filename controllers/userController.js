@@ -29,6 +29,22 @@ router.get("/checkToken", authenticateToken, (req, res) => {
   res.sendStatus(200)
 });
 
+// get cookie and decode header, payload, and signature via {complete: true}
+// then, verify cookie using environmental access token secret 
+router.get('/getcookie', (req, res) => {
+  const authorization = req.cookies['authorization']
+  if (authorization) {
+    const decoded = jwt.decode(authorization, { complete: true })
+    const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
+    if (!verified) return false
+    console.log("token verified: ", verified)
+    console.log("token decoded: ", decoded)
+    console.log("cookie content: ", authorization)
+    return res.json(decoded)
+  }
+  return res.send('no cookie found').redirect('/login')
+})
+
 // get user authenticated status
 router.get("/:id", authenticateToken, async (req, res) => {
   try {
@@ -118,9 +134,7 @@ router.post("/register", async (req, res) => {
       discipline
     );
   }
-
   const encryptedPW = await hashPW(password);
-
   console.log(generatedId);
   console.log("the secret code", encryptedPW);
   db.RegisterModel.create({
@@ -159,7 +173,7 @@ router.post("/login", (req, res) => {
         });
         console.log("this is cookie data", accessToken)
         res.set("authorization", accessToken);
-        res.json({ accessToken, user });
+        res.json({ user });
       } else {
         res.redirect("/login");
       }
@@ -190,12 +204,6 @@ function authenticateToken(req, res, next) {
   // token portion of bearer token
   // if authHeader then return authHeader token portion else undefined
   const token = authHeader && authHeader.split(" ")[1];
-
-//   console.log(authHeader.split(" ")[1]);
-  // console.log(authHeader.split(" ")[1]);
-  // const token = authHeader && authHeader.split(" ")[1];
-  // console.log(authHeader.split(" ")[1]);
-
   if (token === null) return res.sendStatus(401);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("Logging the ERR ", err);
@@ -227,6 +235,19 @@ async function pwCheck(password, hash) {
 }
 
 module.exports = router;
+
+// get cookie and verify token
+// router.get('/getcookieauth', (req, res, next) => {
+//   const authorization = req.cookies['authorization']
+//   if (authorization === null) return res.sendStatus(401);
+//   jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+//     console.log("Logging the ERR ", err);
+//     if (err) return res.sendStatus(403);
+//     // req.user = user;
+//     console.log(user);
+//     next()
+//   });
+// })
 
 // router.post("/refresh", (req, res, next) => {
 //   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1440m" })

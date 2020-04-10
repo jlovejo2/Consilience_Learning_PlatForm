@@ -12,17 +12,17 @@ module.exports = {
     console.log(req.query)
 
     let query = {}
-      
+
     if (req.query.select === 'all') {
       //gets all classes regardless of what they type in the input
       query = query
     } else if (req.query.select === 'courseTitle') {
       query.courseTitle = req.query.input
-    } else if ( req.query.select === 'courseDescription') {
+    } else if (req.query.select === 'courseDescription') {
       //This query uses $regex which allows a regular expression to be delivered to mongoDb.
       //the $options: 'i'  is a mongoDb operator that specifies case insensitivity.  Will match upper and lowercases in the field string I am searchin
       query.courseDescription = { "$regex": req.query.input, "$options": "i" }
-    } else if ( req.query.select === 'subject'){
+    } else if (req.query.select === 'subject') {
       //right now this just does same as the All
       query = query
     }
@@ -39,9 +39,10 @@ module.exports = {
 
   //This method is meant to find a specific classroom by Id.  This will be used when wanting to pull up a specific classroom page
   findById: function (req, res) {
+    console.log('finding class by id ...')
     db.ClassroomModel
       .findById(req.params.id)
-      .populate({path: 'announcements'})
+      .populate({ path: 'announcements' })
       // .populate({path:'comments'})
       .exec((error, dbModel) => res.json(dbModel))
   },
@@ -49,19 +50,23 @@ module.exports = {
   // populating student info 
   // route: "api/classrooms/populate/:id"
   findByIdandPopulate: function (req, res) {
+    console.log('populating ...')
     console.log(req.params.id)
     db.ClassroomModel
       .findById(req.params.id)
       // model: 'RegisterModel', select: "_id"
       // .select("teacherID courseTitle students")
-      .populate("students", 'firstName lastName email -_id')
+      .populate({ path: "students", select: ['firstName', 'lastName', 'email'] })  /*'firstName lastName email -_id'}*/
+      .populate({ path: 'announcements' })
       .exec((err, dbModel) => {
         // !err ?
         console.log(dbModel)
         res.json(dbModel)
+
+
         // res.status(422).json(err);
       })
-    },
+  },
 
   //This will be used to create a classroom.  Goal is for only a user that is a teacher to be able to do this.  Will need user Authentification
   //Currenlty using req.body and understand that may need to be manipulated more when updating the schema
@@ -101,13 +106,13 @@ module.exports = {
     console.log('adding student to class ...')
     console.log(req.body)
     db.RegisterModel
-    .findOne({ _id: req.body.id })
-    .then(dbModel => {
-      db.ClassroomModel.findOneAndUpdate({ _id: req.params.id },{$push: {students: dbModel._id } })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-    })
-},
+      .findOne({ _id: req.body.id })
+      .then(dbModel => {
+        db.ClassroomModel.findOneAndUpdate({ _id: req.params.id }, { $push: { students: dbModel._id } })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+      })
+  },
 
 
   //This will remove the classroom
@@ -176,6 +181,16 @@ module.exports = {
 
   },
 
+  removeAnnouncement: function (req, res) {
+    console.log(req.params.id)
+    db.AnnouncementModel
+      .findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+
   findAnnouncementsByClassId: function (req, res) {
     console.log(req.body);
     console.log(req.params.id)
@@ -188,12 +203,47 @@ module.exports = {
     console.log(req.body.announcementID)
 
     db.AnnouncementModel
-      .findOneAndUpdate({_id: req.params.id}, {$push: { comments: {body: req.body.body, author: req.body.author}}})
+      .findOneAndUpdate({ _id: req.params.id }, { $push: { comments: { body: req.body.body, author: req.body.author } } })
       .then(updateWithComment => {
         console.log(updateWithComment)
+        res.json(updateWithComment)
       })
-      
-      // .catch(err => console.log(err))
+
+    // .catch(err => console.log(err))
+  },
+
+  findUserById: function (req, res) {
+    console.log('finding user by id')
+    console.log(req.body)
+    db.RegisterModel
+      .findById({ _id: req.params.id })
+      .then(resp => {
+        console.log('got the response', resp)
+        if (resp.alias) {
+          res.json({ alias: resp.alias })
+        } else {
+          const fullName = resp.firstName + " " + resp.lastName
+          res.json({ name: fullName })
+        }
+      })
+  },
+
+
+  //This function will find all the classes that the user is either a student or a teacher for
+  findClassesByUser: function (req, res) {
+
+    console.log(req.params.id)
+
+    db.ClassroomModel
+      .find( { $or: [{
+         students: { $elemMatch: { $eq: req.params.id} }
+      }, {teacherID: { $eq: req.params.id} }]})
+      .then(dbModel => {
+        console.log(dbModel)
+        res.json(dbModel)
+      })
+
   }
+
 
 };

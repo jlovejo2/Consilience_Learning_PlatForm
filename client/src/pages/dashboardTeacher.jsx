@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import RootContext from "../utils/RootContext";
+import React, { useState, useEffect } from "react";
+// import RootContext from "../utils/RootContext";
 import API from "../utils/API";
 import custFunc from "../utils/customFunctions";
-import { toast, ToastContainer } from 'react-toastify';
 //Importing components from component folder
 import Container from "../components/Container/Container.jsx";
-import ClassCard from "../components/ClassCard/ClassCard";
+import TeacherClassCard from "../components/ClassCard/TeacherClassCard";
+import StudentClassCard from '../components/ClassCard/StudentClassCard'
 
 //Importing components and icons from material-ui
 // import Paper from '@material-ui/core/Paper';
@@ -36,27 +36,52 @@ const MyCard = styled(Card)({
 });
 
 const DashBoardTeacher = (props) => {
-    const { userType, userID } = useContext(RootContext)
-    const [setState] = useState('')
+
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
     const [menuAnchor, setMenuAnchor] = useState(null);
     const [selectedFile, setSelectedFile] = useState({});
     const [currentClass, setCurrentClass] = useState('');
+    const [userType, setUserType] = useState("");
+    const [ userID, setUserID] = useState("")
+    
+
+    function getAndVerifyUserInfo() {
+         API.readAndVerifyCookie()
+            .then((resp) => {
+            console.log("cookie call resp: ", resp)
+            console.log("dropping the load: ", resp.data.payload)
+            setUserType(resp.data.payload.type)
+            setUserID(resp.data.payload._id)
+            console.log(userType)
+            console.log(userID)
+            //load the classes after the userID And userType are received from token
+            })
+            .catch (error => {
+            console.log(error)
+            })
+    }
+
 
     useEffect(() => {
 
-        console.log(userType);
+        getAndVerifyUserInfo()
+        // getAndVerifyUserInfo()
+        // console.log(userType);
 
         loadClasses()
+        console.log(userType)
+        console.log(userID)
+    }, [userType, userID])
 
-    }, [userType])
+
 
     //This function calls the backend and loads all the classes in the database onto the dashboard page
     //Eventually this function will only load the classes that the user has access too
     function loadClasses() {
-        API.getClasses()
+        console.log(userID)
+        API.getClassesbyUser(userID)
             .then(resp => {
                 console.log(resp.data)
 
@@ -78,6 +103,8 @@ const DashBoardTeacher = (props) => {
                         return value
                     }
                 })
+
+
                 setClassesArr(newDataObj);
                 // console.log(classesArr);
             })
@@ -122,7 +149,6 @@ const DashBoardTeacher = (props) => {
     }
 
     function handleChangeTitle() {
-
         return (
             <input type='email' placeholder='enter title info'></input>
         )
@@ -148,7 +174,6 @@ const DashBoardTeacher = (props) => {
             .then(resp => {
                 loadClasses()
                 handleDialogClose()
-                setState({ msg: toast.success('announcement created') })
             })
             .catch(err => console.log(err))
     }
@@ -185,6 +210,29 @@ const DashBoardTeacher = (props) => {
                 >
                     {
                         classesArr.length > 0 ? classesArr.map((item, index) => {
+                            if (item.students.includes(userID)) {
+                                return (
+                                    <Grid
+                                        key={index}
+                                        item
+                                        md={4}
+                                        align="center"
+                                    >
+                                        <StudentClassCard
+                                            key={index}
+                                            title={item.courseTitle}
+                                            subheader={item.courseDiscipline}
+                                            paragraph1={item.courseDescription}
+                                            image={item.imageBase64Str}
+                                            imageTitle='a'
+                                            imageCaption=''
+                                            settingsButton={handleMenuClick}
+                                            classID={item._id}
+                                            badgenotify={item.badgenotify}
+                                        >
+                                        </StudentClassCard>
+                                    </Grid> )
+                            } else {
                             return (
                                 <Grid 
                                     key={index}
@@ -192,7 +240,7 @@ const DashBoardTeacher = (props) => {
                                     md={4}
                                     align="center"
                                 >
-                                    <ClassCard
+                                    <TeacherClassCard
                                         key={index}
                                         title={item.courseTitle}
                                         subheader={item.courseDiscipline}
@@ -204,9 +252,10 @@ const DashBoardTeacher = (props) => {
                                         classID={item._id}
                                         badgenotify={item.badgenotify}
                                     >
-                                    </ClassCard>
+                                    </TeacherClassCard>
                                 </Grid>
                             )
+                            }
                         })
                             : <p>No classes Found</p>
                     }
@@ -291,7 +340,6 @@ const DashBoardTeacher = (props) => {
                     </DialogActions>
                 </DialogContent>
             </Dialog>
-            <ToastContainer />
         </Container>
     );
 };
