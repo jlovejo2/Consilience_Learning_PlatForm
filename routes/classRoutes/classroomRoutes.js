@@ -57,4 +57,8 @@ router.route('/assignments/:id')
       .post(classroomController.createAssignment)
       // .delete(classroomController)
 
+router.route('/addGrade/:classID/:userID')
+      .post(classroomController.addGrade)
+      .get(classroomController.getGrades)
+
 module.exports = router;

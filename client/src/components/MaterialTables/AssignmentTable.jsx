@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import API from '../../utils/API';
-
+import history from '../../history/history';
 
 function AssignmentTable (props) {
 
@@ -31,6 +31,10 @@ function AssignmentTable (props) {
         
     }, [assignments, classID])
 
+    function refreshpage() {
+        window.location.reload(false)
+    }
+
 return (
     <MaterialTable
     title="Assignments"
@@ -39,16 +43,18 @@ return (
     actions={[
         {
           icon: 'save',
-          tooltip: 'Save User',
+          tooltip: 'Save Assignment',
           onClick: (event, rowData) => {
               API.createAssignment(classID, rowData)
                 .then(resp => {
                     console.log(resp)
+                    refreshpage()
                 })
                 .catch(err => console.log(err))
           }
         },
     ]}
+    //Code inside of the editable props is mostly boiler plate code provided by material-table for client-side rendering to the table
     editable={{
         onRowAdd: newData =>
             new Promise(resolve => {
