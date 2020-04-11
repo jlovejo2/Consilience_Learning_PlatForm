@@ -10,6 +10,10 @@ import '../index.css';
 import './pageStyle/login.css'
 import history from '../history/history.jsx';
 
+const stylin = {
+    color: "white"
+}
+
 const Login = () => {
 
     // const { userType, setUserType, userID, setUserID } = useContext(RootContext)
@@ -91,6 +95,7 @@ const Login = () => {
                             <Form size={'col s12'}>
                                 <div className='row'>
                                     <Input
+                                        style={stylin}
                                         className="inputLogin"
                                         size='s12'
                                         name='email'
@@ -99,6 +104,7 @@ const Login = () => {
                                         customclass='validate center'
                                         onChange={handleInputChange} />
                                     <Input
+                                        style={stylin}
                                         className="inputLogin"
                                         size='s12'
                                         name='password'
