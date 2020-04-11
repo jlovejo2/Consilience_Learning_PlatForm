@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Container from "../components/Container/Container.jsx";
+
 import Gradebook from '../components/MaterialTables/GradebookTable.jsx';
 import AssignmentsTable from '../components/MaterialTables/AssignmentTable.jsx';
+// import Container from "../components/Container/Container.jsx";
 // import Dashboard from '../components/Grades/TeacherDashboard'
-import MaterialTable from "material-table";
+// import MaterialTable from "material-table";
 // import RootContext from '../utils/RootContext.js';
 import API from '../utils/API';
 import history from '../history/history.jsx';
@@ -27,7 +28,7 @@ const GradesTeacher = (props) => {
     const [userID, setUserID] = useState('');
     const [userType, setUserType] = useState('');
     const [classID, setClassID] = useState('');
-    const [tabValue, setTabValue] = useState('');
+    const [tabValue, setTabValue] = useState(0);
     const [studentArr, setStudentArr] = useState([]);
     const [assignmentArr, setAssignmentArr] = useState([]);
 
@@ -153,6 +154,8 @@ const GradesTeacher = (props) => {
             <TabPanel value={tabValue} index={0}>
                 <Gradebook
                     students={studentArr}
+                    assignments={assignmentArr}
+                    userInfo={userID}
                 />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>

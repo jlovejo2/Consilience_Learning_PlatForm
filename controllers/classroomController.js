@@ -57,9 +57,10 @@ module.exports = {
       .findById(req.params.id)
       // model: 'RegisterModel', select: "_id"
       // .select("teacherID courseTitle students")
-      .populate({ path: "students", select: ['firstName', 'lastName', 'email'] })  /*'firstName lastName email -_id'}*/
-      .populate({ path: 'assignments'})
-      .populate({ path: 'announcements', populate: {path: 'comments', populate: {path: 'author', select: ['-password']} }})
+      .populate({ path: "students", select: ['firstName', 'lastName', 'email', 'ID', 'grades'] })
+      // .populate({path: 'students', populate: { path: 'grades', populate: {path: 'assignments'} }})
+      .populate({ path: 'assignments' })
+      .populate({ path: 'announcements', populate: { path: 'comments', populate: { path: 'author', select: ['-password'] } } })
       .exec((err, dbModel) => {
         // !err ?
         // CommentModel.populate(dbModel)
@@ -208,11 +209,11 @@ module.exports = {
       .then(newComment => {
 
         db.AnnouncementModel
-      .findOneAndUpdate({ _id: req.params.id }, { $push: { comments: newComment._id } })
-      .then(updatedAnnouncement => {
-        console.log(updatedAnnouncement)
-        res.json(updatedAnnouncement)
-      })
+          .findOneAndUpdate({ _id: req.params.id }, { $push: { comments: newComment._id } })
+          .then(updatedAnnouncement => {
+            console.log(updatedAnnouncement)
+            res.json(updatedAnnouncement)
+          })
       })
 
     // .catch(err => console.log(err))
@@ -222,7 +223,7 @@ module.exports = {
     console.log('finding user by id')
     console.log(req.body)
     db.AnnouncementModel
-      .find({ comments: { _id: req.body.id }})
+      .find({ comments: { _id: req.body.id } })
       .then(resp => {
 
         console.log('got the response', resp)
@@ -241,9 +242,11 @@ module.exports = {
     console.log(req.params.id)
 
     db.ClassroomModel
-      .find( { $or: [{
-         students: { $elemMatch: { $eq: req.params.id} }
-      }, {teacherID: { $eq: req.params.id} }]})
+      .find({
+        $or: [{
+          students: { $elemMatch: { $eq: req.params.id } }
+        }, { teacherID: { $eq: req.params.id } }]
+      })
       .then(dbModel => {
         console.log(dbModel)
         res.json(dbModel)
@@ -283,5 +286,100 @@ module.exports = {
       .catch(err => res.status(422).json(err));
 
   },
+
+
+  addGrade: function (req, res) {
+
+    console.log('params: ', req.params.classID, req.params.userID)
+    console.log('body: ', req.body)
+
+    db.ClassroomModel
+      .findById(req.params.classID)
+      .populate('assignments', 'title')
+      .then(resp => {
+
+        const keysArr = Object.keys(req.body);
+        keysArr.length = keysArr.length - 1
+
+        const titleArr = keysArr.filter((value, index) => {
+          return index > 3
+        })
+
+        const valuesArr = Object.values(req.body);
+        valuesArr.length = valuesArr.length - 1
+
+        const gradesArr = valuesArr.filter((value, index) => {
+          console.log(index)
+          return index > 3
+        })
+
+        // if(gradesArr.length != keysArr.length ) 
+        // throw new Error('Error: grades array length does not match keys Arr length')
+
+        console.log(titleArr)
+        console.log(gradesArr)
+
+        try {
+          async function saveloop() {
+            for (i = 0; i < titleArr.length; i++) {
+              let titleItem = titleArr[i]
+              let gradeItem = gradesArr[i]
+
+              // await db.AssignmentModel
+              //   .findOne({ title: { $regex: titleItem, $options: 'i' } })
+              //   .then(assignmentModel => {
+                  // console.log('assignment return', assignmentModel)
+
+                  // console.log('assignment id ', assignmentModel._id)
+                  console.log('assignment title', titleItem)
+                  console.log('class ID ', resp._id)
+                  console.log('grade ', gradeItem)
+
+                await  db.RegisterModel
+                    .findOneAndUpdate({ ID: req.body.ID }, { $push: { grades: { classId: resp._id, assignment: titleItem, grade: gradeItem } } })
+                    .then(updatedUser => {
+
+                      console.log('updated user: ', updatedUser)
+                      res.json(updatedUser)
+                    })
+                // })
+            }
+          }
+          saveloop()
+        } catch (err) {
+          console.log('error in save loop', err)
+        }
+
+      })
+
+  },
+
+  getGrades: function (req,res) {
+    //need userID as param, 
+
+    //go into register model and get grades array which has
+    // class ID, assignment ID, grade
+
+    //use assignment ID to get assignment title
+    // attach to grade and send back json with array
+
+    db.RegisterModel
+      .findById(req.params.id)
+      .then( user => {
+
+       const userGradesArr = user.grades.map( grade => {
+          const obj ={
+            assignmentId: grade.assignment,
+            grade: grade.grade
+          }
+          return obj
+        })
+
+        console.log(userGradesArr)
+      })
+
+
+  }
+
 
 };

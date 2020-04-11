@@ -69,8 +69,8 @@ const RegisterSchema = new Schema(
                     ref: 'Classroom',
                   },
                   assignment: {
-                    type: Schema.Types.ObjectId,
-                    ref: 'Assignments'
+                    type: String,
+                    trim: true,
                   },
                   grade: {
                     type: String,
