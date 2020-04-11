@@ -35,10 +35,17 @@ function GradebookTable(props) {
                 surname: student.lastName,
                 ID: student.ID,
                 email: student.email   
+            }   
+
+            for (let assignmentGrade of student.grades) {
+                
+                obj[assignmentGrade.assignment] = assignmentGrade.grade
             }
 
             return obj
         })
+
+        console.log(studentArr);
 
         const assignmentArr = props.assignments.map(assignment => {
             const obj = {

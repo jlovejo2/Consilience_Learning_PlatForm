@@ -57,7 +57,8 @@ module.exports = {
       .findById(req.params.id)
       // model: 'RegisterModel', select: "_id"
       // .select("teacherID courseTitle students")
-      .populate({ path: "students", select: ['firstName', 'lastName', 'email', 'ID'] })  /*'firstName lastName email -_id'}*/
+      .populate({ path: "students", select: ['firstName', 'lastName', 'email', 'ID', 'grades'] })
+      // .populate({path: 'students', populate: { path: 'grades', populate: {path: 'assignments'} }})
       .populate({ path: 'assignments' })
       .populate({ path: 'announcements', populate: { path: 'comments', populate: { path: 'author', select: ['-password'] } } })
       .exec((err, dbModel) => {
@@ -324,23 +325,24 @@ module.exports = {
               let titleItem = titleArr[i]
               let gradeItem = gradesArr[i]
 
-              await db.AssignmentModel
-                .findOne({ title: { $regex: titleItem, $options: 'i' } })
-                .then(assignmentModel => {
-                  console.log('assignment return', assignmentModel)
+              // await db.AssignmentModel
+              //   .findOne({ title: { $regex: titleItem, $options: 'i' } })
+              //   .then(assignmentModel => {
+                  // console.log('assignment return', assignmentModel)
 
-                  console.log('assignment id ', assignmentModel._id)
+                  // console.log('assignment id ', assignmentModel._id)
+                  console.log('assignment title', titleItem)
                   console.log('class ID ', resp._id)
                   console.log('grade ', gradeItem)
 
-                  db.RegisterModel
-                    .findOneAndUpdate({ ID: req.body.ID }, { $push: { grades: { classId: resp._id, assignment: assignmentModel._id, grade: gradeItem } } })
+                await  db.RegisterModel
+                    .findOneAndUpdate({ ID: req.body.ID }, { $push: { grades: { classId: resp._id, assignment: titleItem, grade: gradeItem } } })
                     .then(updatedUser => {
 
                       console.log('updated user: ', updatedUser)
                       res.json(updatedUser)
                     })
-                })
+                // })
             }
           }
           saveloop()
