@@ -59,5 +59,6 @@ router.route('/assignments/:id')
 
 router.route('/addGrade/:classID/:userID')
       .post(classroomController.addGrade)
+      .get(classroomController.getGrades)
 
 module.exports = router;

@@ -312,7 +312,7 @@ module.exports = {
           return index > 3
         })
 
-        // if(gradesArr.length != keysArr.length ) {
+        // if(gradesArr.length != keysArr.length ) 
         // throw new Error('Error: grades array length does not match keys Arr length')
 
         console.log(titleArr)
@@ -350,7 +350,34 @@ module.exports = {
 
       })
 
-    }
+  },
+
+  getGrades: function (req,res) {
+    //need userID as param, 
+
+    //go into register model and get grades array which has
+    // class ID, assignment ID, grade
+
+    //use assignment ID to get assignment title
+    // attach to grade and send back json with array
+
+    db.RegisterModel
+      .findById(req.params.id)
+      .then( user => {
+
+       const userGradesArr = user.grades.map( grade => {
+          const obj ={
+            assignmentId: grade.assignment,
+            grade: grade.grade
+          }
+          return obj
+        })
+
+        console.log(userGradesArr)
+      })
+
+
+  }
 
 
 };

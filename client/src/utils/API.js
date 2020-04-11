@@ -111,7 +111,10 @@ export default {
     },
     addGrade: function(id, data, userID) {
         return axios.post('/api/classrooms/addGrade/' + id + "/" + userID, data )
-    }
+    },
+    getGrade: function(id, data, userID) {
+        return axios.get('/api/classrooms/addGrade/' + id + "/" + userID, data )
+    },
 
 
 }
