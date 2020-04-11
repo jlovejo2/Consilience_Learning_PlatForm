@@ -20,6 +20,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import AddIcon from '@material-ui/icons/Add';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import AssignmentCard from '../components/Assignments/AssignmentCard.jsx'
 // import { toast, ToastContainer } from 'react-toastify';
 // import { ExpansionPanel, ExpansionPanelSummary} from '@material-ui/core'
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -310,7 +311,14 @@ export const Classroom = (props) => {
                     </Container>
                 </Grid>
                 <Grid item xs={4}>
-                    <p>this is where the assignments show-up</p>
+                    {/* <p>this is where the assignments show-up</p> */}
+                    {currentClassObj.assignments && currentClassObj.assignments.map(assignment=>(
+                        <AssignmentCard
+                        title={assignment.title}
+                        description={assignment.description}
+                        classTitle={currentClassObj.courseTitle}
+                        />
+                    ))}
                 </Grid>
             </Grid>
             {/* ---------------------------------------------------------------------------------------- */}
