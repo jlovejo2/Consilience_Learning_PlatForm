@@ -81,7 +81,6 @@ export default {
     getClassesbyUser: function(id) {
         return axios.get('/api/classrooms/user/' + id)
     },
-
     deleteAnnouncementById: function(id) {
         return axios.delete('/api/classrooms/announcement/' + id)
     },
@@ -115,6 +114,5 @@ export default {
     getGrade: function(id, data, userID) {
         return axios.get('/api/classrooms/addGrade/' + id + "/" + userID, data )
     },
-
 
 }
