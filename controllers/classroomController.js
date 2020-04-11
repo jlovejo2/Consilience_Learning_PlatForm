@@ -17,7 +17,9 @@ module.exports = {
       //gets all classes regardless of what they type in the input
       query = query
     } else if (req.query.select === 'courseTitle') {
-      query.courseTitle = req.query.input
+
+        query.courseTitle = { "$regex": req.query.input, "$options": "i" }
+      
     } else if (req.query.select === 'courseDescription') {
       //This query uses $regex which allows a regular expression to be delivered to mongoDb.
       //the $options: 'i'  is a mongoDb operator that specifies case insensitivity.  Will match upper and lowercases in the field string I am searchin
@@ -328,21 +330,21 @@ module.exports = {
               // await db.AssignmentModel
               //   .findOne({ title: { $regex: titleItem, $options: 'i' } })
               //   .then(assignmentModel => {
-                  // console.log('assignment return', assignmentModel)
+              // console.log('assignment return', assignmentModel)
 
-                  // console.log('assignment id ', assignmentModel._id)
-                  console.log('assignment title', titleItem)
-                  console.log('class ID ', resp._id)
-                  console.log('grade ', gradeItem)
+              // console.log('assignment id ', assignmentModel._id)
+              console.log('assignment title', titleItem)
+              console.log('class ID ', resp._id)
+              console.log('grade ', gradeItem)
 
-                await  db.RegisterModel
-                    .findOneAndUpdate({ ID: req.body.ID }, { $push: { grades: { classId: resp._id, assignment: titleItem, grade: gradeItem } } })
-                    .then(updatedUser => {
+              await db.RegisterModel
+                .findOneAndUpdate({ ID: req.body.ID }, { $push: { grades: { classId: resp._id, assignment: titleItem, grade: gradeItem } } })
+                .then(updatedUser => {
 
-                      console.log('updated user: ', updatedUser)
-                      res.json(updatedUser)
-                    })
-                // })
+                  console.log('updated user: ', updatedUser)
+                  res.json(updatedUser)
+                })
+              // })
             }
           }
           saveloop()
@@ -354,7 +356,7 @@ module.exports = {
 
   },
 
-  getGrades: function (req,res) {
+  getGrades: function (req, res) {
     //need userID as param, 
 
     //go into register model and get grades array which has
@@ -365,10 +367,10 @@ module.exports = {
 
     db.RegisterModel
       .findById(req.params.id)
-      .then( user => {
+      .then(user => {
 
-       const userGradesArr = user.grades.map( grade => {
-          const obj ={
+        const userGradesArr = user.grades.map(grade => {
+          const obj = {
             assignmentId: grade.assignment,
             grade: grade.grade
           }
