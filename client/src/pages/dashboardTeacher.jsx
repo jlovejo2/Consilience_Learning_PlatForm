@@ -28,16 +28,19 @@ import AddIcon from "@material-ui/icons/Add";
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
 import history from '../history/history.jsx';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const MyCard = styled(Card)({
     background: "transparent",
-    margin: "0",
+    // margin: "0",
     // align: 'stretch',
     alignItems: 'center',
+    display: 'flex'
 });
 
 const DashBoardTeacher = (props) => {
-
+    
+    const matches = useMediaQuery('(max-width:600px)');
     const [openDialog, setOpenDialog] = useState(false);
     const [newClassFormObj, setNewClassFormObj] = useState({});
     const [classesArr, setClassesArr] = useState([]);
@@ -200,7 +203,7 @@ const DashBoardTeacher = (props) => {
             </Grid>
             <MyCard>
                 <Grid
-
+                    style={matches ? {display: "block"} : {}}
                     container
                     spacing={5}
                     align='center'
@@ -209,7 +212,7 @@ const DashBoardTeacher = (props) => {
                         classesArr.length > 0 ? classesArr.map((item, index) => {
                             if (item.teacherID.includes(userID)) {
                                 return (
-                                    <Grid
+                                    <Grid 
                                         key={index}
                                         item
                                         md={4}
