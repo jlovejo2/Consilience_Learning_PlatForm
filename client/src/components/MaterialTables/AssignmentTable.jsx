@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import API from '../../utils/API';
-
+import history from '../../history/history';
 
 function AssignmentTable (props) {
 
@@ -31,6 +31,10 @@ function AssignmentTable (props) {
         
     }, [assignments, classID])
 
+    function refreshpage() {
+        window.location.reload(false)
+    }
+
 return (
     <MaterialTable
     title="Assignments"
@@ -44,6 +48,7 @@ return (
               API.createAssignment(classID, rowData)
                 .then(resp => {
                     console.log(resp)
+                    refreshpage()
                 })
                 .catch(err => console.log(err))
           }

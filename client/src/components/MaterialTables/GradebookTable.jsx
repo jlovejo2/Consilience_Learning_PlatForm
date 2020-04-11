@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import API from '../../utils/API';
+import history from '../../history/history.jsx';
 
 
 function GradebookTable(props) {
@@ -33,8 +34,9 @@ function GradebookTable(props) {
                 name: student.firstName,
                 surname: student.lastName,
                 ID: student.ID,
-                email: student.email
+                email: student.email   
             }
+
             return obj
         })
 
@@ -57,6 +59,9 @@ function GradebookTable(props) {
 
     }, [])
 
+    function refreshpage() {
+        window.location.reload(false)
+    }
 
     console.log(gradebook);
     console.log(props.userInfo)
@@ -92,6 +97,7 @@ function GradebookTable(props) {
                             API.addGrade(classID, rowData, props.userInfo)
                                 .then(resp => {
                                     console.log(resp)
+                                    refreshpage()
                                 })
                                 .catch(err => console.log(err))
                         }
