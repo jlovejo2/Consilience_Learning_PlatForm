@@ -227,17 +227,17 @@ export default function PrimarySearchAppBar() {
         <IconButton
           color="inherit"
           className={`nav-item
-          ${window.location.pathname === "/syllabus" ? "active" : ""}
+          ${window.location.pathname === "/logout" ? "active" : ""}
                         `}
         >
           <Badge color="secondary">
-            <Link to="/syllabus">
+            <Link to="/logout">
               <DescriptionIcon />
             </Link>
           </Badge>
         </IconButton>
-        <Link to="/syllabus">
-          <p>Syllabus</p>
+        <Link to="/logout">
+          <p>Logout</p>
         </Link>
       </MenuItem>
     </Menu>
