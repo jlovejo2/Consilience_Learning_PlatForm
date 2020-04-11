@@ -180,7 +180,7 @@ router.post("/login", (req, res) => {
         const accessToken = generateAccessToken(user);
         res.cookie("authorization", accessToken, {
           expires: new Date(Date.now() + "1440m"),
-          secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
+          secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
           httpOnly: true,
           sameSite: true
         });
@@ -226,7 +226,7 @@ router.get("/logout/:id", async (req, res) => {
             const ephemeralToken = generateEphemeralToken(user);
             res.cookie("authorization", ephemeralToken, {
               expires: new Date(Date.now() + "1440m"),
-              secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
+              secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
               httpOnly: true,
               sameSite: true
             })
