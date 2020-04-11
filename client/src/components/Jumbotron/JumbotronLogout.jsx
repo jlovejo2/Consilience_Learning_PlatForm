@@ -9,7 +9,7 @@ const JumbotronLogout = (props) => {
                   <MDBCardTitle className="jumbotitle">Consilience</MDBCardTitle>
   {/* Andrew Write your statement in the P tag below*/}
                   <p className="jumbotext"></p>
-                  <MDBBtn className="btn-grad center" href={props.href}> Logout </MDBBtn>
+                  <MDBBtn className="btn-grad center" href={props.href}  onClick={props.logout}> Logout </MDBBtn>
             </MDBJumbotron>
       </MDBContainer>
     )

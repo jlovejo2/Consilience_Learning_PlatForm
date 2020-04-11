@@ -38,8 +38,9 @@ const Logout = () => {
     // api to use ====> 
     // API.userLogout (by id, userID) ==> replaces cookie containing JWT with
     // new cookie (same name) containing ephemeral JWT (lifespan of 1 millisecond)
-    return (
-        <button className='linkButton' onClick={logoutUser} >Log out</button>
+    return (<Container fluid>
+                <JumbotronLogout logout={logoutUser}/>
+            </Container>
     )
  
 }
