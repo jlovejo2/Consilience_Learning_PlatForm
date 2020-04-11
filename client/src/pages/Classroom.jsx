@@ -35,7 +35,7 @@ export const Classroom = (props) => {
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
-    const [commentObj, setCommentObj] = useState([])
+    // const [commentObj, setCommentObj] = useState([])
     const [userType, setUserType] = useState("");
     const [userID, setUserID] = useState("")
 
@@ -127,10 +127,7 @@ export const Classroom = (props) => {
 
     function handleAddComment(event, announcementIndex) {
         console.log('Adding comment ...')
-        // event.preventDefault()
-        // console.log(event.keyCode);
-        // console.log(event.target);
-        // console.log(announcementObj);
+
         const commentInfo = {
             author: userID,
             body: event.target.value.split('\n', 1)[0],
@@ -141,31 +138,18 @@ export const Classroom = (props) => {
         // console.log(currentClassObj)
         if (event.keyCode === 13) {
 
-            // console.log('submitted on enter');
-            // API.findUserByID(userID)
-            //     .then(resp => 
-            //         const fullName = resp.firstName + " " + resp.lastName
-            //         commentInfo.authorName = fullName
-            //         console.log(commentInfo)
             API.createComment(currentClassObj.announcements[announcementIndex]._id, commentInfo)
                 .then(resp => {
-                    console.log('got response', resp)
 
-                    // currentClassObj.announcements[announcementIndex].comments.push(commentInfo)
+                    console.log(resp)
                     loadClassInfo()
-                    console.log(resp.data)
-                    console.log(commentObj)
+                    event.target.reset()
+                   
                 })
                 .catch(err => console.log(err))
 
         }
     }
-
-    // function handleCommentChange(event, announceIndex) {
-
-    //     const commentBody = event.target.value
-    //     setAnnouncementObj({ ...commentObj, announceIndex: value })
-    // }
 
     return (
         <div>
@@ -180,7 +164,7 @@ export const Classroom = (props) => {
                                         <Paper elevation={2}>
                                             <Card>
                                                 <CardContent>
-                                                    <Typography /*className={classes.announcementTitle}*/ variant='h3' align='center'>
+                                                    <Typography /*className={classes.announcementTitle}*/ variant='h5' align='center'>
                                                         ANNOUNCEMENTS BOARD &nbsp; &nbsp;
                                                 {userType === 'Teacher' ?
                                                             <Tooltip title="Add an announcement" aria-label="add">
@@ -207,7 +191,7 @@ export const Classroom = (props) => {
                                                                 <CardContent key={index}>
 
                                                                     <Typography variant="h5" component="h2">
-                                                                        <Grid container spacing={2} alignItems='center' justifyContent='center'>
+                                                                        <Grid container spacing={2} >
                                                                             <Grid item s={10}>
                                                                                 {announcement.title}
                                                                             </Grid>
@@ -228,7 +212,7 @@ export const Classroom = (props) => {
                                                                     </Typography>
                                                                 </CardContent>
                                                                 <CardActions>
-                                                                    <Grid container spacing={2} alignItem='center' justifyContent='center' /*className={classes.center}*/>
+                                                                    <Grid container spacing={2}>
                                                                         <CommentButton /*inputComment={(event) => { handleCommentChange(event, index) }}*/
                                                                             submitComment={(event) => { handleAddComment(event, index) }} />
                                                                     </Grid>
@@ -240,22 +224,22 @@ export const Classroom = (props) => {
                                                                             announcement.comments.map((comment, index) => {
                                                                                 return (
                                                                                     <>
-                                                                                        <Grid item xs={12}>
-                                                                                            <Paper key={index} elevation={16}>
+                                                                                        <Grid key={index} item xs={12}>
+                                                                                            <Paper elevation={16}>
                                                                                                 <Card>
                                                                                                     <CardContent>
                                                                                                         <Grid container spacing={2}>
                                                                                                             <Grid item xs={10}>
                                                                                                                 <Grid container spacing={2}>
                                                                                                                     <Grid item s={6}>
-                                                                                                                        Author: &nbsp; {comment.author.firstName + " " + comment.author.lastName}
+                                                                                                                        <strong>Author:</strong> &nbsp; {comment.author.firstName + " " + comment.author.lastName}
                                                                                                                     </Grid>
                                                                                                                     <br />
                                                                                                                     <Grid item s={6}>
-                                                                                                                        Posted on: &nbsp; {CustFunc.formatDate(comment.createDate)}
+                                                                                                                        <strong>Posted on:</strong> &nbsp; {CustFunc.formatDate(comment.createDate)}
                                                                                                                     </Grid>
                                                                                                                     <Grid item s={12}>
-                                                                                                                        Body: &nbsp; {comment.body}
+                                                                                                                        {comment.body}
                                                                                                                     </Grid>
                                                                                                                 </Grid>
                                                                                                             </Grid>

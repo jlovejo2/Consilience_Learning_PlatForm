@@ -69,29 +69,8 @@ const Login = () => {
             })
                 .then(res => {
                     console.log(res.data)
-                    const userInfo = res.data.user
-                    // setUserID(userInfo._id)
-                    // setUserType(userInfo.type)
-                    // double commented code out of commission
-                    // because server-generated proxy-backed
-                    // cookies were preferentially utilized
-                    // //   if (res.data) setShow(true);
-                    // // localStorage.setItem('token', userInfo.token);
-                    // // console.log(userInfo.token)
-                    
+                             
                     history.replace('/dashboardTeacher')
-
-                    // if (userInfo.type === 'Teacher') {
-                    //     console.log('teacher')
-                    //     history.replace('/dashboardTeacher')
-                    // } else if (userInfo.type === 'Student') {
-                    //     console.log('student')
-                    //     history.replace('/dashboardStudent')
-                    // } else {
-                    //     console.log(userInfo.type)
-                    //     console.log('something is weird')
-                    //     history.push('/login')
-                    // }
 
                 })
                 .catch(err => console.log(err))

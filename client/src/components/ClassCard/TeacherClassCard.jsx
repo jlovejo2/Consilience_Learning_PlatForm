@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 // import RootContext from '../../utils/RootContext';
 import clsx from 'clsx';

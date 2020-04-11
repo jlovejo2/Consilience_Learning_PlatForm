@@ -3,19 +3,22 @@ import React, { useState, useEffect } from 'react';
 import API from '../utils/API';
 // import RootContext from '../utils/RootContext';
 
-import { Input, Button, MenuItem, Select, Grid, Box, ListItem, Paper, Container } from '@material-ui/core';
+import { Input, Button, MenuItem, Select, Grid, Box, ListItem, Paper, Container, Modal, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/AddCircleOutline';
+// import { sizing, positions } from '@material-ui/system';
+
 import './pageStyle/search.css';
-    
+
 
 
 const Search = () => {
 
-    const [ userID, setUserID ] = useState('');
-    const [ userType, setUserType] = useState('');
+    const [userID, setUserID] = useState('');
+    const [userType, setUserType] = useState('');
     const [classSearchObj, setClassSearchObj] = useState({});
     const [apiClasses, setApiClasses] = useState([]);
+    const [openModal, setOpenModal] = useState(false)
 
     useEffect(() => {
 
@@ -28,15 +31,15 @@ const Search = () => {
     async function getAndVerifyUserInfo() {
         try {
             await API.readAndVerifyCookie()
-            .then((resp) => {
-                console.log("cookie call resp: ", resp)
-                console.log("dropping the load: ", resp.data.payload)
-                setUserType(resp.data.payload.type)
-                setUserID(resp.data.payload._id)
-                console.log(userType)
-                console.log(userID)
+                .then((resp) => {
+                    console.log("cookie call resp: ", resp)
+                    console.log("dropping the load: ", resp.data.payload)
+                    setUserType(resp.data.payload.type)
+                    setUserID(resp.data.payload._id)
+                    console.log(userType)
+                    console.log(userID)
                 }
-            )
+                )
         }
         catch (error) {
             console.log(error)
@@ -50,12 +53,16 @@ const Search = () => {
         const requestInfo = event.currentTarget.value
         const userInfo = {}
         userInfo.id = userID
-        
+
         API.requestToJoinClass(requestInfo, userInfo)
-            .then( resp => {
+            .then(resp => {
                 console.log(resp)
             })
-            .catch( err => console.log(err))
+            .catch(err => console.log(err))
+    }
+
+    function handleCloseModal() {
+        setOpenModal(false)
     }
 
     //This function what the user is typing and what they select in the select dropdown
@@ -65,7 +72,7 @@ const Search = () => {
         console.log(event.target.value);
 
         const { name, value } = event.target;
-        
+
         setClassSearchObj({ ...classSearchObj, [name]: value })
         console.log(classSearchObj);
     };
@@ -74,8 +81,8 @@ const Search = () => {
         console.log(classSearchObj.selectValue);
         console.log(classSearchObj.inputValue);
 
-        if (!classSearchObj.selectValue || !classSearchObj.inputValue) {
-            console.log('search criteria undefined');
+        if (!classSearchObj.selectValue) {
+            setOpenModal(true)
         } else {
 
             API.searchClasses(classSearchObj.selectValue, classSearchObj.inputValue)
@@ -88,54 +95,53 @@ const Search = () => {
     }
 
     return (
-        <Container className= 'parent'>
-            <Grid xs ={12} justifyContent='center' className= 'child'>
+        <Container className='parent'>
+            <Grid xs={12} justifyContent='center' className='child'>
                 <Paper>
-                <Box px={1}>
-                    <Grid 
-                    container 
-                    spacing={2} 
-                    alignItems='center' 
-                    container className= 'content'
-                    >
-                    <Grid item xs={3} className = 'dropdown'>
-                        <Select className = 'searchbox'
-                            // labelId="demo-simple-select-label"
-                            // id="demo-simple-select"
-                            variant='outlined'
-                            name={'selectValue'}
-                            // value={age}
-                            onChange={handleSearchChange}
+                    <Box px={1}>
+                        <Grid
+                            container
+                            spacing={2}
+                            alignItems='center'
+                            container className='content'
                         >
-                            <MenuItem value={'all'}>All Classes</MenuItem>
-                            <MenuItem value={'courseTitle'}>Title</MenuItem>
-                            <MenuItem value={'courseDescription'}>Description</MenuItem>
-                            <MenuItem value={'subject'}>Subject</MenuItem>
-                        </Select>
-                    </Grid>
-                    <Grid item xs={6} className = 'searchbar'>
-                        <Box py={2}>
-                            <Input
-                                color='primary'
-                                placeholder='search for classes here'
-                                fullWidth
-                                disableUnderline
-                                name={'inputValue'}
-                                onChange={handleSearchChange} />
-                        </Box>
-                    </Grid>
-                        <Grid item xs={2} alignContent='center' className = 'searchbutton'>
-                            <Button
-                                size='large'
-                                variant='contained'
-                                color='primary'
-                                onClick={handleSearchSubmit}>
-                                <SearchIcon/>
+                            <Grid item xs={3} className='dropdown'>
+                                <Select className='searchbox'
+                                    // labelId="demo-simple-select-label"
+                                    // id="demo-simple-select"
+                                    variant='outlined'
+                                    name={'selectValue'}
+                                    onChange={handleSearchChange}
+                                >
+                                    <MenuItem value={'all'}>All Classes</MenuItem>
+                                    <MenuItem value={'courseTitle'}>Title</MenuItem>
+                                    <MenuItem value={'courseDescription'}>Description</MenuItem>
+                                    <MenuItem value={'subject'}>Subject</MenuItem>
+                                </Select>
+                            </Grid>
+                            <Grid item xs={6} className='searchbar'>
+                                <Box py={2}>
+                                    <Input
+                                        color='primary'
+                                        placeholder='search for classes here'
+                                        fullWidth
+                                        disableUnderline
+                                        name={'inputValue'}
+                                        onChange={handleSearchChange} />
+                                </Box>
+                            </Grid>
+                            <Grid item xs={2} alignContent='center' className='searchbutton'>
+                                <Button
+                                    size='large'
+                                    variant='contained'
+                                    color='primary'
+                                    onClick={handleSearchSubmit}>
+                                    <SearchIcon />
                                 Search
                             </Button>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box>
+                    </Box>
                 </Paper>
             </Grid>
             <Box m={3}>
@@ -143,44 +149,64 @@ const Search = () => {
                     <Grid item xs={12} justifyContent='center'>
                         <Box m={2} p={2}>
                             <ul>
-                            {
-                        apiClasses.length > 0 ? apiClasses.map((item, index) => {
-                            return (
-                               <ListItem key={index} className = 'addicon'>
-                                   <Grid item xs={3}>
-                                        <h3>{item.courseTitle}</h3>
-                                        <Button
-                                            size='small'
-                                            variant='contained'
-                                            color='primary'
-                                            value={item.id}
-                                            onClick={handleJoinClass}
-                                            >
-                                                <AddIcon/>
+                                {
+                                    apiClasses.length > 0 ? apiClasses.map((item, index) => {
+                                        return (
+                                            <ListItem key={index} className='addicon'>
+                                                <Grid item xs={3}>
+                                                    <h3>{item.courseTitle}</h3>
+                                                    <Button
+                                                        size='small'
+                                                        variant='contained'
+                                                        color='primary'
+                                                        value={item.id}
+                                                        onClick={handleJoinClass}
+                                                    >
+                                                        <AddIcon />
                                                 Request to Join
                                         </Button>
-                                   </Grid>
-                                   <Grid item xs={6} className='description'>
-                                   {item.courseDescription}
-                                   </Grid>
-                                   <Grid item xs={3}>
-                                   Course subject: <p/> <h6>{item.courseDiscipline}</h6>
-                                    </Grid>
-                                    
-                               </ListItem>
-                            )
-                        })
-                            : <p>No classes Found</p>
-                    }
+                                                </Grid>
+                                                <Grid item xs={6} className='description'>
+                                                    {item.courseDescription}
+                                                </Grid>
+                                                <Grid item xs={3}>
+                                                    Course subject: <p /> <h6>{item.courseDiscipline}</h6>
+                                                </Grid>
+
+                                            </ListItem>
+                                        )
+                                    })
+                                        : <p>No classes Found</p>
+                                }
                             </ul>
                         </Box>
 
                     </Grid>
                 </Paper>
             </Box>
+            <Modal
+                open={openModal}
+                onClose={handleCloseModal}
+                aria-labelledby="modal-title"
+            >
+                {
+                    (
+                        <>
+                            <Box width='25%' height='25%' p={2} zIndex="modal" position="absolute" top='20%' left="35%">
+                                <Paper  elevation={6}>
+                                    <Typography variant='h6' align='center'>
+                                        <p id="modal-title">
+                                            Please select search criteria in select dropdown.
+                                        </p>
+                                    </Typography>
+                                </Paper>
+                            </Box>
+                        </>
+                    )
+                }
+            </Modal>
         </Container>
     )
 }
-
 
 export default Search;

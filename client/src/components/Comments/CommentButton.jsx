@@ -24,11 +24,9 @@ const  CommentButton = (props) => {
         <Box p={1} alignItems='center'>
         <Grid item xs={2}>
             <Tooltip title="Comment on Annoucement" aria-label="comment">
-                <Button onClick={makeComment}>
                     <Fab size="small" color="primary" aria-label='comment' >
-                        <CommentIcon />
+                        <CommentIcon onClick={makeComment} />
                     </Fab>
-                </Button>
             </Tooltip>
         </Grid>
         </Box>
