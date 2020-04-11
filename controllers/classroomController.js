@@ -322,7 +322,7 @@ module.exports = {
         console.log(gradesArr)
 
         try {
-          async function saveloop() {
+          function saveloop() {
             for (i = 0; i < titleArr.length; i++) {
               let titleItem = titleArr[i]
               let gradeItem = gradesArr[i]
@@ -331,29 +331,27 @@ module.exports = {
               //   .findOne({ title: { $regex: titleItem, $options: 'i' } })
               //   .then(assignmentModel => {
               // console.log('assignment return', assignmentModel)
-
               // console.log('assignment id ', assignmentModel._id)
+
               console.log('assignment title', titleItem)
               console.log('class ID ', resp._id)
               console.log('grade ', gradeItem)
 
-              await db.RegisterModel
+              db.RegisterModel
                 .findOneAndUpdate({ ID: req.body.ID }, { $push: { grades: { classId: resp._id, assignment: titleItem, grade: gradeItem } } })
                 .then(updatedUser => {
 
                   console.log('updated user: ', updatedUser)
                   res.json(updatedUser)
                 })
-              // })
+              //  })
             }
           }
           saveloop()
         } catch (err) {
           console.log('error in save loop', err)
         }
-
       })
-
   },
 
   getGrades: function (req, res) {
@@ -379,9 +377,6 @@ module.exports = {
 
         console.log(userGradesArr)
       })
-
-
   }
-
-
+  
 };
