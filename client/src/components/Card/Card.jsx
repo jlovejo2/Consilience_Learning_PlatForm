@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const style = {
-    borderRadius: '25px !important',
+    borderRadius: '30px !important',
 }
 
 function Card(props) {

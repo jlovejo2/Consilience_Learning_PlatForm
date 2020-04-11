@@ -28,9 +28,10 @@ const useStyles = makeStyles((theme) => ({
     // background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
     borderRadius: "30px",
     borderColor: "#61dbfb",
-    borderWidth: "10px",
+    borderWidth: "12px",
     borderStyle: "double",
-    // boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
+    // boxShadow:"0px 0px 10px 10px #61dbfb",
+  
     width: "100%",
     height: "100%",
     // display: "inline-grid",

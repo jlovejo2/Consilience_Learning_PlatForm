@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     // background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
     borderRadius: "30px",
     borderColor: "#8B0000",
-    borderWidth: "10px",
+    borderWidth: "12px",
     borderStyle: "double",
     // boxShadow: '0 3px 5px 2px rgba(191, 191, 191, .3)',
     width: "100%",

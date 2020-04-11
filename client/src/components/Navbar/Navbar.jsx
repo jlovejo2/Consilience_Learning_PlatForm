@@ -1,37 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import SvgIcon from '@material-ui/core/SvgIcon';
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-// import InputBase from '@material-ui/core/InputBase';
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-// import MenuIcon from "@material-ui/icons/Menu";
-// import SearchIcon from '@material-ui/icons/Search';
-// import AccountCircle from "@material-ui/icons/AccountCircle";
-// import MailIcon from '@material-ui/icons/Mail';
-// import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import LogoMin from "../../images/logoMin.png";
 import SchoolIcon from "@material-ui/icons/School";
 import HomeIcon from "@material-ui/icons/Home";
-// import HomeWorkIcon from "@material-ui/icons/HomeWork";
-// import SearchIcon from "@material-ui/icons/Search";
-// import CastForEducationIcon from "@material-ui/icons/CastForEducation";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 import GradeIcon from "@material-ui/icons/Grade";
-// import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import NoteAddIcon from "@material-ui/icons/NoteAdd";
-import DescriptionIcon from "@material-ui/icons/Description";
-import Tooltip from '@material-ui/core/Tooltip';
+// import NoteAddIcon from "@material-ui/icons/NoteAdd";
+import Tooltip from "@material-ui/core/Tooltip";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const stylin = {
   padding: "10px",
-}
+};
 
 const style = {
   background:
@@ -54,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
     [theme.breakpoints.up("md")]: {
       display: "flex",
-    }
+    },
   },
   sectionMobile: {
     display: "flex",
@@ -73,34 +62,33 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [open, setOpen] = React.useState(false);
 
-  
   // const handleProfileMenuOpen = (event) => {
-    //   setAnchorEl(event.currentTarget);
-    // };
-    
-    const handleMobileMenuClose = () => {
-      setMobileMoreAnchorEl(null);
-    };
-    
-    const handleMenuClose = () => {
-      setAnchorEl(null);
-      handleMobileMenuClose();
-    };
-    
-    const handleMobileMenuOpen = (event) => {
-      setMobileMoreAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
-  
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    
-    const menuId = "primary-search-account-menu";
-    const renderMenu = (
-      <Menu
+  //   setAnchorEl(event.currentTarget);
+  // };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const menuId = "primary-search-account-menu";
+  const renderMenu = (
+    <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={menuId}
@@ -108,7 +96,7 @@ export default function PrimarySearchAppBar() {
       transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-      >
+    >
       {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
@@ -116,13 +104,13 @@ export default function PrimarySearchAppBar() {
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
-    anchorEl={mobileMoreAnchorEl}
-    anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    id={mobileMenuId}
-    keepMounted
-    transformOrigin={{ vertical: "top", horizontal: "right" }}
-    open={isMobileMenuOpen}
-    onClose={handleMobileMenuClose}
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={handleMobileMenuClose}>
         <IconButton
@@ -130,10 +118,10 @@ export default function PrimarySearchAppBar() {
           className={
             window.location.pathname === "/" ||
             window.location.pathname === "/home"
-            ? "active"
-            : ""
+              ? "active"
+              : ""
           }
-          >
+        >
           <Badge color="secondary">
             <Link to="/">
               <HomeIcon />
@@ -177,15 +165,15 @@ export default function PrimarySearchAppBar() {
         >
           <Badge color="secondary">
             <Link to="/dashboardTeacher">
-              <NoteAddIcon />
+              <SchoolIcon />
             </Link>
           </Badge>
         </IconButton>
         <Link to="/dashboardTeacher">
-          <p>Teacher Dashboard</p>
+          <p>Dashboard</p>
         </Link>
       </MenuItem>
-      <MenuItem onClick={handleMobileMenuClose}>
+      {/* <MenuItem onClick={handleMobileMenuClose}>
         <IconButton
           color="inherit"
           className={`nav-item
@@ -205,7 +193,7 @@ export default function PrimarySearchAppBar() {
         <Link to="/dashboardStudent">
           <p>Student Dashboard</p>
         </Link>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleMobileMenuClose}>
         <IconButton
           color="inherit"
@@ -232,7 +220,7 @@ export default function PrimarySearchAppBar() {
         >
           <Badge color="secondary">
             <Link to="/logout">
-              <DescriptionIcon />
+              <ExitToAppIcon />
             </Link>
           </Badge>
         </IconButton>
@@ -254,16 +242,20 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton> */}
-            <img
-              edge="start"
-              src={LogoMin}
-              alt="react"
-              className="img-fluid logo"
-              height="67px"
-              width="225px"
-            />
-          <Typography className={classes.title} variant="h6" noWrap style={stylin}>
-          </Typography>
+          <img
+            edge="start"
+            src={LogoMin}
+            alt="react"
+            className="img-fluid logo"
+            height="67px"
+            width="225px"
+          />
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+            style={stylin}
+          ></Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton
@@ -275,12 +267,12 @@ export default function PrimarySearchAppBar() {
                   : ""
               }
             >
-               <Tooltip placement="bottom" title="Home">
-              <Badge color="primary" style={stylin}>
-                <Link to="/">
-                  <HomeIcon />
-                </Link>
-              </Badge>
+              <Tooltip placement="bottom" title="Home">
+                <Badge color="primary" style={stylin}>
+                  <Link to="/">
+                    <HomeIcon />
+                  </Link>
+                </Badge>
               </Tooltip>
             </IconButton>
 
@@ -293,13 +285,12 @@ export default function PrimarySearchAppBar() {
                   : ""
               }
             >
-      
-  <Tooltip placement="bottom" title="Search">
-<Badge color="secondary" style={stylin}>
-                <Link to="/search">
-                  <FindInPageIcon />
-                </Link>
-              </Badge>
+              <Tooltip placement="bottom" title="Search">
+                <Badge color="secondary" style={stylin}>
+                  <Link to="/search">
+                    <FindInPageIcon />
+                  </Link>
+                </Badge>
               </Tooltip>
             </IconButton>
             <IconButton
@@ -312,15 +303,15 @@ export default function PrimarySearchAppBar() {
                             }
                             `}
             >
-    <Tooltip placement="bottom" title="Teacher DashBoard">
-<Badge color="secondary" style={stylin}>
-                <Link to="/dashboardTeacher">
-                  <NoteAddIcon />
-                </Link>
-              </Badge>
+              <Tooltip placement="bottom" title="DashBoard">
+                <Badge color="secondary" style={stylin}>
+                  <Link to="/dashboardTeacher">
+                    <SchoolIcon />
+                  </Link>
+                </Badge>
               </Tooltip>
             </IconButton>
-            <IconButton
+            {/* <IconButton
               color="inherit"
               className={`nav-item
               ${
@@ -331,13 +322,13 @@ export default function PrimarySearchAppBar() {
                             `}
             >
               <Tooltip placement="bottom" title="Student DashBoard">
-              <Badge color="secondary" style={stylin}>
-                <Link to="/dashboardStudent">
-                  <SchoolIcon />
-                </Link>
-              </Badge>
+                <Badge color="secondary" style={stylin}>
+                  <Link to="/dashboardStudent">
+                    <SchoolIcon />
+                  </Link>
+                </Badge>
               </Tooltip>
-            </IconButton>
+            </IconButton> */}
 
             <IconButton
               color="inherit"
@@ -346,11 +337,11 @@ export default function PrimarySearchAppBar() {
                             `}
             >
               <Tooltip placement="bottom" title="Grades">
-              <Badge color="secondary" style={stylin}>
-                <Link to="/grades">
-                  <GradeIcon />
-                </Link>
-              </Badge>
+                <Badge color="secondary" style={stylin}>
+                  <Link to="/grades">
+                    <GradeIcon />
+                  </Link>
+                </Badge>
               </Tooltip>
             </IconButton>
             <IconButton
@@ -360,11 +351,11 @@ export default function PrimarySearchAppBar() {
                             `}
             >
               <Tooltip placement="bottom" title="Logout">
-              <Badge color="secondary" style={stylin}>
-                <Link to="/logout">
-                  <DescriptionIcon />
-                </Link>
-              </Badge>
+                <Badge color="secondary" style={stylin}>
+                  <Link to="/logout">
+                    <ExitToAppIcon />
+                  </Link>
+                </Badge>
               </Tooltip>
             </IconButton>
             <IconButton
@@ -374,8 +365,7 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               // onClick={handleProfileMenuOpen}
               color="inherit"
-            >
-            </IconButton>
+            ></IconButton>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -395,6 +385,3 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
-
-
-

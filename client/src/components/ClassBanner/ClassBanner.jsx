@@ -2,13 +2,15 @@ import React from 'react';
 import { Paper, Box } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
+const style = {
+  background: 'repeating-radial-gradient(circle farthest-side at bottom left, rgb(255, 255, 255) 58%, rgb(97, 219, 251) 89%)',
+}
 
 
 function ClassBanner(props) {
 
   return (
-    <Paper elevation={25} /*style={{ backgroundImage: `url(${post.image})` }}*/>
+    <Paper style={style} elevation={25} /*style={{ backgroundImage: `url(${post.image})` }}*/>
       <Box p={4}>
 
         {/* Increase the priority of the hero background image */}
