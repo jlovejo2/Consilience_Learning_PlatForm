@@ -30,3 +30,8 @@
     outline: paleturquoise;
 }
 
+.modal {
+    position: absolute;
+    bottom: 0px;
+}
+

@@ -35,11 +35,9 @@ const stylin2={
   marginLeft: 'auto',
 
 }
-const stylin3={
-  color:"white",
-  
-
-}
+// const stylin3={
+//   color:"white",
+// }
 
 export default function AssigmentCard({classTitle, title, description, attachments}) {
 const classes = useStyles();
