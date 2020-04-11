@@ -49,6 +49,7 @@ return (
           }
         },
     ]}
+    //Code inside of the editable props is mostly boiler plate code provided by material-table for client-side rendering to the table
     editable={{
         onRowAdd: newData =>
             new Promise(resolve => {

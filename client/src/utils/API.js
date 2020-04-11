@@ -109,6 +109,9 @@ export default {
     deleteAssignment: function (id) {
         return axios.delete('/api/classrooms/assignments/' + id)
     },
+    addGrade: function(id, data, userID) {
+        return axios.post('/api/classrooms/addGrade/' + id + "/" + userID, data )
+    }
 
 
 }
