@@ -29,6 +29,19 @@ function GradebookTable(props) {
 
         setClassID(localStorage.getItem('classId'))
 
+        if (!props.students && !props.assignments) {
+            console.log('nothing')
+         } else if(!props.students){
+            const assignmentArr = props.assignments.map(assignment => {
+                const obj = {
+                    title: assignment.title,
+                    field: assignment.title.toLowerCase(),
+                }
+                return obj
+            })
+            setGradebook({ ...gradebook, columnsGradeBook: gradebook.columnsGradeBook.concat(assignmentArr) })
+        
+        } else if(!props.assignments) {
         const studentArr = props.students.map(student => {
             const obj = {
                 name: student.firstName,
@@ -36,34 +49,36 @@ function GradebookTable(props) {
                 ID: student.ID,
                 email: student.email   
             }   
-
             for (let assignmentGrade of student.grades) {
-                
                 obj[assignmentGrade.assignment] = assignmentGrade.grade
             }
-
             return obj
         })
-
+        setGradebook({ ...gradebook, data: studentArr })
+    } else {
+        const studentArr = props.students.map(student => {
+            const obj = {
+                name: student.firstName,
+                surname: student.lastName,
+                ID: student.ID,
+                email: student.email   
+            }   
+            for (let assignmentGrade of student.grades) {
+                obj[assignmentGrade.assignment] = assignmentGrade.grade
+            }
+            return obj
+        })
         console.log(studentArr);
-
         const assignmentArr = props.assignments.map(assignment => {
             const obj = {
                 title: assignment.title,
                 field: assignment.title.toLowerCase(),
-                // editComponent: props => (
-                //     <input
-                //         type="text"
-                //         value={props.value}
-                //         onChange={e => props.onChange(e.target.value)}
-                //     />
-                // )
-            }
+                           }
             return obj
         })
-
-        setGradebook({ ...gradebook, columnsGradeBook: gradebook.columnsGradeBook.concat(assignmentArr), data: studentArr })
-
+        
+      setGradebook({ ...gradebook, columnsGradeBook: gradebook.columnsGradeBook.concat(assignmentArr), data: studentArr })
+    }
     }, [])
 
     function refreshpage() {
@@ -98,7 +113,7 @@ function GradebookTable(props) {
                     [
                     {
                         icon: 'save',
-                        tooltip: 'Save Assignment',
+                        tooltip: 'Save Grade',
                         onClick: (event, rowData) => {
                             console.log(props.userInfo)
                             API.addGrade(classID, rowData, props.userInfo)

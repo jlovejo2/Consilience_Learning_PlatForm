@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import Gradebook from '../components/MaterialTables/GradebookTable.jsx';
 import AssignmentsTable from '../components/MaterialTables/AssignmentTable.jsx';
 // import Container from "../components/Container/Container.jsx";
@@ -28,7 +27,7 @@ const GradesTeacher = (props) => {
     const [userID, setUserID] = useState('');
     const [userType, setUserType] = useState('');
     const [classID, setClassID] = useState('');
-    const [tabValue, setTabValue] = useState(0);
+    const [tabValue, setTabValue] = useState(' ');
     const [studentArr, setStudentArr] = useState([]);
     const [assignmentArr, setAssignmentArr] = useState([]);
 
