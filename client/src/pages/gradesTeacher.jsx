@@ -24,7 +24,7 @@ import { Tab, Tabs, AppBar, Box, Typography } from '@material-ui/core';
 const GradesTeacher = (props) => {
 
     // const { userType, userID } = useContext(RootContext);
-    const [currentClassObj, setCurrentClassObj] = useState([]);
+    // const [currentClassObj, setCurrentClassObj] = useState([]);
     const [userID, setUserID] = useState('');
     const [userType, setUserType] = useState('');
     const [classID, setClassID] = useState('');

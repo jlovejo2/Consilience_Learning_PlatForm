@@ -35,7 +35,7 @@ export const Classroom = (props) => {
     const [openDialog, setOpenDialog] = useState(false)
     const [currentClassObj, setCurrentClassObj] = useState([])
     const [announcementObj, setAnnouncementObj] = useState([])
-    const [commentObj, setCommentObj] = useState([])
+    // const [commentObj, setCommentObj] = useState([])
     const [userType, setUserType] = useState("");
     const [userID, setUserID] = useState("")
 
@@ -191,7 +191,7 @@ export const Classroom = (props) => {
                                                                 <CardContent key={index}>
 
                                                                     <Typography variant="h5" component="h2">
-                                                                        <Grid container spacing={2} alignItems='center' justifyContent='center'>
+                                                                        <Grid container spacing={2} >
                                                                             <Grid item s={10}>
                                                                                 {announcement.title}
                                                                             </Grid>
@@ -212,7 +212,7 @@ export const Classroom = (props) => {
                                                                     </Typography>
                                                                 </CardContent>
                                                                 <CardActions>
-                                                                    <Grid container spacing={2} alignItem='center' justifyContent='center' /*className={classes.center}*/>
+                                                                    <Grid container spacing={2}>
                                                                         <CommentButton /*inputComment={(event) => { handleCommentChange(event, index) }}*/
                                                                             submitComment={(event) => { handleAddComment(event, index) }} />
                                                                     </Grid>
@@ -224,8 +224,8 @@ export const Classroom = (props) => {
                                                                             announcement.comments.map((comment, index) => {
                                                                                 return (
                                                                                     <>
-                                                                                        <Grid item xs={12}>
-                                                                                            <Paper key={index} elevation={16}>
+                                                                                        <Grid key={index} item xs={12}>
+                                                                                            <Paper elevation={16}>
                                                                                                 <Card>
                                                                                                     <CardContent>
                                                                                                         <Grid container spacing={2}>
