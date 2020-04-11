@@ -335,7 +335,7 @@ module.exports = {
                   console.log('class ID ', resp._id)
                   console.log('grade ', gradeItem)
 
-                await  db.RegisterModel
+                await db.RegisterModel
                     .findOneAndUpdate({ ID: req.body.ID }, { $push: { grades: { classId: resp._id, assignment: titleItem, grade: gradeItem } } })
                     .then(updatedUser => {
 

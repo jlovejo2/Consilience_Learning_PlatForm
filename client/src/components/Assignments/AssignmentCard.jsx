@@ -16,20 +16,20 @@ const useStyles = makeStyles((theme) => ({
 const stylin={
   color:"white",
   backgroundColor: "#61dbfb",
-  borderRadius: "10px",
+  borderRadius: "15px",
     borderColor: "#8B0000",
-    borderWidth: "3px",
-    borderStyle: "outset",
+    borderWidth: "8px",
+    borderStyle: "groove",
     alignItems: 'center',
     marginTop: '2rem',
-    marginRight: 'auto',
-    marginLeft: 'auto',
-
+    marginRight: '12rem',
+    paddingRight: '18px',
+    paddingLeft: '18px',
+    fontWeight: '50px',
 }
 const stylin2={
   color:"white",
   backgroundColor: "#DC143C",
-  // marginRight: "2rem",
   alignItems: 'center',
   marginRight: 'auto',
   marginLeft: 'auto',
@@ -37,8 +37,6 @@ const stylin2={
 }
 const stylin3={
   color:"white",
-  
-
 }
 
 export default function AssigmentCard({classTitle, title, description, attachments}) {
@@ -58,7 +56,7 @@ const classes = useStyles();
         startIcon={<CloudUploadIcon />}>
         Submit Assigment
       </Button>
-      <FormControlLabel
+      <FormControlLabel style={stylin3}
         control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
         label="Mark as important"
       />

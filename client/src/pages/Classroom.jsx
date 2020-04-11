@@ -311,7 +311,7 @@ export const Classroom = (props) => {
                         {/* <ToastContainer /> */}
                     </Container>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} spacing={3}>
                     {/* <p>this is where the assignments show-up</p> */}
                     {currentClassObj.assignments && currentClassObj.assignments.map(assignment=>(
                         <AssignmentCard
