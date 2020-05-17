@@ -42,18 +42,19 @@ As a USER I believe that a person never stops learning and a lot of people out t
 
 See the layout of the app below.
 
-- STEP 1: The home page of the app has little description explaining what the app can be used for. There are only three tabs that link to pages. Green box is the google books logo which will take the user to the google books site. The blue box will render the search bar onto the page. The red box will render the saved books onto the page.
+- The home page of the app has a little description explaining what the app can be used for. Other than that at the top of the screen without being a user one can search the classes that exist on the website. Can't join if you aren't a member though. Also there is a login button that will take you the login screen
 
-!["Starting page of App"](/client/public/assets/images/readme/home-page.jpg)
+!["Starting page of App"](/client/public/assets/images/readme/homePage.jpg)
 
-- If the user chooses to click on the search tab. The objects in the green box will be rendered onto the page. The actual search input will be typed into the search box in the center. User will select one of these four types of searches
-  - keyword
-  - Author
-  - Title
-  - Subject
-    When they are ready to search they will click on the Search button
+- If the user clicks on the login button the login dialog opens up and the user can login or click on the register link if they are a new member. The register link will open up the register dialog. There are two types of user either a teacher or student. Teacher has the ability to create courses as well as join them, while a student can only join them
 
-!["Search Layout"](/client/public/assets/images/readme/Search.jpg)
+|                                                    Login Dialog                                                    | Register Dialog |
+| :----------------------------------------------------------------------------------------------------------------: | :-------------: |
+| !["Login Dialog"](/client/public/assets/images/readme/) !["Register Dialog"](/client/public/assets/images/readme/) |
+
+- Once a user has logged into the website they start off at the dashboard. There are several links in the top right corner that allow the user to navigate to different pages. Also if the user has created a course or joined a course the course cards will be rendered onto the dashboard page shown in the image. The class cards render differently depending on if the user is a teacher or a student. The two main differences is that the cards have a red trim if the user is a student, and the gradebook button does not render onto the card.
+
+!["Dashboard"](/client/public/assets/images/readme/)
 
 - The rendered search results will appear onto the page as seen in image. Each book has two buttons in upper right-hand corner.
   - "View" will take user to google books link for that book
