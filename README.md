@@ -66,9 +66,15 @@ See the layout of the app below.
 
 - The teacher has access to an additional page known as the gradebook. The gradebook has an assigments and gradebook tab. The assignments tab is where the teacher can create an assignment and save it to the database. The gradebook automatically lists all the students that have joined the class and will automatically render a column for any assignment the teacher creates.
 
-|                   Modal that Renders on Saved Book                   |                    Modal that Renders on Delete Book                    |
-| :------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| !["Saved Modal"](/client/public/assets/images/readme/save-modal.png) | !["Delete Modal"](/client/public/assets/images/readme/delete-modal.png) |
+|                      Teacher Gradebook Page                       |
+| :---------------------------------------------------------------: |
+| !["GradeBook"](/client/public/assets/images/readme/gradeBook.png) |
+
+- If the teacher clicks on the assignments tab towards the top of the gradebook page. Another table is shown for the class which is the assignments table. In this location the teacher can create an assignment for her class. Once the assignment is created it will automatically be a new new column in the gradebook where the teacher can add grades to it for each student.
+
+|                    Teacher Assignment Tab on Gradebook Page                     |
+| :-----------------------------------------------------------------------------: |
+| !["Assignments"](/client/public/assets/images/readme/addHomeworkAssignment.png) |
 
 ## Coding Languages Used
 
@@ -138,42 +144,42 @@ See the layout of the app below.
 # Front-End - Client folder
 
 - public folder
-  - index.html - with react does not contain much code but necessary library links like for bulma. It interacts with App.js
+  - assets folder - contains images used in the readme file
+  - index.html - with react does not contain much code but necessary external links for library sources. It interacts with App.js
 - src folder - this is the meat of react and holds most of the front-end code
-  - components folder - all the html components that require some custom props and CSS have their own folder in component with an index.js file in it and style.css file if necessary
-    - bookResults
-      - this component contains the JSX that is used to render the book results to the page. It is used by both Search and Saved pages
-    - button
-    - footer
-    - Grid
-      - this component contains functions for components use to create bulma layouts such as Col, Section, Container, and Tile
-    - Hero - bulmas version of jumbotron
-    - Modal
-    - Nav
-      - this component contains the code for the navbar. Also contains functionality for the burger menu
-    - SearchBar
-      - this component contains the select option, input, and determines props of search button on search page
-  - pages folder - contains the actual pages for the App
-    - Home.js - this is the homepage for the app. Only has some text on it as of now.
-    - Saved.js - this page is rendered onto home page. It renders all the saved books onto the apge
-    - Search.js - this page renders the select, input, and search buttons onto the page. Then when search is executed it renders the returned results onto the page
+  - components folder - all the html components that require some custom props and sometimes custom css have their own folder. Folders will sometimes contain multipled components. In each folder is a jsx file. These components are set-up this way so that they can be imported and used in whatever page requires them.
+  - history folder - contains a jsx file that imports the createBrowserHistory function from the 'history' component of react. This is then imported in certain files inorder to navigate to various pages based on specific conditions
+  - images folder - this folder contains the logo images.
+  - pages folder - Contains all the jsx files for each page in the app
+    - pageStyle folder - contains two css files one for login and one for the search
+    - utils folder
+      - api.js - contains all the client side axios calls to the api.
+      - customFunctions.js - contains any custom function that is used on the client side such as date formatting and image conversion to base64 string. These functions are then imported when necessary
+      - RootContext.js - this is a necessary file when using useContext hook in react. App was initial designed with it but proved uneccassry. File left in as a reminded of where it can go in structure when using useContext.
+  - App.jsx - where routes of the single page app are declared. Also where history is imported and passed in as prop to router. This page establishes all the routing for user and react.
+  - index.css - contains all css that is global to the app
+  - Index.jsx - beginning of the app. App.jsx is imported into it and a react render is created.
 
 # Back-end
 
-- Controllers folder
-  - functions.js: this file contains a custom function used to validate if the response object brought back from google books api has a valid image link in it. If not it just places a generic text string so object can be sent to front-end.
-  - googleBooksController.js: This file receives the search critieria sent from the front-end. It assembles the proper query and then makes request to google books api. Upon receiving response object back it takes what it wants out of and saves it to new object which it sends to the front-end
-  - savedBooksController.js: This file contains the four functions use to interact with the savedBooks Schema in database
-    - findById, create, delete, findAll
+- controllers folder
+  - classroomController.js - contains all server methods that interact with the classroom, announcement, assignment, comment schemas in the database
+  - functions.js - contains all customer functions that are used in the controllers
+  - purgatoryController.js - contains custom functions used specifically with user validation and security.
+  - userController.js - contains all server methods that interact with the user schema in the database. Deals with creating JWT tokens for the user login sessions, hashing the password into database, user verification, etc.
 - models folder
-  - index.js
-  - savedBook.js: this file creates the schema for the saved books in mongo
-- routes folder
-  - index.js: this file handles the first level of the routes and sends them either to the googleBooksController, apiFolder, or the React App
-  - api folder
-    - index.js: this file isn't super necessary for the few calls I have. However, it is set-up to direct api routes to specific files. This files directs all "/savedBook" routes to savedBook.js
-      -savedBooks.js: breaks the routes down further into 2 types "/" and "/:id" then calls the appropriate controller functions for them
-- server.js - where the back-end magic starts
+  - announcement.js - code for monggoDb to create announcement schema. This is a many to one relationship with announcements and register
+  - assignment.js - code to create assignment schema. Many to one relationship with classrooms.
+  - classrooms.js - code to create classroom schema. One to many relationship with Users and Assignments.
+  - comments.js - code to create comments schema. This is many to one relationship with announcements.
+  - index.js - file that exports all the schemas to be received by root server index.js file
+  - register.js code to create the users schema. This is a one to many with classrooms.
+- routes folder - this folder has two different formats for creating server code to received the client side routes.
+  - classRoutes folder
+    - index.js - class related routes are received here and sent to classRoomRoutes.js
+    - classRoomRoutes.js - routes are broken out here and specific classRoomController method that is needed is called in this file under the specific route.
+  - index.js - all user routes are received here and taken directly to the userController. Classroom routes are received here and taken into classRoutes folder
+- scripts folder - contains seed data used during development
 
 ## Things To Improve On
 
@@ -185,6 +191,7 @@ See the layout of the app below.
 - Add default value for select button
 - Add a search by course discipline instead of search by subject
 - Using react-scheduler to add a schedule page for the teacher to create a class schedule
+- Breaking down server side set-up with routes and controllers to be more schema specific and therefore easier to find desired code in files
 
 MERN
 heroku repo created
