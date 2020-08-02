@@ -26,45 +26,42 @@ router.get("/", async (req, res) => {
 });
 // check token
 router.get("/checkToken", (req, res) => {
-    const authorization = req.cookies['authorization']
-    const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
-    if (verified) {
-      res.status(200).send("access token verified")
-    }
-    else res.send("access token not verified")
+  const authorization = req.cookies["authorization"];
+  const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET);
+  if (verified) {
+    res.status(200).send("access token verified");
+  } else res.send("access token not verified");
 });
 
 // get cookie and decode header, payload, and signature via {complete: true}
-// then, verify cookie using environmental access token secret 
-router.get('/getcookie', (req, res) => {
-  const authorization = req.cookies['authorization']
+// then, verify cookie using environmental access token secret
+router.get("/getcookie", (req, res) => {
+  const authorization = req.cookies["authorization"];
   if (authorization) {
-    const decoded = jwt.decode(authorization, { complete: true })
-    const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
-    if (!verified) return false
-    console.log("token verified: ", verified)
-    console.log("token decoded: ", decoded)
-    console.log("cookie content: ", authorization)
-    return res.json(decoded)
+    const decoded = jwt.decode(authorization, { complete: true });
+    const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET);
+    if (!verified) return false;
+    console.log("token verified: ", verified);
+    console.log("token decoded: ", decoded);
+    console.log("cookie content: ", authorization);
+    return res.json(decoded);
   }
-  return res.status(403).send("forbidden")
-})
+  return res.status(403).send("forbidden");
+});
 
 // get user by id
 router.get("/:id", async (req, res) => {
   try {
-    await db.RegisterModel.findById({ _id: req.params.id }).then(
-      dbModel => {
-        if (req.body.type === "teacher" || "student") {
-          console.log(`user has a token and a type`);
-          // clone dbModel via spread
-          const userUpdated = { ...dbModel._doc };
-          delete userUpdated["password"];
-          console.log({ userUpdated });
-          res.json({ userUpdated });
-        }
+    await db.RegisterModel.findById({ _id: req.params.id }).then((dbModel) => {
+      if (req.body.type === "teacher" || "student") {
+        console.log(`user has a token and a type`);
+        // clone dbModel via spread
+        const userUpdated = { ...dbModel._doc };
+        delete userUpdated["password"];
+        console.log({ userUpdated });
+        res.json({ userUpdated });
       }
-    );
+    });
   } catch (error) {
     if (error) {
       console.log(error, "please register or login");
@@ -83,7 +80,7 @@ router.put("/:id", authenticateToken, async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         type: req.body.type,
-        email: req.body.email
+        email: req.body.email,
       },
       { where: { id: request.params.id } }
     );
@@ -107,7 +104,7 @@ router.delete("/:id", async (req, res) => {
   try {
     console.log(req.body);
     const trashed = await db.RegisterModel.remove({
-      where: { id: req.params.id }
+      where: { id: req.params.id },
     });
     if (trashed) {
       res.status(203).json(trashed);
@@ -148,21 +145,21 @@ router.post("/register", async (req, res) => {
     lastName,
     email,
     password: encryptedPW,
-    ID: generatedId
+    ID: generatedId,
   })
-    .then(dbModel => {
+    .then((dbModel) => {
       console.log(dbModel);
       res.json(dbModel);
     })
-    .catch(error => console.log("this is a register error", error));
+    .catch((error) => console.log("this is a register error", error));
 });
 
 function generateAccessToken(user) {
   // lifespan -> 1440m = 24h = 1d
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "1440m"
-  })
-};
+    expiresIn: "1440m",
+  });
+}
 
 // user login, generate access token, embed access token in cookie with
 // identical lifespan; header = authorization
@@ -171,76 +168,80 @@ router.post("/login", (req, res) => {
   console.log(req.body);
   const { username, password } = req.body;
   db.RegisterModel.findOne({ email: username })
-    .then(dbModel => {
+    .then((dbModel) => {
       console.log("this is the dbModel");
       const validPW = pwCheck(password, dbModel.password);
       if (validPW) {
         const user = { ...dbModel._doc };
         delete user["password"];
+        console.log(user);
         const accessToken = generateAccessToken(user);
+        console.log(accessToken);
         res.cookie("authorization", accessToken, {
           expires: new Date(Date.now() + "1440m"),
-          secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
+          secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
           httpOnly: true,
-          sameSite: true
+          sameSite: true,
         });
-        console.log("this is cookie data", accessToken)
+        console.log("this is cookie data", accessToken);
         res.set("authorization", accessToken);
         res.json({ user });
       } else {
         res.redirect("/login");
       }
     })
-    .catch(err => console.log("err here", err));
+    .catch((err) => console.log("err here", err));
 });
-
 
 function generateEphemeralToken(user) {
   // lifespan -> ephemeral af
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: 1
-  })
-};
+    expiresIn: 1,
+  });
+}
 
 // user logout; replace cookie by setting cookie with same name
-// on button click; lifespan of this cookie is 1 millisecond 
+// on button click; lifespan of this cookie is 1 millisecond
 // which will prompt the getcookie api to history.push("/") in
-// the blink of an eye 
+// the blink of an eye
 router.get("/logout/:id", async (req, res) => {
   try {
-    await db.RegisterModel.findById({ _id: req.params.id }).then(
-      dbModel => {
+    await db.RegisterModel.findById({ _id: req.params.id })
+      .then((dbModel) => {
         if (req.body.type === "teacher" || "student") {
           console.log(`user has a token and a type`);
           // clone dbModel via spread
           const user = { ...dbModel._doc };
           delete user["password"];
-          const authorization = req.cookies['authorization']
+          const authorization = req.cookies["authorization"];
           if (authorization) {
-            const decoded = jwt.decode(authorization, { complete: true })
-            const verified = jwt.verify(authorization, process.env.ACCESS_TOKEN_SECRET)
-            if (!verified) res.status(403)
-            console.log("token verified: ", verified)
-            console.log("token decoded: ", decoded)
-            console.log("cookie content: ", authorization)
+            const decoded = jwt.decode(authorization, { complete: true });
+            const verified = jwt.verify(
+              authorization,
+              process.env.ACCESS_TOKEN_SECRET
+            );
+            if (!verified) res.status(403);
+            console.log("token verified: ", verified);
+            console.log("token decoded: ", decoded);
+            console.log("cookie content: ", authorization);
             const ephemeralToken = generateEphemeralToken(user);
             res.cookie("authorization", ephemeralToken, {
               expires: new Date(Date.now() + "1440m"),
               secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
               httpOnly: true,
-              sameSite: true
-            })
-            console.log("this is ephemeralToken data", ephemeralToken)
+              sameSite: true,
+            });
+            console.log("this is ephemeralToken data", ephemeralToken);
             // res.removeHeader("authorization", ephemeralToken);
             res.json({ user });
           }
         }
-      }
-    ).catch(() => res.status(404))
+      })
+      .catch(() => res.status(404));
   } catch (error) {
     if (error) {
-      console.log(error, "please register or login")
-      res.status(500)
+      console.log(error, "please register or login");
+      res.status(500);
     }
   }
 });
@@ -278,6 +279,7 @@ async function hashPW(pass) {
 //using bcrypt library to check if hashed PWs in DB match unhashed user provided PWs
 async function pwCheck(password, hash) {
   const isValid = await bcryptjs.compare(password, hash);
+  console.log(isValid);
   return isValid;
 }
 
