@@ -164,8 +164,56 @@ const classes = [
       new mongo.ObjectId("5f29698dda48af2f3c8b8170"),
       new mongo.ObjectId("5f29698dda48af2f3c8b8171"),
       new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
+      //note below are object ids of Jane Doe guest teacher and John Smith guest Student that have been manually added to database first
+      //purpose is so guest Teacher has a hashed password and you can log in as teacher
+      new mongo.ObjectId("5f29870a1d6c0327fcd1639f"),
+      new mongo.ObjectId("5f29887ef80ae56488c25d6b"),
     ],
     teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
+    assignments: [{}, {}],
+    createDate: new Date(),
+  },
+  {
+    courseDiscipline: "History",
+    courseTitle: "East Asia History",
+    courseDescription:
+      "This class will cover encompasses the histor of China, Japan and Korea from prehistoric times to the present.",
+    students: [
+      new mongo.ObjectId("5f29698dda48af2f3c8b8170"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8171"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
+      new mongo.ObjectId("5f29870a1d6c0327fcd1639f"),
+    ],
+    teacherID: new mongo.ObjectId("5f29887ef80ae56488c25d6b"),
+    assignments: [{}, {}],
+    createDate: new Date(),
+  },
+  {
+    courseDiscipline: "History",
+    courseTitle: "Ancient China",
+    courseDescription:
+      "This course covers the history of china from the Shang Dynasty(c. 1600–1046 BC) to the Zhou Dynast (c. 1046-256 BC).  Buckle up!",
+    students: [
+      new mongo.ObjectId("5f29698dda48af2f3c8b8170"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8171"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
+      new mongo.ObjectId("5f29870a1d6c0327fcd1639f"),
+    ],
+    teacherID: new mongo.ObjectId("5f29887ef80ae56488c25d6b"),
+    assignments: [{}, {}],
+    createDate: new Date(),
+  },
+  {
+    courseDiscipline: "History",
+    courseTitle: "East Asia History",
+    courseDescription:
+      "This class will cover encompasses the histor of China, Japan and Korea from prehistoric times to the present.",
+    students: [
+      new mongo.ObjectId("5f29698dda48af2f3c8b8170"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8171"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
+    ],
+    teacherID: new mongo.ObjectId("5f29887ef80ae56488c25d6b"),
     assignments: [{}, {}],
     createDate: new Date(),
   },
