@@ -13,7 +13,7 @@ const users = [
     password: "password_**********",
     ID: "jtribian0",
     grades: [],
-    creatDate: new Date("<YYYY-mm-ddTHH:MM:ssZ>"),
+    creatDate: new Date(),
   },
 ];
 
