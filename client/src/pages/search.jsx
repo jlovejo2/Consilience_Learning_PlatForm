@@ -19,8 +19,11 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/AddCircleOutline";
 // import { sizing, positions } from '@material-ui/system';
-
+import { toast } from "react-toastify";
 import "./pageStyle/search.css";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 const Search = () => {
   const [userID, setUserID] = useState("");
@@ -53,16 +56,22 @@ const Search = () => {
 
   //This function is called when the user his the request to join button
   //it sends the user's info back to the database and adds them to the class
-  function handleJoinClass(event) {
+  async function handleJoinClass(event) {
     const requestInfo = event.currentTarget.value;
     const userInfo = {};
     userInfo.id = userID;
 
-    API.requestToJoinClass(requestInfo, userInfo)
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((err) => console.log(err));
+    const classJustJoined = await API.requestToJoinClass(requestInfo, userInfo);
+
+    if (classJustJoined) {
+      toast.success("You were successfully added to the class!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      toast.error("There was an error when adding you to the class.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   }
 
   function handleCloseModal() {
