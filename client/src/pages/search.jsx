@@ -25,7 +25,10 @@ import "./pageStyle/search.css";
 const Search = () => {
   const [userID, setUserID] = useState("");
   const [userType, setUserType] = useState("");
-  const [classSearchObj, setClassSearchObj] = useState({ selectValue: "all" });
+  const [classSearchObj, setClassSearchObj] = useState({
+    selectValue: "all",
+    inputValue: "",
+  });
   const [apiClasses, setApiClasses] = useState([]);
   const [openModal, setOpenModal] = useState(false);
 
@@ -78,19 +81,25 @@ const Search = () => {
     console.log(classSearchObj);
   }
 
-  function handleSearchSubmit() {
+  async function handleSearchSubmit() {
     console.log(classSearchObj.selectValue);
     console.log(classSearchObj.inputValue);
 
     if (!classSearchObj.selectValue) {
       setOpenModal(true);
     } else {
-      API.searchClasses(classSearchObj.selectValue, classSearchObj.inputValue)
-        .then((respObj) => {
-          setApiClasses(respObj.data);
-          console.log(apiClasses);
-        })
-        .catch((err) => console.log(err));
+      try {
+        const classSearchResult = await API.searchClasses(
+          classSearchObj.selectValue,
+          classSearchObj.inputValue
+        );
+
+        // const classSearchResult = data;
+        console.log(classSearchResult);
+        await setApiClasses(classSearchResult.data);
+      } catch {
+        throw new Error("Failed to find classes based on search criteria");
+      }
     }
   }
 
