@@ -24,6 +24,7 @@ module.exports = {
       query.courseDescription = { $regex: req.query.input, $options: "i" };
     } else if (req.query.select === "subject") {
       //right now this just does same as the All
+      query.courseDiscipline = { $regex: req.query.input, $options: "i" };
       query = query;
     }
 
