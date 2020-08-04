@@ -104,7 +104,7 @@ const Search = () => {
   }
 
   return (
-    <Container className="parent">
+    <Container className="parent" alignContent="center">
       <Grid xs={12} justifyContent="center" className="child">
         <Paper>
           <Box px={1}>
@@ -137,7 +137,7 @@ const Search = () => {
                   />
                 </Box>
               </Grid>
-              <Grid item xs={2} alignContent="center" className="searchbutton">
+              <Grid item xs={2} className="searchbutton">
                 <Button
                   size="large"
                   variant="contained"
