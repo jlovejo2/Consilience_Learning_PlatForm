@@ -15,6 +15,7 @@ https://consilience-jlovejo2.herokuapp.com/
 - [User Story](#user-story)
 - [Version 1.0](#version-1.0)
 - [How To Use](#how-to-use)
+- [Guest Login Info](#guest-login-info)
 - [Coding Languages Used](#coding-languages-used)
 - [NPMs Used](#npms-used)
 - [CSS Framework](#css-framework)
@@ -75,6 +76,15 @@ See the layout of the app below.
 |                    Teacher Assignment Tab on Gradebook Page                     |
 | :-----------------------------------------------------------------------------: |
 | !["Assignments"](/client/public/assets/images/readme/addHomeworkAssignment.png) |
+
+## Guest Login Info
+
+- Guest Student
+  - user email: guestStudent@gmail.com
+  - password: student
+- Guest Teacher
+  - user email: guestTeacher@gmail.com
+  - password: teacher
 
 ## Coding Languages Used
 
