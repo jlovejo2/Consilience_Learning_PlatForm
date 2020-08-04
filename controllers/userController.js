@@ -143,7 +143,7 @@ router.post("/register", async (req, res) => {
     type,
     firstName,
     lastName,
-    disciplne,
+    discipline,
     email,
     password: encryptedPW,
     ID: generatedId,
