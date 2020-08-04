@@ -207,38 +207,37 @@ function generateEphemeralToken(user) {
 // the blink of an eye
 router.get("/logout/:id", async (req, res) => {
   try {
-    await db.RegisterModel.findById({ _id: req.params.id })
-      .then((dbModel) => {
-        if (req.body.type === "teacher" || "student") {
-          console.log(`user has a token and a type`);
-          // clone dbModel via spread
-          const user = { ...dbModel._doc };
-          delete user["password"];
-          const authorization = req.cookies["authorization"];
-          if (authorization) {
-            const decoded = jwt.decode(authorization, { complete: true });
-            const verified = jwt.verify(
-              authorization,
-              process.env.ACCESS_TOKEN_SECRET
-            );
-            if (!verified) res.status(403);
-            console.log("token verified: ", verified);
-            console.log("token decoded: ", decoded);
-            console.log("cookie content: ", authorization);
-            const ephemeralToken = generateEphemeralToken(user);
-            res.cookie("authorization", ephemeralToken, {
-              expires: new Date(Date.now() + "1440m"),
-              secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
-              httpOnly: true,
-              sameSite: true,
-            });
-            console.log("this is ephemeralToken data", ephemeralToken);
-            // res.removeHeader("authorization", ephemeralToken);
-            res.json({ user });
-          }
-        }
-      })
-      .catch(() => res.status(404));
+    const userLoggingOut = await db.RegisterModel.findById({
+      _id: req.params.id,
+    });
+    if (req.body.type === "teacher" || "student") {
+      console.log(`user has a token and a type`);
+      // clone dbModel via spread
+      const user = { ...userLoggingOut._doc };
+      delete user["password"];
+      const authorization = req.cookies["authorization"];
+      if (authorization) {
+        const decoded = jwt.decode(authorization, { complete: true });
+        const verified = jwt.verify(
+          authorization,
+          process.env.ACCESS_TOKEN_SECRET
+        );
+        if (!verified) res.status(403);
+        console.log("token verified: ", verified);
+        console.log("token decoded: ", decoded);
+        console.log("cookie content: ", authorization);
+        const ephemeralToken = generateEphemeralToken(user);
+        res.cookie("authorization", ephemeralToken, {
+          expires: new Date(Date.now() + "1440m"),
+          secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
+          httpOnly: true,
+          sameSite: true,
+        });
+        console.log("this is ephemeralToken data", ephemeralToken);
+        // res.removeHeader("authorization", ephemeralToken);
+        res.json({ user });
+      }
+    }
   } catch (error) {
     if (error) {
       console.log(error, "please register or login");
