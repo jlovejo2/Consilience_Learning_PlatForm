@@ -110,7 +110,6 @@ const classes = [
       new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
     ],
     teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
-    assignments: [],
     createDate: new Date(),
   },
   {
@@ -124,7 +123,6 @@ const classes = [
       new mongo.ObjectId("5f29698dda48af2f3c8b8173"),
     ],
     teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
-    assignments: [],
     createDate: new Date(),
   },
   {
@@ -138,7 +136,6 @@ const classes = [
       new mongo.ObjectId("5f29698dda48af2f3c8b8176"),
     ],
     teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
-    assignments: [],
     createDate: new Date(),
   },
   {
@@ -152,7 +149,6 @@ const classes = [
       new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
     ],
     teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
-    assignments: [{}, {}],
     createDate: new Date(),
   },
   {
@@ -170,7 +166,6 @@ const classes = [
       new mongo.ObjectId("5f29887ef80ae56488c25d6b"),
     ],
     teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
-    assignments: [{}, {}],
     createDate: new Date(),
   },
   {
@@ -185,7 +180,6 @@ const classes = [
       new mongo.ObjectId("5f29870a1d6c0327fcd1639f"),
     ],
     teacherID: new mongo.ObjectId("5f29887ef80ae56488c25d6b"),
-    assignments: [{}, {}],
     createDate: new Date(),
   },
   {
@@ -200,7 +194,6 @@ const classes = [
       new mongo.ObjectId("5f29870a1d6c0327fcd1639f"),
     ],
     teacherID: new mongo.ObjectId("5f29887ef80ae56488c25d6b"),
-    assignments: [{}, {}],
     createDate: new Date(),
   },
   {
@@ -214,7 +207,6 @@ const classes = [
       new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
     ],
     teacherID: new mongo.ObjectId("5f29887ef80ae56488c25d6b"),
-    assignments: [{}, {}],
     createDate: new Date(),
   },
 ];
