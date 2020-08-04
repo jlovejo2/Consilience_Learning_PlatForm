@@ -1,37 +1,33 @@
 .content {
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
-    padding-left: auto !important;
-    padding-right: auto !important;
-    margin-top: 5rem !important;
-    margin-bottom: 1rem !important;
-    box-shadow:0px 0px 30px 5px #61dbfb ;
-    margin-right: -2rem;
-    margin-left: -2rem;
-  }
-
-  .dropdown, .searchbutton, .description{
-    padding-left: 3% !important;
-    padding-right: 3% !important;
+  margin-top: 5rem !important;
+  margin-bottom: 1rem !important;
+  box-shadow: 0px 0px 30px 5px #61dbfb;
+  border-radius: 5px;
 }
-.description{
-    padding-top: 3% !important;
+
+.dropdown,
+.searchbutton,
+.description {
+  padding-left: 3% !important;
+  padding-right: 3% !important;
+}
+.description {
+  padding-top: 3% !important;
 }
 
 .searchbox {
-    width: 100%;
+  width: 100%;
 }
 
 .addicon {
-    width: 50px;
+  width: 50px;
 }
 
 #ListItem {
-    outline: paleturquoise;
+  outline: paleturquoise;
 }
 
 .modal {
-    position: absolute;
-    bottom: 0px;
+  position: absolute;
+  bottom: 0px;
 }
-

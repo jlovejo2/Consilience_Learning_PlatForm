@@ -105,53 +105,51 @@ const Search = () => {
 
   return (
     <Container className="parent" alignContent="center">
-      <Grid xs={12} justifyContent="center" className="child">
+      <Box className="content">
         <Paper>
-          <Box px={1}>
-            <Grid container spacing={2} alignItems="center" className="content">
-              <Grid item xs={3} className="dropdown">
-                <Select
-                  className="searchbox"
-                  // labelId="demo-simple-select-label"
-                  // id="demo-simple-select"
-                  variant="outlined"
-                  value={classSearchObj.selectValue}
-                  name={"selectValue"}
-                  onChange={handleSearchChange}
-                >
-                  <MenuItem value={"all"}>All Classes</MenuItem>
-                  <MenuItem value={"courseTitle"}>Title</MenuItem>
-                  <MenuItem value={"courseDescription"}>Description</MenuItem>
-                  <MenuItem value={"subject"}>Subject</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item xs={6} className="searchbar">
-                <Box py={2}>
-                  <Input
-                    color="primary"
-                    placeholder="search for classes here"
-                    fullWidth
-                    disableUnderline
-                    name={"inputValue"}
-                    onChange={handleSearchChange}
-                  />
-                </Box>
-              </Grid>
-              <Grid item xs={2} className="searchbutton">
-                <Button
-                  size="large"
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSearchSubmit}
-                >
-                  <SearchIcon />
-                  Search
-                </Button>
-              </Grid>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={3} className="dropdown">
+              <Select
+                className="searchbox"
+                // labelId="demo-simple-select-label"
+                // id="demo-simple-select"
+                variant="outlined"
+                value={classSearchObj.selectValue}
+                name={"selectValue"}
+                onChange={handleSearchChange}
+              >
+                <MenuItem value={"all"}>All Classes</MenuItem>
+                <MenuItem value={"courseTitle"}>Title</MenuItem>
+                <MenuItem value={"courseDescription"}>Description</MenuItem>
+                <MenuItem value={"subject"}>Subject</MenuItem>
+              </Select>
             </Grid>
-          </Box>
+            <Grid item xs={6} className="searchbar">
+              <Box py={2}>
+                <Input
+                  color="primary"
+                  placeholder="search for classes here"
+                  fullWidth
+                  disableUnderline
+                  name={"inputValue"}
+                  onChange={handleSearchChange}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={2} className="searchbutton">
+              <Button
+                size="large"
+                variant="contained"
+                color="primary"
+                onClick={handleSearchSubmit}
+              >
+                <SearchIcon />
+                Search
+              </Button>
+            </Grid>
+          </Grid>
         </Paper>
-      </Grid>
+      </Box>
       <Box m={3}>
         <Paper>
           <Grid item xs={12} justifyContent="center">
