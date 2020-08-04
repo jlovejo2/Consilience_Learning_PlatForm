@@ -29,17 +29,17 @@ app.use(routes);
 // connect to MongoDB remotely or locally
 // when ready for production, go to userController and set
 // router.post('/login) cookie parameter "secure" to true
-const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds143039.mlab.com:43039/heroku_hkn7jqvr`;
+
+//below is mongoDb uri when connecting to heroku via mLab. Mlab is now apart of mongoDb and been made obsolete.
+//const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds143039.mlab.com:43039/heroku_hkn7jqvr`;
+const MONGODB_URI = `mongodb+srv://${process.env.DB_ATLAS_USER}:${process.env.DB_ATLAS_PASSWORD}@${process.env.DB_ATLAS_CLUSTER}.mongodb.net/<dbname>?retryWrites=true&w=majority`;
 console.log(MONGODB_URI);
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/ProjectThree",
-  {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(MONGODB_URI /*|| "mongodb://localhost/ProjectThree"*/, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
 
 // invoke server
 app.listen(PORT, (error) => {
