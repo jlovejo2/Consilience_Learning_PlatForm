@@ -9,42 +9,40 @@ mongoose.connect("mongodb://localhost/ProjectThree", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 const AsssignmentSeed = [
   {
-    title: 'seed assignment title',
-    body: 'seeded assigmment body'
-  }
-]
+    title: "seed assignment title",
+    body: "seeded assigmment body",
+  },
+];
 
 const AnnouncementSeed = [
   {
-    title: 'seededAnnouncement title',
-    body: 'seeded Announcement body',
-  }
-]
-db.AssignmentModel
-  .remove({})
+    title: "seededAnnouncement title",
+    body: "seeded Announcement body",
+  },
+];
+db.AssignmentModel.remove({})
   .then(() => db.AssignmentModel.collection.insertMany(AsssignmentSeed))
-  .then(data => {
+  .then((data) => {
     console.log(data.result.n + " records inserted!");
     // process.exit(0);
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
 
-  db.AnnouncementModel
-  .remove({})
+db.AnnouncementModel.remove({})
   .then(() => db.AnnouncementModel.collection.insertMany(AnnouncementSeed))
-  .then(data => {
+  .then((data) => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
