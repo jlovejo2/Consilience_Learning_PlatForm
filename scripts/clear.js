@@ -30,7 +30,16 @@ const clear = async () => {
     const comments = await db.CommentModel.collection.find({}).toArray();
 
     if (users.length > 0) {
+      const guestTeacher = await db.RegisterModel.findById(
+        "5f29887ef80ae56488c25d6b"
+      );
+      const guestStudent = await db.RegisterModel.findById(
+        "5f29870a1d6c0327fcd1639f"
+      );
+
       await db.RegisterModel.collection.drop();
+
+      await db.RegisterModel.insertMany([guestTeacher, guestStudent]);
     }
 
     if (classes.length > 0) {
