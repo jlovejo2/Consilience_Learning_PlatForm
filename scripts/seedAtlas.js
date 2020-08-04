@@ -84,15 +84,32 @@ const users = [
     grades: [],
     creatDate: new Date(),
   },
+  {
+    _id: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
+    type: "Teacher",
+    firstName: "Isaac",
+    lastName: "Assimov",
+    discipline: "Science",
+    email: "iAssimov@gmail.com",
+    password: "password_**********",
+    ID: "",
+    grades: [],
+    creatDate: new Date(),
+  },
 ];
 
 const classes = [
   {
-    courseDiscipline: "",
-    courseTitle: "",
-    courseDescription: "",
-    students: [{}, {}],
-    teacherID: "",
+    courseDiscipline: "Science",
+    courseTitle: "The fundamentals of Physics",
+    courseDescription:
+      "This class will cover the basics of physics in regards to mechanical systems as well as electrical and magnetic systems.",
+    students: [
+      new mongo.ObjectId("5f29698dda48af2f3c8b8170"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8171"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
+    ],
+    teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
     assignments: [{}, {}],
     createDate: new Date(),
   },
@@ -121,7 +138,7 @@ const seed = async () => {
         userID = await userFuncs.staffIDGenerator(
           user.firstName,
           user.lastName,
-          user.Discipline
+          user.discipline
         );
       } else {
         userID = await userFuncs.studentIdGenerator(
@@ -133,6 +150,10 @@ const seed = async () => {
       console.log(user);
       console.log(db.registers);
       await db.RegisterModel.collection.insertOne(user);
+    }
+
+    for (const classroom of classes) {
+      await db.ClassroomModel.collection.insertOne(classroom);
     }
 
     console.log("[seed] : success ");
