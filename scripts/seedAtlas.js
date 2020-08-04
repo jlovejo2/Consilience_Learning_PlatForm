@@ -110,6 +110,62 @@ const classes = [
       new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
     ],
     teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
+    assignments: [],
+    createDate: new Date(),
+  },
+  {
+    courseDiscipline: "Science",
+    courseTitle: "Experimental Physics",
+    courseDescription:
+      "This class will blur the lines of science and science fiction until the disctintion between the two is limited by only your imagination.",
+    students: [
+      new mongo.ObjectId("5f29698dda48af2f3c8b8171"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8174"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8173"),
+    ],
+    teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
+    assignments: [],
+    createDate: new Date(),
+  },
+  {
+    courseDiscipline: "Writing",
+    courseTitle: "Creative Writing",
+    courseDescription:
+      "This course is more of a structured feedback group. Here we learn how to take an idea of story and turn it into something worth reading.",
+    students: [
+      new mongo.ObjectId("5f29698dda48af2f3c8b8173"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8174"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8176"),
+    ],
+    teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
+    assignments: [],
+    createDate: new Date(),
+  },
+  {
+    courseDiscipline: "Anthropology",
+    courseTitle: "The History of Early Humans",
+    courseDescription:
+      "This class will cover timeline of evolution for early homosapiens.",
+    students: [
+      new mongo.ObjectId("5f29698dda48af2f3c8b8170"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8171"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
+    ],
+    teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
+    assignments: [{}, {}],
+    createDate: new Date(),
+  },
+  {
+    courseDiscipline: "Music",
+    courseTitle: "Guitar: for beginners",
+    courseDescription:
+      "This class will cover how to buy a guitar for you, how to set-up your equipment, and then finally how to play said guitar!",
+    students: [
+      new mongo.ObjectId("5f29698dda48af2f3c8b8170"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8171"),
+      new mongo.ObjectId("5f29698dda48af2f3c8b8172"),
+    ],
+    teacherID: new mongo.ObjectId("5f29698dda48af2f3c8b8177"),
     assignments: [{}, {}],
     createDate: new Date(),
   },
