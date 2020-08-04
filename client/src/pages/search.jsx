@@ -25,7 +25,7 @@ import "./pageStyle/search.css";
 const Search = () => {
   const [userID, setUserID] = useState("");
   const [userType, setUserType] = useState("");
-  const [classSearchObj, setClassSearchObj] = useState({});
+  const [classSearchObj, setClassSearchObj] = useState({ selectValue: "all" });
   const [apiClasses, setApiClasses] = useState([]);
   const [openModal, setOpenModal] = useState(false);
 
@@ -106,6 +106,7 @@ const Search = () => {
                   // labelId="demo-simple-select-label"
                   // id="demo-simple-select"
                   variant="outlined"
+                  value={classSearchObj.selectValue}
                   name={"selectValue"}
                   onChange={handleSearchChange}
                 >
