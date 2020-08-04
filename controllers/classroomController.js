@@ -110,17 +110,28 @@ module.exports = {
   //This is used to place a student into a classroom
   //Route: "api/classrooms/:id/addStudent"
   //:id is class id, student id is sent through the body
-  AddStudentToClass: function (req, res) {
+  AddStudentToClass: async function (req, res) {
     console.log("adding student to class ...");
     console.log(req.body);
-    db.RegisterModel.findOne({ _id: req.body.id }).then((dbModel) => {
-      db.ClassroomModel.findOneAndUpdate(
+
+    try {
+      const findUserRequestingToJoin = await db.RegisterModel.findOne({
+        _id: req.body.id,
+      });
+    } catch (err) {
+      throw new Error(`Error finding user before adding to class: ${err}`);
+    }
+
+    try {
+      const getClassroomJoined = await db.ClassroomModel.findOneAndUpdate(
         { _id: req.params.id },
-        { $push: { students: dbModel._id } }
-      )
-        .then((dbModel) => res.json(dbModel))
-        .catch((err) => res.status(422).json(err));
-    });
+        { $push: { students: findUserRequestingToJoin._id } }
+      );
+    } catch (err) {
+      throw new Error(`Error adding the user to the class: ${err}`);
+    }
+
+    res.json(getClassroomJoined);
   },
 
   //This will remove the classroom
