@@ -38,26 +38,23 @@ const GradesTeacher = (props) => {
         setUserType(resp.data.payload.type);
         setUserID(resp.data.payload._id);
         selectLastTab();
-        console.log("verify ", userType);
-        console.log("verify ", userID);
         //load the classes after the userID And userType are received from token
       })
       .catch((error) => {
         console.log(error);
         history.replace("/");
       });
-  }, [userID, userType]);
+  }, []);
 
   const loadClassInfo = useCallback(() => {
     setClassID(localStorage.getItem("classId"));
 
     console.log("load class ID", classID);
-    console.log("load class Tab Value", tabValue);
 
     API.populateByID(classID)
       .then((resp) => {
         console.log(resp.data);
-        const studentsData = resp.data.student ? resp.data.students : "";
+        const studentsData = resp.data.students ? resp.data.students : "";
         const assignmentsData = resp.data.assignments
           ? resp.data.assignments
           : "";
@@ -72,22 +69,24 @@ const GradesTeacher = (props) => {
         setAssignmentArr(assignmentsData);
       })
       .catch((err) => console.log(err));
-  }, [classID, tabValue]);
+  }, [classID]);
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
 
   useEffect(() => {
     // let mounted = true;
+    const loadInfo = async () => {
+      await getAndVerifyUserInfo();
+      await loadClassInfo();
+    };
 
-    getAndVerifyUserInfo();
-    loadClassInfo();
-
+    loadInfo();
     // console.log('useEffect Assignments', assignments)
     // console.log('useEffect Tab Value', tabValue)
-
-    TabPanel.propTypes = {
-      children: PropTypes.node,
-      index: PropTypes.any.isRequired,
-      value: PropTypes.any.isRequired,
-    };
 
     // return () => mounted = false;
   }, [getAndVerifyUserInfo, loadClassInfo]);
