@@ -69,7 +69,9 @@ const Search = () => {
 
       console.log(classJoinServerResp);
       if (classJoinServerResp) {
-        toast.success("", { position: toast.POSITION.TOP_CENTER });
+        toast.success("User was successfull added to class.", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     } catch (error) {
       console.log(error.response);
