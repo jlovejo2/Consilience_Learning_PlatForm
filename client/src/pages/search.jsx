@@ -68,11 +68,17 @@ const Search = () => {
       );
 
       console.log(classJoinServerResp);
+      if (classJoinServerResp) {
+        toast.success("", { position: toast.POSITION.TOP_CENTER });
+      }
     } catch (error) {
       console.log(error.response);
+      const errorMessage = error.response.data.msg;
+
       if (error.response.data.error === 1) {
-        const errorFailMessage = error.response.data.msg;
-        toast.error(errorFailMessage, { position: toast.POSITION.TOP_CENTER });
+        toast.error(errorMessage, { position: toast.POSITION.TOP_CENTER });
+      } else if (error.response.data.error === 2) {
+        toast.error(errorMessage, { position: toast.POSITION.TOP_CENTER });
       }
     }
 

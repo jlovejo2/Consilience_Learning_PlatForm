@@ -112,34 +112,38 @@ module.exports = {
   //:id is class id, student id is sent through the body
   AddStudentToClass: async function (req, res) {
     console.log("adding student to class ...");
-    console.log(req.body);
 
+    const userID = req.body.id;
+    const classroomID = req.params.id;
+
+    if (userID === "") {
+      res
+        .status(500)
+        .json({
+          error: 2,
+          msg: "User must create an account to join a class.",
+        });
+      throw new Error("User is does not exist in database");
+    }
     try {
       const findUserRequestingToJoin = await db.RegisterModel.findOne({
-        _id: req.body.id,
+        _id: userID,
       });
-    } catch (err) {
-      // throw new Error(`Error finding user before adding to class: ${err}`);
-      res.status(500).json({
-        error: 1,
-        msg:
-          "User is not registered in database.  Must be registered to sign-up for a class",
-      });
-    }
 
-    try {
       const getClassroomJoined = await db.ClassroomModel.findOneAndUpdate(
-        { _id: req.params.id },
+        { _id: classroomID },
         { $push: { students: findUserRequestingToJoin._id } }
       );
 
+      console.log(getClassroomJoined);
       res.json(getClassroomJoined);
     } catch (err) {
-      // throw new Error(`Error adding the user to the class: ${err}`);
       res.status(500).json({
         error: 1,
         msg: "User was not added to the class.  Please try again later!",
       });
+
+      throw new Error(`Error adding the user to the class: ${err}`);
     }
   },
 
