@@ -24,19 +24,18 @@ const Logout = () => {
         history.replace("/");
       });
   }, [userID, userType]);
-  // lifecycle hook
+
   useEffect(() => {
     getAndVerifyUserInfo();
   }, [getAndVerifyUserInfo]);
 
   function logoutUser() {
+    // API.userLogout (by id, userID) ==> replaces cookie containing JWT with
+    // new cookie (same name) containing ephemeral JWT (lifespan of 1 millisecond)
     API.userAuthLogout(userID);
     console.log("logging out");
     history.replace("/");
   }
-  // api to use ====>
-  // API.userLogout (by id, userID) ==> replaces cookie containing JWT with
-  // new cookie (same name) containing ephemeral JWT (lifespan of 1 millisecond)
   return (
     <Container fluid>
       <JumbotronLogout logout={logoutUser} />

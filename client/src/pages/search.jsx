@@ -19,8 +19,8 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/AddCircleOutline";
 // import { sizing, positions } from '@material-ui/system';
-import { toast } from "react-toastify";
 import "./pageStyle/search.css";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
@@ -61,17 +61,30 @@ const Search = () => {
     const userInfo = {};
     userInfo.id = userID;
 
-    const classJustJoined = await API.requestToJoinClass(requestInfo, userInfo);
+    try {
+      const classJoinServerResp = await API.requestToJoinClass(
+        requestInfo,
+        userInfo
+      );
 
-    if (classJustJoined) {
-      toast.success("You were successfully added to the class!", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    } else {
-      toast.error("There was an error when adding you to the class.", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      console.log(classJoinServerResp);
+    } catch (error) {
+      console.log(error.response);
+      if (error.response.data.error === 1) {
+        const errorFailMessage = error.response.data.msg;
+        toast.error(errorFailMessage, { position: toast.POSITION.TOP_CENTER });
+      }
     }
+
+    // if (classJustJoined) {
+    //   toast.success("You were successfully added to the class!", {
+    //     position: toast.POSITION.TOP_CENTER,
+    //   });
+    // } else {
+    //   toast.error("There was an error when adding you to the class.", {
+    //     position: toast.POSITION.TOP_CENTER,
+    //   });
+    // }
   }
 
   function handleCloseModal() {

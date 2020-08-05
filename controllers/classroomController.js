@@ -119,7 +119,12 @@ module.exports = {
         _id: req.body.id,
       });
     } catch (err) {
-      throw new Error(`Error finding user before adding to class: ${err}`);
+      // throw new Error(`Error finding user before adding to class: ${err}`);
+      res.status(500).json({
+        error: 1,
+        msg:
+          "User is not registered in database.  Must be registered to sign-up for a class",
+      });
     }
 
     try {
@@ -127,11 +132,15 @@ module.exports = {
         { _id: req.params.id },
         { $push: { students: findUserRequestingToJoin._id } }
       );
-    } catch (err) {
-      throw new Error(`Error adding the user to the class: ${err}`);
-    }
 
-    res.json(getClassroomJoined);
+      res.json(getClassroomJoined);
+    } catch (err) {
+      // throw new Error(`Error adding the user to the class: ${err}`);
+      res.status(500).json({
+        error: 1,
+        msg: "User was not added to the class.  Please try again later!",
+      });
+    }
   },
 
   //This will remove the classroom

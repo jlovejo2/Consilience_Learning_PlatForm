@@ -74,8 +74,11 @@ export default {
   getClassImage: function (id) {
     return axios.get("/api/classrooms/image/" + id);
   },
-  requestToJoinClass: function (requestInfo, user) {
-    return axios.post("/api/classrooms/" + requestInfo + "/addStudent", user);
+  requestToJoinClass: async function (requestInfo, user) {
+    return await axios.post(
+      "/api/classrooms/" + requestInfo + "/addStudent",
+      user
+    );
   },
   populateByID: function (id) {
     return axios.get("/api/classrooms/populate/" + id);
